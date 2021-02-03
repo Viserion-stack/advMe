@@ -39,7 +39,8 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.green[600],
+    return Scaffold(
+      backgroundColor: Colors.green[600],
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -50,24 +51,107 @@ class _AuthFormState extends State<AuthForm> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.grey[200],
-                  Colors.grey[400],
-                  Colors.grey,
-                  Colors.grey[600],
+                  Color(0xFF73AEF5),
+                  Color(0xFF61A4F1),
+                  Color(0xFF478DE0),
+                  Color(0xFF398AE5),
                 ],
               ),
             ),
             padding: EdgeInsets.only(top: 100.0),
-            child: Text(
-              'advMe',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Pacifico',
-                fontSize: 70.0,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2.6,
-              ),
+            child: Column(
+              children: [
+                Container(
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50.0),
+                          color: Color(0xFF03A89E),
+                        ),
+                        child: Icon(
+                          Icons.handyman,
+                          color: Colors.white,
+                        ),
+                      ),
+                       Container(
+                         margin: EdgeInsets.only(left:35.0, top: 30.0),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50.0),
+                          color: Color(0xFFCD3700),
+                        ),
+                        child: Icon(
+                          Icons.build,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                         margin: EdgeInsets.only(left:70.0),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50.0),
+                          color: Color(0xFFFFD700),
+                        ),
+                        child: Icon(
+                          Icons.format_paint,
+                          color: Colors.white,
+                        ),
+                      ),
+                      
+                      Container(
+                         margin: EdgeInsets.only(left:105.0,top: 30.0),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50.0),
+                          color: Color(0xFF3D59AB),
+                        ),
+                        child: Icon(
+                          Icons.room,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                         margin: EdgeInsets.only(left:140.0,),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50.0),
+                          color: Color(0xFFFF6103),
+                        ),
+                        child: Icon(
+                          Icons.plumbing,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'advMe',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFFFFDA04),
+                    fontFamily: 'CarterOne',
+                    fontSize: 70.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2.6,
+                  ),
+                ),
+              ],
             ),
           ),
           Center(
@@ -178,9 +262,9 @@ class _AuthFormState extends State<AuthForm> {
                           RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.green),
+                              //side: BorderSide(color: Colors.green),
                             ),
-                            color: Colors.white70,
+                            color: Color(0xFFFFCC08),
                             child: Text(
                               _isLogin ? 'Sign in' : 'Sign up',
                               style: TextStyle(color: Colors.black),
@@ -189,11 +273,16 @@ class _AuthFormState extends State<AuthForm> {
                           ),
                         if (!widget.isLoading)
                           FlatButton(
-                            textColor: Colors.black,//Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              //side: BorderSide(color: Colors.green),
+                            ),
+                            textColor:
+                                Colors.black, //Theme.of(context).primaryColor,
                             child: Text(_isLogin
                                 ? 'Create new account'
-                                : 'Have account'),
-                            color: Colors.black12,
+                                : 'Have account',style: TextStyle(color: Colors.white),),
+                            color: Color(0xFF3D59AB),
                             onPressed: () {
                               setState(() {
                                 _isLogin = !_isLogin;
