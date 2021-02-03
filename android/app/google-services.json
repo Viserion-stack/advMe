@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "446001416887",
+    "project_id": "advme-4fbbc",
+    "storage_bucket": "advme-4fbbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446001416887:android:dae0f182f8f2cf6cce5b32",
+        "android_client_info": {
+          "package_name": "com.example.advMe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446001416887-mg8ohl274ogai2i1lj654nclta1s44b8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpo7VjmNSIyYN9eCppvXfqN8zAVrJyKzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446001416887-mg8ohl274ogai2i1lj654nclta1s44b8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
