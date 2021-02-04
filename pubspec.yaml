@@ -30,6 +30,8 @@ dependencies:
   rxdart: ^0.22.0
   firebase_storage: ^5.2.0
   flutter_icons: ^1.0.0+1
+  google_fonts: ^1.1.2
+  simple_animations: ^2.5.0
   
 
 

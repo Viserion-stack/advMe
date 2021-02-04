@@ -1,4 +1,6 @@
+import 'package:advMe/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(
@@ -40,7 +42,7 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[600],
+      backgroundColor: Color(0xFF398AE5),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -64,91 +66,120 @@ class _AuthFormState extends State<AuthForm> {
                 Container(
                   child: Stack(
                     children: [
-                      Container(
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(50.0),
-                          color: Color(0xFF03A89E),
-                        ),
-                        child: Icon(
-                          Icons.handyman,
-                          color: Colors.white,
-                        ),
-                      ),
-                       Container(
-                         margin: EdgeInsets.only(left:35.0, top: 30.0),
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(50.0),
-                          color: Color(0xFFCD3700),
-                        ),
-                        child: Icon(
-                          Icons.build,
-                          color: Colors.white,
+                      FadeAnimation(
+                        1.5,
+                        Container(
+                          height: 60.0,
+                          width: 60.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: Color(0xFF03A89E),
+                          ),
+                          child: Icon(
+                            Icons.handyman,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      Container(
-                         margin: EdgeInsets.only(left:70.0),
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(50.0),
-                          color: Color(0xFFFFD700),
-                        ),
-                        child: Icon(
-                          Icons.format_paint,
-                          color: Colors.white,
-                        ),
-                      ),
-                      
-                      Container(
-                         margin: EdgeInsets.only(left:105.0,top: 30.0),
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(50.0),
-                          color: Color(0xFF3D59AB),
-                        ),
-                        child: Icon(
-                          Icons.room,
-                          color: Colors.white,
+                      FadeAnimation(
+                        1.7,
+                        Container(
+                          margin: EdgeInsets.only(left: 35.0, top: 30.0),
+                          height: 60.0,
+                          width: 60.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: Color(0xFFCD3700),
+                          ),
+                          child: Icon(
+                            Icons.build,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      Container(
-                         margin: EdgeInsets.only(left:140.0,),
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(50.0),
-                          color: Color(0xFFFF6103),
+                      FadeAnimation(
+                        1.9,
+                        Container(
+                          margin: EdgeInsets.only(left: 70.0),
+                          height: 60.0,
+                          width: 60.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: Color(0xFFFFD700),
+                          ),
+                          child: Icon(
+                            Icons.format_paint,
+                            color: Colors.white,
+                          ),
                         ),
-                        child: Icon(
-                          Icons.plumbing,
-                          color: Colors.white,
+                      ),
+                      FadeAnimation(
+                        2.0,
+                        Container(
+                          margin: EdgeInsets.only(left: 105.0, top: 30.0),
+                          height: 60.0,
+                          width: 60.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: Color(0xFF3D59AB),
+                          ),
+                          child: Icon(
+                            Icons.room,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      FadeAnimation(
+                        2.2,
+                        Container(
+                          margin: EdgeInsets.only(
+                            left: 140.0,
+                          ),
+                          height: 60.0,
+                          width: 60.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: Color(0xFFFF6103),
+                          ),
+                          child: Icon(
+                            Icons.plumbing,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
-                Text(
-                  'advMe',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFFFFDA04),
-                    fontFamily: 'CarterOne',
-                    fontSize: 70.0,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.6,
+                FadeAnimation(
+                  2.4,
+                  RichText(
+                    text: TextSpan(
+                        text: 'adv',
+                        style: GoogleFonts.ubuntu(
+                          color: Color(0xFFFFDA04),
+                          fontSize: 70.0,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Me',
+                            style: GoogleFonts.ubuntu(
+                              color: Color(0xFFFFB904),
+                              fontSize: 70.0,
+                              letterSpacing: 0.1,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ]),
                   ),
                 ),
               ],
@@ -279,9 +310,10 @@ class _AuthFormState extends State<AuthForm> {
                             ),
                             textColor:
                                 Colors.black, //Theme.of(context).primaryColor,
-                            child: Text(_isLogin
-                                ? 'Create new account'
-                                : 'Have account',style: TextStyle(color: Colors.white),),
+                            child: Text(
+                              _isLogin ? 'Create new account' : 'Have account',
+                              style: TextStyle(color: Colors.white),
+                            ),
                             color: Color(0xFF3D59AB),
                             onPressed: () {
                               setState(() {
