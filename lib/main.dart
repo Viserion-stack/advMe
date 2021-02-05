@@ -1,8 +1,11 @@
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
+import 'package:advMe/screens/categories_screen.dart';
+import 'package:advMe/screens/category_meals_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
 import 'package:advMe/screens/orders_screen.dart';
+import 'package:advMe/screens/meal_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -42,7 +45,28 @@ class MyApp extends StatelessWidget {
       routes: {
         OrdersScreen.routeName: (ctx) => OrdersScreen(),
         AdsScreen.routeName: (ctx) => AdsScreen(),
-      },
-    );
-  }
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+        //'/category-meals': (ctx) =>CategoryMealsScreen(),
+              },
+        
+                // ignore: missing_return
+                onGenerateRoute: (settings) {
+                print(settings.arguments);
+                // if (settings.name == '/meal-detail') {
+                //   return ...;
+                // } else if (settings.name == '/something-else') {
+                //   return ...;
+                // }
+                // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
+              },
+              onUnknownRoute: (settings) {
+                return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
+              },
+        
+        
+            );
+          }
+        
 }

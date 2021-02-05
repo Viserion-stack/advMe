@@ -1,7 +1,11 @@
+import 'package:advMe/screens/categories_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: unused_import
 import 'ads_screen.dart';
+import 'category_meals_screen.dart';
 import 'orders_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           icon: Icon(Icons.person_search_outlined),
                             onPressed: () {
                             Navigator.pushNamed(
-                                context, AdsScreen.routeName);
+                                context, CategoriesScreen.routeName);
                           },
                         ),
                         Text('Look for order'),
@@ -69,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: (){
+          FirebaseAuth.instance.signOut();
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
