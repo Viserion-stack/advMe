@@ -102,32 +102,32 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    throw UnimplementedError();
+    //throw UnimplementedError();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final sugestionList = query.isEmpty
+    final suggestionList = query.isEmpty
         ? recentads
-        : ads.where((p) => p.startsWith(query)).toList();
+        : ads.where((p) => p.toLowerCase().startsWith(query.toLowerCase())).toList();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         leading: Icon(Icons.location_city),
         title: RichText(
           text: TextSpan(
-            text: sugestionList[index].substring(0, query.length),
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            text: suggestionList[index].substring(0, query.length),
+            style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold),
             children: [
               TextSpan(
-                text: sugestionList[index].substring(query.length),
+                text: suggestionList[index].substring(query.length),
                 style: TextStyle(color: Colors.grey),
               ),
-            ],
-          ),
+            ]),
         ),
       ),
-      itemCount: sugestionList.length,
+      itemCount: suggestionList.length,
     );
   }
 }
