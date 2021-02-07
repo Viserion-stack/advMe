@@ -18,6 +18,15 @@ class CategoryMealsScreen extends StatelessWidget {
     final categoryMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
+
+    final ads = [];
+
+    int _length = categoryMeals.length;
+
+    for (int i = 0; i < _length; i++) {
+      ads.add(categoryMeals[i].title);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryTitle),
@@ -25,7 +34,7 @@ class CategoryMealsScreen extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: DataSearch());
+                showSearch(context: context, delegate: DataSearch(ads: ads));
               }),
         ],
       ),
@@ -47,36 +56,14 @@ class CategoryMealsScreen extends StatelessWidget {
 }
 
 class DataSearch extends SearchDelegate<String> {
-//  final routeArgs =
-//         ModalRoute.of(context).settings.arguments as Map<String, String>;
-//     final categoryTitle = routeArgs['title'];
-//     final categoryId = routeArgs['id'];
-//     final categoryMeals = DUMMY_MEALS.where((meal) {
-//       return meal.categories.contains(categoryId);
-//     }).toList();
+  List<dynamic> ads;
 
-  final ads = [
-    'Malowanie dachów',
-    'Remont łazienki',
-    'Czyszczenie',
-    'Transport',
-    'Transportowanie',
-    'Tranzition',
-    'Czekanie',
-    'Remapowanie',
-    'Regipsy',
-  ];
-
-  final recentads = [
-    'Czyszczenie',
-    'Transport',
-    'Transportowanie',
-    'Regipsy',
-  ];
+  DataSearch({
+    @required this.ads,
+  });
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
     return [
       IconButton(
           icon: Icon(Icons.clear),
@@ -100,31 +87,42 @@ class DataSearch extends SearchDelegate<String> {
   }
 
   @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    //throw UnimplementedError();
-  }
+  // ignore: missing_return
+  Widget buildResults(BuildContext context) {}
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    List recentads = ads;
+    if (recentads.length <= 1) {
+      recentads = ads.sublist(0, 1);
+    } else if (recentads.length <= 2) {
+      recentads = ads.sublist(0, 2);
+    } else if (recentads.length <= 3) {
+      recentads = ads.sublist(0, 3);
+    } else {
+      recentads = ads.sublist(0, 4);
+    }
+
     final suggestionList = query.isEmpty
         ? recentads
-        : ads.where((p) => p.toLowerCase().startsWith(query.toLowerCase())).toList();
+        : ads
+            .where((p) => p.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         leading: Icon(Icons.location_city),
         title: RichText(
           text: TextSpan(
-            text: suggestionList[index].substring(0, query.length),
-            style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold),
-            children: [
-              TextSpan(
-                text: suggestionList[index].substring(query.length),
-                style: TextStyle(color: Colors.grey),
-              ),
-            ]),
+              text: suggestionList[index].substring(0, query.length),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                  text: suggestionList[index].substring(query.length),
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ]),
         ),
       ),
       itemCount: suggestionList.length,

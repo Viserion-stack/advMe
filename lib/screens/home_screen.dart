@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: InkWell(
                       onTap: () {
                         
-                        Navigator.pushNamed(context, OrdersScreen.routeName);
+                        Navigator.pushNamed(context, CategoriesScreen.routeName);
                       },
                       child: ClipShadow(
                         boxShadow: [
