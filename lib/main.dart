@@ -10,9 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-
-
-
+import 'package:animations/animations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +22,7 @@ void main() async {
     ),
   );
 }
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (ctx, userSnapshot) {
             if (userSnapshot.hasData) {
-              return HomeScreen(); //ChatScreen();
+              return  HomeScreen(); //ChatScreen();
             }
             return AuthScreen();
           }),
@@ -49,24 +48,23 @@ class MyApp extends StatelessWidget {
         MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
         CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
         //'/category-meals': (ctx) =>CategoryMealsScreen(),
-              },
-        
-                // ignore: missing_return
-                onGenerateRoute: (settings) {
-                print(settings.arguments);
-                // if (settings.name == '/meal-detail') {
-                //   return ...;
-                // } else if (settings.name == '/something-else') {
-                //   return ...;
-                // }
-                // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
-              },
-              onUnknownRoute: (settings) {
-                return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
-              },
-        
-        
-            );
-          }
-        
+      },
+
+      // ignore: missing_return
+      onGenerateRoute: (settings) {
+        print(settings.arguments);
+        // if (settings.name == '/meal-detail') {
+        //   return ...;
+        // } else if (settings.name == '/something-else') {
+        //   return ...;
+        // }
+        // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (ctx) => CategoriesScreen(),
+        );
+      },
+    );
+  }
 }
