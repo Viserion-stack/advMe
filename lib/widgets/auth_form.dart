@@ -1,5 +1,7 @@
 import 'package:advMe/animation/fade_animation.dart';
+
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class AuthForm extends StatefulWidget {
@@ -9,6 +11,7 @@ class AuthForm extends StatefulWidget {
   );
 
   final bool isLoading;
+
   final void Function(
     String email,
     String password,
@@ -23,17 +26,23 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
+
   var _isLogin = true;
+
   var _userEmail = '';
+
   var _userName = '';
+
   var _userPassword = '';
 
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
+
     FocusScope.of(context).unfocus();
 
     if (isValid) {
       _formKey.currentState.save();
+
       widget.submitFn(_userEmail.trim(), _userPassword.trim(), _userName.trim(),
           _isLogin, context);
     }
@@ -42,7 +51,7 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF398AE5),
+      backgroundColor: Color(0xFF171923),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -53,10 +62,8 @@ class _AuthFormState extends State<AuthForm> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xFF73AEF5),
-                  Color(0xFF61A4F1),
-                  Color(0xFF478DE0),
-                  Color(0xFF398AE5),
+                  Color(0xFF171923),
+                  Color(0xFF171923),
                 ],
               ),
             ),
@@ -74,7 +81,7 @@ class _AuthFormState extends State<AuthForm> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFF03A89E),
+                            color: Color(0xFFC31331),
                           ),
                           child: Icon(
                             Icons.handyman,
@@ -91,7 +98,7 @@ class _AuthFormState extends State<AuthForm> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFFCD3700),
+                            color: Color(0xFFCBB2AB),
                           ),
                           child: Icon(
                             Icons.build,
@@ -108,7 +115,7 @@ class _AuthFormState extends State<AuthForm> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFFFFD700),
+                            color: Color(0xFFF79E1B),
                           ),
                           child: Icon(
                             Icons.format_paint,
@@ -125,7 +132,7 @@ class _AuthFormState extends State<AuthForm> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFF3D59AB),
+                            color: Color(0xFF464656),
                           ),
                           child: Icon(
                             Icons.room,
@@ -144,7 +151,7 @@ class _AuthFormState extends State<AuthForm> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFFFF6103),
+                            color: Color(0xFF2D2D2D),
                           ),
                           child: Icon(
                             Icons.plumbing,
@@ -164,7 +171,7 @@ class _AuthFormState extends State<AuthForm> {
                     text: TextSpan(
                         text: 'adv',
                         style: GoogleFonts.ubuntu(
-                          color: Color(0xFFFFDA04),
+                          color: Color(0xFFCBB2AB),
                           fontSize: 70.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -173,7 +180,7 @@ class _AuthFormState extends State<AuthForm> {
                           TextSpan(
                             text: 'Me',
                             style: GoogleFonts.ubuntu(
-                              color: Color(0xFFFFB904),
+                              color: Color(0xFFF79E1B),
                               fontSize: 70.0,
                               letterSpacing: 0.1,
                               fontWeight: FontWeight.w700,
@@ -202,15 +209,27 @@ class _AuthFormState extends State<AuthForm> {
                           height: 300,
                         ),
                         TextFormField(
+                          style: TextStyle(color: Color(0xFFCBB2AB)),
+                          cursorColor: Color(0xFFF79E1B),
                           key: ValueKey('email'),
                           validator: (value) {
                             if (value.isEmpty || !value.contains('@')) {
                               return 'Please enter a valid email address';
                             }
+
                             return null;
                           },
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            focusColor: Color(0xFFCBB2AB),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(
+                                color: Color(0xFF464656),
+                              ),
+                            ),
                             fillColor: Colors.white10,
                             border: new OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -219,10 +238,16 @@ class _AuthFormState extends State<AuthForm> {
                             ),
                             filled: true,
                             hintText: 'Email',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCBB2AB),
+                            ),
                             labelText: 'Address Eamil',
+                            labelStyle: TextStyle(
+                              color: Color(0xFFCBB2AB),
+                            ),
                             prefixIcon: Icon(
                               Icons.email,
-                              color: Colors.white,
+                              color: Color(0xFFF79E1B),
                             ),
                           ),
                           onSaved: (value) {
@@ -232,14 +257,25 @@ class _AuthFormState extends State<AuthForm> {
                         SizedBox(height: 12),
                         if (!_isLogin)
                           TextFormField(
+                            style: TextStyle(color: Color(0xFFCBB2AB)),
+                            cursorColor: Color(0xFFF79E1B),
                             key: ValueKey('username'),
                             validator: (value) {
                               if (value.isEmpty || value.length < 4) {
                                 return 'Please enter 4 chars at least';
                               }
+
                               return null;
                             },
                             decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0),
+                                ),
+                                borderSide: BorderSide(
+                                  color: Color(0xFF464656),
+                                ),
+                              ),
                               fillColor: Colors.white10,
                               border: new OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
@@ -248,7 +284,13 @@ class _AuthFormState extends State<AuthForm> {
                               ),
                               filled: true,
                               hintText: 'Username',
+                              hintStyle: TextStyle(
+                                color: Color(0xFFCBB2AB),
+                              ),
                               labelText: 'Username',
+                              labelStyle: TextStyle(
+                                color: Color(0xFFCBB2AB),
+                              ),
                               prefixIcon: Icon(
                                 Icons.person,
                                 color: Colors.white,
@@ -260,14 +302,25 @@ class _AuthFormState extends State<AuthForm> {
                           ),
                         SizedBox(height: 12),
                         TextFormField(
+                          style: TextStyle(color: Color(0xFFCBB2AB)),
+                          cursorColor: Color(0xFFF79E1B),
                           key: ValueKey('password'),
                           validator: (value) {
                             if (value.isEmpty || value.length < 7) {
                               return 'Password should contain 7 chars at least';
                             }
+
                             return null;
                           },
                           decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(
+                                color: Color(0xFF464656),
+                              ),
+                            ),
                             fillColor: Colors.white10,
                             border: new OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -276,10 +329,16 @@ class _AuthFormState extends State<AuthForm> {
                             ),
                             filled: true,
                             hintText: 'Password',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCBB2AB),
+                            ),
                             labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Color(0xFFCBB2AB),
+                            ),
                             prefixIcon: Icon(
                               Icons.lock,
-                              color: Colors.white,
+                              color: Color(0xFFF79E1B),
                             ),
                           ),
                           obscureText: true,
@@ -293,9 +352,10 @@ class _AuthFormState extends State<AuthForm> {
                           RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
+
                               //side: BorderSide(color: Colors.green),
                             ),
-                            color: Color(0xFFFFCC08),
+                            color: Color(0xFFF79E1B),
                             child: Text(
                               _isLogin ? 'Sign in' : 'Sign up',
                               style: TextStyle(color: Colors.black),
@@ -306,15 +366,20 @@ class _AuthFormState extends State<AuthForm> {
                           FlatButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
+
                               //side: BorderSide(color: Colors.green),
                             ),
+
                             textColor:
                                 Colors.black, //Theme.of(context).primaryColor,
+
                             child: Text(
                               _isLogin ? 'Create new account' : 'Have account',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Color(0xFFCBB2AB)),
                             ),
-                            color: Color(0xFF3D59AB),
+
+                            color: Color(0xFF2D2D2D),
+
                             onPressed: () {
                               setState(() {
                                 _isLogin = !_isLogin;
