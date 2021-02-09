@@ -1,20 +1,11 @@
 import 'dart:ui';
-
-import 'package:advMe/screens/categories_screen.dart';
-
 import 'package:clip_shadow/clip_shadow.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter/rendering.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 
-import 'ads_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -149,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(60),
                         bottomRight: Radius.circular(60)),
-                    //color: Color(0x80464656)
+                    
                   ),
                   width: 280,
                   height: 360,
@@ -218,34 +209,16 @@ class _HomeScreenState extends State<HomeScreen> {
 class BackgroundClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var roundnessFactor = 50.0;
+    
 
     var path = Path();
 
     path.moveTo(0, size.height * 0.33);
 
     path.lineTo(0, size.height);
-
-    //path.quadraticBezierTo(0, size.height, roundnessFactor, size.height);
-
     path.lineTo(size.width, size.height);
-
-    // path.quadraticBezierTo(
-
-    //   size.width, size.height, size.width, size.height - roundnessFactor);
-
     path.lineTo(size.width, 0);
-
-    //path.quadraticBezierTo(
-
-    //    size.width, 0, size.width - roundnessFactor * 3, roundnessFactor * 2);
-
     path.lineTo(0, size.height * 0.33 + 40);
-
-    //path.quadraticBezierTo(0, size.height * 0.33 + roundnessFactor + 20, 0,
-
-    //    size.height * 0.33 + roundnessFactor * 2);
-
     return path;
   }
 
@@ -258,32 +231,16 @@ class BackgroundClipper extends CustomClipper<Path> {
 class BackgroundClipperUp extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var roundnessFactor = 50.0;
+    
 
     var path = Path();
 
     path.moveTo(size.width, size.height);
 
     path.lineTo(size.width, 0);
-
-    //path.quadraticBezierTo(size.width, size.height - roundnessFactor * 6 + 30,
-
-    //    roundnessFactor * 3 + 55, 0);
-
     path.lineTo(0, 0);
-
-    //path.quadraticBezierTo(-5, -5, 0, size.height - roundnessFactor * 4);
-
     path.lineTo(0, size.height);
-
-    //path.quadraticBezierTo(-5, size.height, 110, size.height - 85);
-
     path.lineTo(size.width, (size.height * 0.33) + 70);
-
-    // path.quadraticBezierTo(size.width + 35, (size.height * 0.33) - 35, 300,
-
-    //     -(size.height * 0.33) * 4);
-
     return path;
   }
 
@@ -296,32 +253,16 @@ class BackgroundClipperUp extends CustomClipper<Path> {
 class BackgroundClipperButtonUp extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var roundnessFactor = 50.0;
+ 
 
     var path = Path();
 
     path.moveTo(size.width, size.height);
 
     path.lineTo(size.width, 0);
-
-    //path.quadraticBezierTo(size.width, size.height - roundnessFactor * 6 + 30,
-
-    //    roundnessFactor * 3 + 55, 0);
-
     path.lineTo(0, 0);
-
-    //path.quadraticBezierTo(-5, -5, 0, size.height - roundnessFactor * 4);
-
     path.lineTo(0, size.height - 50);
-
-    //path.quadraticBezierTo(-5, size.height, 110, size.height - 85);
-
     path.lineTo(size.width, (size.height * 0.33) + 70);
-
-    // path.quadraticBezierTo(size.width + 35, (size.height * 0.33) - 35, 300,
-
-    //     -(size.height * 0.33) * 4);
-
     return path;
   }
 
@@ -334,34 +275,16 @@ class BackgroundClipperButtonUp extends CustomClipper<Path> {
 class BackgroundClipperButtonDown extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var roundnessFactor = 50.0;
+   
 
     var path = Path();
 
     path.moveTo(0, size.height * 0.33);
 
     path.lineTo(0, size.height);
-
-    //path.quadraticBezierTo(0, size.height, roundnessFactor, size.height);
-
     path.lineTo(size.width, size.height);
-
-    // path.quadraticBezierTo(
-
-    //   size.width, size.height, size.width, size.height - roundnessFactor);
-
     path.lineTo(size.width, 50);
-
-    //path.quadraticBezierTo(
-
-    //    size.width, 0, size.width - roundnessFactor * 3, roundnessFactor * 2);
-
     path.lineTo(0, size.height * 0.33 + 50);
-
-    //path.quadraticBezierTo(0, size.height * 0.33 + roundnessFactor + 20, 0,
-
-    //    size.height * 0.33 + roundnessFactor * 2);
-
     return path;
   }
 
