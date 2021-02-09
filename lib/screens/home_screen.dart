@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
@@ -23,49 +21,51 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Stack(
         children: [
-          Column(
-            children: [
-              ClipShadow(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF171923),
+          SizedBox.expand(
+            child: Column(
+              children: [
+                ClipShadow(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF171923),
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 2,
                   ),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      blurRadius: 40,
+                      spreadRadius: 10,
+                      offset: Offset(0.0, 1.0),
+                    ),
+                  ],
+                  clipper: BackgroundClipperUp(),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 40,
-                    spreadRadius: 10,
-                    offset: Offset(0.0, 1.0),
+                ClipShadow(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF171923),
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 2,
                   ),
-                ],
-                clipper: BackgroundClipperUp(),
-              ),
-              ClipShadow(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF171923),
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      blurRadius: 40,
+                      spreadRadius: 10,
+                      offset: Offset(0.0, 1.0),
+                    ),
+                  ],
+                  clipper: BackgroundClipper(),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 40,
-                    spreadRadius: 10,
-                    offset: Offset(0.0, 1.0),
-                  ),
-                ],
-                clipper: BackgroundClipper(),
-              ),
-            ],
+              ],
+            ),
           ),
           Positioned(
             left: MediaQuery.of(context).size.width / 6,
-            top: MediaQuery.of(context).size.height * 0.11,
+            top: MediaQuery.of(context).size.height * 0.13,
             right: MediaQuery.of(context).size.width / 6,
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(0 / 360),
@@ -78,8 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         topRight: Radius.circular(60)),
                     //color: Color(0x80464656)
                   ),
-                  width: 280,
-                  height: 360,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   child: Stack(
                     children: [
                       Positioned.fill(
@@ -98,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     topLeft: Radius.circular(60),
                                     topRight: Radius.circular(60)),
                               ),
-                              width: 190,
-                              height: 230,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              height: MediaQuery.of(context).size.height * 0.5,
                             ),
                           ),
                         ),
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Center(
                           child: Column(children: [
                         SizedBox(
-                          height: 60,
+                          height: MediaQuery.of(context).size.height * 0.06,
                         ),
                         Icon(
                           Icons.add_box,
@@ -140,10 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(60),
                         bottomRight: Radius.circular(60)),
-                    
                   ),
-                  width: 280,
-                  height: 360,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   child: Stack(
                     children: [
                       Positioned.fill(
@@ -162,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     bottomLeft: Radius.circular(60),
                                     bottomRight: Radius.circular(60)),
                               ),
-                              width: 190,
-                              height: 230,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              height: MediaQuery.of(context).size.height * 0.5,
                             ),
                           ),
                         ),
@@ -171,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Center(
                           child: Column(children: [
                         SizedBox(
-                          height: 160,
+                          height: MediaQuery.of(context).size.height * 0.25,
                         ),
                         Icon(
                           Icons.add_box,
@@ -209,8 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
 class BackgroundClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    
-
     var path = Path();
 
     path.moveTo(0, size.height * 0.33);
@@ -231,8 +228,6 @@ class BackgroundClipper extends CustomClipper<Path> {
 class BackgroundClipperUp extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    
-
     var path = Path();
 
     path.moveTo(size.width, size.height);
@@ -253,16 +248,14 @@ class BackgroundClipperUp extends CustomClipper<Path> {
 class BackgroundClipperButtonUp extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
- 
-
     var path = Path();
 
     path.moveTo(size.width, size.height);
 
     path.lineTo(size.width, 0);
     path.lineTo(0, 0);
-    path.lineTo(0, size.height - 50);
-    path.lineTo(size.width, (size.height * 0.33) + 70);
+    path.lineTo(0, size.height * 0.85);
+    path.lineTo(size.width, (size.height * 0.55) );
     return path;
   }
 
@@ -275,16 +268,14 @@ class BackgroundClipperButtonUp extends CustomClipper<Path> {
 class BackgroundClipperButtonDown extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-   
-
     var path = Path();
 
     path.moveTo(0, size.height * 0.33);
 
     path.lineTo(0, size.height);
     path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 50);
-    path.lineTo(0, size.height * 0.33 + 50);
+    path.lineTo(size.width, (size.height * 0.15));
+    path.lineTo(0, size.height * 0.45 );
     return path;
   }
 
