@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:advMe/screens/ads_screen.dart';
+import 'package:advMe/screens/categories_screen.dart';
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,59 +71,64 @@ class _HomeScreenState extends State<HomeScreen> {
             right: MediaQuery.of(context).size.width / 6,
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(0 / 360),
-              child: ClipPath(
-                clipper: BackgroundClipperButtonUp(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60)),
-                    //color: Color(0x80464656)
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(60),
-                              topRight: Radius.circular(60)),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
-                            //child: RotationTransition(
-                            //turns: AlwaysStoppedAnimation(345 / 360),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0x40303250),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(60),
-                                    topRight: Radius.circular(60)),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pushNamed(AdsScreen.routeName);
+                },
+                              child: ClipPath(
+                  clipper: BackgroundClipperButtonUp(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(60),
+                          topRight: Radius.circular(60)),
+                      //color: Color(0x80464656)
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(60),
+                                topRight: Radius.circular(60)),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
+                              //child: RotationTransition(
+                              //turns: AlwaysStoppedAnimation(345 / 360),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0x40303250),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(60),
+                                      topRight: Radius.circular(60)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                height: MediaQuery.of(context).size.height * 0.5,
                               ),
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: MediaQuery.of(context).size.height * 0.5,
                             ),
                           ),
                         ),
-                      ),
-                      Center(
-                          child: Column(children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.06,
-                        ),
-                        Icon(
-                          Icons.add_box,
-                          size: 80,
-                          color: Color(0xFFCBB2AB),
-                        ),
-                        Text(
-                          'Add yourself',
-                          style:
-                              TextStyle(color: Color(0xFFF79E1B), fontSize: 30),
-                        )
-                      ])),
-                      //),
-                    ],
+                        Center(
+                            child: Column(children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.06,
+                          ),
+                          Icon(
+                            Icons.add_box,
+                            size: 80,
+                            color: Color(0xFFCBB2AB),
+                          ),
+                          Text(
+                            'Add yourself',
+                            style:
+                                TextStyle(color: Color(0xFFF79E1B), fontSize: 30),
+                          )
+                        ])),
+                        //),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -133,58 +140,63 @@ class _HomeScreenState extends State<HomeScreen> {
             right: MediaQuery.of(context).size.width / 6,
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(0 / 360),
-              child: ClipPath(
-                clipper: BackgroundClipperButtonDown(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(60),
-                        bottomRight: Radius.circular(60)),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(60),
-                              bottomRight: Radius.circular(60)),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
-                            //child: RotationTransition(
-                            //turns: AlwaysStoppedAnimation(345 / 360),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0x40303250),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(60),
-                                    bottomRight: Radius.circular(60)),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pushNamed(CategoriesScreen.routeName);
+                },
+                              child: ClipPath(
+                  clipper: BackgroundClipperButtonDown(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(60),
+                          bottomRight: Radius.circular(60)),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(60),
+                                bottomRight: Radius.circular(60)),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
+                              //child: RotationTransition(
+                              //turns: AlwaysStoppedAnimation(345 / 360),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0x40303250),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(60),
+                                      bottomRight: Radius.circular(60)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                height: MediaQuery.of(context).size.height * 0.5,
                               ),
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: MediaQuery.of(context).size.height * 0.5,
                             ),
                           ),
                         ),
-                      ),
-                      Center(
-                          child: Column(children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.25,
-                        ),
-                        Icon(
-                          Icons.add_box,
-                          size: 80,
-                          color: Color(0xFFF79E1B),
-                        ),
-                        Text(
-                          'Add yourself',
-                          style:
-                              TextStyle(color: Color(0xFFCBB2AB), fontSize: 30),
-                        )
-                      ])),
-                      //),
-                    ],
+                        Center(
+                            child: Column(children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.25,
+                          ),
+                          Icon(
+                            Icons.add_box,
+                            size: 80,
+                            color: Color(0xFFF79E1B),
+                          ),
+                          Text(
+                            'Look for orders',
+                            style:
+                                TextStyle(color: Color(0xFFCBB2AB), fontSize: 30),
+                          )
+                        ])),
+                        //),
+                      ],
+                    ),
                   ),
                 ),
               ),

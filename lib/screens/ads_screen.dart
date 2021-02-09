@@ -12,10 +12,15 @@ class AdsScreen extends StatefulWidget {
 class _AdsScreenState extends State<AdsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(drawer: Drawer(),
-    appBar: AppBar(),
-    
-    
+    return Scaffold(
+      backgroundColor: Color(0xFF171923),
+      //drawer: Drawer(),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color(0xFFF79E1B),
+        ), //change your color here
+        backgroundColor: Color(0xFF171923),
+      ),
     );
   }
 }
