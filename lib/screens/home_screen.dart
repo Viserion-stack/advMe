@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFCA1538),
-        //0xFFCA1538),
+      //0xFFCA1538),
 
       body: Stack(
         children: [
@@ -44,17 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black54,
-                    blurRadius: 30,
-                    spreadRadius: 0,
+                    color: Colors.black,
+                    blurRadius: 40,
+                    spreadRadius: 10,
                     offset: Offset(0.0, 1.0),
                   ),
                 ],
                 clipper: BackgroundClipperUp(),
               ),
-
-              // ignore: missing_required_param
-
               ClipShadow(
                 child: Container(
                   decoration: BoxDecoration(
@@ -65,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black54,
-                    blurRadius: 30,
-                    spreadRadius: 0,
+                    color: Colors.black,
+                    blurRadius: 40,
+                    spreadRadius: 10,
                     offset: Offset(0.0, 1.0),
                   ),
                 ],
@@ -76,119 +73,129 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           Positioned(
-            left: 40,
-            top: 120,
+            left: MediaQuery.of(context).size.width / 6,
+            top: MediaQuery.of(context).size.height * 0.11,
+            right: MediaQuery.of(context).size.width / 6,
             child: RotationTransition(
-              turns: AlwaysStoppedAnimation(10 / 360),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    const Radius.circular(80.0),
+              turns: AlwaysStoppedAnimation(0 / 360),
+              child: ClipPath(
+                clipper: BackgroundClipperButtonUp(),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60)),
+                    //color: Color(0x80464656)
                   ),
-                  //color: Color(0x80464656)
-                ),
-                width: 190,
-                height: 250,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(60.0),
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
-                          //child: RotationTransition(
-                          //turns: AlwaysStoppedAnimation(345 / 360),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0x40303250),
-                              borderRadius: BorderRadius.all(
-                                const Radius.circular(60.0),
+                  width: 280,
+                  height: 360,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(60),
+                              topRight: Radius.circular(60)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
+                            //child: RotationTransition(
+                            //turns: AlwaysStoppedAnimation(345 / 360),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0x40303250),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(60),
+                                    topRight: Radius.circular(60)),
                               ),
+                              width: 190,
+                              height: 230,
                             ),
-                            width: 190,
-                            height: 230,
                           ),
                         ),
                       ),
-                    ),
-                    Center(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                          Icon(
-                            Icons.add_box,
-                            size: 80,
-                            color: Color(0xFFCBB2AB),
-                          ),
-                          Text(
-                            'Add yourself',
-                            style: TextStyle(
-                                color: Color(0xFFF79E1B), fontSize: 30),
-                          )
-                        ])),
-                    //),
-                  ],
+                      Center(
+                          child: Column(children: [
+                        SizedBox(
+                          height: 60,
+                        ),
+                        Icon(
+                          Icons.add_box,
+                          size: 80,
+                          color: Color(0xFFCBB2AB),
+                        ),
+                        Text(
+                          'Add yourself',
+                          style:
+                              TextStyle(color: Color(0xFFF79E1B), fontSize: 30),
+                        )
+                      ])),
+                      //),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
           Positioned(
-            right: 50,
-            top: 310,
+            left: MediaQuery.of(context).size.width / 6,
+            top: MediaQuery.of(context).size.height * 0.38,
+            right: MediaQuery.of(context).size.width / 6,
             child: RotationTransition(
-              turns: AlwaysStoppedAnimation(350 / 360),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    const Radius.circular(80.0),
+              turns: AlwaysStoppedAnimation(0 / 360),
+              child: ClipPath(
+                clipper: BackgroundClipperButtonDown(),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(60),
+                        bottomRight: Radius.circular(60)),
+                    //color: Color(0x80464656)
                   ),
-                  //color: Color(0x80464656)
-                ),
-                width: 190,
-                height: 250,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(60.0),
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
-                          //child: RotationTransition(
-                          //turns: AlwaysStoppedAnimation(345 / 360),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0x40303250),
-                              borderRadius: BorderRadius.all(
-                                const Radius.circular(60.0),
+                  width: 280,
+                  height: 360,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(60),
+                              bottomRight: Radius.circular(60)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 30, sigmaY: 20),
+                            //child: RotationTransition(
+                            //turns: AlwaysStoppedAnimation(345 / 360),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0x40303250),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(60),
+                                    bottomRight: Radius.circular(60)),
                               ),
+                              width: 190,
+                              height: 230,
                             ),
-                            width: 190,
-                            height: 230,
                           ),
                         ),
                       ),
-                    ),
-                    Center(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                          Icon(
-                            Icons.add_box,
-                            size: 80,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Text(
-                            'Add yourself',
-                            style: TextStyle(
-                                color: Color(0xFFCBB2AB), fontSize: 30),
-                          )
-                        ])),
-                    //),
-                  ],
+                      Center(
+                          child: Column(children: [
+                        SizedBox(
+                          height: 160,
+                        ),
+                        Icon(
+                          Icons.add_box,
+                          size: 80,
+                          color: Color(0xFFF79E1B),
+                        ),
+                        Text(
+                          'Add yourself',
+                          style:
+                              TextStyle(color: Color(0xFFCBB2AB), fontSize: 30),
+                        )
+                      ])),
+                      //),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -233,7 +240,7 @@ class BackgroundClipper extends CustomClipper<Path> {
 
     //    size.width, 0, size.width - roundnessFactor * 3, roundnessFactor * 2);
 
-    path.lineTo(0, size.height * 0.33 + 60);
+    path.lineTo(0, size.height * 0.33 + 40);
 
     //path.quadraticBezierTo(0, size.height * 0.33 + roundnessFactor + 20, 0,
 
@@ -271,11 +278,89 @@ class BackgroundClipperUp extends CustomClipper<Path> {
 
     //path.quadraticBezierTo(-5, size.height, 110, size.height - 85);
 
-    path.lineTo(size.width, (size.height * 0.33) + 60);
+    path.lineTo(size.width, (size.height * 0.33) + 70);
 
     // path.quadraticBezierTo(size.width + 35, (size.height * 0.33) - 35, 300,
 
     //     -(size.height * 0.33) * 4);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
+
+class BackgroundClipperButtonUp extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var roundnessFactor = 50.0;
+
+    var path = Path();
+
+    path.moveTo(size.width, size.height);
+
+    path.lineTo(size.width, 0);
+
+    //path.quadraticBezierTo(size.width, size.height - roundnessFactor * 6 + 30,
+
+    //    roundnessFactor * 3 + 55, 0);
+
+    path.lineTo(0, 0);
+
+    //path.quadraticBezierTo(-5, -5, 0, size.height - roundnessFactor * 4);
+
+    path.lineTo(0, size.height - 50);
+
+    //path.quadraticBezierTo(-5, size.height, 110, size.height - 85);
+
+    path.lineTo(size.width, (size.height * 0.33) + 70);
+
+    // path.quadraticBezierTo(size.width + 35, (size.height * 0.33) - 35, 300,
+
+    //     -(size.height * 0.33) * 4);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
+
+class BackgroundClipperButtonDown extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var roundnessFactor = 50.0;
+
+    var path = Path();
+
+    path.moveTo(0, size.height * 0.33);
+
+    path.lineTo(0, size.height);
+
+    //path.quadraticBezierTo(0, size.height, roundnessFactor, size.height);
+
+    path.lineTo(size.width, size.height);
+
+    // path.quadraticBezierTo(
+
+    //   size.width, size.height, size.width, size.height - roundnessFactor);
+
+    path.lineTo(size.width, 50);
+
+    //path.quadraticBezierTo(
+
+    //    size.width, 0, size.width - roundnessFactor * 3, roundnessFactor * 2);
+
+    path.lineTo(0, size.height * 0.33 + 50);
+
+    //path.quadraticBezierTo(0, size.height * 0.33 + roundnessFactor + 20, 0,
+
+    //    size.height * 0.33 + roundnessFactor * 2);
 
     return path;
   }
