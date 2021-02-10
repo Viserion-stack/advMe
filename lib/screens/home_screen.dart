@@ -72,10 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(0 / 360),
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).pushNamed(AdsScreen.routeName);
                 },
-                              child: ClipPath(
+                child: ClipPath(
                   clipper: BackgroundClipperButtonUp(),
                   child: Container(
                     decoration: BoxDecoration(
@@ -105,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       topRight: Radius.circular(60)),
                                 ),
                                 width: MediaQuery.of(context).size.width * 0.6,
-                                height: MediaQuery.of(context).size.height * 0.5,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
                               ),
                             ),
                           ),
@@ -122,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             'Add yourself',
-                            style:
-                                TextStyle(color: Color(0xFFF79E1B), fontSize: 30),
+                            style: TextStyle(
+                                color: Color(0xFFF79E1B), fontSize: 30),
                           )
                         ])),
                         //),
@@ -141,10 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(0 / 360),
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).pushNamed(CategoriesScreen.routeName);
                 },
-                              child: ClipPath(
+                child: ClipPath(
                   clipper: BackgroundClipperButtonDown(),
                   child: Container(
                     decoration: BoxDecoration(
@@ -173,7 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       bottomRight: Radius.circular(60)),
                                 ),
                                 width: MediaQuery.of(context).size.width * 0.6,
-                                height: MediaQuery.of(context).size.height * 0.5,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
                               ),
                             ),
                           ),
@@ -190,8 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             'Look for orders',
-                            style:
-                                TextStyle(color: Color(0xFFCBB2AB), fontSize: 30),
+                            style: TextStyle(
+                                color: Color(0xFFCBB2AB), fontSize: 30),
                           )
                         ])),
                         //),
@@ -267,7 +269,7 @@ class BackgroundClipperButtonUp extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.lineTo(0, 0);
     path.lineTo(0, size.height * 0.85);
-    path.lineTo(size.width, (size.height * 0.55) );
+    path.lineTo(size.width, (size.height * 0.55));
     return path;
   }
 
@@ -287,7 +289,7 @@ class BackgroundClipperButtonDown extends CustomClipper<Path> {
     path.lineTo(0, size.height);
     path.lineTo(size.width, size.height);
     path.lineTo(size.width, (size.height * 0.15));
-    path.lineTo(0, size.height * 0.45 );
+    path.lineTo(0, size.height * 0.45);
     return path;
   }
 
