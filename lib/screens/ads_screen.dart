@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:advMe/providers/ad_order_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AdsScreen extends StatefulWidget {
@@ -87,22 +88,54 @@ class _AdsScreenState extends State<AdsScreen> {
                             color: Color(0x40303250))),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'add',
+                        style: GoogleFonts.ubuntu(
+                          color: Color(0xFFCBB2AB),
+                          fontSize: 30.0,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Advice',
+                            style: GoogleFonts.ubuntu(
+                              color: Color(0xFFF79E1B),
+                              fontSize: 30.0,
+                              letterSpacing: 0.1,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ]),
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 50),
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey[800],
+                border: Border.all(color: Color(0x40C31331)),
+                borderRadius: BorderRadius.circular(30),
+                color: Color(0x40303250),
               ),
 
               height: 300,
               width: 300, //MediaQuery.of(context).size.width,
               child: _pickedImage == null
-                  ? Center(
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: IconButton(
-                      icon: Icon(Icons.add_a_photo),
-                      onPressed: _pickImage,
-                    ))
+                        icon: Icon(
+                          Icons.add_a_photo,
+                          size: 60,
+                          color: Color(0xFFF79E1B),
+                        ),
+                        onPressed: _pickImage,
+                      ),
+                    )
                   : FittedBox(
                       child: Image.file(
                         _pickedImage,
@@ -111,29 +144,95 @@ class _AdsScreenState extends State<AdsScreen> {
                       fit: BoxFit.fill,
                     ),
             ),
+            SizedBox(height: 30),
             Container(
-                child: TextFormField(
-              decoration: InputDecoration(
-                  hintText: 'Tilte', hintStyle: TextStyle(color: Colors.white)),
-              controller: titleController,
-            )),
-            SizedBox(height: 50),
+                decoration: BoxDecoration(
+                    color: Color(0x40303250),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    cursorColor: Color(0xFFF79E1B),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    decoration: InputDecoration(
+                        filled: true,
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                          borderSide: BorderSide(
+                            color: Color(0xFF464656),
+                          ),
+                        ),
+                        hintText: 'Tilte',
+                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                    controller: titleController,
+                  ),
+                )),
+            SizedBox(height: 30),
             Container(
-                child: TextFormField(
-              decoration: InputDecoration(
-                  hintText: 'Description',
-                  hintStyle: TextStyle(color: Colors.white)),
-              controller: descriptionController,
-            )),
+                decoration: BoxDecoration(
+                    color: Color(0x40303250),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: TextFormField(
+                    maxLines: 5,
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    decoration: InputDecoration(
+                        filled: true,
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                          borderSide: BorderSide(
+                            color: Color(0xFF464656),
+                          ),
+                        ),
+                        hintText: 'Description',
+                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                    controller: descriptionController,
+                  ),
+                )),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                child: Center(
+                  child: Text('Add advice', style: TextStyle(color: Colors.white, fontSize: 22),),
+                ),
+                decoration: BoxDecoration(
+                    color: Color(0xEEC31331),
+                    borderRadius: BorderRadius.circular(30)),
+                height: 40,
+                width: 280,
+                // decoration:
+                //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                // color: Color(0xEEC31331),
+              ),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            addPost(new DateTime.now(), titleController.text.toString(),
-                descriptionController.text.toString(), _pickedImage);
-          }),
+      // floatingActionButton: FloatingActionButton(
+      //     backgroundColor: Color(0xEEC31331),
+      //     child: Icon(Icons.add),
+      //     onPressed: () {
+      //       addPost(new DateTime.now(), titleController.text.toString(),
+      //           descriptionController.text.toString(), _pickedImage);
+      //     }),
     );
   }
 }
+
