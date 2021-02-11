@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:advMe/providers/ad_order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AdsScreen extends StatefulWidget {
   AdsScreen({Key key}) : super(key: key);
@@ -17,11 +17,57 @@ class AdsScreen extends StatefulWidget {
 class _AdsScreenState extends State<AdsScreen> {
   File _pickedImage;
   bool isPhoto = false;
+  bool isCamera = false;
 
-  void _pickImage() async {
+  _onAlertButtonsPressed(context) {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "PLEASE SELECT",
+      desc: "Take photo from gallery or camera?",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Gallery",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          onPressed: () {
+            setState(() {
+              isCamera = false;
+            });
+
+            _pickImage(isCamera);
+
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(0, 179, 134, 1.0),
+        ),
+        DialogButton(
+          child: Text(
+            "Camera",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          onPressed: () {
+            setState(() {
+              isCamera = true;
+            });
+
+            _pickImage(isCamera);
+            Navigator.pop(context);
+          },
+          gradient: LinearGradient(colors: [
+            Color.fromRGBO(116, 116, 191, 1.0),
+            Color.fromRGBO(52, 138, 199, 1.0)
+          ]),
+        )
+      ],
+    ).show();
+  }
+
+  void _pickImage(bool isCamera) async {
     // ignore: deprecated_member_use
     final pickedImageFile = await ImagePicker.pickImage(
-      source: ImageSource.camera,
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
       imageQuality: 100,
       //maxWidth: 450,
       //maxHeight: 450,
@@ -133,7 +179,9 @@ class _AdsScreenState extends State<AdsScreen> {
                           size: 60,
                           color: Color(0xFFF79E1B),
                         ),
-                        onPressed: _pickImage,
+                        onPressed: () {
+                          _onAlertButtonsPressed(context);
+                        },
                       ),
                     )
                   : FittedBox(
@@ -208,18 +256,24 @@ class _AdsScreenState extends State<AdsScreen> {
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Center(
-                  child: Text('Add advice', style: TextStyle(color: Colors.white, fontSize: 22),),
+              child: InkWell(
+                onTap: () => {},
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      'Add advertisment',
+                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      color: Color(0xEEC31331),
+                      borderRadius: BorderRadius.circular(30)),
+                  height: 40,
+                  width: 280,
+                  // decoration:
+                  //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                  // color: Color(0xEEC31331),
                 ),
-                decoration: BoxDecoration(
-                    color: Color(0xEEC31331),
-                    borderRadius: BorderRadius.circular(30)),
-                height: 40,
-                width: 280,
-                // decoration:
-                //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                // color: Color(0xEEC31331),
               ),
             ),
           ],
@@ -235,4 +289,3 @@ class _AdsScreenState extends State<AdsScreen> {
     );
   }
 }
-

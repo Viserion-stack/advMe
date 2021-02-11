@@ -36,6 +36,7 @@ dependencies:
   clip_shadow: ^0.2.1
   image_picker: ^0.6.5+3
   intl: ^0.16.1
+  rflutter_alert: ^1.1.0
   
 
 

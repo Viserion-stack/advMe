@@ -4,8 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+
 Future<void> addPost(
     DateTime date, String title, String description, File _pickedImage) async {
+
+
+  
   var firebaseUser = FirebaseAuth.instance.currentUser.uid;
 
   print('FB USER: ' + firebaseUser.toString());
