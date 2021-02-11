@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:advMe/providers/ad_order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -100,9 +101,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   ? Center(
                       child: IconButton(
                       icon: Icon(Icons.add_a_photo),
-                      onPressed: 
-                        _pickImage,
-                      
+                      onPressed: _pickImage,
                     ))
                   : FittedBox(
                       child: Image.file(
@@ -129,8 +128,12 @@ class _AdsScreenState extends State<AdsScreen> {
           ],
         ),
       ),
-      floatingActionButton:
-          FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            addPost(new DateTime.now(), titleController.text.toString(),
+                descriptionController.text.toString(), _pickedImage);
+          }),
     );
   }
 }
