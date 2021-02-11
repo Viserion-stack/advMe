@@ -88,9 +88,18 @@ class _AdsScreenState extends State<AdsScreen> {
     titleController.dispose();
     super.dispose();
   }
+  String valueChoose = 'Construction';
+    List<String> listItem = [
+      'Construction',
+      'Renovation',
+      'Transport',
+      'Mechanic',
+    ];
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
       backgroundColor: Color(0xFF171923),
       //drawer: Drawer(),
@@ -147,7 +156,7 @@ class _AdsScreenState extends State<AdsScreen> {
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text: 'Advice',
+                            text: 'Advertisment',
                             style: GoogleFonts.ubuntu(
                               color: Color(0xFFF79E1B),
                               fontSize: 30.0,
@@ -193,6 +202,47 @@ class _AdsScreenState extends State<AdsScreen> {
                     ),
             ),
             SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color(0xFFF79E1B),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: DropdownButton(
+                    dropdownColor: Color(0xEEF79E1B),
+                      style: TextStyle(
+                        color: Color(0xFF303250),
+                      ),
+                      icon: Icon(Icons.arrow_drop_down),
+                      hint: Text(
+                        'Select category',
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Color(0xFF303250),
+                        ),
+                      ),
+                      elevation: 16,
+                      underline: Container(height: 2,color: Color(0xFFF79E1B),),
+                      value: valueChoose,
+                      onChanged: (String value) {
+                        setState(() {
+                          valueChoose = value;
+                        });
+                        
+                      },
+                      items: listItem.map((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value, style: TextStyle(fontSize: 22),),
+                        );
+                      }).toList(),),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             Container(
                 decoration: BoxDecoration(
                     color: Color(0x40303250),
@@ -254,10 +304,19 @@ class _AdsScreenState extends State<AdsScreen> {
                   ),
                 )),
             SizedBox(height: 20),
+            
             Padding(
               padding: const EdgeInsets.all(8.0),
+<<<<<<< HEAD
               child: InkWell(
                 onTap: () => {},
+=======
+              child: GestureDetector(
+                onTap: () {
+                  addPost(new DateTime.now(), titleController.text.toString(),
+                      descriptionController.text.toString(), _pickedImage);
+                },
+>>>>>>> Added Dropdown list for category
                 child: Container(
                   child: Center(
                     child: Text(
