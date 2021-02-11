@@ -307,22 +307,11 @@ class _AdsScreenState extends State<AdsScreen> {
             
             Padding(
               padding: const EdgeInsets.all(8.0),
-<<<<<<< HEAD
-<<<<<<< HEAD
-              child: InkWell(
-                onTap: () => {},
-=======
-=======
->>>>>>> Added Dropdown list for category
               child: GestureDetector(
                 onTap: () {
                   addPost(new DateTime.now(), titleController.text.toString(),
                       descriptionController.text.toString(), _pickedImage);
                 },
-<<<<<<< HEAD
->>>>>>> Added Dropdown list for category
-=======
->>>>>>> Added Dropdown list for category
                 child: Container(
                   child: Center(
                     child: Text(
