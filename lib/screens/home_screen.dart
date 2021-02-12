@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'orders_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
@@ -143,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
               turns: AlwaysStoppedAnimation(0 / 360),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(CategoriesScreen.routeName);
+                  Navigator.of(context).pushNamed(OrdersScreen.routeName);
                 },
                 child: ClipPath(
                   clipper: BackgroundClipperButtonDown(),
