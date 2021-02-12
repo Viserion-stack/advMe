@@ -21,8 +21,17 @@ class _AdsScreenState extends State<AdsScreen> {
 
   _onAlertButtonsPressed(context) {
     Alert(
+      style: AlertStyle(
+        backgroundColor: Color(0x40303250),
+        titleStyle: TextStyle(
+          color: Color(0xFFCBB2AB),
+        ),
+        descStyle: TextStyle(
+          color: Color(0xFFCBB2AB),
+        ),
+      ),
       context: context,
-      type: AlertType.warning,
+      type: AlertType.none,
       title: "PLEASE SELECT",
       desc: "Take photo from gallery or camera?",
       buttons: [
@@ -40,7 +49,7 @@ class _AdsScreenState extends State<AdsScreen> {
 
             Navigator.pop(context);
           },
-          color: Color.fromRGBO(0, 179, 134, 1.0),
+          color: Color(0xEEC31331),
         ),
         DialogButton(
           child: Text(
@@ -55,10 +64,7 @@ class _AdsScreenState extends State<AdsScreen> {
             _pickImage(isCamera);
             Navigator.pop(context);
           },
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(116, 116, 191, 1.0),
-            Color.fromRGBO(52, 138, 199, 1.0)
-          ]),
+          color: Color(0xFFF79E1B),
         )
       ],
     ).show();
@@ -88,18 +94,17 @@ class _AdsScreenState extends State<AdsScreen> {
     titleController.dispose();
     super.dispose();
   }
+
   String valueChoose = 'Construction';
-    List<String> listItem = [
-      'Construction',
-      'Renovation',
-      'Transport',
-      'Mechanic',
-    ];
+  List<String> listItem = [
+    'Construction',
+    'Renovation',
+    'Transport',
+    'Mechanic',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       backgroundColor: Color(0xFF171923),
       //drawer: Drawer(),
@@ -213,32 +218,38 @@ class _AdsScreenState extends State<AdsScreen> {
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: DropdownButton(
                     dropdownColor: Color(0xEEF79E1B),
+                    style: TextStyle(
+                      color: Color(0xFF303250),
+                    ),
+                    icon: Icon(Icons.arrow_drop_down),
+                    hint: Text(
+                      'Select category',
                       style: TextStyle(
+                        fontSize: 22,
                         color: Color(0xFF303250),
                       ),
-                      icon: Icon(Icons.arrow_drop_down),
-                      hint: Text(
-                        'Select category',
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Color(0xFF303250),
+                    ),
+                    elevation: 16,
+                    underline: Container(
+                      height: 2,
+                      color: Color(0xFFF79E1B),
+                    ),
+                    value: valueChoose,
+                    onChanged: (String value) {
+                      setState(() {
+                        valueChoose = value;
+                      });
+                    },
+                    items: listItem.map((String value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(fontSize: 22),
                         ),
-                      ),
-                      elevation: 16,
-                      underline: Container(height: 2,color: Color(0xFFF79E1B),),
-                      value: valueChoose,
-                      onChanged: (String value) {
-                        setState(() {
-                          valueChoose = value;
-                        });
-                        
-                      },
-                      items: listItem.map((String value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value, style: TextStyle(fontSize: 22),),
-                        );
-                      }).toList(),),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
             ),
@@ -304,7 +315,6 @@ class _AdsScreenState extends State<AdsScreen> {
                   ),
                 )),
             SizedBox(height: 20),
-            
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
@@ -330,6 +340,7 @@ class _AdsScreenState extends State<AdsScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
