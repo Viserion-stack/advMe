@@ -37,13 +37,13 @@ class Products with ChangeNotifier {
   //   _showFavoritesOnly = false;
   //   notifyListeners();
   // }
-  final uId = FirebaseAuth.instance.currentUser.uid;
+  //final uId = FirebaseAuth.instance.currentUser.uid;
 
   Future<void> fetchAndSetProducts() async {
 
-      CollectionReference extractedData = FirebaseFirestore.instance.collection('allAds');
+      //CollectionReference extractedData = FirebaseFirestore.instance.collection('allAds');
 
-      print(extractedData.doc(uId).get());
+      //print(extractedData.doc(uId).get());
 
     
     // const url = 'https://flutter-update-fb73c.firebaseio.com/products.json';

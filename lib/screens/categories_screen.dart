@@ -52,4 +52,3 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 }
-  //  title: Text(userData.data()['title'], style: TextStyle(color: Colors.white),),

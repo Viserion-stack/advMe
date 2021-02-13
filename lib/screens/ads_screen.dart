@@ -107,11 +107,8 @@ class _AdsScreenState extends State<AdsScreen> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     //var product = Provider.of<Products>(context, listen: false);
 
-=======
->>>>>>> 9971b99f042dc5a3eae7ab33d66bcb8afb7c8344
     return Scaffold(
       backgroundColor: Color(0xFF171923),
       //drawer: Drawer(),

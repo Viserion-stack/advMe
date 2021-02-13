@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:advMe/screens/ads_screen.dart';
-import 'package:advMe/screens/categories_screen.dart';
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
