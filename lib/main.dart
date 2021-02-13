@@ -1,3 +1,4 @@
+import 'package:advMe/providers/products.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
@@ -26,44 +27,51 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'advMe',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (ctx, userSnapshot) {
-            if (userSnapshot.hasData) {
-              return  HomeScreen(); //ChatScreen();
-            }
-            return AuthScreen();
-          }),
-      routes: {
-        OrdersScreen.routeName: (ctx) => OrdersScreen(),
-        AdsScreen.routeName: (ctx) => AdsScreen(),
-        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
-        CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
-        //'/category-meals': (ctx) =>CategoryMealsScreen(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Products(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'advMe',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (ctx, userSnapshot) {
+              if (userSnapshot.hasData) {
+                return HomeScreen(); //ChatScreen();
+              }
+              return AuthScreen();
+            }),
+        routes: {
+          OrdersScreen.routeName: (ctx) => OrdersScreen(),
+          AdsScreen.routeName: (ctx) => AdsScreen(),
+          CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+          MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+          CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+          //'/category-meals': (ctx) =>CategoryMealsScreen(),
+        },
 
-      // ignore: missing_return
-      onGenerateRoute: (settings) {
-        print(settings.arguments);
-        // if (settings.name == '/meal-detail') {
-        //   return ...;
-        // } else if (settings.name == '/something-else') {
-        //   return ...;
-        // }
-        // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
-      },
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(
-          builder: (ctx) => CategoriesScreen(),
-        );
-      },
+        // ignore: missing_return
+        onGenerateRoute: (settings) {
+          print(settings.arguments);
+          // if (settings.name == '/meal-detail') {
+          //   return ...;
+          // } else if (settings.name == '/something-else') {
+          //   return ...;
+          // }
+          // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
+        },
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(
+            builder: (ctx) => CategoriesScreen(),
+          );
+        },
+      ),
     );
   }
 }

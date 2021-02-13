@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:advMe/providers/ad_order_provider.dart';
+//import 'package:advMe/providers/products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+//import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AdsScreen extends StatefulWidget {
@@ -98,7 +100,7 @@ class _AdsScreenState extends State<AdsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
+    //var product = Provider.of<Products>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Color(0xFF171923),
@@ -311,6 +313,7 @@ class _AdsScreenState extends State<AdsScreen> {
                 onTap: () {
                   addPost(new DateTime.now(), titleController.text.toString(),
                       descriptionController.text.toString(), _pickedImage);
+                  //product.fetchAndSetProducts();
                 },
                 child: Container(
                   child: Center(

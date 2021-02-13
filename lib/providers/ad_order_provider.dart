@@ -10,34 +10,32 @@ Future<void> addPost(
 
 
   
-  var firebaseUser = FirebaseAuth.instance.currentUser.uid;
+  var uid = FirebaseAuth.instance.currentUser.uid;
 
-  print('FB USER: ' + firebaseUser.toString());
+  print('FB USER: ' + uid.toString());
 
   // var rng = new Random();
   // var random = rng.nextInt(100);
 
   final ref = FirebaseStorage.instance
       .ref()
-      .child('allAds')
-      .child(firebaseUser + '.jpg');
+      .child('allAds').child(uid)
+      .child(title + '.jpg');
 
   await ref.putFile(_pickedImage);
 
   final url = await ref.getDownloadURL();
 
-  FirebaseFirestore.instance
-      .collection('allAds')
-      .doc(firebaseUser)
-      .collection(title)
-      .doc(title)
-      .set({
+ await FirebaseFirestore.instance
+      .collection('users')
+      .doc(uid).collection("user_orders")
+      .add({
     'Added on ': date,
     'title': title,
     'description': description,
     'imageUrl': url,
     'isFavorite': true,
-    'userId': firebaseUser,
+    'userId': uid,
   });
   //description.clear();
 

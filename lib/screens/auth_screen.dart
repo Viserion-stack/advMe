@@ -68,6 +68,12 @@ void _showErrorDialog(String message) {
           'username': username,
           'email': email,
         });
+        var user = FirebaseAuth.instance.currentUser;
+        user.updateProfile(
+          displayName: username,
+          photoURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/1280px-Felis_catus-cat_on_snow.jpg',
+        );
+  
       }
      } on PlatformException catch (err) {
     

@@ -1,11 +1,17 @@
-import 'package:advMe/dummy_data.dart';
-import 'package:advMe/widgets/category_item.dart';
+
+//import 'package:advMe/widgets/category_item.dart';
+import 'package:advMe/widgets/orders_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const routeName = '/category';
+
   @override
   Widget build(BuildContext context) {
+    var userId = FirebaseAuth.instance.currentUser.uid;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -18,24 +24,32 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Color(0xFF171923),
-      body: GridView(
-        padding: const EdgeInsets.all(25),
-        children: DUMMY_CATEGORIES
-            .map(
-              (catData) => CategoryItem(
-                catData.id,
-                catData.title,
-                catData.color,
-              ),
-            )
-            .toList(),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .collection('user_orders')
+            .snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<QuerySnapshot> orderSnapshot) {
+          if (orderSnapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          print(orderSnapshot.data.docs.length);
+          return ListView.builder(
+              reverse: true,
+              itemCount: orderSnapshot.data.docs.length,
+              itemBuilder: (ctx, index) {
+                DocumentSnapshot userData = orderSnapshot.data.docs[index];
+
+                return OrdersItem(description: userData.data()['title'], id: null, imageUrl: userData.data()['imageUrl'], isFavorite: false,);
+              });
+        },
       ),
     );
   }
 }
+  //  title: Text(userData.data()['title'], style: TextStyle(color: Colors.white),),
