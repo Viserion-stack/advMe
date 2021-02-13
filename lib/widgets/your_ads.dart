@@ -16,16 +16,6 @@ class _YourAdsState extends State<YourAds> {
       var userId = FirebaseAuth.instance.currentUser.uid;
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Color(0xFFF79E1B),
-        ),
-        backgroundColor: Color(0xFF171923),
-        title: const Text(
-          'Kategorie',
-          style: TextStyle(color: Color(0xFFF79E1B)),
-        ),
-      ),
       backgroundColor: Color(0xFF171923),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
