@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,7 +21,14 @@ class OrdersItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(OrderDetailScreen.routeName,arguments: OrdersItem(
+        id: id,
+        description: description,
+        isFavorite : false,
+        imageUrl: imageUrl, 
+      ),);
+      },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: SizedBox(
