@@ -19,6 +19,7 @@ class OrdersItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return InkWell(
       onTap: () {

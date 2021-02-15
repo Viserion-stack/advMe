@@ -3,7 +3,6 @@ import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
 import 'package:advMe/screens/categories_screen.dart';
-import 'package:advMe/screens/category_meals_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
 import 'package:advMe/screens/orders_screen.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
@@ -50,7 +49,6 @@ class MyApp extends StatelessWidget {
         routes: {
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           AdsScreen.routeName: (ctx) => AdsScreen(),
-          CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
           OrderDetailScreen.routeName: (ctx) => OrderDetailScreen(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
           //'/category-meals': (ctx) =>CategoryMealsScreen(),
