@@ -153,13 +153,13 @@ class _AdsScreenState extends State<AdsScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 40),
+                  padding: const EdgeInsets.only(left: 25, ),
                   child: RichText(
                     text: TextSpan(
                         text: 'add',
                         style: GoogleFonts.ubuntu(
                           color: Color(0xFFCBB2AB),
-                          fontSize: 30.0,
+                          fontSize: 28.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
                         ),
@@ -168,7 +168,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             text: 'Advertisment',
                             style: GoogleFonts.ubuntu(
                               color: Color(0xFFF79E1B),
-                              fontSize: 30.0,
+                              fontSize: 28.0,
                               letterSpacing: 0.1,
                               fontWeight: FontWeight.w700,
                             ),

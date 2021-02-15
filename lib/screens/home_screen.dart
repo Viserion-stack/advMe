@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               turns: AlwaysStoppedAnimation(0 / 360),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(AdsScreen.routeName);
+                  Navigator.push(context, BouncyPageRoute(widget: AdsScreen()));
                 },
                 child: ClipPath(
                   clipper: BackgroundClipperButtonUp(),
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
               turns: AlwaysStoppedAnimation(0 / 360),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                  Navigator.push(context, BouncyPageRoute(widget: OrdersScreen()));
                 },
                 child: ClipPath(
                   clipper: BackgroundClipperButtonDown(),
