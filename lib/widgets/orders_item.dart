@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,12 +23,16 @@ class OrdersItem extends StatelessWidget {
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(OrderDetailScreen.routeName,arguments: OrdersItem(
-        id: id,
-        description: description,
-        isFavorite : false,
-        imageUrl: imageUrl, 
-      ),);
+        Navigator.push(
+            context,
+            BouncyPageRouteListItem(
+              widget: OrderDetailScreen(
+                id,
+                description,
+                isFavorite,
+                imageUrl,
+              ),
+            ));
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
