@@ -41,6 +41,7 @@ dependencies:
   location: ^3.2.4
   google_maps_flutter: ^1.2.0
   http: ^0.12.0+2
+  page_transition: "^1.1.7+6"
 
   
 

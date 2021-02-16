@@ -4,6 +4,7 @@ import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:page_transition/page_transition.dart';
 
 class OrdersItem extends StatelessWidget {
   final String id;
@@ -25,9 +26,9 @@ class OrdersItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            BouncyPageRouteListItem(
-              widget: OrderDetailScreen(
+            context, PageTransition(
+              type: PageTransitionType.fade,
+            child: OrderDetailScreen(
                 id,
                 description,
                 isFavorite,

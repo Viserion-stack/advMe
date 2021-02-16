@@ -51,24 +51,55 @@ class OrderDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 5),
             //LocationInput(),
-             SizedBox(height: 5,),
+            SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
-                IconButton(
-                  icon: Icon(Icons.phone_outlined, color: Colors.white54,),
-                  onPressed: () {
-
-
-
-                  },
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xEEC31331),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.phone_outlined,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.map_outlined, color: Colors.white54,),
-                  onPressed: () {},
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFCBB2AB),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.map_outlined,
+                        color: Color(0xFF303250),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.navigation_outlined, color: Colors.white54,),
-                  onPressed: () {},
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFF79E1B),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.navigation_outlined,
+                        color: Color(0xFF303250),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
                 ),
               ],
             ),
