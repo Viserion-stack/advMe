@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:advMe/helpers/location_helper.dart';
+import 'package:advMe/models/place.dart';
 import 'package:advMe/providers/ad_order_provider.dart';
+import 'package:advMe/widgets/location_input.dart';
 //import 'package:advMe/providers/products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,9 +20,21 @@ class AdsScreen extends StatefulWidget {
 }
 
 class _AdsScreenState extends State<AdsScreen> {
+  // ignore: unused_field
+  PlaceLocation _pickedLocation;
   File _pickedImage;
   bool isPhoto = false;
   bool isCamera = false;
+
+  String lok;
+
+  Future<void> _selectPlace(double lat, double lng) async {
+    _pickedLocation = PlaceLocation(latitude: lat, longitude: lng);
+    String place = await LocationHelper.getPlaceAddress(lat, lng);
+    setState(() {
+      lok = place;
+    });
+  }
 
   _onAlertButtonsPressed(context) {
     Alert(
@@ -108,6 +123,7 @@ class _AdsScreenState extends State<AdsScreen> {
   @override
   Widget build(BuildContext context) {
     //var product = Provider.of<Products>(context, listen: false);
+    var lokalizacja = lok;
 
     return Scaffold(
       backgroundColor: Color(0xFF171923),
@@ -153,7 +169,9 @@ class _AdsScreenState extends State<AdsScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 25, ),
+                  padding: const EdgeInsets.only(
+                    left: 25,
+                  ),
                   child: RichText(
                     text: TextSpan(
                         text: 'add',
@@ -318,7 +336,14 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: descriptionController,
                   ),
                 )),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
+            LocationInput(_selectPlace),
+            SizedBox(height: 10),
+            Text(
+              lokalizacja != null ? lok : 'Chose loacalization',
+              style: TextStyle(color: Colors.white54),
+            ),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(

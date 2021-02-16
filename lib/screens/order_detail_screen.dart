@@ -1,6 +1,5 @@
 import 'package:advMe/widgets/orders_item.dart';
 import 'package:flutter/material.dart';
-import 'package:advMe/widgets/location_input.dart';
 
 class OrderDetailScreen extends StatelessWidget {
   static const routeName = '/orderl-detail';
@@ -39,13 +38,17 @@ class OrderDetailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5),
-            LocationInput(),
+            //LocationInput(),
              SizedBox(height: 5,),
             Row(
               children: [
                 IconButton(
                   icon: Icon(Icons.phone_outlined, color: Colors.white54,),
-                  onPressed: () {},
+                  onPressed: () {
+
+
+
+                  },
                 ),
                 IconButton(
                   icon: Icon(Icons.map_outlined, color: Colors.white54,),
