@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
         routes: {
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           AdsScreen.routeName: (ctx) => AdsScreen(),
-          OrderDetailScreen.routeName: (ctx) => OrderDetailScreen(),
+          //CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+          //OrderDetailScreen.routeName: (ctx) => OrderDetailScreen(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
           //'/category-meals': (ctx) =>CategoryMealsScreen(),
         },
