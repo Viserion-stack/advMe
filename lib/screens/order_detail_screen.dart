@@ -1,8 +1,9 @@
-import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:advMe/helpers/google_map_aplication_helper.dart';
+
 
 class OrderDetailScreen extends StatelessWidget {
   static const routeName = '/orderl-detail';
@@ -18,6 +19,24 @@ class OrderDetailScreen extends StatelessWidget {
     this.isFavorite,
     this.imageUrl,
   );
+
+ Future<void> _launchURL() async {
+  const url = 'https://flutter.dev';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+Future<void> _makePhoneCall() async {
+  const url = 'tel:723091700';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +142,7 @@ class OrderDetailScreen extends StatelessWidget {
                         Icons.phone_outlined,
                         color: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: _makePhoneCall,
                     ),
                   ),
                 ),
@@ -135,10 +154,12 @@ class OrderDetailScreen extends StatelessWidget {
                     ),
                     child: IconButton(
                       icon: Icon(
-                        Icons.map_outlined,
+                        Icons.open_in_browser_outlined,
                         color: Color(0xFF303250),
                       ),
-                      onPressed: () {},
+                      onPressed: 
+                        _launchURL,
+                      
                     ),
                   ),
                 ),
@@ -153,7 +174,9 @@ class OrderDetailScreen extends StatelessWidget {
                         Icons.navigation_outlined,
                         color: Color(0xFF303250),
                       ),
-                      onPressed: () {},
+                      onPressed:(){
+                        MapUtils.openMap(50.2433277,21.7754563);
+                      }
                     ),
                   ),
                 ),
@@ -165,3 +188,4 @@ class OrderDetailScreen extends StatelessWidget {
     );
   }
 }
+

@@ -1,5 +1,5 @@
 
-import 'package:animations/animations.dart';
+//import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 //import 'package:advMe/widgets/category_item.dart';
@@ -17,7 +17,7 @@ class _YourAdsState extends State<YourAds> {
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    final transitionType = ContainerTransitionType.fade;
+    //final transitionType = ContainerTransitionType.fade;
     
     return Container(
       width: MediaQuery.of(context).size.width,
