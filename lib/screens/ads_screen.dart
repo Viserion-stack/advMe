@@ -104,11 +104,15 @@ class _AdsScreenState extends State<AdsScreen> {
 
   final descriptionController = TextEditingController();
   final titleController = TextEditingController();
+  final priceController = TextEditingController();
+  final phoneNumberController = TextEditingController();
 
   @override
   void dispose() {
     descriptionController.dispose();
     titleController.dispose();
+    priceController.dispose();
+    phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -306,7 +310,39 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: titleController,
                   ),
                 )),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
+            Container(
+                decoration: BoxDecoration(
+                    color: Color(0x40303250),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.start,
+                    cursorColor: Color(0xFFF79E1B),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    decoration: InputDecoration(
+                        filled: true,
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                          borderSide: BorderSide(
+                            color: Color(0xFF464656),
+                          ),
+                        ),
+                        hintText: 'Price',
+                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                    controller: priceController,
+                  ),
+                )),
+                SizedBox(height: 20),
             Container(
                 decoration: BoxDecoration(
                     color: Color(0x40303250),
@@ -336,8 +372,43 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: descriptionController,
                   ),
                 )),
-            SizedBox(height: 10),
-            LocationInput(_selectPlace),
+                SizedBox(height: 20),
+            Container(
+                decoration: BoxDecoration(
+                    color: Color(0x40303250),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.start,
+                    cursorColor: Color(0xFFF79E1B),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    decoration: InputDecoration(
+                        filled: true,
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                          borderSide: BorderSide(
+                            color: Color(0xFF464656),
+                          ),
+                        ),
+                        hintText: 'Phone',
+                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                    controller: phoneNumberController,
+                  ),
+                )),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.only(left:10,right:10),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: LocationInput(_selectPlace)),
             SizedBox(height: 10),
             Text(
               lokalizacja != null ? lok : 'Chose loacalization',
