@@ -65,7 +65,7 @@ class _YourAdsState extends State<YourAds> {
 
                     return OrdersItem(
                         description: userData.data()['title'],
-                        id: null,
+                        id: userData.id,
                         imageUrl: userData.data()['imageUrl'],
                         isFavorite: false,
                       );
