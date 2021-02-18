@@ -8,15 +8,25 @@ import 'package:page_transition/page_transition.dart';
 
 class OrdersItem extends StatelessWidget {
   final String id;
+  final String title;
   final String description;
   final bool isFavorite;
   final String imageUrl;
+  final String price;
+  final String phone;
+  final String website;
+  final String address;
 
   OrdersItem({
     @required this.id,
+    @required this.title,
     @required this.description,
     @required this.isFavorite,
     @required this.imageUrl,
+    @required this.price,
+    @required this.phone,
+    @required this.website,
+    @required this.address,
   });
 
   @override
@@ -33,6 +43,10 @@ class OrdersItem extends StatelessWidget {
                 description,
                 isFavorite,
                 imageUrl,
+                price,
+                phone,
+                website,
+                address,
               ),
             ));
       },
@@ -74,7 +88,7 @@ class OrdersItem extends StatelessWidget {
                       padding: EdgeInsets.all(10),
                       child: Column(children: <Widget>[
                         Text(
-                          description,
+                          title,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -86,7 +100,7 @@ class OrdersItem extends StatelessWidget {
                         ),
                         Container(
                           child: Text(
-                            '300 EUR',
+                            '$price zł',
                             style: TextStyle(
                               color: Color(0xFFC31331),
                               fontSize: 26,

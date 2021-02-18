@@ -64,10 +64,15 @@ class _YourAdsState extends State<YourAds> {
                     DocumentSnapshot userData = orderSnapshot.data.docs[index];
 
                     return OrdersItem(
-                        description: userData.data()['title'],
+                        description: userData.data()['description'],
                         id: userData.id,
+                        title: userData.data()['title'],
                         imageUrl: userData.data()['imageUrl'],
                         isFavorite: false,
+                        price: userData.data()['price'],
+                        phone: userData.data()['phone'],
+                        website: userData.data()['website'],
+                        address: userData.data()['address'],
                       );
                     
                     

@@ -1,36 +1,44 @@
+import 'package:advMe/widgets/location_input.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
 
-
 class OrderDetailScreen extends StatelessWidget {
   static const routeName = '/orderl-detail';
 
-  String id;
-  String description;
-  bool isFavorite;
-  String imageUrl;
+  final String id;
+  final String description;
+  final bool isFavorite;
+  final String imageUrl;
+  final String price;
+  final String phone;
+  final String website;
+  final String address;
 
   OrderDetailScreen(
     this.id,
     this.description,
     this.isFavorite,
     this.imageUrl,
+    this.price,
+    this.phone,
+    this.website,
+    this.address,
   );
 
- Future<void> _launchURL() async {
-  const url = 'https://flutter.dev';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+  Future<void> launchURL(String url) async {
+    if (!url.contains('http')) url = 'https://$url';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 
-Future<void> _makePhoneCall() async {
-  const url = 'tel:723091700';
+  Future<void> _makePhoneCall(String phone) async {
+    var url = 'tel:$phone';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -78,6 +86,7 @@ Future<void> _makePhoneCall() async {
                       .then((_) {
                     print("success!");
                   });
+                  //TODO: delete instance also from Firebase Storage!
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
                 },
@@ -106,7 +115,11 @@ Future<void> _makePhoneCall() async {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(imageUrl),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              height: 300,
+              width: MediaQuery.of(context).size.width * 2,
+              child: Image.network(imageUrl)),
             SizedBox(
               height: 50,
             ),
@@ -142,7 +155,9 @@ Future<void> _makePhoneCall() async {
                         Icons.phone_outlined,
                         color: Colors.white,
                       ),
-                      onPressed: _makePhoneCall,
+                      onPressed: () {
+                        _makePhoneCall(phone);
+                      },
                     ),
                   ),
                 ),
@@ -153,14 +168,13 @@ Future<void> _makePhoneCall() async {
                       color: Color(0xFFCBB2AB),
                     ),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.open_in_browser_outlined,
-                        color: Color(0xFF303250),
-                      ),
-                      onPressed: 
-                        _launchURL,
-                      
-                    ),
+                        icon: Icon(
+                          Icons.open_in_browser_outlined,
+                          color: Color(0xFF303250),
+                        ),
+                        onPressed: () {
+                          launchURL(website);
+                        }),
                   ),
                 ),
                 Expanded(
@@ -170,14 +184,13 @@ Future<void> _makePhoneCall() async {
                       color: Color(0xFFF79E1B),
                     ),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.navigation_outlined,
-                        color: Color(0xFF303250),
-                      ),
-                      onPressed:(){
-                        MapUtils.openMap(50.2433277,21.7754563);
-                      }
-                    ),
+                        icon: Icon(
+                          Icons.navigation_outlined,
+                          color: Color(0xFF303250),
+                        ),
+                        onPressed: () {
+                          MapUtils.openMap(address);
+                        }),
                   ),
                 ),
               ],
@@ -188,4 +201,3 @@ Future<void> _makePhoneCall() async {
     );
   }
 }
-

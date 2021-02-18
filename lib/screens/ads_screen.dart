@@ -106,6 +106,7 @@ class _AdsScreenState extends State<AdsScreen> {
   final titleController = TextEditingController();
   final priceController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final websiteController = TextEditingController();
 
   @override
   void dispose() {
@@ -113,6 +114,7 @@ class _AdsScreenState extends State<AdsScreen> {
     titleController.dispose();
     priceController.dispose();
     phoneNumberController.dispose();
+    websiteController.dispose();
     super.dispose();
   }
 
@@ -127,7 +129,7 @@ class _AdsScreenState extends State<AdsScreen> {
   @override
   Widget build(BuildContext context) {
     //var product = Provider.of<Products>(context, listen: false);
-    var lokalizacja = lok;
+    var address = lok;
 
     return Scaffold(
       backgroundColor: Color(0xFF171923),
@@ -342,7 +344,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: priceController,
                   ),
                 )),
-                SizedBox(height: 20),
+            SizedBox(height: 20),
             Container(
                 decoration: BoxDecoration(
                     color: Color(0x40303250),
@@ -372,7 +374,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: descriptionController,
                   ),
                 )),
-                SizedBox(height: 20),
+            SizedBox(height: 20),
             Container(
                 decoration: BoxDecoration(
                     color: Color(0x40303250),
@@ -404,14 +406,46 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: phoneNumberController,
                   ),
                 )),
+            Container(
+                decoration: BoxDecoration(
+                    color: Color(0x40303250),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.url,
+                    textAlign: TextAlign.start,
+                    cursorColor: Color(0xFFF79E1B),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    decoration: InputDecoration(
+                        filled: true,
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                          borderSide: BorderSide(
+                            color: Color(0xFF464656),
+                          ),
+                        ),
+                        hintText: 'Website',
+                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                    controller: websiteController,
+                  ),
+                )),
             SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.only(left:10,right:10),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: LocationInput(_selectPlace)),
+                padding: EdgeInsets.only(left: 10, right: 10),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: LocationInput(_selectPlace)),
             SizedBox(height: 10),
             Text(
-              lokalizacja != null ? lok : 'Chose loacalization',
+              address != null ? address : 'Chose loacalization',
               style: TextStyle(color: Colors.white54),
             ),
             SizedBox(height: 10),
@@ -419,8 +453,15 @@ class _AdsScreenState extends State<AdsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  addPost(new DateTime.now(), titleController.text.toString(),
-                      descriptionController.text.toString(), _pickedImage);
+                  addPost(
+                      new DateTime.now(),
+                      titleController.text.toString(),
+                      descriptionController.text.toString(),
+                      _pickedImage,
+                      priceController.text.toString(),
+                      phoneNumberController.text.toString(),
+                      websiteController.text.toString(),
+                      address);
                   //product.fetchAndSetProducts();
                 },
                 child: Container(

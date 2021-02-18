@@ -4,8 +4,8 @@ class MapUtils {
 
   MapUtils._();
 
-  static Future<void> openMap(double latitude, double longitude) async {
-    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+  static Future<void> openMap(String address) async {
+    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=$address';
     if (await canLaunch(googleUrl)) {
       await launch(googleUrl);
     } else {

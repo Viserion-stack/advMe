@@ -1,6 +1,6 @@
 
 //import 'package:advMe/widgets/category_item.dart';
-import 'package:advMe/widgets/orders_item.dart';
+//import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +43,9 @@ class CategoriesScreen extends StatelessWidget {
               reverse: true,
               itemCount: orderSnapshot.data.docs.length,
               itemBuilder: (ctx, index) {
-                DocumentSnapshot userData = orderSnapshot.data.docs[index];
+                //DocumentSnapshot userData = orderSnapshot.data.docs[index];
 
-                return OrdersItem(description: userData.data()['title'], id: null, imageUrl: userData.data()['imageUrl'], isFavorite: false,);
+                return null;// OrdersItem(description: userData.data()['title'], id: null, imageUrl: userData.data()['imageUrl'], isFavorite: false,);
               });
         },
       ),

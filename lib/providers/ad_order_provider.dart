@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 
 Future<void> addPost(
-    DateTime date, String title, String description, File _pickedImage) async {
+    DateTime date, String title, String description, File _pickedImage, String price, String phone, String website, String address) async {
 
 
   
@@ -36,6 +36,10 @@ Future<void> addPost(
     'imageUrl': url,
     'isFavorite': true,
     'userId': uid,
+    'price': price,
+    'phone': phone,
+    'website': website,
+    'address': address,
   });
   //description.clear();
 
