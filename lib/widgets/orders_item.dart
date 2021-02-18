@@ -36,9 +36,10 @@ class OrdersItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, PageTransition(
-              type: PageTransitionType.fade,
-            child: OrderDetailScreen(
+            context,
+            PageRouteBuilder(
+              transitionDuration: Duration(seconds: 1),
+              pageBuilder: (_, __, ___) => OrderDetailScreen(
                 id,
                 description,
                 isFavorite,
@@ -48,6 +49,19 @@ class OrdersItem extends StatelessWidget {
                 website,
                 address,
               ),
+
+              // PageTransition(
+              //   type: PageTransitionType.fade,
+              // child: OrderDetailScreen(
+              //     id,
+              //     description,
+              //     isFavorite,
+              //     imageUrl,
+              //     price,
+              //     phone,
+              //     website,
+              //     address,
+              //   ),
             ));
       },
       child: Padding(

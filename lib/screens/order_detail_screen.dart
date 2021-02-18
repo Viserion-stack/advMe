@@ -52,16 +52,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     }
   }
 
-@override
-void initState() { 
-  
-    final staticMapImageUrl = LocationHelper.generateLocationPreviewImagebyAddress(widget.address);
-    
-      _previewImageUrl = staticMapImageUrl;
-    
-  
-  super.initState();
-}
+  @override
+  void initState() {
+    final staticMapImageUrl =
+        LocationHelper.generateLocationPreviewImagebyAddress(widget.address);
+
+    _previewImageUrl = staticMapImageUrl;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +119,7 @@ void initState() {
             color: Color(0xFFF79E1B),
           ),
           backgroundColor: Color(0xFF171923),
-          title: Text('Detail of ' + widget.description),
+          title: Text(widget.description),
           actions: [
             IconButton(
                 icon: Icon(Icons.delete),
@@ -133,25 +132,54 @@ void initState() {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(8.0),
-              height: 300,
-              width: MediaQuery.of(context).size.width * 2,
-              child: Image.network(widget.imageUrl)),
+                padding: const EdgeInsets.all(8.0),
+                height: 380,
+                width: MediaQuery.of(context).size.width * 2,
+                child: Image.network(widget.imageUrl)),
             SizedBox(
               height: 50,
             ),
             Text(
-              'Description:',
+              'Price:',
               style: TextStyle(
-                color: Colors.white54,
-                fontSize: 15,
+                color: Color(0xFFF79E1B),
+                fontSize: 20,
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Text(
+                widget.price + ' EUR',
+                style: TextStyle(
+                  color: Color(0xEEC31331),
+                  fontSize: 40,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Text(
-              widget.description,
+              'Description:',
               style: TextStyle(
-                color: Colors.white54,
-                fontSize: 28,
+                color: Color(0xFFF79E1B),
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Text(
+                widget.description,
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 24,
+                ),
               ),
             ),
             SizedBox(height: 5),
@@ -159,26 +187,36 @@ void initState() {
             SizedBox(
               height: 20,
             ),
-                    Container(
-          height: 170,
-          width: double.infinity,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-          ),
-          child: _previewImageUrl == null
-              ? Text(
-                  'No Location Chosen',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white54),
-                )
-              : Image.network(
-                  _previewImageUrl,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-        ),
-        SizedBox(height: 5),
+            Container(
+              //height: 170,
+              //width: double.infinity,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: Colors.grey),
+              ),
+              child: _previewImageUrl == null
+                  ? Text(
+                      'No Location Choosen',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white54),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      width: 300,
+                      height: 300,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(150),
+                        child: Image.network(
+                          _previewImageUrl,
+                          //fit: BoxFit.cover,
+                          //width: double.infinity,
+                        ),
+                      ),
+                    ),
+            ),
+
+            SizedBox(height: 30),
             Row(
               children: [
                 Expanded(
@@ -232,6 +270,7 @@ void initState() {
                 ),
               ],
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),

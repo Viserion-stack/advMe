@@ -406,6 +406,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     controller: phoneNumberController,
                   ),
                 )),
+            SizedBox(height: 20),
             Container(
                 decoration: BoxDecoration(
                     color: Color(0x40303250),
@@ -445,7 +446,7 @@ class _AdsScreenState extends State<AdsScreen> {
                 child: LocationInput(_selectPlace)),
             SizedBox(height: 10),
             Text(
-              address != null ? address : 'Chose loacalization',
+              address != null ? address : 'Choose loacalization',
               style: TextStyle(color: Colors.white54),
             ),
             SizedBox(height: 10),
