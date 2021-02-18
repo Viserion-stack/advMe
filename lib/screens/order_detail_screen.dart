@@ -1,13 +1,12 @@
-import 'package:advMe/widgets/location_input.dart';
+import 'package:advMe/helpers/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
 
-class OrderDetailScreen extends StatelessWidget {
+class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
-
   final String id;
   final String description;
   final bool isFavorite;
@@ -28,6 +27,13 @@ class OrderDetailScreen extends StatelessWidget {
     this.address,
   );
 
+  @override
+  _OrderDetailScreenState createState() => _OrderDetailScreenState();
+}
+
+class _OrderDetailScreenState extends State<OrderDetailScreen> {
+  String _previewImageUrl;
+
   Future<void> launchURL(String url) async {
     if (!url.contains('http')) url = 'https://$url';
     if (await canLaunch(url)) {
@@ -45,6 +51,17 @@ class OrderDetailScreen extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
+
+@override
+void initState() { 
+  
+    final staticMapImageUrl = LocationHelper.generateLocationPreviewImagebyAddress(widget.address);
+    
+      _previewImageUrl = staticMapImageUrl;
+    
+  
+  super.initState();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +98,7 @@ class OrderDetailScreen extends StatelessWidget {
                       .collection('users')
                       .doc(firebaseUser)
                       .collection("user_orders")
-                      .doc(id)
+                      .doc(widget.id)
                       .delete()
                       .then((_) {
                     print("success!");
@@ -103,7 +120,7 @@ class OrderDetailScreen extends StatelessWidget {
             color: Color(0xFFF79E1B),
           ),
           backgroundColor: Color(0xFF171923),
-          title: Text('Detail of ' + description),
+          title: Text('Detail of ' + widget.description),
           actions: [
             IconButton(
                 icon: Icon(Icons.delete),
@@ -119,7 +136,7 @@ class OrderDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               height: 300,
               width: MediaQuery.of(context).size.width * 2,
-              child: Image.network(imageUrl)),
+              child: Image.network(widget.imageUrl)),
             SizedBox(
               height: 50,
             ),
@@ -131,7 +148,7 @@ class OrderDetailScreen extends StatelessWidget {
               ),
             ),
             Text(
-              description,
+              widget.description,
               style: TextStyle(
                 color: Colors.white54,
                 fontSize: 28,
@@ -142,6 +159,26 @@ class OrderDetailScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+                    Container(
+          height: 170,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: Colors.grey),
+          ),
+          child: _previewImageUrl == null
+              ? Text(
+                  'No Location Chosen',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white54),
+                )
+              : Image.network(
+                  _previewImageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+        ),
+        SizedBox(height: 5),
             Row(
               children: [
                 Expanded(
@@ -156,7 +193,7 @@ class OrderDetailScreen extends StatelessWidget {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        _makePhoneCall(phone);
+                        _makePhoneCall(widget.phone);
                       },
                     ),
                   ),
@@ -173,7 +210,7 @@ class OrderDetailScreen extends StatelessWidget {
                           color: Color(0xFF303250),
                         ),
                         onPressed: () {
-                          launchURL(website);
+                          launchURL(widget.website);
                         }),
                   ),
                 ),
@@ -189,7 +226,7 @@ class OrderDetailScreen extends StatelessWidget {
                           color: Color(0xFF303250),
                         ),
                         onPressed: () {
-                          MapUtils.openMap(address);
+                          MapUtils.openMap(widget.address);
                         }),
                   ),
                 ),

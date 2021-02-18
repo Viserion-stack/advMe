@@ -14,4 +14,13 @@ class LocationHelper {
     final response = await http.get(url);
     return json.decode(response.body)['results'][0]['formatted_address'];
   }
+
+
+ static String generateLocationPreviewImagebyAddress(String address) {
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=&$address&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$address&key=$GOOGLE_API_KEY';
+  }
+
+
 }
+
+
