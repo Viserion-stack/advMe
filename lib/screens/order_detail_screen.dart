@@ -1,6 +1,7 @@
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
@@ -94,6 +95,19 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Text('YES'),
                 onPressed: () async {
                   var firebaseUser = FirebaseAuth.instance.currentUser.uid;
+                  String itemToDelete = widget.title + '.jpg';
+
+                  var storageReferance = FirebaseStorage.instance.ref();
+                  storageReferance
+                      .child('allAds/$firebaseUser/$itemToDelete')
+                      .delete()
+                      .then((_) {
+                    print("Deleting from Storage success!");
+                  });
+
+                  //     await FirebaseStorage.instance.refFromURL(widget.imageUrl).delete().then((_) {
+                  //   print("Deleting from Storage success!");
+                  // });
 
                   await FirebaseFirestore.instance
                       .collection('users')
@@ -102,11 +116,18 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       .doc(widget.id)
                       .delete()
                       .then((_) {
-                    print("success!");
+                    print("Deleting from Firebase success!");
                   });
-                  //TODO: delete instance also from Firebase Storage!
+
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
+
+                  // TODO: ADD ScaffoldMessneger in next stable flutter release
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     content: Text('A SnackBar has been shown.'),
+                  //   ),
+                  // );
                 },
               ),
             ],

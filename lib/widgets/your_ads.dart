@@ -58,6 +58,7 @@ class _YourAdsState extends State<YourAds> {
 
                 print(orderSnapshot.data.docs.length);
                 return ListView.builder(
+                  cacheExtent: 1000,
                   reverse: false,
                   itemCount: orderSnapshot.data.docs.length,
                   itemBuilder: (ctx, index) {
