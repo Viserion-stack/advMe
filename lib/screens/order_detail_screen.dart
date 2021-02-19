@@ -8,6 +8,7 @@ import 'package:advMe/helpers/google_map_aplication_helper.dart';
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
   final String id;
+  final String title;
   final String description;
   final bool isFavorite;
   final String imageUrl;
@@ -18,6 +19,7 @@ class OrderDetailScreen extends StatefulWidget {
 
   OrderDetailScreen(
     this.id,
+    this.title,
     this.description,
     this.isFavorite,
     this.imageUrl,
@@ -119,7 +121,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             color: Color(0xFFF79E1B),
           ),
           backgroundColor: Color(0xFF171923),
-          title: Text(widget.description),
+          title: Text(widget.title),
           actions: [
             IconButton(
                 icon: Icon(Icons.delete),
@@ -203,13 +205,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     )
                   : Container(
                       decoration: BoxDecoration(shape: BoxShape.circle),
-                      width: 300,
-                      height: 300,
+                      width: 200,
+                      height: 200,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(150),
                         child: Image.network(
                           _previewImageUrl,
-                          //fit: BoxFit.cover,
+                          fit: BoxFit.cover,
                           //width: double.infinity,
                         ),
                       ),
