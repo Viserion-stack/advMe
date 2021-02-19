@@ -25,6 +25,7 @@ class _AdsScreenState extends State<AdsScreen> {
   File _pickedImage;
   bool isPhoto = false;
   bool isCamera = false;
+  bool isLoading = false;
 
   String lok;
 
@@ -454,33 +455,45 @@ class _AdsScreenState extends State<AdsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
+                  setState(() {
+                    isLoading = true;
+                  });
+
                   addPost(
-                      new DateTime.now(),
-                      titleController.text.toString(),
-                      descriptionController.text.toString(),
-                      _pickedImage,
-                      priceController.text.toString(),
-                      phoneNumberController.text.toString(),
-                      websiteController.text.toString(),
-                      address);
+                          new DateTime.now(),
+                          titleController.text.toString(),
+                          descriptionController.text.toString(),
+                          _pickedImage,
+                          priceController.text.toString(),
+                          phoneNumberController.text.toString(),
+                          websiteController.text.toString(),
+                          address)
+                      .then((void nothing) {
+                    print("done");
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }).catchError((e) => print(e));
                   //product.fetchAndSetProducts();
                 },
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      'Add advertisment',
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                      color: Color(0xEEC31331),
-                      borderRadius: BorderRadius.circular(30)),
-                  height: 40,
-                  width: 280,
-                  // decoration:
-                  //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                  // color: Color(0xEEC31331),
-                ),
+                child: isLoading
+                    ? CircularProgressIndicator()
+                    : Container(
+                        child: Center(
+                          child: Text(
+                            'Add advertisment',
+                            style: TextStyle(color: Colors.white, fontSize: 22),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Color(0xEEC31331),
+                            borderRadius: BorderRadius.circular(30)),
+                        height: 40,
+                        width: 280,
+                        // decoration:
+                        //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                        // color: Color(0xEEC31331),
+                      ),
               ),
             ),
             SizedBox(height: 20),
