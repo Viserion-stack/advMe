@@ -37,10 +37,11 @@ class OrdersItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
             context,
-            PageRouteBuilder(
-              transitionDuration: Duration(seconds: 1),
-              pageBuilder: (_, __, ___) => OrderDetailScreen(
+            PageTransition(
+              type: PageTransitionType.rightToLeftWithFade,
+              child: OrderDetailScreen(
                 id,
+                title,
                 description,
                 isFavorite,
                 imageUrl,
@@ -49,19 +50,6 @@ class OrdersItem extends StatelessWidget {
                 website,
                 address,
               ),
-
-              // PageTransition(
-              //   type: PageTransitionType.fade,
-              // child: OrderDetailScreen(
-              //     id,
-              //     description,
-              //     isFavorite,
-              //     imageUrl,
-              //     price,
-              //     phone,
-              //     website,
-              //     address,
-              //   ),
             ));
       },
       child: Padding(
