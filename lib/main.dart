@@ -31,6 +31,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Products(),
         ),
+        ChangeNotifierProvider.value(
+          value: SettingsUser(),
+        ),
       ],
       child: MaterialApp(
         title: 'advMe',

@@ -1,8 +1,12 @@
 import 'package:advMe/animation/fade_animation.dart';
+import 'package:advMe/providers/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(
@@ -48,10 +52,13 @@ class _AuthFormState extends State<AuthForm> {
     }
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      backgroundColor: Color(0xFF171923),
+      backgroundColor: Color(0xFFFFFFFF),//Color(0xFF171923),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -62,8 +69,14 @@ class _AuthFormState extends State<AuthForm> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xFF171923),
-                  Color(0xFF171923),
+                  //Color(0xFF171923),
+                  //Color(0xFF171923),
+                  //Color(0x40C31331),
+                  //Color(0x40C31331),
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                  //Color(0xFFFFFFFF),
+                  //Color(0xFFFFFFFF),
                 ],
               ),
             ),
@@ -171,7 +184,7 @@ class _AuthFormState extends State<AuthForm> {
                     text: TextSpan(
                         text: 'adv',
                         style: GoogleFonts.ubuntu(
-                          color: Color(0xFFCBB2AB),
+                          color: Color(0xFFCBB2AB), //Color(0xFFC31331),
                           fontSize: 70.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -209,7 +222,8 @@ class _AuthFormState extends State<AuthForm> {
                           height: 300,
                         ),
                         TextFormField(
-                          style: TextStyle(color: Color(0xFFCBB2AB)),
+                          style: TextStyle(color: Color(0xFF2D2D2D)),
+                          //Color(0xFFCBB2AB)),
                           cursorColor: Color(0xFFF79E1B),
                           key: ValueKey('email'),
                           validator: (value) {
@@ -239,11 +253,13 @@ class _AuthFormState extends State<AuthForm> {
                             filled: true,
                             hintText: 'Email',
                             hintStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
+                              color: Color(0xFF2D2D2D),
+                              //Color(0xFFCBB2AB),
                             ),
                             labelText: 'Address Eamil',
                             labelStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
+                              color: Color(0xFF2D2D2D),
+                              //Color(0xFFCBB2AB),
                             ),
                             prefixIcon: Icon(
                               Icons.email,
@@ -257,7 +273,8 @@ class _AuthFormState extends State<AuthForm> {
                         SizedBox(height: 12),
                         if (!_isLogin)
                           TextFormField(
-                            style: TextStyle(color: Color(0xFFCBB2AB)),
+                            style: TextStyle(color: Color(0xFF2D2D2D)),
+                            //Color(0xFFCBB2AB)),
                             cursorColor: Color(0xFFF79E1B),
                             key: ValueKey('username'),
                             validator: (value) {
@@ -302,7 +319,8 @@ class _AuthFormState extends State<AuthForm> {
                           ),
                         SizedBox(height: 12),
                         TextFormField(
-                          style: TextStyle(color: Color(0xFFCBB2AB)),
+                          style: TextStyle(color: Color(0xFF2D2D2D)),
+                          //Color(0xFFCBB2AB)),
                           cursorColor: Color(0xFFF79E1B),
                           key: ValueKey('password'),
                           validator: (value) {
@@ -330,11 +348,13 @@ class _AuthFormState extends State<AuthForm> {
                             filled: true,
                             hintText: 'Password',
                             hintStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
+                              color: Color(0xFF2D2D2D),
+                              //Color(0xFFCBB2AB),
                             ),
                             labelText: 'Password',
                             labelStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
+                              color: Color(0xFF2D2D2D),
+                              //Color(0xFFCBB2AB),
                             ),
                             prefixIcon: Icon(
                               Icons.lock,
