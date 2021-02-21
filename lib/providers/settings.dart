@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class SettingsUser with ChangeNotifier {
-  bool isDark ;
-  bool isNotifications ;
+  bool isDark = false;
+  bool isNotifications = false;
 
   SettingsUser({
     this.isDark ,

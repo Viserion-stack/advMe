@@ -56,10 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
       isDark,
       isNotif,
       //userName,
-     // email,
+      // email,
     );
+    print(isDark.toString());
     return Scaffold(
-      backgroundColor: Color(0xFF2D2D2D),
+      backgroundColor: Color(0xFFFFC03D),
+      
       //Color(0xFFCA1538),
       //0xFFCA1538),
 
@@ -71,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ClipShadow(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
+                      color: Color(0xFFE7EEFB),
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2,
@@ -89,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ClipShadow(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
+                      color: Color(0xFFE7EEFB),
                       //Color(0xFF171923),
                     ),
                     width: MediaQuery.of(context).size.width,
@@ -142,7 +144,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               //turns: AlwaysStoppedAnimation(345 / 360),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0x9AF79E1B),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xAF303250),
+                                        Color(0xAF303250),
+                                        //Color(0x9FFFFECF),
+                                        //Color(0x9FFFFECF),
+                                      ]),
+                                  //color: Color(0x9FFFFECF),
                                   //Color(0x40303250),
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(60),
@@ -160,13 +171,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.06,
                           ),
-                          Icon(Icons.add_box, size: 80, color: Color(0xFF2D2D2D),
-                              //Color(0xFFCBB2AB),
-                              ),
+                          Icon(
+                            Icons.add_box, size: 80, color: Color(0xFFFFFFFF),
+                            //Color(0xFFCBB2AB),
+                          ),
                           Text(
                             'Add yourself',
                             style: TextStyle(
-                              color: Color(0xEEC31331),
+                              color: Color(0xFFFFC03D),
                               //Color(0xFFF79E1B),
                               fontSize: 30,
                             ),
@@ -214,7 +226,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               //turns: AlwaysStoppedAnimation(345 / 360),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: settings.isDark ? Colors.pink : Color(0x9AF79E1B),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        
+                                        Color(0xAF303250),
+                                        Color(0xAF303250),
+                                        //Color(0x9FFFFECF),
+                                        //Color(0x9FF79E1B),
+                                      ]),
+                                  // color: settings.isDark
+                                  //     ? Colors.pink
+                                  //     : Color(0x9F2D2D2D),
                                   //Color(0x9AF79E1B),
                                   //Color(0x40303250),
                                   borderRadius: BorderRadius.only(
@@ -236,13 +260,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           Icon(
                             Icons.add_box,
                             size: 80,
-                            color: Color(0xEEC31331),
+                            color: Color(0xFFFFC03D),
                             //Color(0xFFF79E1B),
                           ),
                           Text(
                             'Look for orders',
                             style: TextStyle(
-                                color: Color(0xFF2D2D2D), fontSize: 30),
+                                color: Color(0xFFFFFFFF), fontSize: 30),
                           )
                         ])),
                         //),
@@ -257,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xEEC31331),
+        backgroundColor: Color(0xFFFF2525),
         //Color(0xFFF79E1B),
         onPressed: () {
           FirebaseAuth.instance.signOut();

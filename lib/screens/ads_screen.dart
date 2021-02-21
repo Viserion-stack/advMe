@@ -133,7 +133,8 @@ class _AdsScreenState extends State<AdsScreen> {
     var address = lok;
 
     return Scaffold(
-      backgroundColor: Color(0xFF171923),
+      backgroundColor: Color(0xFFE7EEFB),
+      //Color(0xFF171923),
       //drawer: Drawer(),
 
       body: SingleChildScrollView(
@@ -172,7 +173,8 @@ class _AdsScreenState extends State<AdsScreen> {
                             //       blurRadius: 5.0,
                             //       spreadRadius: 1.0),
                             // ],
-                            color: Color(0x40303250))),
+                            color: Color(0xFF303250))),
+                    //Color(0x40303250))),
                   ),
                 ),
                 Padding(
@@ -183,7 +185,8 @@ class _AdsScreenState extends State<AdsScreen> {
                     text: TextSpan(
                         text: 'add',
                         style: GoogleFonts.ubuntu(
-                          color: Color(0xFFCBB2AB),
+                          color: Color(0xFF432344),
+                          //Color(0xFFCBB2AB),
                           fontSize: 28.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -204,38 +207,68 @@ class _AdsScreenState extends State<AdsScreen> {
               ],
             ),
             SizedBox(height: 50),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0x40C31331)),
-                borderRadius: BorderRadius.circular(30),
-                color: Color(0x40303250),
+            Stack(children: [
+              Container(
+                decoration: BoxDecoration(
+                  //border: Border.all(color: Color(0x40C31331)),
+                  borderRadius: BorderRadius.circular(30),
+                  color: Color(0xFFE7EEFB),
+                ),
+                height: 350,
+                width: 350,
               ),
+              Positioned(
+                left: 50,
+                right:50,
+                top: MediaQuery.of(context).size.width * .17,
+                child: Container(
+                  decoration: BoxDecoration(
+                    //border: Border.all(color: Color(0x40C31331)),
+                    borderRadius: BorderRadius.circular(30),
+                    color: Color(0x33303250),
+                  ),
+                  height: 250,
+                  width: 250,
+                ),
+              ),
+              Positioned(
+                left: 25,
+                right: 25,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0x40C31331)),
+                    borderRadius: BorderRadius.circular(30),
+                    color: Color(0xFF303250),
+                  ),
 
-              height: 300,
-              width: 300, //MediaQuery.of(context).size.width,
-              child: _pickedImage == null
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add_a_photo,
-                          size: 60,
-                          color: Color(0xFFF79E1B),
+                  height: 300,
+                  width: 300, //MediaQuery.of(context).size.width,
+                  child: _pickedImage == null
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add_a_photo,
+                              size: 60,
+                              color: Color(0xFFF79E1B),
+                              //Color(0xFFF79E1B),
+                            ),
+                            onPressed: () {
+                              _onAlertButtonsPressed(context);
+                            },
+                          ),
+                        )
+                      : FittedBox(
+                          child: Image.file(
+                            _pickedImage,
+                            //scale: 50,
+                          ),
+                          fit: BoxFit.fill,
                         ),
-                        onPressed: () {
-                          _onAlertButtonsPressed(context);
-                        },
-                      ),
-                    )
-                  : FittedBox(
-                      child: Image.file(
-                        _pickedImage,
-                        //scale: 50,
-                      ),
-                      fit: BoxFit.fill,
-                    ),
-            ),
-            SizedBox(height: 30),
+                ),
+              ),
+            ]),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
@@ -309,7 +342,10 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                         ),
                         hintText: 'Tilte',
-                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF432344),
+                          //Color(0xFFCBB2AB),
+                        )),
                     controller: titleController,
                   ),
                 )),
@@ -341,7 +377,10 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                         ),
                         hintText: 'Price',
-                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF432344),
+                          //Color(0xFFCBB2AB),
+                        )),
                     controller: priceController,
                   ),
                 )),
@@ -371,7 +410,10 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                         ),
                         hintText: 'Description',
-                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF432344),
+                          //Color(0xFFCBB2AB),
+                        )),
                     controller: descriptionController,
                   ),
                 )),
@@ -403,7 +445,10 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                         ),
                         hintText: 'Phone',
-                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF432344),
+                          //Color(0xFFCBB2AB),
+                        )),
                     controller: phoneNumberController,
                   ),
                 )),
@@ -435,7 +480,10 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                         ),
                         hintText: 'Website',
-                        hintStyle: TextStyle(color: Color(0xFFCBB2AB))),
+                        hintStyle: TextStyle(
+                          color: Color(0xFF432344),
+                          //Color(0xFFCBB2AB),
+                        )),
                     controller: websiteController,
                   ),
                 )),
@@ -448,7 +496,10 @@ class _AdsScreenState extends State<AdsScreen> {
             SizedBox(height: 10),
             Text(
               address != null ? address : 'Choose loacalization',
-              style: TextStyle(color: Colors.white54),
+              style: TextStyle(
+                color: Color(0xFF432344),
+                //Colors.white54,
+              ),
             ),
             SizedBox(height: 10),
             Padding(
@@ -482,7 +533,10 @@ class _AdsScreenState extends State<AdsScreen> {
                         child: Center(
                           child: Text(
                             'Add advertisment',
-                            style: TextStyle(color: Colors.white, fontSize: 22),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                            ),
                           ),
                         ),
                         decoration: BoxDecoration(
