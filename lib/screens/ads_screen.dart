@@ -274,12 +274,14 @@ class _AdsScreenState extends State<AdsScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Color(0xFFF79E1B),
+                  color: Color(0xAAFFC03D),
+                  //Color(0xFFF79E1B),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: DropdownButton(
-                    dropdownColor: Color(0xEEF79E1B),
+                    dropdownColor:Color(0xAAFFC03D),
+                    //Color(0xEEF79E1B),
                     style: TextStyle(
                       color: Color(0xFF303250),
                     ),
@@ -325,7 +327,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: TextFormField(
                     textAlign: TextAlign.start,
                     cursorColor: Color(0xFFF79E1B),
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
                     decoration: InputDecoration(
                         filled: true,
                         border: new OutlineInputBorder(
@@ -360,7 +362,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.start,
                     cursorColor: Color(0xFFF79E1B),
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
                     decoration: InputDecoration(
                         filled: true,
                         border: new OutlineInputBorder(
@@ -393,7 +395,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   padding: const EdgeInsets.all(5.0),
                   child: TextFormField(
                     maxLines: 5,
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
+                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
                     decoration: InputDecoration(
                         filled: true,
                         border: new OutlineInputBorder(
@@ -418,75 +420,83 @@ class _AdsScreenState extends State<AdsScreen> {
                   ),
                 )),
             SizedBox(height: 20),
-            Container(
-                decoration: BoxDecoration(
-                    color: Color(0x40303250),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.start,
-                    cursorColor: Color(0xFFF79E1B),
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
-                    decoration: InputDecoration(
-                        filled: true,
-                        border: new OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
+            Padding(
+              padding: const EdgeInsets.only(left:8.0,right:8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xAAFFC03D),
+                      //Color(0x40303250),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.start,
+                      cursorColor: Color(0xFFF79E1B),
+                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Color(0xFF464656),
+                            ),
                           ),
-                          borderSide: BorderSide(
-                            color: Color(0xFF464656),
-                          ),
-                        ),
-                        hintText: 'Phone',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF432344),
-                          //Color(0xFFCBB2AB),
-                        )),
-                    controller: phoneNumberController,
-                  ),
-                )),
+                          hintText: 'Phone',
+                          hintStyle: TextStyle(
+                            color: Color(0xFF432344),
+                            //Color(0xFFCBB2AB),
+                          )),
+                      controller: phoneNumberController,
+                    ),
+                  )),
+            ),
             SizedBox(height: 20),
-            Container(
-                decoration: BoxDecoration(
-                    color: Color(0x40303250),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.url,
-                    textAlign: TextAlign.start,
-                    cursorColor: Color(0xFFF79E1B),
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 20),
-                    decoration: InputDecoration(
-                        filled: true,
-                        border: new OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
+            Padding(
+              padding: const EdgeInsets.only(left:8.0,right:8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xAAFFC03D),
+                      //Color(0x40303250),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: TextFormField(
+                      keyboardType: TextInputType.url,
+                      textAlign: TextAlign.start,
+                      cursorColor: Color(0xFFF79E1B),
+                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Color(0xFF464656),
+                            ),
                           ),
-                          borderSide: BorderSide(
-                            color: Color(0xFF464656),
-                          ),
-                        ),
-                        hintText: 'Website',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF432344),
-                          //Color(0xFFCBB2AB),
-                        )),
-                    controller: websiteController,
-                  ),
-                )),
+                          hintText: 'Website',
+                          hintStyle: TextStyle(
+                            color: Color(0xFF432344),
+                            //Color(0xFFCBB2AB),
+                          )),
+                      controller: websiteController,
+                    ),
+                  )),
+            ),
             SizedBox(height: 20),
             Container(
                 padding: EdgeInsets.only(left: 10, right: 10),

@@ -54,12 +54,17 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
+
     final settings = Provider.of<SettingsUser>(context);
     print(settings.isDark.toString());
+    if(settings.isDark == null){
+      settings.isDark = false;
+    }
+
     return Scaffold(
-      backgroundColor: //settings.isDark
-          //? Color(0xFF171923)
-          Color(0xFFFFFFFF), //Color(0xFF171923),
+      backgroundColor: (settings.isDark )
+          ? Color(0xFF171923)
+          : Color(0xFFE7EEFB), //Color(0xFF171923),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -69,15 +74,15 @@ class _AuthFormState extends State<AuthForm> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  // colors: settings.isDark
-                  //     ? [
-                  //         Color(0xFF171923),
-                  //         Color(0xFF171923),
-                  //       ]
-                  colors: [
-                    Color(0xFFE7EEFB),
-                    Color(0xFFE7EEFB),
-                  ]),
+                  colors: (settings.isDark )
+                      ? [
+                          Color(0xFF171923),
+                          Color(0xFF171923),
+                        ]
+                      : [
+                          Color(0xFFE7EEFB),
+                          Color(0xFFE7EEFB),
+                        ]),
             ),
             padding: EdgeInsets.only(top: 100.0),
             child: Column(
@@ -183,7 +188,7 @@ class _AuthFormState extends State<AuthForm> {
                     text: TextSpan(
                         text: 'adv',
                         style: GoogleFonts.ubuntu(
-                          color: Color(0xFF432344), //Color(0xFFC31331),
+                          color: settings.isDark ?(0xFF432344) : Color(0xFFC31331),
                           fontSize: 70.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -399,7 +404,7 @@ class _AuthFormState extends State<AuthForm> {
                               ),
                             ),
 
-                            color: Color(0xFF432344),
+                            color: settings.isDark ? Color(0xFF2D2D2D) : Color(0xFF432344),
 
                             onPressed: () {
                               setState(() {
