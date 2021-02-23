@@ -1,5 +1,7 @@
+import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class AllOrders extends StatefulWidget {
   @override
@@ -13,30 +15,39 @@ class _AllOrdersState extends State<AllOrders> {
     'Transport',
     'Mechanic',
   ];
-  final List<Color> colors = [
+
+  final List<Color> colorsDark = [
     Color(0xFFF79E1B),
     Color(0xFFCBB2AB),
     Color(0xEEC31331),
     Color(0xFF464656),
   ];
 
+  final List<Color> colorsLight = [
+    Color(0xFFFFC03D),
+    Color(0xFF387CFF),
+    Color(0xFFF1554C),
+    Color(0xFF0D276B),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsUser>(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Color(0xFF171923),
+        color: settings.isDark ? Color(0xFF171923): Color(0xFFE9ECF5),
       ),
       child: Stack(
         children: [
           Center(
             child: RotatedBox(
-              quarterTurns: 1,
+              quarterTurns: 3,
               child: Text(
                 'advMe',
                 style: GoogleFonts.ubuntu(
-                  color: Color(0x40C31331),
+                  color: settings.isDark ? Color(0x40C31331) : Color(0x78FFC03D),
                   fontSize: 140,
                   fontWeight: FontWeight.w700,
                 ),
@@ -56,7 +67,7 @@ class _AllOrdersState extends State<AllOrders> {
                         padding: const EdgeInsets.only(left: 5.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: colors[index],
+                              color: settings.isDark ? colorsDark[index] : colorsLight[index],
                               borderRadius: BorderRadius.circular(40)),
                           width: MediaQuery.of(context).size.width * 0.35,
 

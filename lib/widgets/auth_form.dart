@@ -64,7 +64,7 @@ class _AuthFormState extends State<AuthForm> {
     return Scaffold(
       backgroundColor: (settings.isDark )
           ? Color(0xFF171923)
-          : Color(0xFFE7EEFB), //Color(0xFF171923),
+          : Color(0xFFE9ECF5), //Color(0xFF171923),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -404,7 +404,7 @@ class _AuthFormState extends State<AuthForm> {
                               ),
                             ),
 
-                            color: settings.isDark ? Color(0xFF2D2D2D) : Color(0xFF432344),
+                            color: settings.isDark ? Color(0xFF2D2D2D) : Color(0xFF464656),
 
                             onPressed: () {
                               setState(() {

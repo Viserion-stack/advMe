@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 //import 'package:advMe/animation/bouncy_page_route.dart';
+import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class OrdersItem extends StatelessWidget {
   final String id;
@@ -33,6 +35,7 @@ class OrdersItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
+    final settings = Provider.of<SettingsUser>(context);
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -57,7 +60,7 @@ class OrdersItem extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Card(
-            color: Color(0x40303250),
+            color: settings.isDark ? Color(0x40303250) : Color(0x55387CFF),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
@@ -70,7 +73,10 @@ class OrdersItem extends StatelessWidget {
                 bottomRight: Radius.circular(15),
               ),
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 30, sigmaY: 5),
+                filter: ImageFilter.blur(
+                  sigmaX: settings.isDark ? 30 : 30,
+                  sigmaY: settings.isDark ? 5 : 25,
+                ),
                 child: Row(
                   children: <Widget>[
                     ClipRRect(
@@ -81,8 +87,8 @@ class OrdersItem extends StatelessWidget {
                       ),
                       child: Image.network(
                         imageUrl,
-                        height: 120,
-                        width: 120,
+                        height: 130,
+                        width: 130,
                         fit: BoxFit.cover,
                       ),
                     ),

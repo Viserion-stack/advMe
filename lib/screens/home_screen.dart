@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     print(isDark.toString());
     return Scaffold(
-      backgroundColor: Color(0xFFFFC03D),
+      backgroundColor: settings.isDark ? Color(0xFFCA1538) : Color(0xFFE9ECF5),
 
       //Color(0xFFCA1538),
       //0xFFCA1538),
@@ -73,171 +73,199 @@ class _HomeScreenState extends State<HomeScreen> {
                 ClipShadow(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFE7EEFB),
+                      color: settings.isDark
+                          ? Color(0xFF171923)
+                          : Color(0xFFE9ECF5),
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 40,
-                      spreadRadius: 20,
-                      offset: Offset(0.0, 1.0),
-                    ),
-                  ],
+                  boxShadow: settings.isDark
+                      ? [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 40,
+                            spreadRadius: 10,
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ]
+                      : [
+                          BoxShadow(
+                            color: Colors.transparent,
+                            blurRadius: 0,
+                            spreadRadius: 0,
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ],
                   clipper: BackgroundClipperUp(),
                 ),
                 ClipShadow(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFE7EEFB),
+                      color: settings.isDark
+                          ? Color(0xFF171923)
+                          : Color(0xFFE9ECF5),
                       //Color(0xFF171923),
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 40,
-                      spreadRadius: 20,
-                      offset: Offset(0.0, 1.0),
-                    ),
-                  ],
+                  boxShadow: settings.isDark
+                      ? [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 40,
+                            spreadRadius: 10,
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ]
+                      : [
+                          BoxShadow(
+                            color: Colors.transparent,
+                            blurRadius: 0,
+                            spreadRadius: 0,
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ],
                   clipper: BackgroundClipper(),
                 ),
               ],
             ),
           ),
-          Positioned(
-              left: MediaQuery.of(context).size.width / 9.9,
-              top: MediaQuery.of(context).size.height * 0.21,
-              right: MediaQuery.of(context).size.width / 6,
-              child: RotationTransition(
-                  turns: AlwaysStoppedAnimation(0 / 360),
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context, BouncyPageRoute(widget: AdsScreen()));
-                      },
-                      child: ClipPath(
-                          clipper: BackgroundClipperButtonUp(),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(60),
-                                  topRight: Radius.circular(60)),
-                              //color: Color(0x80464656)
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(60),
-                                        topRight: Radius.circular(60)),
-                                    child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 1, sigmaY: 2),
-                                      //child: RotationTransition(
-                                      //turns: AlwaysStoppedAnimation(345 / 360),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Color(0x48303250),
-                                                Color(0x48303250),
-                                                //Color(0x9FFFFECF),
-                                                //Color(0x9FFFFECF),
-                                              ]),
-                                          //color: Color(0x9FFFFECF),
-                                          //Color(0x40303250),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(60),
-                                              topRight: Radius.circular(60)),
+          if (!settings.isDark)
+            Positioned(
+                left: MediaQuery.of(context).size.width / 9.9,
+                top: MediaQuery.of(context).size.height * 0.21,
+                right: MediaQuery.of(context).size.width / 6,
+                child: RotationTransition(
+                    turns: AlwaysStoppedAnimation(0 / 360),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context, BouncyPageRoute(widget: AdsScreen()));
+                        },
+                        child: ClipPath(
+                            clipper: BackgroundClipperButtonUp(),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(60),
+                                    topRight: Radius.circular(60)),
+                                //color: Color(0x80464656)
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(60),
+                                          topRight: Radius.circular(60)),
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 1, sigmaY: 2),
+                                        //child: RotationTransition(
+                                        //turns: AlwaysStoppedAnimation(345 / 360),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color(0x9AFDB05E),
+                                                  Color(0x9AFDB05E),
+                                                  //Color(0x9FFFFECF),
+                                                  //Color(0x9FFFFECF),
+                                                ]),
+                                            //color: Color(0x9FFFFECF),
+                                            //Color(0x40303250),
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(60),
+                                                topRight: Radius.circular(60)),
+                                          ),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5,
                                         ),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.5,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ))))),
-          Positioned(
-              left: MediaQuery.of(context).size.width / 7.7,
-              top: MediaQuery.of(context).size.height * 0.17,
-              right: MediaQuery.of(context).size.width / 6,
-              child: RotationTransition(
-                  turns: AlwaysStoppedAnimation(0 / 360),
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context, BouncyPageRoute(widget: AdsScreen()));
-                      },
-                      child: ClipPath(
-                          clipper: BackgroundClipperButtonUp(),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(60),
-                                  topRight: Radius.circular(60)),
-                              //color: Color(0x80464656)
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.49,
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(60),
-                                        topRight: Radius.circular(60)),
-                                    child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 1, sigmaY: 2),
-                                      //child: RotationTransition(
-                                      //turns: AlwaysStoppedAnimation(345 / 360),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Color(0x60303250),
-                                                Color(0x60303250),
-                                                //Color(0x9FFFFECF),
-                                                //Color(0x9FFFFECF),
-                                              ]),
-                                          //color: Color(0x9FFFFECF),
-                                          //Color(0x40303250),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(60),
-                                              topRight: Radius.circular(60)),
+                                ],
+                              ),
+                            ))))),
+          if (!settings.isDark)
+            Positioned(
+                left: MediaQuery.of(context).size.width / 7.7,
+                top: MediaQuery.of(context).size.height * 0.17,
+                right: MediaQuery.of(context).size.width / 6,
+                child: RotationTransition(
+                    turns: AlwaysStoppedAnimation(0 / 360),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context, BouncyPageRoute(widget: AdsScreen()));
+                        },
+                        child: ClipPath(
+                            clipper: BackgroundClipperButtonUp(),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(60),
+                                    topRight: Radius.circular(60)),
+                                //color: Color(0x80464656)
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.49,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(60),
+                                          topRight: Radius.circular(60)),
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 1, sigmaY: 2),
+                                        //child: RotationTransition(
+                                        //turns: AlwaysStoppedAnimation(345 / 360),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color(0x9AF1554C),
+                                                  Color(0x9AF1554C),
+                                                  //Color(0x9FFFFECF),
+                                                  //Color(0x9FFFFECF),
+                                                ]),
+                                            //color: Color(0x9FFFFECF),
+                                            //Color(0x40303250),
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(60),
+                                                topRight: Radius.circular(60)),
+                                          ),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5,
                                         ),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.5,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ))))),
+                                ],
+                              ),
+                            ))))),
           Positioned(
             left: MediaQuery.of(context).size.width / 6,
             top: MediaQuery.of(context).size.height * 0.13,
@@ -248,7 +276,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(context, BouncyPageRoute(widget: AdsScreen()));
                 },
-                child: ClipPath(
+                child: ClipShadow(
+                  boxShadow: settings.isDark
+                      ? [
+                          BoxShadow(
+                            color: Colors.transparent,
+                            blurRadius: 0,
+                            spreadRadius: 0,
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ]
+                      : [
+                          BoxShadow(
+                            offset: Offset(25.0, -6.0),
+                            blurRadius: 40.0,
+                            spreadRadius: -25.0,
+                            color: Color(
+                                0xFF0D276B), //Colors.black26,//Color(0x90654890),
+                          )
+                        ],
                   clipper: BackgroundClipperButtonUp(),
                   child: Container(
                     decoration: BoxDecoration(
@@ -272,15 +318,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               //turns: AlwaysStoppedAnimation(345 / 360),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xAF303250),
-                                        Color(0xAF303250),
-                                        //Color(0x9FFFFECF),
-                                        //Color(0x9FFFFECF),
-                                      ]),
+                                  color: settings.isDark
+                                      ? Color(0x40303250)
+                                      : Color(0xFF0D276B),
+
                                   //color: Color(0x9FFFFECF),
                                   //Color(0x40303250),
                                   borderRadius: BorderRadius.only(
@@ -300,7 +341,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: MediaQuery.of(context).size.height * 0.06,
                           ),
                           Icon(
-                            Icons.add_box, size: 80, color: Color(0xFFE7EEFB),
+                            Icons.add, size: 80, color: settings.isDark
+                                    ? Color(0xFFF79E1B)
+                                    : Color(0xFFFFC03D),
                             //Color(0xFFCBB2AB),
                           ),
                           Text(
@@ -320,142 +363,148 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Positioned(
-              left: MediaQuery.of(context).size.width / 6,
-              top: MediaQuery.of(context).size.height * 0.5,
-              right: MediaQuery.of(context).size.width / 9.9,
-              child: RotationTransition(
-                  turns: AlwaysStoppedAnimation(0 / 360),
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context, BouncyPageRoute(widget: OrdersScreen()));
-                      },
-                      child: ClipPath(
-                          clipper: BackgroundClipperButtonDown(),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(60),
-                                    bottomRight: Radius.circular(60)),
-                              ),
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.height * 0.3,
-                              child: Stack(
-                                children: [
-                                  Positioned.fill(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(60),
-                                          bottomRight: Radius.circular(60)),
-                                      child: BackdropFilter(
-                                        filter: ImageFilter.blur(
-                                            sigmaX: 1, sigmaY: 2),
-                                        //child: RotationTransition(
-                                        //turns: AlwaysStoppedAnimation(345 / 360),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Color(0x48303250),
-                                                  Color(0x48303250),
-                                                  //Color(0x9FFFFECF),
-                                                  //Color(0x9FF79E1B),
-                                                ]),
-                                            // color: settings.isDark
-                                            //     ? Colors.pink
-                                            //     : Color(0x9F2D2D2D),
-                                            //Color(0x9AF79E1B),
-                                            //Color(0x40303250),
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(60),
-                                                bottomRight:
-                                                    Radius.circular(60)),
+          if (!settings.isDark)
+            Positioned(
+                left: MediaQuery.of(context).size.width / 6,
+                top: MediaQuery.of(context).size.height * 0.5,
+                right: MediaQuery.of(context).size.width / 9.9,
+                child: RotationTransition(
+                    turns: AlwaysStoppedAnimation(0 / 360),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context, BouncyPageRoute(widget: OrdersScreen()));
+                        },
+                        child: ClipPath(
+                            clipper: BackgroundClipperButtonDown(),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(60),
+                                      bottomRight: Radius.circular(60)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                child: Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(60),
+                                            bottomRight: Radius.circular(60)),
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 1, sigmaY: 2),
+                                          //child: RotationTransition(
+                                          //turns: AlwaysStoppedAnimation(345 / 360),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0x9AFDB05E),
+                                                    Color(0x9AFDB05E),
+                                                    //Color(0x9FFFFECF),
+                                                    //Color(0x9FF79E1B),
+                                                  ]),
+                                              // color: settings.isDark
+                                              //     ? Colors.pink
+                                              //     : Color(0x9F2D2D2D),
+                                              //Color(0x9AF79E1B),
+                                              //Color(0x40303250),
+                                              borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(60),
+                                                  bottomRight:
+                                                      Radius.circular(60)),
+                                            ),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.5,
                                           ),
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.5,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )))))),
-          Positioned(
-              left: MediaQuery.of(context).size.width / 6,
-              top: MediaQuery.of(context).size.height * 0.45,
-              right: MediaQuery.of(context).size.width / 7.7,
-              child: RotationTransition(
-                  turns: AlwaysStoppedAnimation(0 / 360),
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context, BouncyPageRoute(widget: OrdersScreen()));
-                      },
-                      child: ClipPath(
-                          clipper: BackgroundClipperButtonDown(),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(60),
-                                    bottomRight: Radius.circular(60)),
-                              ),
-                              width: MediaQuery.of(context).size.width * 0.49,
-                              height: MediaQuery.of(context).size.height * 0.4,
-                              child: Stack(
-                                children: [
-                                  Positioned.fill(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(60),
-                                          bottomRight: Radius.circular(60)),
-                                      child: BackdropFilter(
-                                        filter: ImageFilter.blur(
-                                            sigmaX: 1, sigmaY: 2),
-                                        //child: RotationTransition(
-                                        //turns: AlwaysStoppedAnimation(345 / 360),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Color(0x60303250),
-                                                  Color(0x60303250),
-                                                  //Color(0x9FFFFECF),
-                                                  //Color(0x9FF79E1B),
-                                                ]),
-                                            // color: settings.isDark
-                                            //     ? Colors.pink
-                                            //     : Color(0x9F2D2D2D),
-                                            //Color(0x9AF79E1B),
-                                            //Color(0x40303250),
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(60),
-                                                bottomRight:
-                                                    Radius.circular(60)),
+                                  ],
+                                )))))),
+          if (!settings.isDark)
+            Positioned(
+                left: MediaQuery.of(context).size.width / 6,
+                top: MediaQuery.of(context).size.height * 0.45,
+                right: MediaQuery.of(context).size.width / 7.7,
+                child: RotationTransition(
+                    turns: AlwaysStoppedAnimation(0 / 360),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context, BouncyPageRoute(widget: OrdersScreen()));
+                        },
+                        child: ClipPath(
+                            clipper: BackgroundClipperButtonDown(),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(60),
+                                      bottomRight: Radius.circular(60)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.49,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.4,
+                                child: Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(60),
+                                            bottomRight: Radius.circular(60)),
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 1, sigmaY: 2),
+                                          //child: RotationTransition(
+                                          //turns: AlwaysStoppedAnimation(345 / 360),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0x9AF1554C),
+                                                    Color(0x9AF1554C),
+                                                    //Color(0x9FFFFECF),
+                                                    //Color(0x9FF79E1B),
+                                                  ]),
+                                              // color: settings.isDark
+                                              //     ? Colors.pink
+                                              //     : Color(0x9F2D2D2D),
+                                              //Color(0x9AF79E1B),
+                                              //Color(0x40303250),
+                                              borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(60),
+                                                  bottomRight:
+                                                      Radius.circular(60)),
+                                            ),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.5,
                                           ),
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.5,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )))))),
+                                  ],
+                                )))))),
           Positioned(
             left: MediaQuery.of(context).size.width / 6,
             top: MediaQuery.of(context).size.height * 0.38,
@@ -467,7 +516,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context, BouncyPageRoute(widget: OrdersScreen()));
                 },
-                child: ClipPath(
+                child: ClipShadow(
+                  boxShadow: settings.isDark
+                      ? [
+                          BoxShadow(
+                            color: Colors.transparent,
+                            blurRadius: 0,
+                            spreadRadius: 0,
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ]
+                      : [
+                          BoxShadow(
+                            offset: Offset(-25.0, 8.0),
+                            blurRadius: 40.0,
+                            spreadRadius: -25.0,
+                            color: Color(
+                                0xFF0D276B), //Colors.black26,//Color(0x90654890),
+                          )
+                        ],
                   clipper: BackgroundClipperButtonDown(),
                   child: Container(
                     decoration: BoxDecoration(
@@ -490,15 +557,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               //turns: AlwaysStoppedAnimation(345 / 360),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xAF303250),
-                                        Color(0xAF303250),
-                                        //Color(0x9FFFFECF),
-                                        //Color(0x9FF79E1B),
-                                      ]),
+                                  color: settings.isDark
+                                      ? Color(0x40303250)
+                                      : Color(0xFF0D276B),
                                   // color: settings.isDark
                                   //     ? Colors.pink
                                   //     : Color(0x9F2D2D2D),
@@ -518,7 +579,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Center(
                             child: Column(children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.25,
+                            height: MediaQuery.of(context).size.height * 0.22,
                           ),
                           Icon(
                             Icons.search,
@@ -529,7 +590,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             'Look for orders',
                             style: TextStyle(
-                                color: Color(0xFFE7EEFB), fontSize: 30),
+                                color: settings.isDark
+                                    ? Color(0xFFF79E1B)
+                                    : Color(0xFFFFC03D),
+                                fontSize: 30),
                           )
                         ])),
                         //),
@@ -544,7 +608,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFFF2525),
+        backgroundColor:
+            settings.isDark ? Color(0xFFF79E1B) : Color(0xFFF1554C),
         //Color(0xFFF79E1B),
         onPressed: () {
           FirebaseAuth.instance.signOut();

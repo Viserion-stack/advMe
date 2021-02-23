@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:advMe/models/place.dart';
 import 'package:advMe/providers/ad_order_provider.dart';
+import 'package:advMe/providers/settings.dart';
 import 'package:advMe/widgets/location_input.dart';
 //import 'package:advMe/providers/products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 //import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -131,9 +133,10 @@ class _AdsScreenState extends State<AdsScreen> {
   Widget build(BuildContext context) {
     //var product = Provider.of<Products>(context, listen: false);
     var address = lok;
+    final settings = Provider.of<SettingsUser>(context);
 
     return Scaffold(
-      backgroundColor: Color(0xFFE7EEFB),
+      backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       //Color(0xFF171923),
       //drawer: Drawer(),
 
@@ -156,7 +159,7 @@ class _AdsScreenState extends State<AdsScreen> {
                         height: 60,
                         child: Icon(
                           Icons.chevron_left,
-                          color: Color(0xFFF79E1B),
+                          color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFFFFC03D),
                           size: 40,
                         ),
                         decoration: BoxDecoration(
@@ -173,7 +176,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             //       blurRadius: 5.0,
                             //       spreadRadius: 1.0),
                             // ],
-                            color: Color(0xFF303250))),
+                            color: settings.isDark ? Color(0x40303250) : Color(0xFF0D276B))),
                     //Color(0x40303250))),
                   ),
                 ),
@@ -185,7 +188,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     text: TextSpan(
                         text: 'add',
                         style: GoogleFonts.ubuntu(
-                          color: Color(0xFF432344),
+                          color: settings.isDark ? Color(0xFFCBB2AB) :  Color(0xFF0D276B),
                           //Color(0xFFCBB2AB),
                           fontSize: 28.0,
                           letterSpacing: 1.5,
@@ -212,12 +215,12 @@ class _AdsScreenState extends State<AdsScreen> {
                 decoration: BoxDecoration(
                   //border: Border.all(color: Color(0x40C31331)),
                   borderRadius: BorderRadius.circular(30),
-                  color: Color(0xFFE7EEFB),
+                  color: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
                 ),
                 height: 350,
                 width: 350,
               ),
-              Positioned(
+              if(!settings.isDark)Positioned(
                 left: 50,
                 right:50,
                 top: MediaQuery.of(context).size.width * .17,
@@ -238,7 +241,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   decoration: BoxDecoration(
                     border: Border.all(color: Color(0x40C31331)),
                     borderRadius: BorderRadius.circular(30),
-                    color: Color(0xFF303250),
+                    color: settings.isDark ? Color(0x40303250) : Color(0xFF0D276B),
                   ),
 
                   height: 300,
@@ -250,7 +253,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             icon: Icon(
                               Icons.add_a_photo,
                               size: 60,
-                              color: Color(0xFFF79E1B),
+                              color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFFF79E1B),
                               //Color(0xFFF79E1B),
                             ),
                             onPressed: () {
@@ -274,7 +277,7 @@ class _AdsScreenState extends State<AdsScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Color(0xAAFFC03D),
+                  color: Color(0xFFFFC03D),
                   //Color(0xFFF79E1B),
                 ),
                 child: Padding(
@@ -296,7 +299,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     elevation: 16,
                     underline: Container(
                       height: 2,
-                      color: Color(0xFFF79E1B),
+                      color: Color(0xFFFFC03D),
                     ),
                     value: valueChoose,
                     onChanged: (String value) {
@@ -318,113 +321,123 @@ class _AdsScreenState extends State<AdsScreen> {
               ),
             ),
             SizedBox(height: 20),
-            Container(
-                decoration: BoxDecoration(
-                    color: Color(0x40303250),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextFormField(
-                    textAlign: TextAlign.start,
-                    cursorColor: Color(0xFFF79E1B),
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
-                    decoration: InputDecoration(
-                        filled: true,
-                        border: new OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
+            Padding(
+              padding: const EdgeInsets.only(left:8.0,right:8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: settings.isDark ? Color(0x40303250) : Color(0x80FFC03D),
+                      //Color(0x40303250),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: TextFormField(
+                      textAlign: TextAlign.start,
+                      cursorColor: Color(0xFFF79E1B),
+                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Color(0xFF464656),
+                            ),
                           ),
-                          borderSide: BorderSide(
-                            color: Color(0xFF464656),
-                          ),
-                        ),
-                        hintText: 'Tilte',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF432344),
-                          //Color(0xFFCBB2AB),
-                        )),
-                    controller: titleController,
-                  ),
-                )),
-            SizedBox(height: 20),
-            Container(
-                decoration: BoxDecoration(
-                    color: Color(0x40303250),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.start,
-                    cursorColor: Color(0xFFF79E1B),
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
-                    decoration: InputDecoration(
-                        filled: true,
-                        border: new OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
-                          ),
-                          borderSide: BorderSide(
-                            color: Color(0xFF464656),
-                          ),
-                        ),
-                        hintText: 'Price',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF432344),
-                          //Color(0xFFCBB2AB),
-                        )),
-                    controller: priceController,
-                  ),
-                )),
-            SizedBox(height: 20),
-            Container(
-                decoration: BoxDecoration(
-                    color: Color(0x40303250),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextFormField(
-                    maxLines: 5,
-                    style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
-                    decoration: InputDecoration(
-                        filled: true,
-                        border: new OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(20.0),
-                          ),
-                          borderSide: BorderSide(
-                            color: Color(0xFF464656),
-                          ),
-                        ),
-                        hintText: 'Description',
-                        hintStyle: TextStyle(
-                          color: Color(0xFF432344),
-                          //Color(0xFFCBB2AB),
-                        )),
-                    controller: descriptionController,
-                  ),
-                )),
+                          hintText: 'Tilte',
+                          hintStyle: TextStyle(
+                            color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF432344),
+                            //Color(0xFFCBB2AB),
+                          )),
+                      controller: titleController,
+                    ),
+                  )),
+            ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left:8.0,right:8.0),
               child: Container(
                   decoration: BoxDecoration(
-                      color: Color(0xAAFFC03D),
+                      color: settings.isDark ? Color(0x40303250) : Color(0x80FFC03D),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.start,
+                      cursorColor: Color(0xFFF79E1B),
+                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Color(0xFF464656),
+                            ),
+                          ),
+                          hintText: 'Price',
+                          hintStyle: TextStyle(
+                            color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF432344),
+                            //Color(0xFFCBB2AB),
+                          )),
+                      controller: priceController,
+                    ),
+                  )),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left:8.0,right:8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: settings.isDark ? Color(0x40303250) : Color(0x80FFC03D),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: TextFormField(
+                      maxLines: 5,
+                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(20.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Color(0xFF464656),
+                            ),
+                          ),
+                          hintText: 'Description',
+                          hintStyle: TextStyle(
+                            color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF432344),
+                            //Color(0xFFCBB2AB),
+                          )),
+                      controller: descriptionController,
+                    ),
+                  )),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left:8.0,right:8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: settings.isDark ? Color(0x40303250) : Color(0x80FFC03D),
                       //Color(0x40303250),
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
@@ -451,7 +464,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                           hintText: 'Phone',
                           hintStyle: TextStyle(
-                            color: Color(0xFF432344),
+                            color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF432344),
                             //Color(0xFFCBB2AB),
                           )),
                       controller: phoneNumberController,
@@ -463,7 +476,7 @@ class _AdsScreenState extends State<AdsScreen> {
               padding: const EdgeInsets.only(left:8.0,right:8.0),
               child: Container(
                   decoration: BoxDecoration(
-                      color: Color(0xAAFFC03D),
+                      color: settings.isDark ? Color(0x40303250) : Color(0x80FFC03D),
                       //Color(0x40303250),
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
@@ -490,7 +503,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                           hintText: 'Website',
                           hintStyle: TextStyle(
-                            color: Color(0xFF432344),
+                            color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF432344),
                             //Color(0xFFCBB2AB),
                           )),
                       controller: websiteController,
@@ -507,7 +520,7 @@ class _AdsScreenState extends State<AdsScreen> {
             Text(
               address != null ? address : 'Choose loacalization',
               style: TextStyle(
-                color: Color(0xFF432344),
+                color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
                 //Colors.white54,
               ),
             ),

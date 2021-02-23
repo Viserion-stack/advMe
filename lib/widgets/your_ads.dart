@@ -1,5 +1,6 @@
 
 //import 'package:animations/animations.dart';
+import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
 
 //import 'package:advMe/widgets/category_item.dart';
@@ -7,6 +8,7 @@ import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class YourAds extends StatefulWidget {
   @override
@@ -18,22 +20,23 @@ class _YourAdsState extends State<YourAds> {
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
     //final transitionType = ContainerTransitionType.fade;
+    final settings = Provider.of<SettingsUser>(context);
     
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Color(0xFF171923),
+        color: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       ),
       child: Stack(
         children: [
           Center(
             child: RotatedBox(
-              quarterTurns: 1,
+              quarterTurns: 3,
               child: Text(
                 'advMe',
                 style: GoogleFonts.ubuntu(
-                  color: Color(0x40C31331),
+                  color: settings.isDark ? Color(0x40C31331): Color(0x78FFC03D),
                   fontSize: 140,
                   fontWeight: FontWeight.w700,
                 ),
