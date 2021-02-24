@@ -1,3 +1,5 @@
+import 'package:advMe/widgets/orders_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,37 +45,44 @@ class _AllOrdersState extends State<AllOrders> {
               ),
             ),
           ),
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                height: MediaQuery.of(context).size.height * 0.15,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: colors[index],
-                              borderRadius: BorderRadius.circular(40)),
-                          width: MediaQuery.of(context).size.width * 0.35,
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: FutureBuilder(
+              future:
+                  FirebaseFirestore.instance.collection('allAds').get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> orderSnapshot) {
+                if (orderSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-                          //color: Colors.blue,
-                          child: Center(
-                            child: Text(
-                              categories[index],
-                              style: TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-             // Container(child: ,)
-            ],
-          )
+                print('Ilość załadowanych ogłoszeń futurebuilderem ' +
+                    orderSnapshot.data.docs.length.toString());
+                return ListView.builder(
+                  cacheExtent: 1000,
+                  reverse: false,
+                  itemCount: orderSnapshot.data.docs.length,
+                  itemBuilder: (ctx, index) {
+                    DocumentSnapshot userData = orderSnapshot.data.docs[index];
+
+                    return OrdersItem(
+                      description: userData.data()['description'],
+                      id: userData.id,
+                      title: userData.data()['title'],
+                      imageUrl: userData.data()['imageUrl'],
+                      isFavorite: false,
+                      price: userData.data()['price'],
+                      phone: userData.data()['phone'],
+                      website: userData.data()['website'],
+                      address: userData.data()['address'],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

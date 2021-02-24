@@ -18,15 +18,15 @@ class OrdersItem extends StatelessWidget {
   final String address;
 
   OrdersItem({
-    @required this.id,
-    @required this.title,
-    @required this.description,
-    @required this.isFavorite,
-    @required this.imageUrl,
-    @required this.price,
-    @required this.phone,
-    @required this.website,
-    @required this.address,
+    this.id,
+     this.title,
+     this.description,
+     this.isFavorite,
+     this.imageUrl,
+     this.price,
+     this.phone,
+     this.website,
+     this.address,
   });
 
   @override

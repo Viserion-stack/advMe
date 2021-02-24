@@ -1,7 +1,9 @@
+import 'package:advMe/providers/orders.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/your_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OrdersScreen extends StatefulWidget {
   OrdersScreen({Key key}) : super(key: key);
@@ -16,6 +18,9 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
 
   @override
   void initState() {
+
+ Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
+
     super.initState();
     _tabController = TabController(length: 2,vsync: this);
   }
@@ -27,6 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
   }
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF171923),

@@ -17,8 +17,6 @@ class _YourAdsState extends State<YourAds> {
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    //final transitionType = ContainerTransitionType.fade;
-    
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -56,7 +54,7 @@ class _YourAdsState extends State<YourAds> {
                   );
                 }
 
-                print(orderSnapshot.data.docs.length);
+                print('Ilość załadowanych ogłoszeń streambuilderem '+ orderSnapshot.data.docs.length.toString());
                 return ListView.builder(
                   cacheExtent: 1000,
                   reverse: false,

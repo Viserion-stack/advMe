@@ -55,6 +55,77 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     }
   }
 
+  Future<void> _deleteUserOrder(String id, String title) async {
+    var firebaseUser = FirebaseAuth.instance.currentUser.uid;
+    String itemToDelete = widget.title + '.jpg';
+
+    var storageReferance = FirebaseStorage.instance.ref();
+    storageReferance
+        .child('allAds/$firebaseUser/$itemToDelete')
+        .delete()
+        .then((_) {
+      print("Deleting from Storage success!");
+    });
+
+    //     await FirebaseStorage.instance.refFromURL(widget.imageUrl).delete().then((_) {
+    //   print("Deleting from Storage success!");
+    // });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser)
+        .collection("user_orders")
+        .doc(widget.id)
+        .delete()
+        .then((_) {
+      print("Deleting from Firebase success!");
+    });
+
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+
+    // TODO: ADD ScaffoldMessneger in next stable flutter release
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   const SnackBar(
+    //     content: Text('A SnackBar has been shown.'),
+    //   ),
+    // );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Are you sure? '),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                    'Are you sure to delete this Adevert? Press Yes to confirm or No to reject.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('NO'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('YES'),
+              onPressed: () async {
+                await _deleteUserOrder(widget.id, widget.title);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     final staticMapImageUrl =
@@ -67,75 +138,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final OrdersItem args = ModalRoute.of(context).settings.arguments;
-
-    Future<void> _showMyDialog() async {
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Are you sure? '),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(
-                      'Are you sure to delete this Adevert? Press Yes to confirm or No to reject.'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('NO'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: Text('YES'),
-                onPressed: () async {
-                  var firebaseUser = FirebaseAuth.instance.currentUser.uid;
-                  String itemToDelete = widget.title + '.jpg';
-
-                  var storageReferance = FirebaseStorage.instance.ref();
-                  storageReferance
-                      .child('allAds/$firebaseUser/$itemToDelete')
-                      .delete()
-                      .then((_) {
-                    print("Deleting from Storage success!");
-                  });
-
-                  //     await FirebaseStorage.instance.refFromURL(widget.imageUrl).delete().then((_) {
-                  //   print("Deleting from Storage success!");
-                  // });
-
-                  await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(firebaseUser)
-                      .collection("user_orders")
-                      .doc(widget.id)
-                      .delete()
-                      .then((_) {
-                    print("Deleting from Firebase success!");
-                  });
-
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-
-                  // TODO: ADD ScaffoldMessneger in next stable flutter release
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     content: Text('A SnackBar has been shown.'),
-                  //   ),
-                  // );
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(
@@ -148,6 +150,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   _showMyDialog();
+                 
                 }),
           ]),
       backgroundColor: Color(0x40303250),
@@ -175,7 +178,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
               child: Text(
-                widget.price + ' EUR',
+                widget.price + ' PLN',
                 style: TextStyle(
                   color: Color(0xEEC31331),
                   fontSize: 40,

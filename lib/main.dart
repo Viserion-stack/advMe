@@ -1,9 +1,9 @@
-import 'package:advMe/providers/products.dart';
+import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
-import 'package:advMe/screens/categories_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
+//import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:advMe/screens/orders_screen.dart';
 //import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: Products(),
+          value: Orders(),
         ),
       ],
       child: MaterialApp(
@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
           AdsScreen.routeName: (ctx) => AdsScreen(),
           //CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
           //OrderDetailScreen.routeName: (ctx) => OrderDetailScreen(),
-          CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
           //'/category-meals': (ctx) =>CategoryMealsScreen(),
         },
 
@@ -65,11 +64,7 @@ class MyApp extends StatelessWidget {
           // }
           // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
         },
-        onUnknownRoute: (settings) {
-          return MaterialPageRoute(
-            builder: (ctx) => CategoriesScreen(),
-          );
-        },
+        
       ),
     );
   }

@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:advMe/models/place.dart';
-import 'package:advMe/providers/ad_order_provider.dart';
+import 'package:advMe/providers/order.dart';
+import 'package:advMe/providers/orders.dart';
 import 'package:advMe/widgets/location_input.dart';
-//import 'package:advMe/providers/products.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-//import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AdsScreen extends StatefulWidget {
@@ -101,6 +103,40 @@ class _AdsScreenState extends State<AdsScreen> {
     });
     isPhoto = true;
     //widget.imagePickFn(pickedImageFile);
+  }
+
+  Future<void> _addorder(String address) async {
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('allAds')
+        .child(uid)
+        .child(titleController.text.toString() + '.jpg');
+    await ref.putFile(_pickedImage);
+
+    final url = await ref.getDownloadURL();
+
+    var newOrder = Order(
+      userId: uid,
+      id: uid,
+      title: titleController.text.toString(),
+      price: priceController.text.toString(),
+      description: descriptionController.text.toString(),
+      imageUrl: url,
+      date: DateTime.now(),
+      phone: phoneNumberController.text.toString(),
+      website: websiteController.text.toString(),
+      address: address,
+    );
+    await Provider.of<Orders>(context, listen: false)
+        .addOrder(newOrder)
+        .then((void nothing) {
+      print("Order Added to cloud firestore");
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((e) => print(e));
+    
   }
 
   final descriptionController = TextEditingController();
@@ -454,27 +490,12 @@ class _AdsScreenState extends State<AdsScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
                   setState(() {
                     isLoading = true;
                   });
-
-                  addPost(
-                          new DateTime.now(),
-                          titleController.text.toString(),
-                          descriptionController.text.toString(),
-                          _pickedImage,
-                          priceController.text.toString(),
-                          phoneNumberController.text.toString(),
-                          websiteController.text.toString(),
-                          address)
-                      .then((void nothing) {
-                    print("done");
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }).catchError((e) => print(e));
-                  //product.fetchAndSetProducts();
+                  _addorder(
+                      address); //Addres field mus be passed as argument!!!
                 },
                 child: isLoading
                     ? CircularProgressIndicator()
