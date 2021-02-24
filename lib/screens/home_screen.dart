@@ -47,9 +47,20 @@ class _HomeScreenState extends State<HomeScreen> {
     getData();
   }
 
+  
+  void _updateSettings() async {
+    FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'isDark': isDark,
+      'isNotifications': isNotif,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
+    if(settings.isDark == null)isDark = false;
+    
+    isNotif = settings.isNotifications;
     //final uid = FirebaseAuth.instance.currentUser.uid;
     FirebaseFirestore.instance.collection('users').doc(uid).get();
     settings.setValues(
@@ -341,15 +352,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: MediaQuery.of(context).size.height * 0.06,
                           ),
                           Icon(
-                            Icons.add, size: 80, color: settings.isDark
-                                    ? Color(0xFFF79E1B)
-                                    : Color(0xFFFFC03D),
+                            Icons.add,
+                            size: 80,
+                            color: settings.isDark
+                                ? Color(0xFFF79E1B)
+                                : Color(0xFFFFC03D),
                             //Color(0xFFCBB2AB),
                           ),
                           Text(
                             'Add yourself',
                             style: TextStyle(
-                              color: Color(0xFFFFC03D),
+                              color: settings.isDark
+                                ? Color(0xFFF79E1B)
+                                : Color(0xFFFFC03D),
                               //Color(0xFFF79E1B),
                               fontSize: 30,
                             ),
@@ -584,7 +599,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           Icon(
                             Icons.search,
                             size: 80,
-                            color: Color(0xFFFFC03D),
+                            color: settings.isDark
+                                    ? Color(0xFFF79E1B)
+                                    : Color(0xFFFFC03D),
                             //Color(0xFFF79E1B),
                           ),
                           Text(
@@ -596,10 +613,53 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 30),
                           )
                         ])),
+
                         //),
                       ],
                     ),
                   ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * .91,
+            left: MediaQuery.of(context).size.width * .45,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  
+                  isDark = !isDark;
+                  settings.isDark = isDark;
+                  _updateSettings();
+                });
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  boxShadow: settings.isDark ?[
+                    BoxShadow(
+                      color: Colors.transparent,
+                      blurRadius: 0,
+                      spreadRadius: 0,
+                    ),
+                  ] :[
+                    BoxShadow(
+                      color: Color(0xEE387CFF),
+                      blurRadius: 20,
+                      spreadRadius: 0,
+                    ),
+                  ] ,
+                  shape: BoxShape.circle,
+                  color:
+                      settings.isDark ? Color(0xFF171923) : Color(0xFF387CFF),
+                ),
+                child: Icon(
+                  settings.isDark ? Icons.wb_sunny : Icons.bedtime_sharp,
+                  color:
+                      settings.isDark ? Color(0xFFF79E1B) : Color(0xFFFFC03D),
+                      size: 35,
                 ),
               ),
             ),

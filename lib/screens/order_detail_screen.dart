@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:advMe/providers/settings.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
@@ -136,6 +138,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       );
     }
 
+    final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(
@@ -150,7 +153,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   _showMyDialog();
                 }),
           ]),
-      backgroundColor: Color(0x40303250),
+      backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       body: SingleChildScrollView(
         child: Column(
           children: [
