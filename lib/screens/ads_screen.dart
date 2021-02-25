@@ -6,6 +6,7 @@ import 'package:advMe/providers/settings.dart';
 import 'package:advMe/widgets/location_input.dart';
 //import 'package:advMe/providers/products.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -551,7 +552,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   //product.fetchAndSetProducts();
                 },
                 child: isLoading
-                    ? CircularProgressIndicator()
+                    ? SpinKitWave(color: Color(0xFFF79E1B),)
                     : Container(
                         child: Center(
                           child: Text(

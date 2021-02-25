@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +56,8 @@ class _YourAdsState extends State<YourAds> {
                   AsyncSnapshot<QuerySnapshot> orderSnapshot) {
                 if (orderSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: SpinKitWave(color: Color(0xFFF79E1B),)
+                    //CircularProgressIndicator(),
                   );
                 }
 

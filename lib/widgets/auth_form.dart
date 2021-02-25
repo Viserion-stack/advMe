@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -371,7 +372,7 @@ class _AuthFormState extends State<AuthForm> {
                           },
                         ),
                         SizedBox(height: 12),
-                        if (widget.isLoading) CircularProgressIndicator(),
+                        if (widget.isLoading) SpinKitWave(color: Color(0xFFF79E1B),),
                         if (!widget.isLoading)
                           RaisedButton(
                             shape: RoundedRectangleBorder(
