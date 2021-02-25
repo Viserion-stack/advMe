@@ -1,10 +1,9 @@
 import 'dart:ui';
 
-//import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:page_transition/page_transition.dart';
 
 class OrdersItem extends StatelessWidget {
   final String id;
@@ -18,137 +17,137 @@ class OrdersItem extends StatelessWidget {
   final String address;
 
   OrdersItem({
-    this.id,
-     this.title,
-     this.description,
-     this.isFavorite,
-     this.imageUrl,
-     this.price,
-     this.phone,
-     this.website,
-     this.address,
+    @required this.id,
+    @required this.title,
+    @required this.description,
+    @required this.isFavorite,
+    @required this.imageUrl,
+    @required this.price,
+    @required this.phone,
+    @required this.website,
+    @required this.address,
   });
 
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            PageTransition(
-              type: PageTransitionType.rightToLeftWithFade,
-              child: OrderDetailScreen(
-                id,
-                title,
-                description,
-                isFavorite,
-                imageUrl,
-                price,
-                phone,
-                website,
-                address,
+    return OpenContainer(
+      transitionDuration: Duration(milliseconds: 650),
+      transitionType: ContainerTransitionType.fade,
+      closedColor: Color(0x40303250),
+      openColor: Color(0xFF171923),
+      openBuilder: (context, _) => OrderDetailScreen(
+        id: id,
+        title: title,
+        description: description,
+        isFavorite: isFavorite,
+        imageUrl: imageUrl,
+        price: price,
+        phone: phone,
+        website: website,
+        address: address,
+      ),
+      closedBuilder: (context, _) => Container(
+        width: 500,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Card(
+              color: Color(0x40303250),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
               ),
-            ));
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Card(
-            color: Color(0x40303250),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            elevation: 4,
-            margin: EdgeInsets.all(5),
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 30, sigmaY: 5),
-                child: Row(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        //topRight: Radius.circular(5),
-                        bottomLeft: Radius.circular(15),
-                      ),
-                      child: Image.network(
-                        imageUrl,
-                        height: 120,
-                        width: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(children: <Widget>[
-                        Text(
-                          title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                          ),
+              elevation: 4,
+              margin: EdgeInsets.all(5),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 30, sigmaY: 5),
+                  child: Row(
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          //topRight: Radius.circular(5),
+                          bottomLeft: Radius.circular(15),
                         ),
-                        SizedBox(
-                          height: 5,
+                        child: Image.network(
+                          imageUrl,
+                          height: 120,
+                          width: 120,
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          child: Text(
-                            '$price zł',
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Column(children: <Widget>[
+                          Text(
+                            title,
                             style: TextStyle(
-                              color: Color(0xFFC31331),
-                              fontSize: 26,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontSize: 22,
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                            child: Row(children: [
-                          Icon(
-                            Icons.star,
-                            color: Color(0xFFF79E1B),
+                          SizedBox(
+                            height: 5,
                           ),
-                          Icon(
-                            Icons.star,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Color(0xFFF79E1B),
+                          Container(
+                            child: Text(
+                              '$price zł',
+                              style: TextStyle(
+                                color: Color(0xFFC31331),
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           SizedBox(
-                            width: 10,
+                            height: 20,
                           ),
-                          Text(
-                            '3.2',
-                            style: TextStyle(
-                                fontSize: 26,
-                                color: Color(0xFFF79E1B),
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ])),
-                      ]),
-                    ),
-                  ],
+                          Container(
+                              child: Row(children: [
+                            Icon(
+                              Icons.star,
+                              color: Color(0xFFF79E1B),
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xFFF79E1B),
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xFFF79E1B),
+                            ),
+                            Icon(
+                              Icons.star_border,
+                              color: Color(0xFFF79E1B),
+                            ),
+                            Icon(
+                              Icons.star_border,
+                              color: Color(0xFFF79E1B),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '3.2',
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  color: Color(0xFFF79E1B),
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ])),
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

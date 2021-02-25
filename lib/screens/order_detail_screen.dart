@@ -18,7 +18,7 @@ class OrderDetailScreen extends StatefulWidget {
   final String website;
   final String address;
 
-  OrderDetailScreen(
+  OrderDetailScreen({
     this.id,
     this.title,
     this.description,
@@ -28,7 +28,7 @@ class OrderDetailScreen extends StatefulWidget {
     this.phone,
     this.website,
     this.address,
-  );
+  });
 
   @override
   _OrderDetailScreenState createState() => _OrderDetailScreenState();
@@ -150,7 +150,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   _showMyDialog();
-                 
                 }),
           ]),
       backgroundColor: Color(0x40303250),
