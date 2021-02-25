@@ -1,4 +1,5 @@
 import 'package:advMe/providers/orders.dart';
+import 'package:advMe/providers/settings.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/your_ads.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,10 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
   }
   @override
   Widget build(BuildContext context) {
-    
+    final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF171923),
+        backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
         leading: GestureDetector(
           onTap: () {
             Navigator.of(context).pop();
@@ -59,10 +60,10 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
                   //       blurRadius: 5.0,
                   //       spreadRadius: 1.0),
                   // ],
-                  color: Color(0x40303250)),
+                  color: settings.isDark ? Color(0x40303250): Color(0xFF0D276B)),
               child: Icon(
                 Icons.chevron_left,
-                color: Color(0xFFF79E1B),
+                color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFFFFC03D),
                 size: 40,
               ),
             ),
@@ -74,7 +75,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
             text: TextSpan(
                 text: 'lookFor',
                 style: GoogleFonts.ubuntu(
-                  color: Color(0xFFCBB2AB),
+                  color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) ,
                   fontSize: 24.0,
                   letterSpacing: 1.5,
                   fontWeight: FontWeight.w600,
@@ -94,7 +95,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
         ),
         bottom: TabBar(controller: _tabController,
         indicatorColor: Color(0xEEC31331),
-        labelColor: Colors.white,
+        labelColor: settings.isDark ? Colors.white :  Color(0xFF0D276B),
         indicatorWeight: 5.0,
         //isScrollable: true,
         indicatorSize: TabBarIndicatorSize.tab,

@@ -3,8 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:advMe/providers/settings.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
@@ -138,79 +142,197 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Color(0xFFF79E1B),
-          ),
-          backgroundColor: Color(0xFF171923),
-          title: Text(widget.title),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  _showMyDialog();
-                }),
-          ]),
-      backgroundColor: Color(0x40303250),
+      
+      // appBar: AppBar(
+      //     iconTheme: IconThemeData(
+      //       color: Color(0xFFF79E1B),
+      //     ),
+      //     backgroundColor: Color(0xFF171923),
+      //     title: Text(widget.title),
+      //     actions: [
+      //       IconButton(
+      //           icon: Icon(Icons.delete),
+      //           onPressed: () {
+      //             _showMyDialog();
+      //           }),
+      //     ]),
+      backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-                padding: const EdgeInsets.all(8.0),
-                height: 380,
-                width: MediaQuery.of(context).size.width * 2,
-                child: Image.network(widget.imageUrl)),
             SizedBox(
-              height: 50,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
-            Text(
-              'Price:',
-              style: TextStyle(
-                color: Color(0xFFF79E1B),
-                fontSize: 20,
+            Row(children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Container(
+                      width: 60,
+                      height: 60,
+                      child: Icon(
+                        Icons.chevron_left,
+                        color: settings.isDark
+                            ? Color(0xFFF79E1B)
+                            : Color(0xFFFFC03D),
+                        size: 40,
+                      ),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //       color: Color(0x40F79E1B),
+                          //       offset: Offset(2.0, 2.0),
+                          //       blurRadius: 5.0,
+                          //       spreadRadius: 1.0),
+                          //   BoxShadow(
+                          //       color: Color(0x40F79E1B),
+                          //       offset: Offset(-2.0, -2.0),
+                          //       blurRadius: 5.0,
+                          //       spreadRadius: 1.0),
+                          // ],
+                          color: settings.isDark
+                              ? Color(0x40303250)
+                              : Color(0xFF0D276B))),
+                  //Color(0x40303250))),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 10,
+                  left: 270,
+                  bottom: 5,
+                ),
+                child: IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: settings.isDark
+                          ? Color(0xFFF79E1B)
+                          : Color(0xEEC31331),
+                      size: 45,
+                    ),
+                    onPressed: () {
+                      _showMyDialog();
+                    }),
+              ),
+            ]),
+            SizedBox(
+              height: 30,
+            ),
+
+            Container(
+              //padding: const EdgeInsets.all(10.0),
+              height: 350,
+              width: MediaQuery.of(context).size.width * 1,
+              child: Swiper(
+                itemCount: 3,
+                itemWidth: MediaQuery.of(context).size.width - 2 * 64,
+                layout: SwiperLayout.STACK,
+                pagination: SwiperPagination(
+                    builder: DotSwiperPaginationBuilder(
+                  activeSize: 10,
+                  space: 0,
+                )),
+                itemBuilder: (_, index) {
+                  //return InkWell(onTap: () {});
+
+                  return Stack(children: [
+                    Card(
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        //color: Colors.white,
+                        child:
+                            //Container(
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(32),
+                            //   ),
+                            //   child:
+                            //FittedBox(child:
+                            Image.network(widget.imageUrl)),
+                  ]);
+                },
               ),
             ),
+            //Image.network(widget.imageUrl)),
+            SizedBox(
+              height: 30,
+            ),
+
+            Positioned(
+              left: MediaQuery.of(context).size.width * 0.2,
+              top: 100,
+              child: Text(
+                widget.title,
+                style: GoogleFonts.ubuntu(
+                  color:
+                      settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),
+                  fontSize: 40.0,
+                  //letterSpacing: .5,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+
             SizedBox(
               height: 20,
             ),
+
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
               child: Text(
                 widget.price + ' PLN',
                 style: TextStyle(
                   color: Color(0xEEC31331),
-                  fontSize: 40,
+                  fontSize: 30,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Divider(
+              color: settings.isDark ? Color(0xFFF79E1B) : Color(0xAA0D276B),
+              thickness: 0.5,
+              //height: 100,
+              endIndent: 30,
+              indent: 30,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+              child: Text(
+                widget.description,
+                style: TextStyle(
+                  fontFamily: 'Avenir',
+                  color: settings.isDark ? Colors.white54 : Color(0xAA0D276B),
+                  fontSize: 22,
                 ),
               ),
             ),
             SizedBox(
               height: 30,
             ),
-            Text(
-              'Description:',
-              style: TextStyle(
-                color: Color(0xFFF79E1B),
-                fontSize: 20,
-              ),
+            Divider(
+              color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),
+              thickness: 0.5,
+              endIndent: 30,
+              indent: 30,
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-              child: Text(
-                widget.description,
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
             //LocationInput(),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Container(
               //height: 170,
@@ -248,7 +370,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xEEC31331),
+                      color: settings.isDark
+                          ? Color(0xEEC31331)
+                          : Color(0xFFF1554C),
                     ),
                     child: IconButton(
                       icon: Icon(
@@ -265,12 +389,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFFCBB2AB),
+                      color: settings.isDark
+                          ? Color(0xFFCBB2AB)
+                          : Color(0xEE387CFF),
                     ),
                     child: IconButton(
                         icon: Icon(
                           Icons.open_in_browser_outlined,
-                          color: Color(0xFF303250),
+                          color: settings.isDark
+                              ? Color(0xFF303250)
+                              : Colors.white,
                         ),
                         onPressed: () {
                           launchURL(widget.website);
@@ -281,7 +409,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFFF79E1B),
+                      color: settings.isDark
+                          ? Color(0xFFF79E1B)
+                          : Color(0xFFFFC03D),
                     ),
                     child: IconButton(
                         icon: Icon(
@@ -295,7 +425,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
           ],
         ),
       ),

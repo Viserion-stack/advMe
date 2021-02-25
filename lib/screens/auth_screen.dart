@@ -1,9 +1,11 @@
+import 'package:advMe/providers/settings.dart';
 import 'package:advMe/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -67,6 +69,8 @@ void _showErrorDialog(String message) {
             .set({
           'username': username,
           'email': email,
+          'isDark': false,
+          'isNotif': false,
         });
         var user = FirebaseAuth.instance.currentUser;
         user.updateProfile(
@@ -119,9 +123,11 @@ void _showErrorDialog(String message) {
       });
     }
   }
+ 
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: AuthForm(

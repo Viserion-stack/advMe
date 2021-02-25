@@ -23,13 +23,22 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    bool isDark = false;
+    bool isNotif = false;
+    final settings = Provider.of<SettingsUser>(context);
+    //FirebaseFirestore.instance.collection('users').doc(uid).get();
+    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
           value: Orders(),
+        ),
+        ChangeNotifierProvider.value(
+          value: SettingsUser(),
         ),
       ],
       child: MaterialApp(
