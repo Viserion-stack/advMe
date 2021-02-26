@@ -36,12 +36,13 @@ class _AllOrdersState extends State<AllOrders> {
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-        ),
-        child: Stack(children: [
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        color: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
+      ),
+      child: Stack(
+        children: [
           Center(
             child: RotatedBox(
               quarterTurns: 3,
@@ -57,71 +58,44 @@ class _AllOrdersState extends State<AllOrders> {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: FutureBuilder(
-                  future: FirebaseFirestore.instance.collection('allAds').get(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> orderSnapshot) {
-                    if (orderSnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 24),
-                          height: MediaQuery.of(context).size.height * 0.15,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: categories.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                  padding: const EdgeInsets.only(left: 5.0),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          color: settings.isDark
-                                              ? colorsDark[index]
-                                              : colorsLight[index],
-                                          borderRadius:
-                                              BorderRadius.circular(40)),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.35,
+            padding: const EdgeInsets.only(top: 8.0),
+            child: FutureBuilder(
+              future: FirebaseFirestore.instance.collection('allAds').get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> orderSnapshot) {
+                if (orderSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-                                      // print('Ilość załadowanych ogłoszeń futurebuilderem ' +
-                                      //     orderSnapshot.data.docs.length.toString());
-                                      child: ListView.builder(
-                                        cacheExtent: 1000,
-                                        reverse: false,
-                                        itemCount:
-                                            orderSnapshot.data.docs.length,
-                                        itemBuilder: (ctx, index) {
-                                          DocumentSnapshot userData =
-                                              orderSnapshot.data.docs[index];
+                // print('Ilość załadowanych ogłoszeń futurebuilderem ' +
+                //     orderSnapshot.data.docs.length.toString());
+                return ListView.builder(
+                  cacheExtent: 1000,
+                  reverse: false,
+                  itemCount: orderSnapshot.data.docs.length,
+                  itemBuilder: (ctx, index) {
+                    DocumentSnapshot userData = orderSnapshot.data.docs[index];
 
-                                          return OrdersItem(
-                                            description:
-                                                userData.data()['description'],
-                                            id: userData.id,
-                                            title: userData.data()['title'],
-                                            imageUrl:
-                                                userData.data()['imageUrl'],
-                                            isFavorite: false,
-                                            price: userData.data()['price'],
-                                            phone: userData.data()['phone'],
-                                            website: userData.data()['website'],
-                                            address: userData.data()['address'],
-                                          );
-                                        },
-                                      )));
-                            },
-                          ),
-                        ),
-                      ],
+                    return OrdersItem(
+                      description: userData.data()['description'],
+                      id: userData.id,
+                      title: userData.data()['title'],
+                      imageUrl: userData.data()['imageUrl'],
+                      isFavorite: false,
+                      price: userData.data()['price'],
+                      phone: userData.data()['phone'],
+                      website: userData.data()['website'],
+                      address: userData.data()['address'],
                     );
-                  }))
-        ]));
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
