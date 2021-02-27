@@ -34,13 +34,14 @@ class OrdersItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsUser>(context);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return OpenContainer(
       transitionDuration: Duration(milliseconds: 650),
       transitionType: ContainerTransitionType.fade,
-      closedColor: Color(0x40303250),
-      openColor: Color(0xFF171923),
+      closedColor: settings.isDark ?  Color(0x40303250) : Colors.transparent,
+      openColor: settings.isDark ? Color(0xFF171923): Colors.transparent,
       openBuilder: (context, _) => OrderDetailScreen(
         id: id,
         title: title,

@@ -214,7 +214,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       color: settings.isDark
                           ? Color(0xFFF79E1B)
                           : Color(0xEEC31331),
-                      size: 45,
+                      size: 42,
                     ),
                     onPressed: () {
                       _showMyDialog();
