@@ -59,6 +59,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     }
   }
 
+//TODO make sure that in all orders user can't delete order!!!
+
   Future<void> _deleteUserOrder(String id, String title) async {
     var firebaseUser = FirebaseAuth.instance.currentUser.uid;
     String itemToDelete = widget.title + '.jpg';

@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -5,24 +6,35 @@ import 'package:flutter/material.dart';
 import 'package:advMe/providers/order.dart';
 
 class Orders with ChangeNotifier {
-  List<Order> _items = [
-    
-  ];
+  List<Order> _items = [];
 
   List<Order> get items {
     // if (_showFavoritesOnly) {
     //   return _items.where((prodItem) => prodItem.isFavorite).toList();
     // }
+
     return [..._items];
   }
 
+  List<void> itemstitles() {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((orderItem) => orderItem.isFavorite).toList();
+    // }
+    final ads = [];
+    for (int i = 0; i < _items.length; i++) {
+      ads.add(_items[i].title);
+    }
+    print('AAA');
+    print(ads);
+    print('BBB');
+    return ads;
+  }
+
   Future<void> fetchAndSetProducts() async {
-    var uId = FirebaseAuth.instance.currentUser.uid;
+    //var uId = FirebaseAuth.instance.currentUser.uid;
     final List<Order> loadedProducts = [];
-   await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .collection("user_orders")
+    await FirebaseFirestore.instance
+        .collection('allAds')
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((prodData) {
@@ -43,9 +55,9 @@ class Orders with ChangeNotifier {
         );
         //print(prodData.data()['title']);
       });
-         
-         print('Ilość załadowanych ogłoszeń providerem: ' +items.length.toString());
 
+      print(
+          'Ilość załadowanych ogłoszeń providerem: ' + items.length.toString());
     });
 
     _items = loadedProducts;
@@ -57,9 +69,7 @@ class Orders with ChangeNotifier {
   ) async {
     try {
       var uid = FirebaseAuth.instance.currentUser.uid;
-      await FirebaseFirestore.instance
-          .collection('allAds')
-          .add({
+      await FirebaseFirestore.instance.collection('allAds').add({
         'Added on ': order.date,
         'title': order.title,
         'description': order.description,

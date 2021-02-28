@@ -6,7 +6,6 @@ import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class OrdersItem extends StatelessWidget {
