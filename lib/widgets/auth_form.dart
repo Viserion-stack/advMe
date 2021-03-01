@@ -52,17 +52,10 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-
-    final settings = Provider.of<SettingsUser>(context);
-    print(settings.isDark.toString());
-    if(settings.isDark == null){
-      settings.isDark = false;
-    }
+    //final settings = Provider.of<SettingsUser>(context);
 
     return Scaffold(
-      backgroundColor: (settings.isDark )
-          ? Color(0xFF171923)
-          : Color(0xFFE9ECF5), //Color(0xFF171923),
+      backgroundColor: Color(0xFF171923),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
@@ -72,15 +65,10 @@ class _AuthFormState extends State<AuthForm> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: (settings.isDark )
-                      ? [
-                          Color(0xFF171923),
-                          Color(0xFF171923),
-                        ]
-                      : [
-                          Color(0xFFE7EEFB),
-                          Color(0xFFE7EEFB),
-                        ]),
+                  colors: [
+                    Color(0xFF171923),
+                    Color(0xFF171923),
+                  ]),
             ),
             padding: EdgeInsets.only(top: 100.0),
             child: Column(
@@ -186,7 +174,7 @@ class _AuthFormState extends State<AuthForm> {
                     text: TextSpan(
                         text: 'adv',
                         style: GoogleFonts.ubuntu(
-                          color: settings.isDark ?(0xFF432344) : Color(0xFFC31331),
+                          color: Color(0xFFCBB2AB),
                           fontSize: 70.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -224,7 +212,9 @@ class _AuthFormState extends State<AuthForm> {
                           height: 300,
                         ),
                         TextFormField(
-                          style: TextStyle(color: Color(0xFF2D2D2D)),
+                          style: TextStyle(
+                            color: Color(0xFFCBB2AB),
+                          ),
                           //Color(0xFFCBB2AB)),
                           cursorColor: Color(0xFFF79E1B),
                           key: ValueKey('email'),
@@ -255,12 +245,12 @@ class _AuthFormState extends State<AuthForm> {
                             filled: true,
                             hintText: 'Email',
                             hintStyle: TextStyle(
-                              color: Color(0xFF2D2D2D),
+                              color: Color(0xFFCBB2AB),
                               //Color(0xFFCBB2AB),
                             ),
                             labelText: 'Address Eamil',
                             labelStyle: TextStyle(
-                              color: Color(0xFF2D2D2D),
+                              color: Color(0xFFCBB2AB),
                               //Color(0xFFCBB2AB),
                             ),
                             prefixIcon: Icon(
@@ -275,7 +265,9 @@ class _AuthFormState extends State<AuthForm> {
                         SizedBox(height: 12),
                         if (!_isLogin)
                           TextFormField(
-                            style: TextStyle(color: Color(0xFF2D2D2D)),
+                            style: TextStyle(
+                              color: Color(0xFFCBB2AB),
+                            ),
                             //Color(0xFFCBB2AB)),
                             cursorColor: Color(0xFFF79E1B),
                             key: ValueKey('username'),
@@ -321,7 +313,9 @@ class _AuthFormState extends State<AuthForm> {
                           ),
                         SizedBox(height: 12),
                         TextFormField(
-                          style: TextStyle(color: Color(0xFF2D2D2D)),
+                          style: TextStyle(
+                            color: Color(0xFFCBB2AB),
+                          ),
                           //Color(0xFFCBB2AB)),
                           cursorColor: Color(0xFFF79E1B),
                           key: ValueKey('password'),
@@ -350,12 +344,12 @@ class _AuthFormState extends State<AuthForm> {
                             filled: true,
                             hintText: 'Password',
                             hintStyle: TextStyle(
-                              color: Color(0xFF2D2D2D),
+                              color: Color(0xFFCBB2AB),
                               //Color(0xFFCBB2AB),
                             ),
                             labelText: 'Password',
                             labelStyle: TextStyle(
-                              color: Color(0xFF2D2D2D),
+                              color: Color(0xFFCBB2AB),
                               //Color(0xFFCBB2AB),
                             ),
                             prefixIcon: Icon(
@@ -369,7 +363,10 @@ class _AuthFormState extends State<AuthForm> {
                           },
                         ),
                         SizedBox(height: 12),
-                        if (widget.isLoading) SpinKitWave(color: Color(0xFFF79E1B),),
+                        if (widget.isLoading)
+                          SpinKitWave(
+                            color: Color(0xFFF79E1B),
+                          ),
                         if (!widget.isLoading)
                           RaisedButton(
                             shape: RoundedRectangleBorder(
@@ -402,7 +399,7 @@ class _AuthFormState extends State<AuthForm> {
                               ),
                             ),
 
-                            color: settings.isDark ? Color(0xFF2D2D2D) : Color(0xFF464656),
+                            color: Color(0xFF2D2D2D),
 
                             onPressed: () {
                               setState(() {

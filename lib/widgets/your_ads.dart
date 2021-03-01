@@ -22,6 +22,7 @@ class _YourAdsState extends State<YourAds> {
     var userId = FirebaseAuth.instance.currentUser.uid;
     //final transitionType = ContainerTransitionType.fade;
     final settings = Provider.of<SettingsUser>(context);
+    bool isYourAds = true;
     
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -79,6 +80,7 @@ class _YourAdsState extends State<YourAds> {
                         phone: userData.data()['phone'],
                         website: userData.data()['website'],
                         address: userData.data()['address'],
+                        isYourAds: isYourAds,
                       );
                     
                     

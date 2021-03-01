@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -249,73 +250,61 @@ class _AdsScreenState extends State<AdsScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 50),
-            Stack(children: [
-              Container(
-                decoration: BoxDecoration(
-                  //border: Border.all(color: Color(0x40C31331)),
-                  borderRadius: BorderRadius.circular(30),
-                  color:
-                      settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-                ),
+            SizedBox(height: 20),
+            Container(
+                //padding: const EdgeInsets.all(10.0),
                 height: 350,
-                width: 350,
-              ),
-              if (!settings.isDark)
-                Positioned(
-                  left: 50,
-                  right: 50,
-                  top: MediaQuery.of(context).size.width * .17,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      //border: Border.all(color: Color(0x40C31331)),
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color(0x33303250),
-                    ),
-                    height: 250,
-                    width: 250,
-                  ),
-                ),
-              Positioned(
-                left: 25,
-                right: 25,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0x40C31331)),
-                    borderRadius: BorderRadius.circular(30),
-                    color:
-                        settings.isDark ? Color(0x40303250) : Color(0xFF0D276B),
-                  ),
-
-                  height: 300,
-                  width: 300, //MediaQuery.of(context).size.width,
-                  child: _pickedImage == null
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.add_a_photo,
-                              size: 60,
+                width: MediaQuery.of(context).size.width * 1,
+                child: Swiper(
+                    itemCount: 3,
+                    itemWidth: MediaQuery.of(context).size.width - 2 * 64,
+                    layout: SwiperLayout.STACK,
+                    pagination: SwiperPagination(
+                        alignment: Alignment.bottomCenter,
+                        builder: SwiperPagination.fraction),
+                    itemBuilder: (_, index) {
+                      return Stack(children: [
+                        Positioned(
+                          // left: 25,
+                          // right: 25,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Color(0x40C31331)),
+                              borderRadius: BorderRadius.circular(30),
                               color: settings.isDark
-                                  ? Color(0xFFF79E1B)
-                                  : Color(0xFFF79E1B),
-                              //Color(0xFFF79E1B),
+                                  ? Color(0xFF303250)
+                                  : Color(0xFF0D276B),
                             ),
-                            onPressed: () {
-                              _onAlertButtonsPressed(context);
-                            },
+                            height: 300,
+                            width: 300, //MediaQuery.of(context).size.width,
+                            child: _pickedImage == null
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.add_a_photo,
+                                        size: 60,
+                                        color: settings.isDark
+                                            ? Color(0xFFF79E1B)
+                                            : Color(0xFFF79E1B),
+                                        //Color(0xFFF79E1B),
+                                      ),
+                                      onPressed: () {
+                                        _onAlertButtonsPressed(context);
+                                      },
+                                    ),
+                                  )
+                                : FittedBox(
+                                    child: Image.file(
+                                      _pickedImage,
+                                      //scale: 50,
+                                    ),
+                                    fit: BoxFit.fill,
+                                  ),
                           ),
-                        )
-                      : FittedBox(
-                          child: Image.file(
-                            _pickedImage,
-                            //scale: 50,
-                          ),
-                          fit: BoxFit.fill,
                         ),
-                ),
-              ),
-            ]),
+                      ]);
+                    })),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(10.0),

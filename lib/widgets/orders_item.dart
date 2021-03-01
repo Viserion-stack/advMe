@@ -18,6 +18,7 @@ class OrdersItem extends StatelessWidget {
   final String phone;
   final String website;
   final String address;
+  bool isYourAds;
 
   OrdersItem({
     @required this.id,
@@ -29,6 +30,7 @@ class OrdersItem extends StatelessWidget {
     @required this.phone,
     @required this.website,
     @required this.address,
+    @required this.isYourAds,
   });
 
   @override
@@ -53,6 +55,7 @@ class OrdersItem extends StatelessWidget {
         phone: phone,
         website: website,
         address: address,
+        isYourAds: isYourAds,
       ),
       closedBuilder: (context, _) => Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),

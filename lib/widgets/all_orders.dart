@@ -6,11 +6,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AllOrders extends StatefulWidget {
+   
+
+   
   @override
   _AllOrdersState createState() => _AllOrdersState();
 }
 
 class _AllOrdersState extends State<AllOrders> {
+
+
   final List<String> categories = [
     'Construction',
     'Renovation',
@@ -31,6 +36,7 @@ class _AllOrdersState extends State<AllOrders> {
     Color(0xFFF1554C),
     Color(0xFF0D276B),
   ];
+  bool isYourAds = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +94,7 @@ class _AllOrdersState extends State<AllOrders> {
                       phone: userData.data()['phone'],
                       website: userData.data()['website'],
                       address: userData.data()['address'],
+                      isYourAds: isYourAds,
                     );
                   },
                 );

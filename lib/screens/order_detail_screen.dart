@@ -21,6 +21,7 @@ class OrderDetailScreen extends StatefulWidget {
   final String phone;
   final String website;
   final String address;
+  bool isYourAds;
 
   OrderDetailScreen({
     this.id,
@@ -32,6 +33,7 @@ class OrderDetailScreen extends StatefulWidget {
     this.phone,
     this.website,
     this.address,
+    this.isYourAds,
   });
 
   @override
@@ -165,7 +167,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.07,
             ),
             Row(children: [
               GestureDetector(
@@ -204,10 +206,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   //Color(0x40303250))),
                 ),
               ),
+              if(widget.isYourAds)
               Padding(
                 padding: const EdgeInsets.only(
-                  right: 10,
-                  left: 270,
+                  right: 20,
+                  left: 250,
                   bottom: 5,
                 ),
                 child: IconButton(
@@ -216,7 +219,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       color: settings.isDark
                           ? Color(0xFFF79E1B)
                           : Color(0xEEC31331),
-                      size: 42,
+                      size: 37,
                     ),
                     onPressed: () {
                       _showMyDialog();

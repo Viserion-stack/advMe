@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class OrdersScreen extends StatefulWidget {
+
   OrdersScreen({Key key}) : super(key: key);
   static const routeName = '/OrdersScreen';
 
@@ -43,7 +44,8 @@ class _OrdersScreenState extends State<OrdersScreen>
       appBar: AppBar(
         actions: [
           IconButton(
-              icon: Icon(Icons.search),
+            padding: EdgeInsets.only(left:0, right: 35),
+              icon: Icon(Icons.search, color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),size: 40),
               onPressed: () {
                 showSearch(context: context, delegate: DataSearch(ads: ads));
               }),
@@ -84,7 +86,7 @@ class _OrdersScreenState extends State<OrdersScreen>
           ),
         ),
         title: Padding(
-          padding: const EdgeInsets.only(left: 40),
+          padding: const EdgeInsets.only(left: 40, right: 40),
           child: RichText(
             text: TextSpan(
                 text: 'lookFor',

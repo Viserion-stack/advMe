@@ -5,9 +5,10 @@ import '../providers/orders.dart';
 import './orders_item.dart';
 
 class OrdersGrid extends StatelessWidget {
+  bool isYourAds;
   final bool showFavs;
 
-  OrdersGrid(this.showFavs);
+  OrdersGrid(this.showFavs, this.isYourAds);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class OrdersGrid extends StatelessWidget {
           phone: orders[i].phone,
           website: orders[i].website,
           address: orders[i].address,
+          isYourAds: isYourAds,
         ),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
