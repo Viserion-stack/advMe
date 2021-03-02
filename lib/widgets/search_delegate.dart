@@ -1,4 +1,5 @@
 import 'package:advMe/providers/orders.dart';
+import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:advMe/widgets/orders_item.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,7 @@ class _SearchwidgetState extends State<Searchwidget> {
     super.initState();
     controller = FloatingSearchBarController();
     filteredSearchHistory = filterSearchTerms(filter: null);
+    
   }
 
   @override
@@ -75,10 +77,19 @@ class _SearchwidgetState extends State<Searchwidget> {
     super.dispose();
   }
 
+  bool isDark = false;
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsUser>(context);
+    isDark = settings.isDark;
+    if(settings.isDark == null) isDark = false;
     return Scaffold(
+      backgroundColor: isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       body: FloatingSearchBar(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        iconColor: isDark ? Color(0xFF464656) : Color(0xFF0D276B),
+        backgroundColor:
+            isDark ? Color(0xCCFFC03D) : Color(0xCCFFC03D),
         controller: controller,
         body: FloatingSearchBarScrollNotifier(
           child: SearchResultsListView(
@@ -89,7 +100,15 @@ class _SearchwidgetState extends State<Searchwidget> {
         physics: BouncingScrollPhysics(),
         title: Text(
           selectedTerm ?? 'Search for orders',
-          style: Theme.of(context).textTheme.headline6,
+          style: TextStyle(
+            color: isDark ? Color(0xFF464656) : Color(0xFF0D276B),
+            fontSize: 20,
+          ),
+          //Theme.of(context).textTheme.headline6,
+        ),
+        hintStyle: TextStyle(
+          color: isDark ? Color(0xFF464656) : Color(0xFF0D276B),
+          fontSize: 20,
         ),
         hint: 'Search and find out...',
         actions: [
@@ -111,27 +130,36 @@ class _SearchwidgetState extends State<Searchwidget> {
           return ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Material(
-              color: Colors.white,
+              color: isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
               elevation: 4,
               child: Builder(
                 builder: (context) {
                   if (filteredSearchHistory.isEmpty &&
                       controller.query.isEmpty) {
                     return Container(
-                      height: 56,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Start searching',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    );
+                        height: 56,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Start searching',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: isDark
+                                ? Color(0xFFCBB2AB)
+                                : Color(0xFF387CFF),
+                            //Theme.of(context).textTheme.caption,
+                          ),
+                        ));
                   } else if (filteredSearchHistory.isEmpty) {
                     return ListTile(
                       title: Text(controller.query),
-                      leading: const Icon(Icons.search),
+                      leading: const Icon(
+                        Icons.search,
+                        // color: settings.isDark
+                        //     ? Color(0xFFF79E1B)
+                        //     : Color(0xFF387CFF),
+                      ),
                       onTap: () {
                         setState(() {
                           addSearchTerm(controller.query);
@@ -148,12 +176,27 @@ class _SearchwidgetState extends State<Searchwidget> {
                             (term) => ListTile(
                               title: Text(
                                 term,
+                                style: TextStyle(
+                                  color: isDark
+                                      ? Color(0xFFFFC03D)
+                                      : Color(0xFF0D276B),
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              leading: const Icon(Icons.history),
+                              leading: Icon(
+                                Icons.history,
+                                color: isDark
+                                    ? Color(0xFFFFC03D)
+                                    : Color(0xFF0D276B),
+                              ),
                               trailing: IconButton(
-                                icon: const Icon(Icons.clear),
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: isDark
+                                      ? Color(0xFFF1554C)
+                                      : Color(0xFFF1554C),
+                                ),
                                 onPressed: () {
                                   setState(() {
                                     deleteSearchTerm(term);
@@ -192,6 +235,9 @@ class SearchResultsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsUser>(context);
+    bool isDark = settings.isDark;
+    if(settings.isDark == null) isDark = false;
     if (searchTerm == null) {
       return Center(
         child: Column(
@@ -200,10 +246,15 @@ class SearchResultsListView extends StatelessWidget {
             Icon(
               Icons.search,
               size: 64,
+              color: isDark ? Color(0xFFF79E1B) : Color(0xFFFFC03D),
             ),
             Text(
               'Start searching',
-              style: Theme.of(context).textTheme.headline5,
+              style: TextStyle(
+                fontSize: 30,
+                color: isDark ? Color(0xFFCBB2AB) : Color(0xFF387CFF),
+              ),
+              //Theme.of(context).textTheme.headline5,
             )
           ],
         ),
