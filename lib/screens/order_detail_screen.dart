@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:advMe/providers/settings.dart';
+import 'package:advMe/helpers/string_extenstion.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
@@ -274,7 +275,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               left: MediaQuery.of(context).size.width * 0.2,
               top: 100,
               child: Text(
-                widget.title,
+                widget.title.capitalize(),
                 style: GoogleFonts.ubuntu(
                   color:
                       settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),

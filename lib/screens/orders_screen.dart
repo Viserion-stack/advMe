@@ -47,7 +47,7 @@ class _OrdersScreenState extends State<OrdersScreen>
             padding: EdgeInsets.only(left:0, right: 35),
               icon: Icon(Icons.search, color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),size: 40),
               onPressed: () {
-                showSearch(context: context, delegate: DataSearch(ads: ads));
+                Navigator.of(context).push( MaterialPageRoute(builder: (BuildContext context) => Searchwidget()));
               }),
         ],
         backgroundColor:

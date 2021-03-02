@@ -7,6 +7,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:advMe/helpers/string_extenstion.dart';
 
 class OrdersItem extends StatelessWidget {
   final String id;
@@ -30,7 +31,7 @@ class OrdersItem extends StatelessWidget {
     @required this.phone,
     @required this.website,
     @required this.address,
-    @required this.isYourAds,
+     this.isYourAds,
   });
 
   @override
@@ -98,7 +99,7 @@ class OrdersItem extends StatelessWidget {
                       padding: EdgeInsets.all(10),
                       child: Column(children: <Widget>[
                         Text(
-                          title,
+                          title.capitalize(),
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

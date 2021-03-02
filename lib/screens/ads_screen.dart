@@ -122,14 +122,13 @@ class _AdsScreenState extends State<AdsScreen> {
     var newOrder = Order(
       userId: uid.trim(),
       id: uid.trim(),
-      title: titleController.text.toString().trim(),
-      price: priceController.text.toString(),
+  title: titleController.text.toString().toLowerCase().trim(),      price: priceController.text.toString(),
       description: descriptionController.text.toString().trim(),
       imageUrl: url.trim(),
       date: DateTime.now(),
       phone: phoneNumberController.text.toString().trim(),
       website: websiteController.text.toString().trim(),
-      address: address.trim(),
+      address: address,
     );
     await Provider.of<Orders>(context, listen: false)
         .addOrder(newOrder)
