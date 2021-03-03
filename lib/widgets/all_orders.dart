@@ -70,7 +70,7 @@ class _AllOrdersState extends State<AllOrders> {
                         padding: const EdgeInsets.only(left: 5.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: colorsDark[index],
+                              color: settings.isDark ? colorsDark[index] : colorsLight[index],
                               borderRadius: BorderRadius.circular(40)),
                           width: MediaQuery.of(context).size.width * 0.35,
                           child: Center(
