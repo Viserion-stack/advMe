@@ -87,27 +87,29 @@ class _OrdersScreenState extends State<OrdersScreen>
         ),
         title: Padding(
           padding: const EdgeInsets.only(left: 40, right: 40),
-          child: RichText(
-            text: TextSpan(
-                text: 'lookFor',
-                style: GoogleFonts.ubuntu(
-                  color:
-                      settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B),
-                  fontSize: 24.0,
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w600,
-                ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Orders',
-                    style: GoogleFonts.ubuntu(
-                      color: Color(0xFFF79E1B),
-                      fontSize: 24.0,
-                      letterSpacing: 0.1,
-                      fontWeight: FontWeight.w700,
-                    ),
+          child: Expanded(
+                      child: RichText(
+              text: TextSpan(
+                  text: 'lookFor',
+                  style: GoogleFonts.ubuntu(
+                    color:
+                        settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B),
+                    fontSize: 24.0,
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.w600,
                   ),
-                ]),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Orders',
+                      style: GoogleFonts.ubuntu(
+                        color: Color(0xFFF79E1B),
+                        fontSize: 24.0,
+                        letterSpacing: 0.1,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ]),
+            ),
           ),
         ),
         bottom: TabBar(

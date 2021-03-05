@@ -9,11 +9,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:advMe/helpers/string_extenstion.dart';
 
-class OrderGridItem extends StatelessWidget {
+class OrderGridItem extends StatefulWidget {
   final String id;
   final String title;
   final String description;
-  final bool isFavorite;
+  bool isFavorite;
   final String imageUrl;
   final String price;
   final String phone;
@@ -35,11 +35,32 @@ class OrderGridItem extends StatelessWidget {
   });
 
   @override
+  _OrderGridItemState createState() => _OrderGridItemState();
+}
+
+class _OrderGridItemState extends State<OrderGridItem> {
+  @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return OpenContainer(
+        closedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+            bottomLeft: Radius.circular(15),
+          ),
+        ),
+        openShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+            bottomLeft: Radius.circular(15),
+          ),
+        ),
         openElevation: 0,
         closedElevation: 0,
         transitionDuration: Duration(milliseconds: 650),
@@ -49,16 +70,16 @@ class OrderGridItem extends StatelessWidget {
             : Colors.transparent, //Color(0xFFE9ECF5),
         openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
         openBuilder: (context, _) => OrderDetailScreen(
-              id: id,
-              title: title,
-              description: description,
-              isFavorite: isFavorite,
-              imageUrl: imageUrl,
-              price: price,
-              phone: phone,
-              website: website,
-              address: address,
-              isYourAds: isYourAds,
+              id: widget.id,
+              title: widget.title,
+              description: widget.description,
+              isFavorite: widget.isFavorite,
+              imageUrl: widget.imageUrl,
+              price: widget.price,
+              phone: widget.phone,
+              website: widget.website,
+              address: widget.address,
+              isYourAds: widget.isYourAds,
             ),
         closedBuilder: (context, _) =>
             // SizedBox(
@@ -67,7 +88,7 @@ class OrderGridItem extends StatelessWidget {
             //     child:
             Card(
               color: settings.isDark
-                  ? Color(0x40303250)
+                  ? Color(0x55303250)
                   : Color(0xFFE3E6ED), //Color(0x55387CFF),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -79,6 +100,7 @@ class OrderGridItem extends StatelessWidget {
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                   bottomRight: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
                 ),
                 child: BackdropFilter(
                     filter: ImageFilter.blur(
@@ -94,7 +116,7 @@ class OrderGridItem extends StatelessWidget {
                           //bottomLeft: Radius.circular(15),
                         ),
                         child: Image.network(
-                          imageUrl,
+                          widget.imageUrl,
                           //height: 200,
                           width: MediaQuery.of(context).size.width, //130,
                           fit: BoxFit.cover,
@@ -103,7 +125,7 @@ class OrderGridItem extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(1),
                         child: Text(
-                          title.capitalize(),
+                          widget.title.capitalize(),
                           style: TextStyle(
                             color: settings.isDark
                                 ? Colors.white
@@ -113,43 +135,25 @@ class OrderGridItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          '$price zł',
-                          style: TextStyle(
-                            color: Color(0xFFC31331),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                      SizedBox(height: 10),
+                      Row(children: [
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            child: Text(
+                              '${widget.price} zł',
+                              style: TextStyle(
+                                color: Color(0xFFC31331),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        child: Row(children: <Widget>[
-                          SizedBox(
-                            width: 20,
-                          ),
+                        Row(children: [
                           Icon(
                             Icons.star,
                             color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Color(0xFFF79E1B),
-                          ),
-                          SizedBox(
-                            width: 5,
                           ),
                           Text(
                             '3.2',
@@ -159,7 +163,40 @@ class OrderGridItem extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                           ),
                         ]),
-                      ),
+                        SizedBox(width: 10),
+                      ]),
+                      SizedBox(height: 10),
+                      Row(children: [
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            'Localization',
+                            style: TextStyle(
+                              color: settings.isDark
+                                  ? Colors.white
+                                  : Color(0xFF0D276B),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                widget.isFavorite = !widget.isFavorite;
+                              });
+                            },
+                            child: Icon(
+                              widget.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Color(0xEEC31331),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                      ]),
+                      SizedBox(height: 10),
                     ])),
               ),
             ));
