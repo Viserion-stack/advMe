@@ -250,6 +250,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
                   return Stack(children: [
                     Card(
+                      color: settings.isDark ? Color(0xFFCA1538) : Color(0xFFE9ECF5),
                         elevation: 8,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),
