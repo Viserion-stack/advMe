@@ -1,11 +1,7 @@
 import 'package:advMe/animation/fade_animation.dart';
-import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
 class AuthForm extends StatefulWidget {
   AuthForm(
     this.submitFn,

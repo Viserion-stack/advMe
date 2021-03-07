@@ -14,19 +14,23 @@ class OrdersItem extends StatelessWidget {
   final String title;
   final String description;
   final bool isFavorite;
-  final String imageUrl;
+  final String imageUrl1;
+  final String imageUrl2;
+  final String imageUrl3;
   final String price;
   final String phone;
   final String website;
   final String address;
-  bool isYourAds;
+  final bool isYourAds;
 
   OrdersItem({
     @required this.id,
     @required this.title,
     @required this.description,
     @required this.isFavorite,
-    @required this.imageUrl,
+    @required this.imageUrl1,
+    @required this.imageUrl2,
+    @required this.imageUrl3,
     @required this.price,
     @required this.phone,
     @required this.website,
@@ -54,7 +58,9 @@ class OrdersItem extends StatelessWidget {
         title: title,
         description: description,
         isFavorite: isFavorite,
-        imageUrl: imageUrl,
+        imageUrl1: imageUrl1,
+        imageUrl2: imageUrl2,
+        imageUrl3: imageUrl3,
         price: price,
         phone: phone,
         website: website,
@@ -117,8 +123,16 @@ class OrdersItem extends StatelessWidget {
                           fontSize: 22,
                         ),
                       ),
+<<<<<<< HEAD
                       SizedBox(
                         height: 8,
+=======
+                      child: Image.network(
+                        imageUrl1,
+                        height: 130,
+                        width: 130,
+                        fit: BoxFit.cover,
+>>>>>>> 4a1c735... Add possibilty to add 3 images.
                       ),
                       Container(
                         child: Text(

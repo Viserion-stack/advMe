@@ -39,7 +39,6 @@ class _OrdersScreenState extends State<OrdersScreen>
   @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
-    final ads = Provider.of<Orders>(context).itemstitles();
     return Scaffold(
       appBar: AppBar(
         actions: [

@@ -13,20 +13,29 @@ class OrderGridItem extends StatefulWidget {
   final String id;
   final String title;
   final String description;
+<<<<<<< HEAD
   bool isFavorite;
   final String imageUrl;
+=======
+  final bool isFavorite;
+  final String imageUrl1;
+  final String imageUrl2;
+  final String imageUrl3;
+>>>>>>> 4a1c735... Add possibilty to add 3 images.
   final String price;
   final String phone;
   final String website;
   final String address;
-  bool isYourAds;
+  final bool isYourAds;
 
   OrderGridItem({
     @required this.id,
     @required this.title,
     @required this.description,
     @required this.isFavorite,
-    @required this.imageUrl,
+    @required this.imageUrl1,
+    @required this.imageUrl2,
+    @required this.imageUrl3,
     @required this.price,
     @required this.phone,
     @required this.website,
@@ -70,6 +79,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
             : Colors.transparent, //Color(0xFFE9ECF5),
         openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
         openBuilder: (context, _) => OrderDetailScreen(
+<<<<<<< HEAD
               id: widget.id,
               title: widget.title,
               description: widget.description,
@@ -80,6 +90,20 @@ class _OrderGridItemState extends State<OrderGridItem> {
               website: widget.website,
               address: widget.address,
               isYourAds: widget.isYourAds,
+=======
+              id: id,
+              title: title,
+              description: description,
+              isFavorite: isFavorite,
+              imageUrl1: imageUrl1,
+              imageUrl2: imageUrl2,
+              imageUrl3: imageUrl3,
+              price: price,
+              phone: phone,
+              website: website,
+              address: address,
+              isYourAds: isYourAds,
+>>>>>>> 4a1c735... Add possibilty to add 3 images.
             ),
         closedBuilder: (context, _) =>
             // SizedBox(
@@ -116,7 +140,11 @@ class _OrderGridItemState extends State<OrderGridItem> {
                           //bottomLeft: Radius.circular(15),
                         ),
                         child: Image.network(
+<<<<<<< HEAD
                           widget.imageUrl,
+=======
+                          imageUrl1,
+>>>>>>> 4a1c735... Add possibilty to add 3 images.
                           //height: 200,
                           width: MediaQuery.of(context).size.width, //130,
                           fit: BoxFit.cover,

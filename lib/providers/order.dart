@@ -9,22 +9,24 @@ class Order with ChangeNotifier {
   final String title;
   final String description;
   final String price;
-  final String imageUrl;
+  final String imageUrl1;
+  final String imageUrl2;
+  final String imageUrl3;
   final DateTime date;
   final String phone;
   final String website;
   final String address;
   bool isFavorite;
 
-
   Order({
-
     @required this.userId,
     @required this.id,
     @required this.title,
     @required this.description,
     @required this.price,
-    @required this.imageUrl,
+    @required this.imageUrl1,
+    @required this.imageUrl2,
+    @required this.imageUrl3,
     @required this.date,
     @required this.phone,
     @required this.website,

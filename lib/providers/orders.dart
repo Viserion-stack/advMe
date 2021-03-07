@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -44,7 +43,9 @@ class Orders with ChangeNotifier {
             description: prodData.data()['description'],
             id: prodData.data()['id'],
             title: prodData.data()['title'],
-            imageUrl: prodData.data()['imageUrl'],
+            imageUrl1: prodData.data()['imageUrl1'],
+            imageUrl2: prodData.data()['imageUrl2'],
+            imageUrl3: prodData.data()['imageUrl3'],
             isFavorite: false,
             price: prodData.data()['price'],
             phone: prodData.data()['phone'],
@@ -73,7 +74,9 @@ class Orders with ChangeNotifier {
         'Added on ': order.date,
         'title': order.title,
         'description': order.description,
-        'imageUrl': order.imageUrl,
+        'imageUrl1': order.imageUrl1,
+        'imageUrl2': order.imageUrl2,
+        'imageUrl3': order.imageUrl3,
         'isFavorite': true,
         'userId': uid,
         'price': order.price,
@@ -90,7 +93,9 @@ class Orders with ChangeNotifier {
         'Added on ': order.date,
         'title': order.title,
         'description': order.description,
-        'imageUrl': order.imageUrl,
+        'imageUrl1': order.imageUrl1,
+        'imageUrl2': order.imageUrl2,
+        'imageUrl3': order.imageUrl3,
         'isFavorite': true,
         'userId': uid,
         'price': order.price,
@@ -104,7 +109,9 @@ class Orders with ChangeNotifier {
         title: order.title,
         description: order.description,
         price: order.price,
-        imageUrl: order.imageUrl,
+        imageUrl1: order.imageUrl1,
+        imageUrl2: order.imageUrl2,
+        imageUrl3: order.imageUrl3,
         date: order.date,
         phone: order.phone,
         website: order.website,

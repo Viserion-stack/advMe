@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/orders.dart';
 import './orders_item.dart';
 
+// ignore: must_be_immutable
 class OrdersGrid extends StatelessWidget {
   bool isYourAds;
   final bool showFavs;
@@ -26,7 +27,9 @@ class OrdersGrid extends StatelessWidget {
           description: orders[i].description,
           id: orders[i].id,
           title: orders[i].title,
-          imageUrl: orders[i].imageUrl,
+          imageUrl1: orders[i].imageUrl1,
+          imageUrl2: orders[i].imageUrl2,
+          imageUrl3: orders[i].imageUrl3,
           isFavorite: orders[i].isFavorite,
           price: orders[i].price,
           phone: orders[i].phone,

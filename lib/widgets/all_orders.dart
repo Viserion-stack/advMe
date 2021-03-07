@@ -1,11 +1,9 @@
-import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:masonry_grid/masonry_grid.dart';
 import 'package:provider/provider.dart';
 
 import 'order_grid_item.dart';
@@ -107,13 +105,17 @@ class _AllOrdersState extends State<AllOrders> {
                     crossAxisCount: 2,
                     itemCount: orderSnapshot.data.docs.length,
                     itemBuilder: (BuildContext context, int index) {
+                                      print('Ilość załadowanych ogłoszeń futurebuilderem ' +
+                    orderSnapshot.data.docs.length.toString());
                       DocumentSnapshot userData =
                           orderSnapshot.data.docs[index];
                       return OrderGridItem(
                         description: userData.data()['description'],
                         id: userData.id,
                         title: userData.data()['title'],
-                        imageUrl: userData.data()['imageUrl'],
+                        imageUrl1: userData.data()['imageUrl1'],
+                        imageUrl2: userData.data()['imageUrl2'],
+                        imageUrl3: userData.data()['imageUrl3'],
                         isFavorite: false,
                         price: userData.data()['price'],
                         phone: userData.data()['phone'],

@@ -11,13 +11,16 @@ import 'package:provider/provider.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/helpers/string_extenstion.dart';
 
+// ignore: must_be_immutable
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
   final String id;
   final String title;
   final String description;
   final bool isFavorite;
-  final String imageUrl;
+  final String imageUrl1;
+  final String imageUrl2;
+  final String imageUrl3;
   final String price;
   final String phone;
   final String website;
@@ -29,7 +32,9 @@ class OrderDetailScreen extends StatefulWidget {
     this.title,
     this.description,
     this.isFavorite,
-    this.imageUrl,
+    this.imageUrl1,
+    this.imageUrl2,
+    this.imageUrl3,
     this.price,
     this.phone,
     this.website,
@@ -61,24 +66,33 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       throw 'Could not launch $url';
     }
   }
-
-//TODO make sure that in all orders user can't delete order!!!
-
   Future<void> _deleteUserOrder(String id, String title) async {
     var firebaseUser = FirebaseAuth.instance.currentUser.uid;
-    String itemToDelete = widget.title + '.jpg';
+    String itemToDelete1 = widget.title + '1.jpg';
+    String itemToDelete2 = widget.title + '2.jpg';
+    String itemToDelete3 = widget.title + '3.jpg';
 
     var storageReferance = FirebaseStorage.instance.ref();
     storageReferance
-        .child('allAds/$firebaseUser/$itemToDelete')
+        .child('allAds/$firebaseUser/$itemToDelete1')
         .delete()
         .then((_) {
-      print("Deleting from Storage success!");
+      print("Deleting image 1 from Storage success!");
     });
 
-    //     await FirebaseStorage.instance.refFromURL(widget.imageUrl).delete().then((_) {
-    //   print("Deleting from Storage success!");
-    // });
+    storageReferance
+        .child('allAds/$firebaseUser/$itemToDelete2')
+        .delete()
+        .then((_) {
+      print("Deleting image 2 from Storage success!");
+    });
+
+    storageReferance
+        .child('allAds/$firebaseUser/$itemToDelete3')
+        .delete()
+        .then((_) {
+      print("Deleting image 3 from Storage success!");
+    });
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -147,23 +161,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isYourAds == null) widget.isYourAds = false;
+    if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
-      
-      // appBar: AppBar(
-      //     iconTheme: IconThemeData(
-      //       color: Color(0xFFF79E1B),
-      //     ),
-      //     backgroundColor: Color(0xFF171923),
-      //     title: Text(widget.title),
-      //     actions: [
-      //       IconButton(
-      //           icon: Icon(Icons.delete),
-      //           onPressed: () {
-      //             _showMyDialog();
-      //           }),
-      //     ]),
       backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       body: SingleChildScrollView(
         child: Column(
@@ -190,43 +190,30 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       ),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //       color: Color(0x40F79E1B),
-                          //       offset: Offset(2.0, 2.0),
-                          //       blurRadius: 5.0,
-                          //       spreadRadius: 1.0),
-                          //   BoxShadow(
-                          //       color: Color(0x40F79E1B),
-                          //       offset: Offset(-2.0, -2.0),
-                          //       blurRadius: 5.0,
-                          //       spreadRadius: 1.0),
-                          // ],
                           color: settings.isDark
                               ? Color(0x40303250)
                               : Color(0xFF0D276B))),
-                  //Color(0x40303250))),
                 ),
               ),
-              if(widget.isYourAds)
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 20,
-                  left: 250,
-                  bottom: 5,
+              if (widget.isYourAds)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20,
+                    left: 250,
+                    bottom: 5,
+                  ),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: settings.isDark
+                            ? Color(0xFFF79E1B)
+                            : Color(0xEEC31331),
+                        size: 37,
+                      ),
+                      onPressed: () {
+                        _showMyDialog();
+                      }),
                 ),
-                child: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: settings.isDark
-                          ? Color(0xFFF79E1B)
-                          : Color(0xEEC31331),
-                      size: 37,
-                    ),
-                    onPressed: () {
-                      _showMyDialog();
-                    }),
-              ),
             ]),
             SizedBox(
               height: 30,
@@ -246,8 +233,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   space: 0,
                 )),
                 itemBuilder: (_, index) {
-                  //return InkWell(onTap: () {});
-
+                  List images = [widget.imageUrl1,widget.imageUrl2, widget.imageUrl3];
+                  print(images);
                   return Stack(children: [
                     Card(
                       color: settings.isDark ? Color(0xFFCA1538) : Color(0xFFE9ECF5),
@@ -255,20 +242,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        //color: Colors.white,
-                        child:
-                            //Container(
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(32),
-                            //   ),
-                            //   child:
-                            //FittedBox(child:
-                            Image.network(widget.imageUrl)),
+                        child: Image.network(images[index])),
                   ]);
                 },
               ),
             ),
-            //Image.network(widget.imageUrl)),
             SizedBox(
               height: 30,
             ),

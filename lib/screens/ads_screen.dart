@@ -28,6 +28,9 @@ class _AdsScreenState extends State<AdsScreen> {
   // ignore: unused_field
   PlaceLocation _pickedLocation;
   File _pickedImage;
+  File _pickedImage2;
+  File _pickedImage3;
+
   bool isPhoto = false;
   bool isCamera = false;
   bool isLoading = false;
@@ -42,7 +45,7 @@ class _AdsScreenState extends State<AdsScreen> {
     });
   }
 
-  _onAlertButtonsPressed(context) {
+  _onAlertButtonsPressed(context, int index) {
     Alert(
       style: AlertStyle(
         backgroundColor: Color(0x40303250),
@@ -68,7 +71,7 @@ class _AdsScreenState extends State<AdsScreen> {
               isCamera = false;
             });
 
-            _pickImage(isCamera);
+            _pickImage(isCamera, index);
 
             Navigator.pop(context);
           },
@@ -84,7 +87,7 @@ class _AdsScreenState extends State<AdsScreen> {
               isCamera = true;
             });
 
-            _pickImage(isCamera);
+            _pickImage(isCamera, index);
             Navigator.pop(context);
           },
           color: Color(0xFFF79E1B),
@@ -93,19 +96,20 @@ class _AdsScreenState extends State<AdsScreen> {
     ).show();
   }
 
-  void _pickImage(bool isCamera) async {
+  void _pickImage(bool isCamera, int index) async {
     // ignore: deprecated_member_use
     final pickedImageFile = await ImagePicker.pickImage(
       source: isCamera ? ImageSource.camera : ImageSource.gallery,
       imageQuality: 100,
-      //maxWidth: 450,
-      //maxHeight: 450,
     );
     setState(() {
-      _pickedImage = pickedImageFile;
+      if (index == 1)
+        _pickedImage = pickedImageFile;
+      else if (index == 2)
+        _pickedImage2 = pickedImageFile;
+      else if (index == 3) _pickedImage3 = pickedImageFile;
     });
     isPhoto = true;
-    //widget.imagePickFn(pickedImageFile);
   }
 
   Future<void> _addorder(String address) async {
@@ -114,17 +118,36 @@ class _AdsScreenState extends State<AdsScreen> {
         .ref()
         .child('allAds')
         .child(uid)
-        .child(titleController.text.toString() + '.jpg');
+        .child(titleController.text.toString() + '1.jpg');
     await ref.putFile(_pickedImage);
 
-    final url = await ref.getDownloadURL();
+    final ref2 = FirebaseStorage.instance
+        .ref()
+        .child('allAds')
+        .child(uid)
+        .child(titleController.text.toString() + '2.jpg');
+    await ref2.putFile(_pickedImage2);
+
+    final ref3 = FirebaseStorage.instance
+        .ref()
+        .child('allAds')
+        .child(uid)
+        .child(titleController.text.toString() + '3.jpg');
+    await ref3.putFile(_pickedImage3);
+
+    final url1 = await ref.getDownloadURL();
+    final url2 = await ref2.getDownloadURL();
+    final url3 = await ref3.getDownloadURL();
 
     var newOrder = Order(
       userId: uid.trim(),
       id: uid.trim(),
-  title: titleController.text.toString().toLowerCase().trim(),      price: priceController.text.toString(),
+      title: titleController.text.toString().toLowerCase().trim(),
+      price: priceController.text.toString(),
       description: descriptionController.text.toString().trim(),
-      imageUrl: url.trim(),
+      imageUrl1: url1,
+      imageUrl2: url2,
+      imageUrl3: url3,
       date: DateTime.now(),
       phone: phoneNumberController.text.toString().trim(),
       website: websiteController.text.toString().trim(),
@@ -166,14 +189,10 @@ class _AdsScreenState extends State<AdsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //var product = Provider.of<Products>(context, listen: false);
     var address = lok;
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-      //Color(0xFF171923),
-      //drawer: Drawer(),
-
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -200,22 +219,9 @@ class _AdsScreenState extends State<AdsScreen> {
                         ),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //       color: Color(0x40F79E1B),
-                            //       offset: Offset(2.0, 2.0),
-                            //       blurRadius: 5.0,
-                            //       spreadRadius: 1.0),
-                            //   BoxShadow(
-                            //       color: Color(0x40F79E1B),
-                            //       offset: Offset(-2.0, -2.0),
-                            //       blurRadius: 5.0,
-                            //       spreadRadius: 1.0),
-                            // ],
                             color: settings.isDark
                                 ? Color(0x40303250)
                                 : Color(0xFF0D276B))),
-                    //Color(0x40303250))),
                   ),
                 ),
                 Padding(
@@ -229,7 +235,6 @@ class _AdsScreenState extends State<AdsScreen> {
                           color: settings.isDark
                               ? Color(0xFFCBB2AB)
                               : Color(0xFF0D276B),
-                          //Color(0xFFCBB2AB),
                           fontSize: 28.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -251,59 +256,139 @@ class _AdsScreenState extends State<AdsScreen> {
             ),
             SizedBox(height: 20),
             Container(
-                //padding: const EdgeInsets.all(10.0),
-                height: 350,
-                width: MediaQuery.of(context).size.width * 1,
-                child: Swiper(
-                    itemCount: 3,
-                    itemWidth: MediaQuery.of(context).size.width - 2 * 64,
-                    layout: SwiperLayout.STACK,
-                    pagination: SwiperPagination(
-                        alignment: Alignment.bottomCenter,
-                        builder: SwiperPagination.fraction),
-                    itemBuilder: (_, index) {
-                      return Stack(children: [
-                        Positioned(
-                          // left: 25,
-                          // right: 25,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0x40C31331)),
-                              borderRadius: BorderRadius.circular(30),
-                              color: settings.isDark
-                                  ? Color(0xFF303250)
-                                  : Color(0xFF0D276B),
-                            ),
-                            height: 300,
-                            width: 300, //MediaQuery.of(context).size.width,
-                            child: _pickedImage == null
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.add_a_photo,
-                                        size: 60,
-                                        color: settings.isDark
-                                            ? Color(0xFFF79E1B)
-                                            : Color(0xFFF79E1B),
-                                        //Color(0xFFF79E1B),
-                                      ),
-                                      onPressed: () {
-                                        _onAlertButtonsPressed(context);
-                                      },
-                                    ),
-                                  )
-                                : FittedBox(
-                                    child: Image.file(
-                                      _pickedImage,
-                                      //scale: 50,
-                                    ),
-                                    fit: BoxFit.fill,
-                                  ),
-                          ),
+              height: 350,
+              width: MediaQuery.of(context).size.width * 1,
+              child:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                  new Swiper.children(
+                autoplay: false,
+                pagination: new SwiperPagination(
+                    margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
+                    builder: new DotSwiperPaginationBuilder(
+                        color: Colors.white30,
+                        activeColor: Colors.white,
+                        size: 20.0,
+                        activeSize: 20.0)),
+                children: <Widget>[
+                  new Stack(children: [
+                    Positioned(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0x40C31331)),
+                          borderRadius: BorderRadius.circular(30),
+                          color: settings.isDark
+                              ? Color(0xFF303250)
+                              : Color(0xFF0D276B),
                         ),
-                      ]);
-                    })),
+                        height: 300,
+                        width: 300, //MediaQuery.of(context).size.width,
+                        child: _pickedImage == null
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.add_a_photo,
+                                    size: 60,
+                                    color: settings.isDark
+                                        ? Color(0xFFF79E1B)
+                                        : Color(0xFFF79E1B),
+                                  ),
+                                  onPressed: () {
+                                    _onAlertButtonsPressed(context, 1);
+                                  },
+                                ),
+                              )
+                            : FittedBox(
+                                child: Image.file(
+                                  _pickedImage,
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                      ),
+                    ),
+                  ]),
+/////////////////////////////////////////////////////////////////////
+                  new Stack(children: [
+                    Positioned(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0x40C31331)),
+                          borderRadius: BorderRadius.circular(30),
+                          color: settings.isDark
+                              ? Color(0xFF303250)
+                              : Color(0xFF0D276B),
+                        ),
+                        height: 300,
+                        width: 300, //MediaQuery.of(context).size.width,
+                        child: _pickedImage2 == null
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.add_a_photo,
+                                    size: 60,
+                                    color: settings.isDark
+                                        ? Color(0xFFF79E1B)
+                                        : Color(0xFFF79E1B),
+                                  ),
+                                  onPressed: () {
+                                    _onAlertButtonsPressed(context, 2);
+                                  },
+                                ),
+                              )
+                            : FittedBox(
+                                child: Image.file(
+                                  _pickedImage2,
+                                  //scale: 50,
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                      ),
+                    ),
+                  ]),
+/////////////////////////////////////////////////////////////////////////
+                  new Stack(children: [
+                    Positioned(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0x40C31331)),
+                          borderRadius: BorderRadius.circular(30),
+                          color: settings.isDark
+                              ? Color(0xFF303250)
+                              : Color(0xFF0D276B),
+                        ),
+                        height: 300,
+                        width: 300, //MediaQuery.of(context).size.width,
+                        child: _pickedImage3 == null
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.add_a_photo,
+                                    size: 60,
+                                    color: settings.isDark
+                                        ? Color(0xFFF79E1B)
+                                        : Color(0xFFF79E1B),
+                                  ),
+                                  onPressed: () {
+                                    _onAlertButtonsPressed(context, 3);
+                                  },
+                                ),
+                              )
+                            : FittedBox(
+                                child: Image.file(
+                                  _pickedImage3,
+                                  //scale: 50,
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                      ),
+                    ),
+                  ]),
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ],
+              ),
+            ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -311,13 +396,11 @@ class _AdsScreenState extends State<AdsScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Color(0xFFFFC03D),
-                  //Color(0xFFF79E1B),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: DropdownButton(
                     dropdownColor: Color(0xAAFFC03D),
-                    //Color(0xEEF79E1B),
                     style: TextStyle(
                       color: Color(0xFF303250),
                     ),
@@ -361,7 +444,6 @@ class _AdsScreenState extends State<AdsScreen> {
                       color: settings.isDark
                           ? Color(0x40303250)
                           : Color(0x80FFC03D),
-                      //Color(0x40303250),
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
@@ -389,7 +471,6 @@ class _AdsScreenState extends State<AdsScreen> {
                             color: settings.isDark
                                 ? Color(0xFFCBB2AB)
                                 : Color(0xFF432344),
-                            //Color(0xFFCBB2AB),
                           )),
                       controller: titleController,
                     ),
@@ -431,7 +512,6 @@ class _AdsScreenState extends State<AdsScreen> {
                             color: settings.isDark
                                 ? Color(0xFFCBB2AB)
                                 : Color(0xFF432344),
-                            //Color(0xFFCBB2AB),
                           )),
                       controller: priceController,
                     ),
@@ -471,7 +551,6 @@ class _AdsScreenState extends State<AdsScreen> {
                             color: settings.isDark
                                 ? Color(0xFFCBB2AB)
                                 : Color(0xFF432344),
-                            //Color(0xFFCBB2AB),
                           )),
                       controller: descriptionController,
                     ),
@@ -485,7 +564,6 @@ class _AdsScreenState extends State<AdsScreen> {
                       color: settings.isDark
                           ? Color(0x40303250)
                           : Color(0x80FFC03D),
-                      //Color(0x40303250),
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
@@ -528,7 +606,6 @@ class _AdsScreenState extends State<AdsScreen> {
                       color: settings.isDark
                           ? Color(0x40303250)
                           : Color(0x80FFC03D),
-                      //Color(0x40303250),
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
@@ -557,7 +634,6 @@ class _AdsScreenState extends State<AdsScreen> {
                             color: settings.isDark
                                 ? Color(0xFFCBB2AB)
                                 : Color(0xFF432344),
-                            //Color(0xFFCBB2AB),
                           )),
                       controller: websiteController,
                     ),
@@ -574,7 +650,6 @@ class _AdsScreenState extends State<AdsScreen> {
               address != null ? address : 'Choose loacalization',
               style: TextStyle(
                 color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
-                //Colors.white54,
               ),
             ),
             SizedBox(height: 10),
@@ -607,9 +682,6 @@ class _AdsScreenState extends State<AdsScreen> {
                             borderRadius: BorderRadius.circular(30)),
                         height: 40,
                         width: 280,
-                        // decoration:
-                        //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                        // color: Color(0xEEC31331),
                       ),
               ),
             ),
@@ -617,13 +689,6 @@ class _AdsScreenState extends State<AdsScreen> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     backgroundColor: Color(0xEEC31331),
-      //     child: Icon(Icons.add),
-      //     onPressed: () {
-      //       addPost(new DateTime.now(), titleController.text.toString(),
-      //           descriptionController.text.toString(), _pickedImage);
-      //     }),
     );
   }
 }

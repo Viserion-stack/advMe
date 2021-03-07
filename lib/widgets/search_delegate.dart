@@ -1,6 +1,5 @@
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
-import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:advMe/widgets/orders_item.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -261,7 +260,7 @@ class SearchResultsListView extends StatelessWidget {
       );
     }
 
-    final fsb = FloatingSearchBar.of(context);
+    //final fsb = FloatingSearchBar.of(context);
     final orderstsData = Provider.of<Orders>(context);
     final orders = orderstsData.items;
     final searchOrders = orders.where((ord) {
@@ -283,7 +282,9 @@ class SearchResultsListView extends StatelessWidget {
               title: searchOrders[index].title,
               description: searchOrders[index].description,
               isFavorite: false,
-              imageUrl: searchOrders[index].imageUrl,
+              imageUrl1: searchOrders[index].imageUrl1,
+              imageUrl2: searchOrders[index].imageUrl2,
+              imageUrl3: searchOrders[index].imageUrl3,
               price: searchOrders[index].price,
               phone: searchOrders[index].phone,
               website: searchOrders[index].website,
@@ -296,7 +297,9 @@ class SearchResultsListView extends StatelessWidget {
             title: searchOrders[index].title,
             description: searchOrders[index].description,
             isFavorite: false,
-            imageUrl: searchOrders[index].imageUrl,
+            imageUrl1: searchOrders[index].imageUrl1,
+            imageUrl2: searchOrders[index].imageUrl2,
+            imageUrl3: searchOrders[index].imageUrl3,
             price: searchOrders[index].price,
             phone: searchOrders[index].phone,
             website: searchOrders[index].website,
