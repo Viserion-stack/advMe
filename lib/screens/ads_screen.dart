@@ -255,138 +255,159 @@ class _AdsScreenState extends State<AdsScreen> {
               ],
             ),
             SizedBox(height: 20),
-            Container(
-              height: 350,
-              width: MediaQuery.of(context).size.width * 1,
-              child:
+            Padding(
+              padding: const EdgeInsets.only(left: 50.0),
+              child: Container(
+                height: 350,
+                width: MediaQuery.of(context).size.width * 1,
+                child:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                  new Swiper.children(
-                autoplay: false,
-                pagination: new SwiperPagination(
-                    margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
-                    builder: new DotSwiperPaginationBuilder(
-                        color: Colors.white30,
-                        activeColor: Colors.white,
-                        size: 20.0,
-                        activeSize: 20.0)),
-                children: <Widget>[
-                  new Stack(children: [
-                    Positioned(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0x40C31331)),
-                          borderRadius: BorderRadius.circular(30),
-                          color: settings.isDark
-                              ? Color(0xFF303250)
-                              : Color(0xFF0D276B),
-                        ),
-                        height: 300,
-                        width: 300, //MediaQuery.of(context).size.width,
+                    new Swiper.children(
+                  customLayoutOption:
+                      CustomLayoutOption(startIndex: -1, stateCount: 3),
+                  autoplay: false,
+                  pagination: new SwiperPagination(
+                      margin: new EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 30.0),
+                      builder: new DotSwiperPaginationBuilder(
+                          color: Colors.white30,
+                          activeColor: Colors.white,
+                          size: 20.0,
+                          activeSize: 20.0)),
+                  children: <Widget>[
+                    new Stack(children: [
+                      Positioned(
                         child: _pickedImage == null
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.add_a_photo,
-                                    size: 60,
-                                    color: settings.isDark
-                                        ? Color(0xFFF79E1B)
-                                        : Color(0xFFF79E1B),
-                                  ),
-                                  onPressed: () {
-                                    _onAlertButtonsPressed(context, 1);
-                                  },
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0x40C31331)),
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: settings.isDark
+                                      ? Color(0xFF303250)
+                                      : Color(0xFF0D276B),
                                 ),
-                              )
-                            : FittedBox(
+                                height: 300,
+                                width: 300, //MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.add_a_photo,
+                                      size: 60,
+                                      color: settings.isDark
+                                          ? Color(0xFFF79E1B)
+                                          : Color(0xFFF79E1B),
+                                    ),
+                                    onPressed: () {
+                                      _onAlertButtonsPressed(context, 1);
+                                    },
+                                  ),
+                                ))
+                            : Container(
+                                decoration: BoxDecoration(
+                                  //border: Border.all(color: Color(0x40C31331)),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                height: 300,
+                                width: 300,
                                 child: Image.file(
                                   _pickedImage,
+                                  //fit: BoxFit.fill,
                                 ),
-                                fit: BoxFit.fill,
+                                //fit: BoxFit.fill,
                               ),
-                      ),
-                    ),
-                  ]),
+                      )
+                    ]),
 /////////////////////////////////////////////////////////////////////
-                  new Stack(children: [
-                    Positioned(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0x40C31331)),
-                          borderRadius: BorderRadius.circular(30),
-                          color: settings.isDark
-                              ? Color(0xFF303250)
-                              : Color(0xFF0D276B),
-                        ),
-                        height: 300,
-                        width: 300, //MediaQuery.of(context).size.width,
+                    new Stack(children: [
+                      Positioned(
                         child: _pickedImage2 == null
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.add_a_photo,
-                                    size: 60,
-                                    color: settings.isDark
-                                        ? Color(0xFFF79E1B)
-                                        : Color(0xFFF79E1B),
-                                  ),
-                                  onPressed: () {
-                                    _onAlertButtonsPressed(context, 2);
-                                  },
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0x40C31331)),
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: settings.isDark
+                                      ? Color(0xFF303250)
+                                      : Color(0xFF0D276B),
                                 ),
-                              )
-                            : FittedBox(
+                                height: 300,
+                                width: 300, //MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.add_a_photo,
+                                      size: 60,
+                                      color: settings.isDark
+                                          ? Color(0xFFF79E1B)
+                                          : Color(0xFFF79E1B),
+                                    ),
+                                    onPressed: () {
+                                      _onAlertButtonsPressed(context, 2);
+                                    },
+                                  ),
+                                ))
+                            : Container(
+                                decoration: BoxDecoration(
+                                  //border: Border.all(color: Color(0x40C31331)),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                height: 300,
+                                width: 300,
                                 child: Image.file(
                                   _pickedImage2,
-                                  //scale: 50,
+                                  //fit: BoxFit.fill,
                                 ),
-                                fit: BoxFit.fill,
+                                //fit: BoxFit.fill,
                               ),
                       ),
-                    ),
-                  ]),
+                    ]),
 /////////////////////////////////////////////////////////////////////////
-                  new Stack(children: [
-                    Positioned(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0x40C31331)),
-                          borderRadius: BorderRadius.circular(30),
-                          color: settings.isDark
-                              ? Color(0xFF303250)
-                              : Color(0xFF0D276B),
-                        ),
-                        height: 300,
-                        width: 300, //MediaQuery.of(context).size.width,
+                    new Stack(children: [
+                      Positioned(
                         child: _pickedImage3 == null
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.add_a_photo,
-                                    size: 60,
-                                    color: settings.isDark
-                                        ? Color(0xFFF79E1B)
-                                        : Color(0xFFF79E1B),
-                                  ),
-                                  onPressed: () {
-                                    _onAlertButtonsPressed(context, 3);
-                                  },
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0x40C31331)),
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: settings.isDark
+                                      ? Color(0xFF303250)
+                                      : Color(0xFF0D276B),
                                 ),
-                              )
-                            : FittedBox(
+                                height: 300,
+                                width: 300, //MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.add_a_photo,
+                                      size: 60,
+                                      color: settings.isDark
+                                          ? Color(0xFFF79E1B)
+                                          : Color(0xFFF79E1B),
+                                    ),
+                                    onPressed: () {
+                                      _onAlertButtonsPressed(context, 3);
+                                    },
+                                  ),
+                                ))
+                            : Container(
+                                decoration: BoxDecoration(
+                                  //border: Border.all(color: Color(0x40C31331)),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                height: 300,
+                                width: 300,
                                 child: Image.file(
                                   _pickedImage3,
-                                  //scale: 50,
+                                  //fit: BoxFit.fill,
                                 ),
-                                fit: BoxFit.fill,
+                                //fit: BoxFit.fill,
                               ),
                       ),
-                    ),
-                  ]),
+                    ]),
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20),

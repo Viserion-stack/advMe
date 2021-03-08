@@ -85,7 +85,7 @@ class _OrdersScreenState extends State<OrdersScreen>
           ),
         ),
         title: Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Expanded(
                       child: RichText(
               text: TextSpan(

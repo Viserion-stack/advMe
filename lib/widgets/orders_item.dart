@@ -44,7 +44,6 @@ class OrdersItem extends StatelessWidget {
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return OpenContainer(
-      
       openElevation: 0,
       closedElevation: 0,
       transitionDuration: Duration(milliseconds: 650),
@@ -122,12 +121,6 @@ class OrdersItem extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
                         ),
-                      ),
-                       Image.network(
-                        imageUrl1,
-                        height: 130,
-                        width: 130,
-                        fit: BoxFit.cover,
                       ),
                       Container(
                         child: Text(
