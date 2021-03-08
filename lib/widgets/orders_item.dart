@@ -104,7 +104,7 @@ class OrdersItem extends StatelessWidget {
                       //bottomLeft: Radius.circular(15),
                     ),
                     child: Image.network(
-                      imageUrl,
+                      imageUrl1,
                       height: 135,
                       width: 130,
                       fit: BoxFit.cover,
@@ -123,16 +123,11 @@ class OrdersItem extends StatelessWidget {
                           fontSize: 22,
                         ),
                       ),
-<<<<<<< HEAD
-                      SizedBox(
-                        height: 8,
-=======
-                      child: Image.network(
+                       Image.network(
                         imageUrl1,
                         height: 130,
                         width: 130,
                         fit: BoxFit.cover,
->>>>>>> 4a1c735... Add possibilty to add 3 images.
                       ),
                       Container(
                         child: Text(

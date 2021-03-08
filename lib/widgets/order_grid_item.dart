@@ -13,15 +13,10 @@ class OrderGridItem extends StatefulWidget {
   final String id;
   final String title;
   final String description;
-<<<<<<< HEAD
-  bool isFavorite;
-  final String imageUrl;
-=======
-  final bool isFavorite;
+   bool isFavorite;
   final String imageUrl1;
   final String imageUrl2;
   final String imageUrl3;
->>>>>>> 4a1c735... Add possibilty to add 3 images.
   final String price;
   final String phone;
   final String website;
@@ -79,31 +74,18 @@ class _OrderGridItemState extends State<OrderGridItem> {
             : Colors.transparent, //Color(0xFFE9ECF5),
         openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
         openBuilder: (context, _) => OrderDetailScreen(
-<<<<<<< HEAD
               id: widget.id,
               title: widget.title,
               description: widget.description,
               isFavorite: widget.isFavorite,
-              imageUrl: widget.imageUrl,
+              imageUrl1: widget.imageUrl1,
+              imageUrl2: widget.imageUrl2,
+              imageUrl3: widget.imageUrl3,
               price: widget.price,
               phone: widget.phone,
               website: widget.website,
               address: widget.address,
               isYourAds: widget.isYourAds,
-=======
-              id: id,
-              title: title,
-              description: description,
-              isFavorite: isFavorite,
-              imageUrl1: imageUrl1,
-              imageUrl2: imageUrl2,
-              imageUrl3: imageUrl3,
-              price: price,
-              phone: phone,
-              website: website,
-              address: address,
-              isYourAds: isYourAds,
->>>>>>> 4a1c735... Add possibilty to add 3 images.
             ),
         closedBuilder: (context, _) =>
             // SizedBox(
@@ -140,11 +122,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                           //bottomLeft: Radius.circular(15),
                         ),
                         child: Image.network(
-<<<<<<< HEAD
-                          widget.imageUrl,
-=======
-                          imageUrl1,
->>>>>>> 4a1c735... Add possibilty to add 3 images.
+                          widget.imageUrl1,
                           //height: 200,
                           width: MediaQuery.of(context).size.width, //130,
                           fit: BoxFit.cover,
