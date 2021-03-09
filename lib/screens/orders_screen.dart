@@ -1,6 +1,7 @@
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/widgets/all_orders.dart';
+import 'package:advMe/widgets/favorite_orders.dart';
 import 'package:advMe/widgets/search_delegate.dart';
 import 'package:advMe/widgets/your_ads.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class OrdersScreen extends StatefulWidget {
-
   OrdersScreen({Key key}) : super(key: key);
   static const routeName = '/OrdersScreen';
 
@@ -27,7 +27,7 @@ class _OrdersScreenState extends State<OrdersScreen>
     });
 
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -43,10 +43,14 @@ class _OrdersScreenState extends State<OrdersScreen>
       appBar: AppBar(
         actions: [
           IconButton(
-            padding: EdgeInsets.only(left:0, right: 35),
-              icon: Icon(Icons.search, color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),size: 40),
+              padding: EdgeInsets.only(left: 0, right: 35),
+              icon: Icon(Icons.search,
+                  color:
+                      settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),
+                  size: 40),
               onPressed: () {
-                Navigator.of(context).push( MaterialPageRoute(builder: (BuildContext context) => Searchwidget()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => Searchwidget()));
               }),
         ],
         backgroundColor:
@@ -87,7 +91,7 @@ class _OrdersScreenState extends State<OrdersScreen>
         title: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Expanded(
-                      child: RichText(
+            child: RichText(
               text: TextSpan(
                   text: 'lookFor',
                   style: GoogleFonts.ubuntu(
@@ -121,6 +125,7 @@ class _OrdersScreenState extends State<OrdersScreen>
           tabs: [
             Tab(child: Text('All', style: TextStyle(fontSize: 18))),
             Tab(child: Text('Yours', style: TextStyle(fontSize: 18))),
+            Tab(child: Text('Favorite', style: TextStyle(fontSize: 18))),
           ],
         ),
       ),
@@ -128,6 +133,7 @@ class _OrdersScreenState extends State<OrdersScreen>
         //Center(child: Text('All orders',style: TextStyle(fontSize: 30))),
         AllOrders(),
         YourAds(),
+        FavoriteOrders(),
         //Center(child: Text('Yours orders',style: TextStyle(fontSize: 30))),
       ]),
     );
