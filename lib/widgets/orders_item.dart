@@ -21,6 +21,7 @@ class OrdersItem extends StatelessWidget {
   final String phone;
   final String website;
   final String address;
+  final String category;
   final bool isYourAds;
 
   OrdersItem({
@@ -35,6 +36,7 @@ class OrdersItem extends StatelessWidget {
     @required this.phone,
     @required this.website,
     @required this.address,
+    @required this.category,
     this.isYourAds,
   });
 

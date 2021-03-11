@@ -289,6 +289,7 @@ class SearchResultsListView extends StatelessWidget {
               phone: searchOrders[index].phone,
               website: searchOrders[index].website,
               address: searchOrders[index].address,
+              category: searchOrders[index].category,
             )
           ]);
         } else {
@@ -304,6 +305,7 @@ class SearchResultsListView extends StatelessWidget {
             phone: searchOrders[index].phone,
             website: searchOrders[index].website,
             address: searchOrders[index].address,
+            category: searchOrders[index].category,
           );
         }
       },

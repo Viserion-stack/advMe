@@ -23,7 +23,12 @@ class AdsScreen extends StatefulWidget {
   @override
   _AdsScreenState createState() => _AdsScreenState();
 }
-
+enum categories{
+    Construction,
+    Renovation,
+    Transport,
+    Mechanic,
+  }
 class _AdsScreenState extends State<AdsScreen> {
   // ignore: unused_field
   PlaceLocation _pickedLocation;
@@ -152,6 +157,7 @@ class _AdsScreenState extends State<AdsScreen> {
       phone: phoneNumberController.text.toString().trim(),
       website: websiteController.text.toString().trim(),
       address: address,
+      category: valueChoose.toString(),
     );
     await Provider.of<Orders>(context, listen: false)
         .addOrder(newOrder)
@@ -186,6 +192,7 @@ class _AdsScreenState extends State<AdsScreen> {
     'Transport',
     'Mechanic',
   ];
+  
 
   @override
   Widget build(BuildContext context) {

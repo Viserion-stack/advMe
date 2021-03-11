@@ -82,6 +82,7 @@ class _YourAdsState extends State<YourAds> {
                         phone: userData.data()['phone'],
                         website: userData.data()['website'],
                         address: userData.data()['address'],
+                        category: userData.data()['address'],
                         isYourAds: isYourAds,
                       );
                     

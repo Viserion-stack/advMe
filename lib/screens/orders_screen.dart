@@ -24,6 +24,7 @@ class _OrdersScreenState extends State<OrdersScreen>
   void initState() {
     Future.delayed(Duration.zero).then((_) {
       Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
+      print('Pobieranie do providera');
     });
 
     super.initState();

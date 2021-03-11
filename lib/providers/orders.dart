@@ -52,6 +52,7 @@ class Orders with ChangeNotifier {
             website: prodData.data()['website'],
             address: prodData.data()['address'],
             date: prodData.data()['date'],
+            category: prodData.data()['category'],
           ),
         );
         //print(prodData.data()['title']);
@@ -83,6 +84,7 @@ class Orders with ChangeNotifier {
         'phone': order.phone,
         'website': order.website,
         'address': order.address,
+        'category': order.category,
       });
 
       await FirebaseFirestore.instance
@@ -102,6 +104,7 @@ class Orders with ChangeNotifier {
         'phone': order.phone,
         'website': order.website,
         'address': order.address,
+        'category': order.category,
       });
       final newProduct = Order(
         userId: order.userId,
@@ -116,6 +119,7 @@ class Orders with ChangeNotifier {
         phone: order.phone,
         website: order.website,
         address: order.address,
+        category: order.category,
         isFavorite: false,
       );
       _items.add(newProduct);

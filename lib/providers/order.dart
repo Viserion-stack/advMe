@@ -16,6 +16,7 @@ class Order with ChangeNotifier {
   final String phone;
   final String website;
   final String address;
+  final String category;
   bool isFavorite;
 
   Order({
@@ -31,6 +32,7 @@ class Order with ChangeNotifier {
     @required this.phone,
     @required this.website,
     @required this.address,
+    @required this.category,
     this.isFavorite = false,
   });
 
