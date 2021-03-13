@@ -50,7 +50,7 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
               stream: FirebaseFirestore.instance
                   .collection('users')
                   .doc(userId)
-                  .collection('user_orders')
+                  .collection('favorite')
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> orderSnapshot) {
