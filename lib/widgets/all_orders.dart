@@ -1,3 +1,4 @@
+import 'package:advMe/providers/orders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,12 @@ class _AllOrdersState extends State<AllOrders> {
     Color(0xFF0D276B),
   ];
   bool isYourAds = false;
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
+    final favorites = Provider.of<Orders>(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -109,6 +112,22 @@ class _AllOrdersState extends State<AllOrders> {
                     orderSnapshot.data.docs.length.toString());
                       DocumentSnapshot userData =
                           orderSnapshot.data.docs[index];
+                          print(userData.id.toString());
+                          print(index.toString());
+                          
+                      for(int i = 0; i < favorites.itemFavorite.length; i++)
+                      {
+                        print('favorites'+favorites.itemFavorite.toString());
+                        if(userData.id.toString() == favorites.itemFavorite[i].toString()){
+                          print('favorites'+favorites.itemFavorite.toString());
+                          isFavorite = true;
+                          break;
+                        }
+                        else {
+                          isFavorite = false;
+                        }
+                      }
+
                       return OrderGridItem(
                         description: userData.data()['description'],
                         id: userData.id,
@@ -116,7 +135,7 @@ class _AllOrdersState extends State<AllOrders> {
                         imageUrl1: userData.data()['imageUrl1'],
                         imageUrl2: userData.data()['imageUrl2'],
                         imageUrl3: userData.data()['imageUrl3'],
-                        isFavorite: false,
+                        isFavorite: isFavorite,
                         price: userData.data()['price'],
                         phone: userData.data()['phone'],
                         website: userData.data()['website'],

@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -6,6 +7,7 @@ import 'package:advMe/providers/order.dart';
 
 class Orders with ChangeNotifier {
   List<Order> _items = [];
+  List itemFavorite = [];
 
   List<Order> get items {
     // if (_showFavoritesOnly) {
@@ -27,6 +29,27 @@ class Orders with ChangeNotifier {
     print(ads);
     print('BBB');
     return ads;
+  }
+
+  Future<void> fetchFavorite() async {
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    final List loadedFavorites = [];
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('favorite')
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((prodData) {
+        loadedFavorites.add(
+          prodData.data()['Id'],
+        );
+      });
+    });
+    itemFavorite = loadedFavorites;
+    print('pobranych favorites '+ itemFavorite.length.toString());
+    print('lista'+itemFavorite.toList().toString());
+    notifyListeners();
   }
 
   Future<void> fetchAndSetProducts() async {

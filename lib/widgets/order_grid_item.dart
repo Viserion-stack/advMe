@@ -59,7 +59,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
         'imageUrl1': widget.imageUrl1,
         'imageUrl2': widget.imageUrl2,
         'imageUrl3': widget.imageUrl3,
-        'isFavorite': true,
+        'isFavorite': widget.isFavorite,
         //'userId': uid,
         'price': widget.price,
         'phone': widget.phone,
