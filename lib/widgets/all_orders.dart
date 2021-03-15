@@ -39,6 +39,17 @@ class _AllOrdersState extends State<AllOrders> {
   bool isFavorite = false;
 
   @override
+  void initState() {
+    Future.delayed(Duration.zero).then((_) {
+      
+      Provider.of<Orders>(context, listen: false).fetchFavorite();
+    });
+
+    super.initState();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
     final favorites = Provider.of<Orders>(context);
