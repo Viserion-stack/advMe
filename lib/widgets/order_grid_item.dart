@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:animations/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class OrderGridItem extends StatefulWidget {
   final String id;
   final String title;
   final String description;
-   bool isFavorite;
+  bool isFavorite;
   final String imageUrl1;
   final String imageUrl2;
   final String imageUrl3;
@@ -43,6 +44,39 @@ class OrderGridItem extends StatefulWidget {
 }
 
 class _OrderGridItemState extends State<OrderGridItem> {
+  Future<void> _addFavorite(bool state) {
+    var userId = FirebaseAuth.instance.currentUser.uid;
+    if (state) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('favorite')
+          .doc(widget.id)
+          .set({
+        'Id': widget.id,
+        'title': widget.title,
+        'description': widget.description,
+        'imageUrl1': widget.imageUrl1,
+        'imageUrl2': widget.imageUrl2,
+        'imageUrl3': widget.imageUrl3,
+        'isFavorite': widget.isFavorite,
+        //'userId': uid,
+        'price': widget.price,
+        'phone': widget.phone,
+        'website': widget.website,
+        'address': widget.address,
+      });
+    }
+    if (!state) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection("favorite")
+          .doc(widget.id)
+          .delete();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
@@ -190,6 +224,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                             onTap: () {
                               setState(() {
                                 widget.isFavorite = !widget.isFavorite;
+                               return  _addFavorite(widget.isFavorite);
                               });
                             },
                             child: Icon(

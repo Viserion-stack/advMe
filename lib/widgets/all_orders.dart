@@ -1,3 +1,4 @@
+import 'package:advMe/providers/orders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,21 @@ class _AllOrdersState extends State<AllOrders> {
     Color(0xFF0D276B),
   ];
   bool isYourAds = false;
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((_) {
+      Provider.of<Orders>(context, listen: false).fetchFavorite();
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final settings = Provider.of<SettingsUser>(context);
+    final favorites = Provider.of<Orders>(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -104,49 +116,105 @@ class _AllOrdersState extends State<AllOrders> {
                 }),
           ),
           Expanded(
-            child: OrdersGrid(false, false, valueChoose),
+            child: FutureBuilder(
+                future: FirebaseFirestore.instance.collection('allAds').get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> orderSnapshot) {
+                  if (orderSnapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(
+                        child: SpinKitWave(
+                      color: Color(0xFFF79E1B),
+                    ));
+                  }
+                  return StaggeredGridView.countBuilder(
+                      staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+                      mainAxisSpacing: 4.0,
+                      crossAxisSpacing: 4.0,
+                      crossAxisCount: 2,
+                      itemCount: orderSnapshot.data.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        print('Ilość załadowanych ogłoszeń futurebuilderem ' +
+                            orderSnapshot.data.docs.length.toString());
+                        DocumentSnapshot userData =
+                            orderSnapshot.data.docs[index];
+                        print(userData.id.toString());
+                        print(index.toString());
 
-            // FutureBuilder(
-            //   future: FirebaseFirestore.instance.collection('allAds').get(),
-            //   builder: (BuildContext context,
-            //       AsyncSnapshot<QuerySnapshot> orderSnapshot) {
-            //     if (orderSnapshot.connectionState == ConnectionState.waiting) {
-            //       return Center(
-            //           child: SpinKitWave(
-            //         color: Color(0xFFF79E1B),
-            //       ));
-            //     }
-            //     return StaggeredGridView.countBuilder(
-            //         staggeredTileBuilder: (_) =>
-            //             StaggeredTile.fit(1),
-            //         mainAxisSpacing: 4.0,
-            //         crossAxisSpacing: 4.0,
-            //         crossAxisCount: 2,
-            //         itemCount: orderSnapshot.data.docs.length,
-            //         itemBuilder: (BuildContext context, int index) {
-            //                           print('Ilość załadowanych ogłoszeń futurebuilderem ' +
-            //         orderSnapshot.data.docs.length.toString());
-            //           DocumentSnapshot userData =
-            //               orderSnapshot.data.docs[index];
-            //           return OrderGridItem(
-            //             description: userData.data()['description'],
-            //             id: userData.id,
-            //             title: userData.data()['title'],
-            //             imageUrl1: userData.data()['imageUrl1'],
-            //             imageUrl2: userData.data()['imageUrl2'],
-            //             imageUrl3: userData.data()['imageUrl3'],
-            //             isFavorite: false,
-            //             price: userData.data()['price'],
-            //             phone: userData.data()['phone'],
-            //             website: userData.data()['website'],
-            //             address: userData.data()['address'],
-            //             isYourAds: isYourAds,
-            //           );
-            //         });
+                        for (int i = 0;
+                            i < favorites.itemFavorite.length;
+                            i++) {
+                          print(
+                              'favorites' + favorites.itemFavorite.toString());
+                          if (userData.id.toString() ==
+                              favorites.itemFavorite[i].toString()) {
+                            print('favorites' +
+                                favorites.itemFavorite.toString());
+                            isFavorite = true;
+                            break;
+                          } else {
+                            isFavorite = false;
+                          }
+                        }
 
-            //   },
-            // ),
-          ),
+                        return OrderGridItem(
+                          description: userData.data()['description'],
+                          id: userData.id,
+                          title: userData.data()['title'],
+                          imageUrl1: userData.data()['imageUrl1'],
+                          imageUrl2: userData.data()['imageUrl2'],
+                          imageUrl3: userData.data()['imageUrl3'],
+                          isFavorite: isFavorite,
+                          price: userData.data()['price'],
+                          phone: userData.data()['phone'],
+                          website: userData.data()['website'],
+                          address: userData.data()['address'],
+                          isYourAds: isYourAds,
+                        );
+                      });
+
+                  // FutureBuilder(
+                  //   future: FirebaseFirestore.instance.collection('allAds').get(),
+                  //   builder: (BuildContext context,
+                  //       AsyncSnapshot<QuerySnapshot> orderSnapshot) {
+                  //     if (orderSnapshot.connectionState == ConnectionState.waiting) {
+                  //       return Center(
+                  //           child: SpinKitWave(
+                  //         color: Color(0xFFF79E1B),
+                  //       ));
+                  //     }
+                  //     return StaggeredGridView.countBuilder(
+                  //         staggeredTileBuilder: (_) =>
+                  //             StaggeredTile.fit(1),
+                  //         mainAxisSpacing: 4.0,
+                  //         crossAxisSpacing: 4.0,
+                  //         crossAxisCount: 2,
+                  //         itemCount: orderSnapshot.data.docs.length,
+                  //         itemBuilder: (BuildContext context, int index) {
+                  //                           print('Ilość załadowanych ogłoszeń futurebuilderem ' +
+                  //         orderSnapshot.data.docs.length.toString());
+                  //           DocumentSnapshot userData =
+                  //               orderSnapshot.data.docs[index];
+                  //           return OrderGridItem(
+                  //             description: userData.data()['description'],
+                  //             id: userData.id,
+                  //             title: userData.data()['title'],
+                  //             imageUrl1: userData.data()['imageUrl1'],
+                  //             imageUrl2: userData.data()['imageUrl2'],
+                  //             imageUrl3: userData.data()['imageUrl3'],
+                  //             isFavorite: false,
+                  //             price: userData.data()['price'],
+                  //             phone: userData.data()['phone'],
+                  //             website: userData.data()['website'],
+                  //             address: userData.data()['address'],
+                  //             isYourAds: isYourAds,
+                  //           );
+                  //         });
+
+                  //   },
+                  // ),
+                }),
+          )
         ])
       ]),
     );
