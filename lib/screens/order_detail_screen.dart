@@ -66,6 +66,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       throw 'Could not launch $url';
     }
   }
+
   Future<void> _deleteUserOrder(String id, String title) async {
     var firebaseUser = FirebaseAuth.instance.currentUser.uid;
     String itemToDelete1 = widget.title + '1.jpg';
@@ -106,13 +107,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
     Navigator.of(context).pop();
     Navigator.of(context).pop();
-
-    // TODO: ADD ScaffoldMessneger in next stable flutter release
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   const SnackBar(
-    //     content: Text('A SnackBar has been shown.'),
-    //   ),
-    // );
   }
 
   Future<void> _showMyDialog() async {
@@ -141,6 +135,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               child: Text('YES'),
               onPressed: () async {
                 await _deleteUserOrder(widget.id, widget.title);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Order has beed deleted!'),
+                  ),
+                );
               },
             ),
           ],
@@ -233,11 +233,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   space: 0,
                 )),
                 itemBuilder: (_, index) {
-                  List images = [widget.imageUrl1,widget.imageUrl2, widget.imageUrl3];
+                  List images = [
+                    widget.imageUrl1,
+                    widget.imageUrl2,
+                    widget.imageUrl3
+                  ];
                   print(images);
                   return Stack(children: [
                     Card(
-                      color: settings.isDark ? Color(0xFFCA1538) : Color(0xFFE9ECF5),
+                        color: settings.isDark
+                            ? Color(0xFFCA1538)
+                            : Color(0xFFE9ECF5),
                         elevation: 8,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),

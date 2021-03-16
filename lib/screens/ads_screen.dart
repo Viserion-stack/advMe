@@ -168,6 +168,12 @@ class _AdsScreenState extends State<AdsScreen> {
       print("Order Added to cloud firestore");
       setState(() {
         isLoading = false;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Order has beed added!'),
+          ),
+        );
       });
     }).catchError((e) => print(e));
   }
@@ -704,7 +710,7 @@ class _AdsScreenState extends State<AdsScreen> {
                         descriptionController.text.isEmpty ||
                         phoneNumberController.text.isEmpty ||
                         websiteController.text.isEmpty)
-                        //TODO display some info about check your inputs while button is diasbled!
+                    //TODO display some info about check your inputs while button is diasbled!
                     ? null
                     : () async {
                         setState(() {
