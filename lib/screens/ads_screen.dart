@@ -184,6 +184,8 @@ class _AdsScreenState extends State<AdsScreen> {
   final phoneNumberController = TextEditingController();
   final websiteController = TextEditingController();
 
+  bool buttonReady = false;
+
   @override
   void dispose() {
     descriptionController.dispose();
@@ -488,7 +490,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       validator: validateTitle,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
                       decoration: InputDecoration(
                           filled: true,
                           border: new OutlineInputBorder(
@@ -531,7 +533,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
                       decoration: InputDecoration(
                           filled: true,
                           border: new OutlineInputBorder(
@@ -572,7 +574,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: validateDescription,
                       maxLines: 5,
-                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
                       decoration: InputDecoration(
                           filled: true,
                           border: new OutlineInputBorder(
@@ -615,7 +617,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
                       decoration: InputDecoration(
                           filled: true,
                           border: new OutlineInputBorder(
@@ -659,7 +661,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       keyboardType: TextInputType.url,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
+                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
                       decoration: InputDecoration(
                           filled: true,
                           border: new OutlineInputBorder(
@@ -702,6 +704,12 @@ class _AdsScreenState extends State<AdsScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: buttonReady ? Colors.grey :Color(0xEEC31331) ,
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                ),
                 onPressed: ((_pickedImage == null) ||
                         (_pickedImage2 == null) ||
                         (_pickedImage3 == null) ||
@@ -711,10 +719,11 @@ class _AdsScreenState extends State<AdsScreen> {
                         phoneNumberController.text.isEmpty ||
                         websiteController.text.isEmpty)
                     //TODO display some info about check your inputs while button is diasbled!
-                    ? null
+                    ? null //buttonReady = false
                     : () async {
                         setState(() {
                           isLoading = true;
+                          buttonReady = true;
                         });
                         _addorder(
                             address); //Addres field mus be passed as argument!!!
