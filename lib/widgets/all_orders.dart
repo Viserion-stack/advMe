@@ -16,7 +16,9 @@ class AllOrders extends StatefulWidget {
 }
 
 class _AllOrdersState extends State<AllOrders> {
-  String valueChoose = 'All';
+  
+  String valueChoosen = 'All';
+  var firebaseAllAdsInit = FirebaseFirestore.instance.collection('allAds').get(); // need to set as initialize displaying orders when fetching orders for firs time.
   List<String> categories = [
     'All',
     'Construction',
@@ -94,7 +96,15 @@ class _AllOrdersState extends State<AllOrders> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          valueChoose = categories[index];
+                          valueChoosen = categories[index];
+                          if (valueChoosen == 'All'){
+                            firebaseAllAdsInit =FirebaseFirestore.instance.collection('allAds').get();
+                            FirebaseFirestore.instance.collection('allAds').where('category', isEqualTo: valueChoosen).get();
+                          }
+                          else {
+                          firebaseAllAdsInit = FirebaseFirestore.instance.collection('allAds').where('category', isEqualTo: valueChoosen).get();
+                          }
+
                         });
                       },
                       child: Container(
@@ -117,7 +127,7 @@ class _AllOrdersState extends State<AllOrders> {
           ),
           Expanded(
             child: FutureBuilder(
-                future: FirebaseFirestore.instance.collection('allAds').get(),
+                future: firebaseAllAdsInit, //FirebaseFirestore.instance.collection('allAds').where('category', isEqualTo: valueChoosen).get(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> orderSnapshot) {
                   if (orderSnapshot.connectionState ==
@@ -134,7 +144,7 @@ class _AllOrdersState extends State<AllOrders> {
                       crossAxisCount: 2,
                       itemCount: orderSnapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        print('Ilość załadowanych ogłoszeń futurebuilderem ' +
+                        print('Ilość załadowanych ogłoszeń futurebuildereM ' +
                             orderSnapshot.data.docs.length.toString());
                         DocumentSnapshot userData =
                             orderSnapshot.data.docs[index];
@@ -156,8 +166,8 @@ class _AllOrdersState extends State<AllOrders> {
                             isFavorite = false;
                           }
                         }
-
-                        return OrderGridItem(
+                                                    
+                         return OrderGridItem(
                           description: userData.data()['description'],
                           id: userData.id,
                           title: userData.data()['title'],
@@ -171,6 +181,24 @@ class _AllOrdersState extends State<AllOrders> {
                           address: userData.data()['address'],
                           isYourAds: isYourAds,
                         );
+                      
+                      
+                        //  return OrderGridItem(
+                        //   description: userData.data()['description'],
+                        //   id: userData.id,
+                        //   title: userData.data()['title'],
+                        //   imageUrl1: userData.data()['imageUrl1'],
+                        //   imageUrl2: userData.data()['imageUrl2'],
+                        //   imageUrl3: userData.data()['imageUrl3'],
+                        //   isFavorite: isFavorite,
+                        //   price: userData.data()['price'],
+                        //   phone: userData.data()['phone'],
+                        //   website: userData.data()['website'],
+                        //   address: userData.data()['address'],
+                        //   isYourAds: isYourAds,
+                        // );
+                      
+
                       });
 
                   // FutureBuilder(

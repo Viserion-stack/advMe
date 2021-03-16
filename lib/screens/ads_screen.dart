@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:advMe/helpers/location_helper.dart';
+import 'package:advMe/helpers/validators.dart';
 import 'package:advMe/models/place.dart';
 import 'package:advMe/providers/order.dart';
 import 'package:advMe/providers/orders.dart';
@@ -23,12 +24,14 @@ class AdsScreen extends StatefulWidget {
   @override
   _AdsScreenState createState() => _AdsScreenState();
 }
-enum categories{
-    Construction,
-    Renovation,
-    Transport,
-    Mechanic,
-  }
+
+enum categories {
+  Construction,
+  Renovation,
+  Transport,
+  Mechanic,
+}
+
 class _AdsScreenState extends State<AdsScreen> {
   // ignore: unused_field
   PlaceLocation _pickedLocation;
@@ -192,7 +195,6 @@ class _AdsScreenState extends State<AdsScreen> {
     'Transport',
     'Mechanic',
   ];
-  
 
   @override
   Widget build(BuildContext context) {
@@ -476,6 +478,8 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateTitle,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
                       style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
@@ -516,6 +520,8 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validatePrice,
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
@@ -557,6 +563,8 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateDescription,
                       maxLines: 5,
                       style: TextStyle(color: Color(0xFFCBB2AB), fontSize: 17),
                       decoration: InputDecoration(
@@ -596,6 +604,8 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validatePhone,
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
@@ -638,6 +648,8 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateWebsite,
                       keyboardType: TextInputType.url,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFFF79E1B),
@@ -683,33 +695,34 @@ class _AdsScreenState extends State<AdsScreen> {
             SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  _addorder(
-                      address); //Addres field mus be passed as argument!!!
-                },
+              child: ElevatedButton(
+                onPressed: ((_pickedImage == null) ||
+                        (_pickedImage2 == null) ||
+                        (_pickedImage3 == null) ||
+                        titleController.text.isEmpty ||
+                        priceController.text.isEmpty ||
+                        descriptionController.text.isEmpty ||
+                        phoneNumberController.text.isEmpty ||
+                        websiteController.text.isEmpty)
+                        //TODO display some info about check your inputs while button is diasbled!
+                    ? null
+                    : () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        _addorder(
+                            address); //Addres field mus be passed as argument!!!
+                      },
                 child: isLoading
                     ? SpinKitWave(
                         color: Color(0xFFF79E1B),
                       )
-                    : Container(
-                        child: Center(
-                          child: Text(
-                            'Add advertisment',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                            ),
-                          ),
+                    : Text(
+                        'Add advertisment',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
                         ),
-                        decoration: BoxDecoration(
-                            color: Color(0xEEC31331),
-                            borderRadius: BorderRadius.circular(30)),
-                        height: 40,
-                        width: 280,
                       ),
               ),
             ),
