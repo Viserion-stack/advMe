@@ -3,13 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/helpers/string_extenstion.dart';
+import 'package:photo_view/photo_view.dart';
 
 // ignore: must_be_immutable
 class OrderDetailScreen extends StatefulWidget {
@@ -223,40 +226,77 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               //padding: const EdgeInsets.all(10.0),
               height: 350,
               width: MediaQuery.of(context).size.width * 1,
-              child: Swiper(
-                itemCount: 3,
-                itemWidth: MediaQuery.of(context).size.width - 2 * 64,
-                layout: SwiperLayout.STACK,
-                pagination: SwiperPagination(
-                    builder: DotSwiperPaginationBuilder(
-                  activeSize: 10,
-                  space: 0,
-                )),
-                itemBuilder: (_, index) {
-                  List images = [
-                    widget.imageUrl1,
-                    widget.imageUrl2,
-                    widget.imageUrl3
-                  ];
-                  print(images);
-                  return Stack(children: [
-                    Card(
-                        color: settings.isDark
-                            ? Color(0xFFCA1538)
-                            : Color(0xFFE9ECF5),
-                        elevation: 8,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        child: Image.network(images[index])),
-                  ]);
-                },
+              child: PhotoViewGallery(
+                pageOptions: <PhotoViewGalleryPageOptions>[
+                  PhotoViewGalleryPageOptions(
+                    imageProvider: NetworkImage(
+                        widget.imageUrl1), //AssetImage("assets/gallery1.jpg"),
+                    heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
+                  ),
+                  PhotoViewGalleryPageOptions(
+                      imageProvider: NetworkImage(widget
+                          .imageUrl2), //AssetImage("assets/gallery2.jpg"),
+                      heroAttributes:
+                          const PhotoViewHeroAttributes(tag: "tag2"),
+                      maxScale: PhotoViewComputedScale.contained * 0.3),
+                  PhotoViewGalleryPageOptions(
+                    imageProvider: NetworkImage(
+                        widget.imageUrl3), //AssetImage("assets/gallery3.jpg"),
+                    minScale: PhotoViewComputedScale.contained * 0.8,
+                    maxScale: PhotoViewComputedScale.covered * 1.1,
+                    heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
+                  ),
+                ],
+                loadingBuilder: (context, progress) => Center(
+                  child: Container(
+                    width: 70.0,
+                    height: 50.0,
+                    child: SpinKitWave(
+                      color: Color(0xFFF79E1B),
+                    ),
+                  ),
+                ),
+                backgroundDecoration: BoxDecoration(
+                  color:
+                      settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
+                ),
+                //backgroundDecoration: widget.backgroundDecoration,
+                //pageController: widget.pageController,
+                // onPageChanged: onPageChanged,
               ),
+              // child: Swiper(
+              //   itemCount: 3,
+              //   itemWidth: MediaQuery.of(context).size.width - 2 * 64,
+              //   layout: SwiperLayout.STACK,
+              //   pagination: SwiperPagination(
+              //       builder: DotSwiperPaginationBuilder(
+              //     activeSize: 10,
+              //     space: 0,
+              //   )),
+              //   itemBuilder: (_, index) {
+              //     List images = [
+              //       widget.imageUrl1,
+              //       widget.imageUrl2,
+              //       widget.imageUrl3
+              //     ];
+              //     print(images);
+              //     return Stack(children: [
+              //       Card(
+              //           color: settings.isDark
+              //               ? Color(0xFFCA1538)
+              //               : Color(0xFFE9ECF5),
+              //           elevation: 8,
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(40),
+              //           ),
+              //           child: Image.network(images[index])),
+              //     ]);
+              //   },
+              // ),
             ),
             SizedBox(
               height: 30,
             ),
-
             Positioned(
               left: MediaQuery.of(context).size.width * 0.2,
               top: 100,
