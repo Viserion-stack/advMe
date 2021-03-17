@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,6 +27,8 @@ class OrderDetailScreen extends StatefulWidget {
   final String website;
   final String address;
   bool isYourAds;
+  double rating;
+  int countRating;
 
   OrderDetailScreen({
     this.id,
@@ -40,6 +43,8 @@ class OrderDetailScreen extends StatefulWidget {
     this.website,
     this.address,
     this.isYourAds,
+    this.rating,
+    this.countRating,
   });
 
   @override
@@ -161,6 +166,21 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool changedRating = false;
+    double ratingValue = 0.0;
+
+    void updateRating(){
+      var uid = FirebaseAuth.instance.currentUser.uid;
+      if(changedRating){
+        ratingValue = (ratingValue + widget.rating)/2;
+        FirebaseFirestore.instance.collection('allAds').doc(widget.id).update({
+          'rating': ratingValue,
+          'countRating' : widget.countRating+1,
+        });
+        FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').doc(uid).set({});
+      }
+    }
+
     if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
@@ -174,6 +194,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             Row(children: [
               GestureDetector(
                 onTap: () {
+                  updateRating();
                   Navigator.of(context).pop();
                 },
                 child: Padding(
@@ -417,6 +438,28 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 ),
               ],
             ),
+            SizedBox(height: 40),
+            Container(
+                child: RatingBar.builder(
+                  initialRating: 3.0,
+              itemBuilder: (context, _) {
+                return Icon(
+                  Icons.star,
+                  color: Color(0xFFF79E1B),
+                );
+              },
+              itemCount: 5,
+              allowHalfRating: true,
+              direction: Axis.horizontal,
+              minRating: 1.0,
+              maxRating: 5.0,
+              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+              onRatingUpdate: (rating) {
+                print(rating);
+                changedRating = true;
+                ratingValue = rating;
+              },
+            )),
             SizedBox(height: 40),
           ],
         ),

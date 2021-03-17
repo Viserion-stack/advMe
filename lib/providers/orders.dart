@@ -108,6 +108,8 @@ class Orders with ChangeNotifier {
         'website': order.website,
         'address': order.address,
         'category': order.category,
+        'rating' : 3.5.toInt(),
+        'countRating' : 0.toInt(),
       });
 
       await FirebaseFirestore.instance

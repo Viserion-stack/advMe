@@ -180,6 +180,8 @@ class _AllOrdersState extends State<AllOrders> {
                           website: userData.data()['website'],
                           address: userData.data()['address'],
                           isYourAds: isYourAds,
+                          rating: userData.data()['rating'],
+                          countRating : userData.data()['countRating'],
                         );
                       
                       
