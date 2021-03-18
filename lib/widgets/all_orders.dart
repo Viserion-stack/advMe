@@ -150,6 +150,7 @@ class _AllOrdersState extends State<AllOrders> {
                             orderSnapshot.data.docs[index];
                         print(userData.id.toString());
                         print(index.toString());
+                        
 
                         for (int i = 0;
                             i < favorites.itemFavorite.length;
@@ -180,6 +181,9 @@ class _AllOrdersState extends State<AllOrders> {
                           website: userData.data()['website'],
                           address: userData.data()['address'],
                           isYourAds: isYourAds,
+                          rating: userData.data()['rating'],
+                          countRating : userData.data()['countRating'],
+                          sumRating: userData.data()['sumRating'],
                         );
                       
                       

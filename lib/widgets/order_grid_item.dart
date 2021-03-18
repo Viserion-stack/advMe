@@ -23,6 +23,9 @@ class OrderGridItem extends StatefulWidget {
   final String website;
   final String address;
   final bool isYourAds;
+  double rating;
+  int countRating;
+  double sumRating;
 
   OrderGridItem({
     @required this.id,
@@ -37,6 +40,10 @@ class OrderGridItem extends StatefulWidget {
     @required this.website,
     @required this.address,
     this.isYourAds,
+    this.rating,
+    this.countRating,
+    this.sumRating,
+
   });
 
   @override
@@ -120,6 +127,9 @@ class _OrderGridItemState extends State<OrderGridItem> {
               website: widget.website,
               address: widget.address,
               isYourAds: widget.isYourAds,
+              rating: widget.rating,
+              countRating : widget.countRating,
+              sumRating: widget.sumRating,
             ),
         closedBuilder: (context, _) =>
             // SizedBox(
@@ -196,7 +206,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                             color: Color(0xFFF79E1B),
                           ),
                           Text(
-                            '3.2',
+                            widget.rating.toStringAsPrecision(2),
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Color(0xFFF79E1B),

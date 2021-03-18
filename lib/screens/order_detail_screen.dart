@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -29,6 +30,9 @@ class OrderDetailScreen extends StatefulWidget {
   final String website;
   final String address;
   bool isYourAds;
+  double rating;
+  int countRating;
+  double sumRating;
 
   OrderDetailScreen({
     this.id,
@@ -43,6 +47,9 @@ class OrderDetailScreen extends StatefulWidget {
     this.website,
     this.address,
     this.isYourAds,
+    this.rating,
+    this.countRating,
+    this.sumRating,
   });
 
   @override
@@ -51,6 +58,7 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   String _previewImageUrl;
+  final List firebaseAllAdsInit = [];
 
   Future<void> launchURL(String url) async {
     if (!url.contains('http')) url = 'https://$url';
@@ -152,20 +160,64 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     );
   }
 
+  Future<void> userRating() async {
+    //var uid = FirebaseAuth.instance.currentUser.uid;
+    await FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').get().then((querySnapshot){
+      querySnapshot.docs.forEach((prodData) {
+        firebaseAllAdsInit.add(
+          prodData.data()['id'],
+        );
+       });
+    });
+  
+  }
+
   @override
   void initState() {
     final staticMapImageUrl =
         LocationHelper.generateLocationPreviewImagebyAddress(widget.address);
 
     _previewImageUrl = staticMapImageUrl;
+    userRating();
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool changedRating = false;
+    double ratingValue = 0.0;
+
+    void updateRating(){
+      bool isUser = false;
+      var uid = FirebaseAuth.instance.currentUser.uid;
+      double sum = 0.0;
+      for(int i = 0; i<firebaseAllAdsInit.length; i++ ){
+        if(uid.toString() == firebaseAllAdsInit[i].toString()){
+          isUser = true;
+          break;
+        }
+      }
+      if(changedRating && !isUser){
+        sum = ratingValue + widget.sumRating;
+        ratingValue = sum/(widget.countRating+2);
+        FirebaseFirestore.instance.collection('allAds').doc(widget.id).update({
+          'rating': ratingValue,
+          'countRating' : widget.countRating+1,
+          'sumRating' : sum,
+        });
+        FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').doc(uid).set({
+          'id' : uid,
+        });
+      }
+    }
+    
     if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
+    
+
+    
+    print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       body: SingleChildScrollView(
@@ -177,6 +229,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             Row(children: [
               GestureDetector(
                 onTap: () {
+                  updateRating();
                   Navigator.of(context).pop();
                 },
                 child: Padding(
@@ -457,6 +510,28 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 ),
               ],
             ),
+            SizedBox(height: 40),
+            Container(
+                child: RatingBar.builder(
+                  initialRating: 3.0,
+              itemBuilder: (context, _) {
+                return Icon(
+                  Icons.star,
+                  color: Color(0xFFF79E1B),
+                );
+              },
+              itemCount: 5,
+              allowHalfRating: true,
+              direction: Axis.horizontal,
+              minRating: 1.0,
+              maxRating: 5.0,
+              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+              onRatingUpdate: (rating) {
+                print(rating);
+                changedRating = true;
+                ratingValue = rating;
+              },
+            )),
             SizedBox(height: 40),
           ],
         ),
