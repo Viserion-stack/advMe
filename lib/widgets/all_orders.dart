@@ -1,4 +1,5 @@
 import 'package:advMe/providers/orders.dart';
+import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,10 @@ class AllOrders extends StatefulWidget {
 }
 
 class _AllOrdersState extends State<AllOrders> {
-  
   String valueChoosen = 'All';
-  var firebaseAllAdsInit = FirebaseFirestore.instance.collection('allAds').get(); // need to set as initialize displaying orders when fetching orders for firs time.
+  var firebaseAllAdsInit = FirebaseFirestore.instance
+      .collection('allAds')
+      .get(); // need to set as initialize displaying orders when fetching orders for firs time.
   List<String> categories = [
     'All',
     'Construction',
@@ -61,6 +63,16 @@ class _AllOrdersState extends State<AllOrders> {
 
   @override
   Widget build(BuildContext context) {
+    print('rebuild');
+    final orderstsData = Provider.of<Orders>(context);
+    var categoryOrders = orderstsData.items.where((order) {
+      return order.category.contains(valueChoosen);
+    }).toList();
+
+    final orders = orderstsData.items;
+    if (valueChoosen == 'All') {
+      categoryOrders = orders;
+    }
     final settings = Provider.of<SettingsUser>(context);
     final favorites = Provider.of<Orders>(context);
     return Container(
@@ -97,14 +109,6 @@ class _AllOrdersState extends State<AllOrders> {
                       onTap: () {
                         setState(() {
                           valueChoosen = categories[index];
-                          if (valueChoosen == 'All'){
-                            firebaseAllAdsInit =FirebaseFirestore.instance.collection('allAds').get();
-                            FirebaseFirestore.instance.collection('allAds').where('category', isEqualTo: valueChoosen).get();
-                          }
-                          else {
-                          firebaseAllAdsInit = FirebaseFirestore.instance.collection('allAds').where('category', isEqualTo: valueChoosen).get();
-                          }
-
                         });
                       },
                       child: Container(
@@ -126,126 +130,35 @@ class _AllOrdersState extends State<AllOrders> {
                 }),
           ),
           Expanded(
-            child: FutureBuilder(
-                future: firebaseAllAdsInit, //FirebaseFirestore.instance.collection('allAds').where('category', isEqualTo: valueChoosen).get(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> orderSnapshot) {
-                  if (orderSnapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                        child: SpinKitWave(
-                      color: Color(0xFFF79E1B),
-                    ));
-                  }
-                  return StaggeredGridView.countBuilder(
-                      staggeredTileBuilder: (_) => StaggeredTile.fit(1),
-                      mainAxisSpacing: 4.0,
-                      crossAxisSpacing: 4.0,
-                      crossAxisCount: 2,
-                      itemCount: orderSnapshot.data.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        print('Ilość załadowanych ogłoszeń futurebuildereM ' +
-                            orderSnapshot.data.docs.length.toString());
-                        DocumentSnapshot userData =
-                            orderSnapshot.data.docs[index];
-                        print(userData.id.toString());
-                        print(index.toString());
-                        
-
-                        for (int i = 0;
-                            i < favorites.itemFavorite.length;
-                            i++) {
-                          print(
-                              'favorites' + favorites.itemFavorite.toString());
-                          if (userData.id.toString() ==
-                              favorites.itemFavorite[i].toString()) {
-                            print('favorites' +
-                                favorites.itemFavorite.toString());
-                            isFavorite = true;
-                            break;
-                          } else {
-                            isFavorite = false;
-                          }
-                        }
-                                                    
-                         return OrderGridItem(
-                          description: userData.data()['description'],
-                          id: userData.id,
-                          title: userData.data()['title'],
-                          imageUrl1: userData.data()['imageUrl1'],
-                          imageUrl2: userData.data()['imageUrl2'],
-                          imageUrl3: userData.data()['imageUrl3'],
-                          isFavorite: isFavorite,
-                          price: userData.data()['price'],
-                          phone: userData.data()['phone'],
-                          website: userData.data()['website'],
-                          address: userData.data()['address'],
-                          isYourAds: isYourAds,
-                          rating: userData.data()['rating'],
-                          countRating : userData.data()['countRating'],
-                          sumRating: userData.data()['sumRating'],
-                        );
-                      
-                      
-                        //  return OrderGridItem(
-                        //   description: userData.data()['description'],
-                        //   id: userData.id,
-                        //   title: userData.data()['title'],
-                        //   imageUrl1: userData.data()['imageUrl1'],
-                        //   imageUrl2: userData.data()['imageUrl2'],
-                        //   imageUrl3: userData.data()['imageUrl3'],
-                        //   isFavorite: isFavorite,
-                        //   price: userData.data()['price'],
-                        //   phone: userData.data()['phone'],
-                        //   website: userData.data()['website'],
-                        //   address: userData.data()['address'],
-                        //   isYourAds: isYourAds,
-                        // );
-                      
-
-                      });
-
-                  // FutureBuilder(
-                  //   future: FirebaseFirestore.instance.collection('allAds').get(),
-                  //   builder: (BuildContext context,
-                  //       AsyncSnapshot<QuerySnapshot> orderSnapshot) {
-                  //     if (orderSnapshot.connectionState == ConnectionState.waiting) {
-                  //       return Center(
-                  //           child: SpinKitWave(
-                  //         color: Color(0xFFF79E1B),
-                  //       ));
-                  //     }
-                  //     return StaggeredGridView.countBuilder(
-                  //         staggeredTileBuilder: (_) =>
-                  //             StaggeredTile.fit(1),
-                  //         mainAxisSpacing: 4.0,
-                  //         crossAxisSpacing: 4.0,
-                  //         crossAxisCount: 2,
-                  //         itemCount: orderSnapshot.data.docs.length,
-                  //         itemBuilder: (BuildContext context, int index) {
-                  //                           print('Ilość załadowanych ogłoszeń futurebuilderem ' +
-                  //         orderSnapshot.data.docs.length.toString());
-                  //           DocumentSnapshot userData =
-                  //               orderSnapshot.data.docs[index];
-                  //           return OrderGridItem(
-                  //             description: userData.data()['description'],
-                  //             id: userData.id,
-                  //             title: userData.data()['title'],
-                  //             imageUrl1: userData.data()['imageUrl1'],
-                  //             imageUrl2: userData.data()['imageUrl2'],
-                  //             imageUrl3: userData.data()['imageUrl3'],
-                  //             isFavorite: false,
-                  //             price: userData.data()['price'],
-                  //             phone: userData.data()['phone'],
-                  //             website: userData.data()['website'],
-                  //             address: userData.data()['address'],
-                  //             isYourAds: isYourAds,
-                  //           );
-                  //         });
-
-                  //   },
-                  // ),
-                }),
+            child: StaggeredGridView.countBuilder(
+              staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              crossAxisCount: 2,
+              itemCount: categoryOrders.length,
+              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                // builder: (c) => products[i],
+                value: categoryOrders[i],
+                child: OrderGridItem(
+                  description: categoryOrders[i].description,
+                  id: categoryOrders[i].id,
+                  title: categoryOrders[i].title,
+                  imageUrl1: categoryOrders[i].imageUrl1,
+                  imageUrl2: categoryOrders[i].imageUrl2,
+                  imageUrl3: categoryOrders[i].imageUrl3,
+                  isFavorite: categoryOrders[i].isFavorite,
+                  price: categoryOrders[i].price,
+                  phone: categoryOrders[i].phone,
+                  website: categoryOrders[i].website,
+                  address: categoryOrders[i].address,
+                  isYourAds: isYourAds,
+                  //TODO: Add favourites to provider
+                  rating: categoryOrders[i].rating,
+                  countRating: categoryOrders[i].countRating,
+                  sumRating: categoryOrders[i].sumRating,
+                ),
+              ),
+            ),
           )
         ])
       ]),

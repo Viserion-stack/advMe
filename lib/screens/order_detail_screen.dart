@@ -113,8 +113,19 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         .doc(widget.id)
         .delete()
         .then((_) {
-      print("Deleting from Firebase success!");
+      print("Deleting from Firebase 'user' success!");
     });
+
+//TODO: Fix delete from allAds branch
+
+//  await FirebaseFirestore.instance
+//         .collection('allAds')
+//         .doc(widget.id)
+//         .delete()
+//         .then((_) {
+//       print("Deleting from Firebase 'allAds'success!");
+//     });
+
 
     Navigator.of(context).pop();
     Navigator.of(context).pop();

@@ -16,8 +16,6 @@ class OrdersGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     print('rebuild');
     final orderstsData = Provider.of<Orders>(context);
-    //final products = showFavs ? productsData.favoriteItems : productsData.items;
-
     var categoryOrders = orderstsData.items.where((order) {
       return order.category.contains(categoryName);
     }).toList();
@@ -46,7 +44,8 @@ class OrdersGrid extends StatelessWidget {
           phone: categoryOrders[i].phone,
           website: categoryOrders[i].website,
           address: categoryOrders[i].address,
-          isYourAds: isYourAds,
+          isYourAds: isYourAds, 
+          category: categoryOrders[i].category,
         ),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

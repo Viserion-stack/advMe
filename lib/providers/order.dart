@@ -17,6 +17,10 @@ class Order with ChangeNotifier {
   final String website;
   final String address;
   final String category;
+  double rating;
+  int countRating;
+  double sumRating;
+
   bool isFavorite;
 
   Order({
@@ -33,6 +37,9 @@ class Order with ChangeNotifier {
     @required this.website,
     @required this.address,
     @required this.category,
+    this.rating,
+    this.countRating,
+    this.sumRating,
     this.isFavorite = false,
   });
 

@@ -82,6 +82,7 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
                         website: userData.data()['website'],
                         address: userData.data()['address'],
                         isYourAds: isYourAds,
+                        category: userData.data()['category'],
                         //category: ,
                       );
                     

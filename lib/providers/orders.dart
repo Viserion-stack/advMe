@@ -76,6 +76,9 @@ class Orders with ChangeNotifier {
             address: prodData.data()['address'],
             date: prodData.data()['date'],
             category: prodData.data()['category'],
+            rating: prodData.data()['rating'],
+            countRating: prodData.data()['countRating'],
+            sumRating: prodData.data()['sumRating'],
           ),
         );
         //print(prodData.data()['title']);
@@ -146,6 +149,9 @@ class Orders with ChangeNotifier {
         website: order.website,
         address: order.address,
         category: order.category,
+        rating: order.rating,
+        countRating: order.countRating,
+        sumRating: order.sumRating,
         isFavorite: false,
       );
       _items.add(newProduct);
