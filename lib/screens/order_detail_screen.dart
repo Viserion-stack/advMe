@@ -29,6 +29,7 @@ class OrderDetailScreen extends StatefulWidget {
   bool isYourAds;
   double rating;
   int countRating;
+  double sumRating;
 
   OrderDetailScreen({
     this.id,
@@ -45,6 +46,7 @@ class OrderDetailScreen extends StatefulWidget {
     this.isYourAds,
     this.rating,
     this.countRating,
+    this.sumRating,
   });
 
   @override
@@ -53,6 +55,7 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   String _previewImageUrl;
+  final List firebaseAllAdsInit = [];
 
   Future<void> launchURL(String url) async {
     if (!url.contains('http')) url = 'https://$url';
@@ -154,12 +157,25 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     );
   }
 
+  Future<void> userRating() async {
+    //var uid = FirebaseAuth.instance.currentUser.uid;
+    await FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').get().then((querySnapshot){
+      querySnapshot.docs.forEach((prodData) {
+        firebaseAllAdsInit.add(
+          prodData.data()['id'],
+        );
+       });
+    });
+  
+  }
+
   @override
   void initState() {
     final staticMapImageUrl =
         LocationHelper.generateLocationPreviewImagebyAddress(widget.address);
 
     _previewImageUrl = staticMapImageUrl;
+    userRating();
 
     super.initState();
   }
@@ -170,19 +186,35 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     double ratingValue = 0.0;
 
     void updateRating(){
+      bool isUser = false;
       var uid = FirebaseAuth.instance.currentUser.uid;
-      if(changedRating){
-        ratingValue = (ratingValue + widget.rating)/2;
+      double sum = 0.0;
+      for(int i = 0; i<firebaseAllAdsInit.length; i++ ){
+        if(uid.toString() == firebaseAllAdsInit[i].toString()){
+          isUser = true;
+          break;
+        }
+      }
+      if(changedRating && !isUser){
+        sum = ratingValue + widget.sumRating;
+        ratingValue = sum/(widget.countRating+2);
         FirebaseFirestore.instance.collection('allAds').doc(widget.id).update({
           'rating': ratingValue,
           'countRating' : widget.countRating+1,
+          'sumRating' : sum,
         });
-        FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').doc(uid).set({});
+        FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').doc(uid).set({
+          'id' : uid,
+        });
       }
     }
-
+    
     if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
+    
+
+    
+    print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       body: SingleChildScrollView(

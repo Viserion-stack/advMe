@@ -25,6 +25,7 @@ class OrderGridItem extends StatefulWidget {
   final bool isYourAds;
   double rating;
   int countRating;
+  double sumRating;
 
   OrderGridItem({
     @required this.id,
@@ -41,6 +42,7 @@ class OrderGridItem extends StatefulWidget {
     this.isYourAds,
     this.rating,
     this.countRating,
+    this.sumRating,
 
   });
 
@@ -127,6 +129,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
               isYourAds: widget.isYourAds,
               rating: widget.rating,
               countRating : widget.countRating,
+              sumRating: widget.sumRating,
             ),
         closedBuilder: (context, _) =>
             // SizedBox(
