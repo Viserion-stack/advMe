@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -118,14 +117,23 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
 //TODO: Fix delete from allAds branch
 
-//  await FirebaseFirestore.instance
-//         .collection('allAds')
-//         .doc(widget.id)
-//         .delete()
-//         .then((_) {
-//       print("Deleting from Firebase 'allAds'success!");
-//     });
+    await FirebaseFirestore.instance
+        .collection('allAds')
+        .doc(widget.id)
+        .delete()
+        .then((_) {
+      print("Deleting from Firebase 'allAds'success!");
+    });
 
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser)
+        .collection("favorite")
+        .doc(widget.id)
+        .delete()
+        .then((_) {
+      print("Deleting from Firebase 'favorite'success!");
+    });
 
     Navigator.of(context).pop();
     Navigator.of(context).pop();
@@ -173,14 +181,18 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   Future<void> userRating() async {
     //var uid = FirebaseAuth.instance.currentUser.uid;
-    await FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').get().then((querySnapshot){
+    await FirebaseFirestore.instance
+        .collection('allAds')
+        .doc(widget.id)
+        .collection('userRating')
+        .get()
+        .then((querySnapshot) {
       querySnapshot.docs.forEach((prodData) {
         firebaseAllAdsInit.add(
           prodData.data()['id'],
         );
-       });
+      });
     });
-  
   }
 
   @override
@@ -199,35 +211,38 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     bool changedRating = false;
     double ratingValue = 0.0;
 
-    void updateRating(){
+    void updateRating() {
       bool isUser = false;
       var uid = FirebaseAuth.instance.currentUser.uid;
       double sum = 0.0;
-      for(int i = 0; i<firebaseAllAdsInit.length; i++ ){
-        if(uid.toString() == firebaseAllAdsInit[i].toString()){
+      for (int i = 0; i < firebaseAllAdsInit.length; i++) {
+        if (uid.toString() == firebaseAllAdsInit[i].toString()) {
           isUser = true;
           break;
         }
       }
-      if(changedRating && !isUser){
+      if (changedRating && !isUser) {
         sum = ratingValue + widget.sumRating;
-        ratingValue = sum/(widget.countRating+2);
+        ratingValue = sum / (widget.countRating + 2);
         FirebaseFirestore.instance.collection('allAds').doc(widget.id).update({
           'rating': ratingValue,
-          'countRating' : widget.countRating+1,
-          'sumRating' : sum,
+          'countRating': widget.countRating + 1,
+          'sumRating': sum,
         });
-        FirebaseFirestore.instance.collection('allAds').doc(widget.id).collection('userRating').doc(uid).set({
-          'id' : uid,
+        FirebaseFirestore.instance
+            .collection('allAds')
+            .doc(widget.id)
+            .collection('userRating')
+            .doc(uid)
+            .set({
+          'id': uid,
         });
       }
     }
-    
+
     if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
-    
 
-    
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
@@ -524,7 +539,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             SizedBox(height: 40),
             Container(
                 child: RatingBar.builder(
-                  initialRating: 3.0,
+              initialRating: 3.0,
               itemBuilder: (context, _) {
                 return Icon(
                   Icons.star,

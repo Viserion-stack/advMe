@@ -1,14 +1,10 @@
 import 'package:advMe/providers/orders.dart';
-import 'package:advMe/widgets/orders_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:advMe/widgets/orders_grid.dart';
-
 import 'order_grid_item.dart';
 
 class AllOrders extends StatefulWidget {
@@ -74,7 +70,7 @@ class _AllOrdersState extends State<AllOrders> {
       categoryOrders = orders;
     }
     final settings = Provider.of<SettingsUser>(context);
-    final favorites = Provider.of<Orders>(context);
+    //final favorites = Provider.of<Orders>(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -131,34 +127,36 @@ class _AllOrdersState extends State<AllOrders> {
           ),
           Expanded(
             child: StaggeredGridView.countBuilder(
-              staggeredTileBuilder: (_) => StaggeredTile.fit(1),
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 4.0,
-              crossAxisCount: 2,
-              itemCount: categoryOrders.length,
-              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                // builder: (c) => products[i],
-                value: categoryOrders[i],
-                child: OrderGridItem(
-                  description: categoryOrders[i].description,
-                  id: categoryOrders[i].id,
-                  title: categoryOrders[i].title,
-                  imageUrl1: categoryOrders[i].imageUrl1,
-                  imageUrl2: categoryOrders[i].imageUrl2,
-                  imageUrl3: categoryOrders[i].imageUrl3,
-                  isFavorite: categoryOrders[i].isFavorite,
-                  price: categoryOrders[i].price,
-                  phone: categoryOrders[i].phone,
-                  website: categoryOrders[i].website,
-                  address: categoryOrders[i].address,
-                  isYourAds: isYourAds,
-                  //TODO: Add favourites to provider
-                  rating: categoryOrders[i].rating,
-                  countRating: categoryOrders[i].countRating,
-                  sumRating: categoryOrders[i].sumRating,
-                ),
-              ),
-            ),
+                staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+                mainAxisSpacing: 4.0,
+                crossAxisSpacing: 4.0,
+                crossAxisCount: 2,
+                itemCount: categoryOrders.length,
+                itemBuilder: (ctx, i) {
+                  print('AAAAA' + categoryOrders[i].id);
+                  return ChangeNotifierProvider.value(
+                    // builder: (c) => products[i],
+                    value: categoryOrders[i],
+                    child: OrderGridItem(
+                      description: categoryOrders[i].description,
+                      id: categoryOrders[i].id,
+                      title: categoryOrders[i].title,
+                      imageUrl1: categoryOrders[i].imageUrl1,
+                      imageUrl2: categoryOrders[i].imageUrl2,
+                      imageUrl3: categoryOrders[i].imageUrl3,
+                      isFavorite: categoryOrders[i].isFavorite,
+                      price: categoryOrders[i].price,
+                      phone: categoryOrders[i].phone,
+                      website: categoryOrders[i].website,
+                      address: categoryOrders[i].address,
+                      isYourAds: isYourAds,
+                      //TODO: Add favourites to provider
+                      rating: categoryOrders[i].rating,
+                      countRating: categoryOrders[i].countRating,
+                      sumRating: categoryOrders[i].sumRating,
+                    ),
+                  );
+                }),
           )
         ])
       ]),

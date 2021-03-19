@@ -1,4 +1,3 @@
-
 //import 'package:animations/animations.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class _YourAdsState extends State<YourAds> {
     //final transitionType = ContainerTransitionType.fade;
     final settings = Provider.of<SettingsUser>(context);
     bool isYourAds = true;
-    
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -38,7 +37,8 @@ class _YourAdsState extends State<YourAds> {
               child: Text(
                 'advMe',
                 style: GoogleFonts.ubuntu(
-                  color: settings.isDark ? Color(0x40C31331): Color(0x78FFC03D),
+                  color:
+                      settings.isDark ? Color(0x40C31331) : Color(0x78FFC03D),
                   fontSize: 140,
                   fontWeight: FontWeight.w700,
                 ),
@@ -57,12 +57,15 @@ class _YourAdsState extends State<YourAds> {
                   AsyncSnapshot<QuerySnapshot> orderSnapshot) {
                 if (orderSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: SpinKitWave(color: Color(0xFFF79E1B),)
-                    //CircularProgressIndicator(),
-                  );
+                      child: SpinKitWave(
+                    color: Color(0xFFF79E1B),
+                  )
+                      //CircularProgressIndicator(),
+                      );
                 }
 
-                print('Ilość załadowanych ogłoszeń streambuilderem '+ orderSnapshot.data.docs.length.toString());
+                print('Ilość załadowanych ogłoszeń streambuilderem ' +
+                    orderSnapshot.data.docs.length.toString());
                 return ListView.builder(
                   cacheExtent: 1000,
                   reverse: false,
@@ -71,24 +74,20 @@ class _YourAdsState extends State<YourAds> {
                     DocumentSnapshot userData = orderSnapshot.data.docs[index];
 
                     return OrdersItem(
-                        description: userData.data()['description'],
-                        id: userData.id,
-                        title: userData.data()['title'],
-                        imageUrl1: userData.data()['imageUrl1'],
-                        imageUrl2: userData.data()['imageUrl2'],
-                        imageUrl3: userData.data()['imageUrl3'],
-                        isFavorite: false,
-                        price: userData.data()['price'],
-                        phone: userData.data()['phone'],
-                        website: userData.data()['website'],
-                        address: userData.data()['address'],
-                        category: userData.data()['address'],
-                        isYourAds: isYourAds,
-                      );
-                    
-                    
-                    
-                    
+                      description: userData.data()['description'],
+                      id: userData.id,
+                      title: userData.data()['title'],
+                      imageUrl1: userData.data()['imageUrl1'],
+                      imageUrl2: userData.data()['imageUrl2'],
+                      imageUrl3: userData.data()['imageUrl3'],
+                      isFavorite: false,
+                      price: userData.data()['price'],
+                      phone: userData.data()['phone'],
+                      website: userData.data()['website'],
+                      address: userData.data()['address'],
+                      category: userData.data()['address'],
+                      isYourAds: isYourAds,
+                    );
                   },
                 );
               },

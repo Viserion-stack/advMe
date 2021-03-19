@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +7,8 @@ import 'package:advMe/providers/order.dart';
 class Orders with ChangeNotifier {
   List<Order> _items = [];
   List itemFavorite = [];
+
+  var zmienna;
 
   List<Order> get items {
     // if (_showFavoritesOnly) {
@@ -21,6 +22,7 @@ class Orders with ChangeNotifier {
     // if (_showFavoritesOnly) {
     //   return _items.where((orderItem) => orderItem.isFavorite).toList();
     // }
+
     final ads = [];
     for (int i = 0; i < _items.length; i++) {
       ads.add(_items[i].title);
@@ -47,8 +49,8 @@ class Orders with ChangeNotifier {
       });
     });
     itemFavorite = loadedFavorites;
-    print('pobranych favorites '+ itemFavorite.length.toString());
-    print('lista'+itemFavorite.toList().toString());
+    print('pobranych favorites ' + itemFavorite.length.toString());
+    print('lista' + itemFavorite.toList().toString());
     notifyListeners();
   }
 
@@ -64,7 +66,7 @@ class Orders with ChangeNotifier {
           Order(
             userId: prodData.data()['userId'],
             description: prodData.data()['description'],
-            id: prodData.data()['id'],
+            id: prodData.id,
             title: prodData.data()['title'],
             imageUrl1: prodData.data()['imageUrl1'],
             imageUrl2: prodData.data()['imageUrl2'],
@@ -99,6 +101,7 @@ class Orders with ChangeNotifier {
       var uid = FirebaseAuth.instance.currentUser.uid;
       await FirebaseFirestore.instance.collection('allAds').add({
         'Added on ': order.date,
+        'id': order.id,
         'title': order.title,
         'description': order.description,
         'imageUrl1': order.imageUrl1,
@@ -111,16 +114,20 @@ class Orders with ChangeNotifier {
         'website': order.website,
         'address': order.address,
         'category': order.category,
-        'rating' : 3.5.toInt(),
-        'countRating' : 0.toInt(),
-        'sumRating' : 3.5.toInt(),
+        'rating': 3.5.toDouble(),
+        'countRating': 0.toInt(),
+        'sumRating': 3.5.toDouble(),
+      }).then((value) {
+        zmienna = value.id;
       });
 
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .collection("user_orders")
-          .add({
+          .doc(zmienna)
+          .set({
+        'id': zmienna,
         'Added on ': order.date,
         'title': order.title,
         'description': order.description,
@@ -137,7 +144,7 @@ class Orders with ChangeNotifier {
       });
       final newProduct = Order(
         userId: order.userId,
-        id: order.id,
+        id: zmienna,
         title: order.title,
         description: order.description,
         price: order.price,
