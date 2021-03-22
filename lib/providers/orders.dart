@@ -55,13 +55,23 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
+    bool favoriteState = false;
     //var uId = FirebaseAuth.instance.currentUser.uid;
     final List<Order> loadedProducts = [];
+   
     await FirebaseFirestore.instance
         .collection('allAds')
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((prodData) {
+         print('favorite provider' + itemFavorite.toString());
+        for(int i = 0 ; i < itemFavorite.length; i++ ){
+          if(prodData.id.toString()  == itemFavorite[i].toString()){
+            favoriteState = true;
+            break;
+          }
+          else favoriteState = false;
+        }
         loadedProducts.add(
           Order(
             userId: prodData.data()['userId'],
@@ -71,7 +81,7 @@ class Orders with ChangeNotifier {
             imageUrl1: prodData.data()['imageUrl1'],
             imageUrl2: prodData.data()['imageUrl2'],
             imageUrl3: prodData.data()['imageUrl3'],
-            isFavorite: false,
+            isFavorite: favoriteState,
             price: prodData.data()['price'],
             phone: prodData.data()['phone'],
             website: prodData.data()['website'],

@@ -133,6 +133,14 @@ class _AllOrdersState extends State<AllOrders> {
                 crossAxisCount: 2,
                 itemCount: categoryOrders.length,
                 itemBuilder: (ctx, i) {
+                  for(int index = 0; index < orderstsData.itemFavorite.length;index++){
+                    if(categoryOrders[index].id.toString() == orderstsData.itemFavorite[i]){
+                        isFavorite = true;
+                    }
+                    else{
+                      isFavorite = false;
+                    }
+                  }
                   print('AAAAA' + categoryOrders[i].id);
                   return ChangeNotifierProvider.value(
                     // builder: (c) => products[i],
@@ -144,7 +152,7 @@ class _AllOrdersState extends State<AllOrders> {
                       imageUrl1: categoryOrders[i].imageUrl1,
                       imageUrl2: categoryOrders[i].imageUrl2,
                       imageUrl3: categoryOrders[i].imageUrl3,
-                      isFavorite: categoryOrders[i].isFavorite,
+                      isFavorite: isFavorite,//categoryOrders[i].isFavorite,
                       price: categoryOrders[i].price,
                       phone: categoryOrders[i].phone,
                       website: categoryOrders[i].website,
