@@ -108,7 +108,7 @@ class _AdsScreenState extends State<AdsScreen> {
     // ignore: deprecated_member_use
     final pickedImageFile = await ImagePicker.pickImage(
       source: isCamera ? ImageSource.camera : ImageSource.gallery,
-      imageQuality: 100,
+      imageQuality: 50,
     );
     setState(() {
       if (index == 1)

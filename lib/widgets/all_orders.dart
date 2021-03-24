@@ -134,7 +134,7 @@ class _AllOrdersState extends State<AllOrders> {
                 itemCount: categoryOrders.length,
                 itemBuilder: (ctx, i) {
                   for(int index = 0; index < orderstsData.itemFavorite.length;index++){
-                    if(categoryOrders[index].id.toString() == orderstsData.itemFavorite[i]){
+                    if(categoryOrders[i].id.toString() == orderstsData.itemFavorite[index]){
                         isFavorite = true;
                     }
                     else{
@@ -158,7 +158,6 @@ class _AllOrdersState extends State<AllOrders> {
                       website: categoryOrders[i].website,
                       address: categoryOrders[i].address,
                       isYourAds: isYourAds,
-                      //TODO: Add favourites to provider
                       rating: categoryOrders[i].rating,
                       countRating: categoryOrders[i].countRating,
                       sumRating: categoryOrders[i].sumRating,

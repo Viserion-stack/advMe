@@ -317,7 +317,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           .imageUrl2), //AssetImage("assets/gallery2.jpg"),
                       heroAttributes:
                           const PhotoViewHeroAttributes(tag: "tag2"),
-                      maxScale: PhotoViewComputedScale.contained * 0.3),
+                      maxScale: PhotoViewComputedScale.contained * 1.1),
                   PhotoViewGalleryPageOptions(
                     imageProvider: NetworkImage(
                         widget.imageUrl3), //AssetImage("assets/gallery3.jpg"),
@@ -339,39 +339,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   color:
                       settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
                 ),
-                //backgroundDecoration: widget.backgroundDecoration,
-                //pageController: widget.pageController,
-                // onPageChanged: onPageChanged,
               ),
-              // child: Swiper(
-              //   itemCount: 3,
-              //   itemWidth: MediaQuery.of(context).size.width - 2 * 64,
-              //   layout: SwiperLayout.STACK,
-              //   pagination: SwiperPagination(
-              //       builder: DotSwiperPaginationBuilder(
-              //     activeSize: 10,
-              //     space: 0,
-              //   )),
-              //   itemBuilder: (_, index) {
-              //     List images = [
-              //       widget.imageUrl1,
-              //       widget.imageUrl2,
-              //       widget.imageUrl3
-              //     ];
-              //     print(images);
-              //     return Stack(children: [
-              //       Card(
-              //           color: settings.isDark
-              //               ? Color(0xFFCA1538)
-              //               : Color(0xFFE9ECF5),
-              //           elevation: 8,
-              //           shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(40),
-              //           ),
-              //           child: Image.network(images[index])),
-              //     ]);
-              //   },
-              // ),
+              
             ),
             SizedBox(
               height: 30,
