@@ -19,6 +19,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class AdsEditingScreen extends StatefulWidget {
   @override
   _AdsEditingScreenState createState() => _AdsEditingScreenState();
+//TODO: Add fields of edited ads and set downloaded data in appropriate places
+
 }
 
 class _AdsEditingScreenState extends State<AdsEditingScreen> {

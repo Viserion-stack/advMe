@@ -280,8 +280,27 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               if (widget.isYourAds)
                 Padding(
                   padding: const EdgeInsets.only(
+                    //right: 20,
+                    left: 200,
+                    bottom: 5,
+                  ),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.edit,
+                        color: settings.isDark
+                            ? Color(0xFFF79E1B)
+                            : Color(0xEEC31331),
+                        size: 37,
+                      ),
+                      onPressed: () {
+                       
+                      }),
+                ),
+              if (widget.isYourAds)
+                Padding(
+                  padding: const EdgeInsets.only(
                     right: 20,
-                    left: 250,
+                    left: 20,
                     bottom: 5,
                   ),
                   child: IconButton(
