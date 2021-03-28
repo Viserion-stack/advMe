@@ -1,4 +1,5 @@
 import 'package:advMe/helpers/location_helper.dart';
+import 'package:advMe/screens/ads_editing_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -293,14 +294,28 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         size: 37,
                       ),
                       onPressed: () {
-                       
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AdsEditingScreen(
+                                      id: widget.id,
+                                      title: widget.title,
+                                      description: widget.description,
+                                      imageUrl1: widget.imageUrl1,
+                                      imageUrl2: widget.imageUrl2,
+                                      imageUrl3: widget.imageUrl3,
+                                      price: widget.price,
+                                      phone: widget.phone,
+                                      website: widget.website,
+                                      address: widget.address,
+                                    )));
                       }),
                 ),
               if (widget.isYourAds)
                 Padding(
                   padding: const EdgeInsets.only(
-                    right: 20,
-                    left: 20,
+                    right: 30,
+                    left: 10,
                     bottom: 5,
                   ),
                   child: IconButton(
@@ -359,7 +374,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
                 ),
               ),
-              
             ),
             SizedBox(
               height: 30,

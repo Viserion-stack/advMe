@@ -17,6 +17,30 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AdsEditingScreen extends StatefulWidget {
+  static const routeName = '/orderl-detail';
+  final String id;
+  final String title;
+   String description;
+  final String imageUrl1;
+  final String imageUrl2;
+  final String imageUrl3;
+  final String price;
+  final String phone;
+  final String website;
+  final String address;
+
+  AdsEditingScreen({
+    this.id,
+    this.title,
+    this.description,
+    this.imageUrl1,
+    this.imageUrl2,
+    this.imageUrl3,
+    this.price,
+    this.phone,
+    this.website,
+    this.address,
+  });
   @override
   _AdsEditingScreenState createState() => _AdsEditingScreenState();
 //TODO: Add fields of edited ads and set downloaded data in appropriate places
@@ -25,19 +49,19 @@ class AdsEditingScreen extends StatefulWidget {
 
 class _AdsEditingScreenState extends State<AdsEditingScreen> {
   PlaceLocation _pickedLocation;
-  File _pickedImage;
-  File _pickedImage2;
-  File _pickedImage3;
+  String _pickedImage;
+  String _pickedImage2;
+  String _pickedImage3;
 
   bool isPhoto = false;
   bool isCamera = false;
   bool isLoading = false;
 
-  final descriptionController = TextEditingController();
-  final titleController = TextEditingController();
-  final priceController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-  final websiteController = TextEditingController();
+  var descriptionController = TextEditingController();
+  var titleController = TextEditingController();
+  var priceController = TextEditingController();
+  var phoneNumberController = TextEditingController();
+  var websiteController = TextEditingController();
 
   String valueChoose = 'Construction';
   List<String> listItem = [
@@ -60,6 +84,17 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double widthSize = MediaQuery.of(context).size.width;
+     descriptionController.text = widget.description;
+     titleController.text = widget.title;
+     priceController.text = widget.price;
+     phoneNumberController.text = widget.phone;
+     websiteController.text = widget.website;
+
+     _pickedImage = widget.imageUrl1;
+     _pickedImage2 = widget.imageUrl2;
+     _pickedImage3 = widget.imageUrl3;
+
     var address ;
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
@@ -97,37 +132,27 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 25,
+                    right: 20,
+                    left: 230,
+                    bottom: 0,
                   ),
-                  child: RichText(
-                    text: TextSpan(
-                        text: 'add',
-                        style: GoogleFonts.ubuntu(
-                          color: settings.isDark
-                              ? Color(0xFFCBB2AB)
-                              : Color(0xFF0D276B),
-                          fontSize: 28.0,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Advertisment',
-                            style: GoogleFonts.ubuntu(
-                              color: Color(0xFFF79E1B),
-                              fontSize: 28.0,
-                              letterSpacing: 0.1,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ]),
-                  ),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.save,
+                        color: settings.isDark
+                            ? Color(0xFFF79E1B)
+                            : Color(0xEEC31331),
+                        size: 45,
+                      ),
+                      onPressed: () {
+                       
+                      }),
                 ),
               ],
             ),
             SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 50.0),
+              padding: const EdgeInsets.only(left:  50),
               child: Container(
                 height: 350,
                 width: MediaQuery.of(context).size.width * 1,
@@ -139,11 +164,13 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   autoplay: false,
                   pagination: new SwiperPagination(
                       margin: new EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 30.0),
-                      builder: new DotSwiperPaginationBuilder(
-                          color: Colors.white30,
-                          activeColor: Colors.white,
-                          size: 20.0,
-                          activeSize: 20.0)),
+                      builder: SwiperPagination.rect,
+                      // builder: new DotSwiperPaginationBuilder(
+                      //     color: Colors.white30,
+                      //     activeColor: Colors.white,
+                      //     size: 20.0,
+                      //     activeSize: 20.0)
+                      ),
                   children: <Widget>[
                     new Stack(children: [
                       Positioned(
@@ -180,7 +207,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                                 ),
                                 height: 300,
                                 width: 300,
-                                child: Image.file(
+                                child: Image.network(
                                   _pickedImage,
                                   //fit: BoxFit.fill,
                                 ),
@@ -224,7 +251,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                                 ),
                                 height: 300,
                                 width: 300,
-                                child: Image.file(
+                                child: Image.network(
                                   _pickedImage2,
                                   //fit: BoxFit.fill,
                                 ),
@@ -268,7 +295,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                                 ),
                                 height: 300,
                                 width: 300,
-                                child: Image.file(
+                                child: Image.network(
                                   _pickedImage3,
                                   //fit: BoxFit.fill,
                                 ),
