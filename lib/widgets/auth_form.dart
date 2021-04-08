@@ -1,7 +1,9 @@
 import 'package:advMe/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class AuthForm extends StatefulWidget {
   AuthForm(
     this.submitFn,
@@ -51,144 +53,36 @@ class _AuthFormState extends State<AuthForm> {
     //final settings = Provider.of<SettingsUser>(context);
 
     return Scaffold(
-      backgroundColor: Color(0xFF171923),
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height,
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF171923),
-                    Color(0xFF171923),
-                  ]),
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/screen.jpeg',
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
-            padding: EdgeInsets.only(top: 100.0),
-            child: Column(
-              children: [
-                Container(
-                  child: Stack(
-                    children: [
-                      FadeAnimation(
-                        1.5,
-                        Container(
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFFC31331),
-                          ),
-                          child: Icon(
-                            Icons.handyman,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      FadeAnimation(
-                        1.7,
-                        Container(
-                          margin: EdgeInsets.only(left: 35.0, top: 30.0),
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFFCBB2AB),
-                          ),
-                          child: Icon(
-                            Icons.build,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      FadeAnimation(
-                        1.9,
-                        Container(
-                          margin: EdgeInsets.only(left: 70.0),
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFFF79E1B),
-                          ),
-                          child: Icon(
-                            Icons.format_paint,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      FadeAnimation(
-                        2.0,
-                        Container(
-                          margin: EdgeInsets.only(left: 105.0, top: 30.0),
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFF464656),
-                          ),
-                          child: Icon(
-                            Icons.room,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      FadeAnimation(
-                        2.2,
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 140.0,
-                          ),
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Color(0xFF2D2D2D),
-                          ),
-                          child: Icon(
-                            Icons.plumbing,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.13,
+            left: MediaQuery.of(context).size.width * 0.25,
+            child: Container(
+              padding: EdgeInsets.only(top: 100.0),
+              height: 200,
+              width: 260,
+              decoration: BoxDecoration(
+                
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/logo.png',
                   ),
+                  fit: BoxFit.cover,
                 ),
-                SizedBox(
-                  height: 40,
-                ),
-                FadeAnimation(
-                  2.4,
-                  RichText(
-                    text: TextSpan(
-                        text: 'adv',
-                        style: GoogleFonts.ubuntu(
-                          color: Color(0xFFCBB2AB),
-                          fontSize: 70.0,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Me',
-                            style: GoogleFonts.ubuntu(
-                              color: Color(0xFFF79E1B),
-                              fontSize: 70.0,
-                              letterSpacing: 0.1,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           Center(
@@ -207,56 +101,53 @@ class _AuthFormState extends State<AuthForm> {
                         SizedBox(
                           height: 300,
                         ),
-                        TextFormField(
-                          style: TextStyle(
-                            color: Color(0xFFCBB2AB),
-                          ),
-                          //Color(0xFFCBB2AB)),
-                          cursorColor: Color(0xFFF79E1B),
-                          key: ValueKey('email'),
-                          validator: (value) {
-                            if (value.isEmpty || !value.contains('@')) {
-                              return 'Please enter a valid email address';
-                            }
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.68,
+                          child: Card(
+                            elevation: 6,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: TextFormField(
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              //Color(0xFFCBB2AB)),
+                              cursorColor: Colors.black,
+                              key: ValueKey('email'),
+                              validator: (value) {
+                                if (value.isEmpty || !value.contains('@')) {
+                                  return 'Please enter a valid email address';
+                                }
 
-                            return null;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            focusColor: Color(0xFFCBB2AB),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(10.0),
+                                return null;
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                )),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                                hintText: 'Email',
+                                hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  //Color(0xFFCBB2AB),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.email,
+                                  color: Colors.black,
+                                ),
                               ),
-                              borderSide: BorderSide(
-                                color: Color(0xFF464656),
-                              ),
-                            ),
-                            fillColor: Colors.white10,
-                            border: new OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(10.0),
-                              ),
-                            ),
-                            filled: true,
-                            hintText: 'Email',
-                            hintStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
-                              //Color(0xFFCBB2AB),
-                            ),
-                            labelText: 'Address Eamil',
-                            labelStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
-                              //Color(0xFFCBB2AB),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Color(0xFFF79E1B),
+                              onSaved: (value) {
+                                _userEmail = value;
+                              },
                             ),
                           ),
-                          onSaved: (value) {
-                            _userEmail = value;
-                          },
                         ),
                         SizedBox(height: 12),
                         if (!_isLogin)
@@ -275,27 +166,17 @@ class _AuthFormState extends State<AuthForm> {
                               return null;
                             },
                             decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
-                                ),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.transparent,
+                              )),
+                              focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Color(0xFF464656),
+                                  color: Colors.transparent,
                                 ),
                               ),
-                              fillColor: Colors.white10,
-                              border: new OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
-                                ),
-                              ),
-                              filled: true,
                               hintText: 'Username',
                               hintStyle: TextStyle(
-                                color: Color(0xFFCBB2AB),
-                              ),
-                              labelText: 'Username',
-                              labelStyle: TextStyle(
                                 color: Color(0xFFCBB2AB),
                               ),
                               prefixIcon: Icon(
@@ -307,101 +188,120 @@ class _AuthFormState extends State<AuthForm> {
                               _userName = value;
                             },
                           ),
-                        SizedBox(height: 12),
-                        TextFormField(
-                          style: TextStyle(
-                            color: Color(0xFFCBB2AB),
-                          ),
-                          //Color(0xFFCBB2AB)),
-                          cursorColor: Color(0xFFF79E1B),
-                          key: ValueKey('password'),
-                          validator: (value) {
-                            if (value.isEmpty || value.length < 7) {
-                              return 'Password should contain 7 chars at least';
-                            }
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.68,
+                          child: Card(
+                            elevation: 6,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: TextFormField(
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFFCBB2AB),
+                              ),
+                              //Color(0xFFCBB2AB)),
+                              cursorColor: Color(0xFFF79E1B),
+                              key: ValueKey('password'),
+                              validator: (value) {
+                                if (value.isEmpty || value.length < 7) {
+                                  return 'Password should contain 7 chars at least';
+                                }
 
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(10.0),
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                )),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                                hintText: 'Password',
+                                hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  //Color(0xFFCBB2AB),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: Colors.black,
+                                ),
                               ),
-                              borderSide: BorderSide(
-                                color: Color(0xFF464656),
-                              ),
-                            ),
-                            fillColor: Colors.white10,
-                            border: new OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(10.0),
-                              ),
-                            ),
-                            filled: true,
-                            hintText: 'Password',
-                            hintStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
-                              //Color(0xFFCBB2AB),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: TextStyle(
-                              color: Color(0xFFCBB2AB),
-                              //Color(0xFFCBB2AB),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Color(0xFFF79E1B),
+                              obscureText: true,
+                              onSaved: (value) {
+                                _userPassword = value;
+                              },
                             ),
                           ),
-                          obscureText: true,
-                          onSaved: (value) {
-                            _userPassword = value;
-                          },
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 25),
                         if (widget.isLoading)
                           SpinKitWave(
                             color: Color(0xFFF79E1B),
                           ),
                         if (!widget.isLoading)
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
 
-                              //side: BorderSide(color: Colors.green),
-                            ),
-                            color: Color(0xFFF79E1B),
-                            child: Text(
-                              _isLogin ? 'Sign in' : 'Sign up',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            onPressed: _trySubmit,
-                          ),
-                        if (!widget.isLoading)
-                          FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-
-                              //side: BorderSide(color: Colors.green),
-                            ),
-
-                            textColor:
-                                Colors.black, //Theme.of(context).primaryColor,
-
-                            child: Text(
-                              _isLogin ? 'Create new account' : 'Have account',
-                              style: TextStyle(
-                                color: Color(0xFFCBB2AB),
+                                //side: BorderSide(color: Colors.green),
                               ),
+                              color: Colors.teal[300],
+                              child: Text(
+                                _isLogin ? 'Sign in' : 'Sign up',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                              onPressed: _trySubmit,
                             ),
+                          ),
+                        SizedBox(height: 25),
+                        Text(
+                                'Are you new on this App?',
+                                style: TextStyle(
+                                  color: Colors.teal,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              SizedBox(height: 15),
+                        if (!widget.isLoading)
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
 
-                            color: Color(0xFF2D2D2D),
+                                //side: BorderSide(color: Colors.green),
+                              ),
 
-                            onPressed: () {
-                              setState(() {
-                                _isLogin = !_isLogin;
-                              });
-                            },
+                              textColor: Colors
+                                  .black, //Theme.of(context).primaryColor,
+
+                              child: Text(
+                                _isLogin
+                                    ? 'Create account'
+                                    : 'Have account',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+
+                              color: Colors.teal,
+
+                              onPressed: () {
+                                setState(() {
+                                  _isLogin = !_isLogin;
+                                });
+                              },
+                            ),
                           )
                       ],
                     ),

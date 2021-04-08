@@ -81,6 +81,10 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     });
   }
 
+  void updateAds(){
+    //TODO: update given information in database and array in provider
+  }
+
 
   @override
   Widget build(BuildContext context) {
