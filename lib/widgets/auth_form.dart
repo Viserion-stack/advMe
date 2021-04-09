@@ -71,15 +71,15 @@ class _AuthFormState extends State<AuthForm> {
               top: MediaQuery.of(context).size.height * 0.15,
               left: MediaQuery.of(context).size.width * 0.25,
               child: Container(
-                padding: EdgeInsets.only(top: 100.0),
-                height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.width * 0.655,
+                //padding: EdgeInsets.only(top: 100.0),
+                height: MediaQuery.of(context).size.height * 0.25,
+                width: MediaQuery.of(context).size.width * 0.55,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                       'assets/logo.png',
                     ),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
