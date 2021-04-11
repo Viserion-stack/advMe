@@ -513,6 +513,37 @@ class _AdsScreenState extends State<AdsScreen> {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
                 ),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateTitle,
+                      //textAlign: TextAlign.start,
+                      cursorColor: Colors.black,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17),
+                      decoration: InputDecoration(
+                        
+                          //filled: true,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Colors.transparent,
+                          )),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          hintText: 'Tilte',
+                          hintStyle: TextStyle(
+                            color: Color(0xFFCECECE),
+                          )),
+                      controller: titleController,
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
