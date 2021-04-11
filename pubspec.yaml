@@ -80,6 +80,12 @@ flutter:
     - assets/screen.jpeg
     - assets/logo.png
     - assets/logo_jasny.svg
+    - assets/small_logo.png
+    - assets/quit_light.png
+    - assets/sun_light.png
+    - assets/moon_light.png
+    - assets/sun_dark.png
+    - assets/moon_dark.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
