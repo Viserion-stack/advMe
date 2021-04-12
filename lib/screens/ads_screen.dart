@@ -521,11 +521,9 @@ class _AdsScreenState extends State<AdsScreen> {
                       validator: validateTitle,
                       //textAlign: TextAlign.start,
                       cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17),
+                      style: TextStyle(color: Colors.black, fontSize: 17),
                       decoration: InputDecoration(
-                        
+
                           //filled: true,
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -539,6 +537,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           hintText: 'Tilte',
                           hintStyle: TextStyle(
                             color: Color(0xFFCECECE),
+                            fontSize: 18,
                           )),
                       controller: titleController,
                     ),
@@ -563,6 +562,134 @@ class _AdsScreenState extends State<AdsScreen> {
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white,
                   ),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: validatePrice,
+                        keyboardType: TextInputType.number,
+                        //textAlign: TextAlign.start,
+                        cursorColor: Colors.black,
+                        style: TextStyle(color: Colors.black, fontSize: 17),
+                        decoration: InputDecoration(
+
+                            //filled: true,
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            hintText: 'Price',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCECECE),
+                              fontSize: 18,
+                            )),
+                        controller: priceController,
+                      ),
+                    ),
+                  ),
+                )),
+            Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width * 0.87,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[300],
+                      blurRadius: 8,
+                      spreadRadius: 0,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: validateDescription,
+                      maxLines: 5,
+                      cursorColor: Colors.black,
+                      style: TextStyle(color: Colors.black, fontSize: 17),
+                      decoration: InputDecoration(
+                          //filled: true,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Colors.transparent,
+                          )),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          hintText: 'Description',
+                          hintStyle: TextStyle(
+                            color: Color(0xFFCECECE),
+                            fontSize: 18,
+                          )),
+                      controller: descriptionController,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width * 0.87,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 8,
+                        spreadRadius: 0,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: validatePhone,
+                        keyboardType: TextInputType.number,
+                        //textAlign: TextAlign.start,
+                        cursorColor: Colors.black,
+                        style: TextStyle(color: Colors.black, fontSize: 17),
+                        decoration: InputDecoration(
+
+                            //filled: true,
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            hintText: 'Phone',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCECECE),
+                              fontSize: 18,
+                            )),
+                        controller: phoneNumberController,
+                      ),
+                    ),
+                  ),
                 )),
             Padding(
                 padding: EdgeInsets.only(top: 15),
@@ -581,7 +708,92 @@ class _AdsScreenState extends State<AdsScreen> {
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white,
                   ),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: validateWebsite,
+                        cursorColor: Colors.black,
+                        style: TextStyle(color: Colors.black, fontSize: 17),
+                        decoration: InputDecoration(
+
+                            //filled: true,
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            hintText: 'Website',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCECECE),
+                              fontSize: 18,
+                            )),
+                        controller: websiteController,
+                      ),
+                    ),
+                  ),
                 )),
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.03,
+              ),
+              //height: MediaQuery.of(context).size.height * 0.35,
+              width: MediaQuery.of(context).size.width * 0.87,
+              child: LocationInput(_selectPlace),
+            ),
+            Padding(
+              padding:  EdgeInsets.all(20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width * 0.87,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: buttonReady ? Colors.grey : Color(0xFFFFD320),
+                    shape: BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                  ),
+                  onPressed: ((_pickedImage == null) ||
+                          (_pickedImage2 == null) ||
+                          (_pickedImage3 == null) ||
+                          titleController.text.isEmpty ||
+                          priceController.text.isEmpty ||
+                          descriptionController.text.isEmpty ||
+                          phoneNumberController.text.isEmpty ||
+                          websiteController.text.isEmpty)
+                      //TODO display some info about check your inputs while button is diasbled!
+                      ? null //buttonReady = false
+                      : () async {
+                          setState(() {
+                            isLoading = true;
+                            buttonReady = true;
+                          });
+                          _addorder(
+                              address); //Addres field mus be passed as argument!!!
+                        },
+                  child: isLoading
+                      ? SpinKitWave(
+                          color: Color(0xFFF79E1B),
+                        )
+                      : Text(
+                          'Add Advertisment',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),

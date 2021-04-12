@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/settings.dart';
+import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'orders_screen.dart';
@@ -70,37 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     print(isDark.toString());
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFFFD320),
-        title: Row(children: [
-          Image.asset(
-            'assets/small_logo.png',
-            fit: BoxFit.contain,
-            height: 50,
-            width: 100,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 180),
-            child: GestureDetector(
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Image.asset(
-                'assets/quit_light.png',
-                fit: BoxFit.cover,
-                height: 30,
-                width: 30,
-              ),
-            ),
-          ),
-        ]),
-      ),
-
-      //backgroundColor: settings.isDark ? Color(0xFFCA1538) : Color(0xFFE9ECF5),
-
-      //Color(0xFFCA1538),
-      //0xFFCA1538),
-
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -115,22 +86,116 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Stack(
           children: [
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.03,
+              ),
+              child: Row(children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  child: Image.asset(
+                    'assets/small_logo.png',
+                    fit: BoxFit.contain,
+                    height: 60,
+                    width: 120,
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.5,
+                    ),
+                    child: PopupMenuButton(
+                      icon: Icon(
+                        Icons.menu,
+                        size: 35,
+                      ),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                      context, BouncyPageRoute(widget: AccountScreen()));
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.verified_user,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('Account',
+                                    style: TextStyle(color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ]),
+            ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.08,
-              left: MediaQuery.of(context).size.width * 0.23,
+                top: MediaQuery.of(context).size.height * 0.14,
+                left: MediaQuery.of(context).size.width * 0.3,
+                child: Text('What',
+                    style: GoogleFonts.ubuntu(
+                      color: Color(0xFFFFD320),
+                      fontSize: 43,
+                      letterSpacing: 0.1,
+                      fontWeight: FontWeight.w600,
+                    ))),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.2,
+              left: MediaQuery.of(context).size.width * 0.19,
+              child: RichText(
+                text: TextSpan(
+                    text: 'would like to',
+                    style: GoogleFonts.ubuntu(
+                      color: Colors.black,
+                      fontSize: 32,
+                      letterSpacing: 0.1,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: ' do?',
+                        style: GoogleFonts.ubuntu(
+                          color: Color(0xFFFFD320),
+                          fontSize: 43,
+                          letterSpacing: 0.1,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.32,
+              left: MediaQuery.of(context).size.width * 0.25,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, BouncyPageRoute(widget: AdsScreen()));
                 },
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.33,
-                  width: MediaQuery.of(context).size.width * 0.55,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.51,
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 10,
+                        spreadRadius: 0.5,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(35),
                     border: Border.all(
-                      color: Color(0xFF00D1CD),
-                      width: 4,
+                      color: Colors.black,
+                      width: 0.08,
                     ),
                   ),
                   child: Column(
@@ -138,13 +203,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Icon(
                         Icons.add,
-                        color: Color(0xFF00D1CD),
+                        color: Colors.black,
                         size: 90,
                       ),
                       Text('Add yourself',
                           style: TextStyle(
-                            color: Color(0xFF00D1CD),
-                            fontSize: 28,
+                            color: Colors.black,
+                            fontSize: 25,
                             fontWeight: FontWeight.bold,
                           )),
                     ],
@@ -153,22 +218,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.44,
-              left: MediaQuery.of(context).size.width * 0.23,
+              top: MediaQuery.of(context).size.height * 0.65,
+              left: MediaQuery.of(context).size.width * 0.25,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context, BouncyPageRoute(widget: OrdersScreen()));
                 },
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.33,
-                  width: MediaQuery.of(context).size.width * 0.55,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.51,
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 10,
+                        spreadRadius: 0.5,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(35),
                     border: Border.all(
-                      color: Color(0xFF00D1CD),
-                      width: 4,
+                      color: Colors.black,
+                      width: 0.08,
                     ),
                   ),
 
@@ -178,13 +251,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Icon(
                         Icons.search,
-                        color: Color(0xFF00D1CD),
+                        color: Colors.black,
                         size: 90,
                       ),
                       Text('Look for orders',
                           style: TextStyle(
-                            color: Color(0xFF00D1CD),
-                            fontSize: 28,
+                            color: Colors.black,
+                            fontSize: 25,
                             fontWeight: FontWeight.bold,
                           )),
                     ],
@@ -192,56 +265,56 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * .79,
-              left: MediaQuery.of(context).size.width * .75,
-              child: Row(children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isDark = true;
-                      settings.isDark = isDark;
-                      _updateSettings();
-                    });
-                  },
-                  child: isDark
-                      ? Image.asset(
-                          'assets/moon_dark.png',
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 40,
-                        )
-                      : Image.asset(
-                          'assets/moon_light.png',
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 40,
-                        ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isDark = false;
-                      settings.isDark = isDark;
-                      _updateSettings();
-                    });
-                  },
-                  child: isDark
-                      ? Image.asset(
-                          'assets/sun_dark.png',
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 40,
-                        )
-                      : Image.asset(
-                          'assets/sun_light.png',
-                          fit: BoxFit.cover,
-                          height: 60,
-                          width: 40,
-                        ),
-                ),
-              ]),
-            )
+            // Positioned(
+            //   top: MediaQuery.of(context).size.height * .79,
+            //   left: MediaQuery.of(context).size.width * .75,
+            //   child: Row(children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           isDark = true;
+            //           settings.isDark = isDark;
+            //           _updateSettings();
+            //         });
+            //       },
+            //       child: isDark
+            //           ? Image.asset(
+            //               'assets/moon_dark.png',
+            //               fit: BoxFit.cover,
+            //               height: 60,
+            //               width: 40,
+            //             )
+            //           : Image.asset(
+            //               'assets/moon_light.png',
+            //               fit: BoxFit.cover,
+            //               height: 60,
+            //               width: 40,
+            //             ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           isDark = false;
+            //           settings.isDark = isDark;
+            //           _updateSettings();
+            //         });
+            //       },
+            //       child: isDark
+            //           ? Image.asset(
+            //               'assets/sun_dark.png',
+            //               fit: BoxFit.cover,
+            //               height: 60,
+            //               width: 40,
+            //             )
+            //           : Image.asset(
+            //               'assets/sun_light.png',
+            //               fit: BoxFit.cover,
+            //               height: 60,
+            //               width: 40,
+            //             ),
+            //     ),
+            //   ]),
+            // )
           ],
         ),
       ),

@@ -65,60 +65,118 @@ class _LocationInputState extends State<LocationInput> {
           width: double.infinity,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[300],
+                blurRadius: 8,
+                spreadRadius: 0,
+                offset: Offset(0, 8),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
           ),
           child: _previewImageUrl == null
               ? Text(
                   'No Location Chosen',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
+                    color: Color(0xFFCECECE),
                     //Colors.white54,
                   ),
                 )
               : Image.network(
                   _previewImageUrl,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   width: double.infinity,
                 ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FlatButton.icon(
-              icon: Icon(
-                Icons.location_on,
-                color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
-                //Colors.white54,
-              ),
-              label: Text(
-                'Current Location',
-                style: TextStyle(
-                  color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
-                  //Colors.white54,
+        Padding(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.03,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colors.grey[300],
+                    //     blurRadius: 10,
+                    //     spreadRadius: 0.5,
+                    //     offset: Offset(0, 8),
+                    //   ),
+                    // ],
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Color(0xFFFFD320),
+                      width: 2,
+                    ),
+                  ),
+                  child: FlatButton.icon(
+                    icon: Icon(
+                      Icons.location_on,
+                      color: Color(0xFFFFD320),
+                      //Colors.white54,
+                    ),
+                    label: Text(
+                      'Current Location',
+                      style: TextStyle(
+                        color: Color(0xFFFFD320),
+                        //Colors.white54,
+                      ),
+                    ),
+                    textColor: Theme.of(context).primaryColor,
+                    onPressed: _getCurrentUserLocation,
+                  ),
                 ),
               ),
-              textColor: Theme.of(context).primaryColor,
-              onPressed: _getCurrentUserLocation,
-            ),
-            FlatButton.icon(
-              icon: Icon(
-                Icons.map,
-                color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
-                //Colors.white54,
+              SizedBox(
+                width: 12,
               ),
-              label: Text(
-                'Select on Map',
-                style: TextStyle(
-                  color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
-                  //Colors.white54,
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colors.grey[300],
+                    //     blurRadius: 10,
+                    //     spreadRadius: 0.5,
+                    //     offset: Offset(0, 8),
+                    //   ),
+                    // ],
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Color(0xFFFFD320),
+                      width: 2,
+                    ),
+                  ),
+                  child: FlatButton.icon(
+                    icon: Icon(
+                      Icons.map,
+                      color: Color(0xFFFFD320),
+                      //Colors.white54,
+                    ),
+                    label: Text(
+                      'Select on Map',
+                      style: TextStyle(
+                        color: Color(0xFFFFD320),
+                        //Colors.white54,
+                      ),
+                    ),
+                    textColor: Theme.of(context).accentColor,
+                    onPressed: _selectOnMap,
+                  ),
                 ),
               ),
-              textColor: Theme.of(context).accentColor,
-              onPressed: _selectOnMap,
-            ),
-          ],
+            ],
+          ),
         ),
+        
       ],
     );
   }
