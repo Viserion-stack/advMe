@@ -1,4 +1,7 @@
+import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/orders.dart';
+import 'package:advMe/screens/account_screen.dart';
+import 'package:advMe/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +51,16 @@ class _AllOrdersState extends State<AllOrders> {
   bool isYourAds = false;
   bool isFavorite = false;
 
+   
+
   @override
   void initState() {
+     
+      
+      
     Future.delayed(Duration.zero).then((_) {
+      Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
+      print('Pobieranie do providera');
       Provider.of<Orders>(context, listen: false).fetchFavorite();
     });
 
@@ -71,102 +81,218 @@ class _AllOrdersState extends State<AllOrders> {
     }
     final settings = Provider.of<SettingsUser>(context);
     //final favorites = Provider.of<Orders>(context);
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        color: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-      ),
-      child: Stack(children: [
-        Center(
-          child: RotatedBox(
-            quarterTurns: 3,
-            child: Text(
-              'advMe',
-              style: GoogleFonts.ubuntu(
-                color: settings.isDark ? Color(0x40C31331) : Color(0x78FFC03D),
-                fontSize: 140,
-                fontWeight: FontWeight.w700,
+    return Scaffold(
+        body: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              //color: Color(0xFFF3F3F3),
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/grey.png',
+                ),
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-        ),
-        Column(children: [
-          Container(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            height: MediaQuery.of(context).size.height * .1,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          valueChoosen = categories[index];
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: settings.isDark
-                                ? colorsDark[index]
-                                : colorsLight[index],
-                            borderRadius: BorderRadius.circular(40)),
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        child: Center(
-                          child: Text(
-                            categories[index],
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  child: Row(children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: Image.asset(
+                        'assets/small_logo.png',
+                        fit: BoxFit.contain,
+                        height: 60,
+                        width: 120,
                       ),
                     ),
-                  );
-                }),
-          ),
-          Expanded(
-            child: StaggeredGridView.countBuilder(
-                staggeredTileBuilder: (_) => StaggeredTile.fit(1),
-                mainAxisSpacing: 4.0,
-                crossAxisSpacing: 4.0,
-                crossAxisCount: 2,
-                itemCount: categoryOrders.length,
-                itemBuilder: (ctx, i) {
-                  for(int index = 0; index < orderstsData.itemFavorite.length;index++){
-                    if(categoryOrders[i].id.toString() == orderstsData.itemFavorite[index]){
-                        isFavorite = true;
-                    }
-                    else{
-                      isFavorite = false;
-                    }
-                  }
-                  print('AAAAA' + categoryOrders[i].id);
-                  return ChangeNotifierProvider.value(
-                    // builder: (c) => products[i],
-                    value: categoryOrders[i],
-                    child: OrderGridItem(
-                      description: categoryOrders[i].description,
-                      id: categoryOrders[i].id,
-                      title: categoryOrders[i].title,
-                      imageUrl1: categoryOrders[i].imageUrl1,
-                      imageUrl2: categoryOrders[i].imageUrl2,
-                      imageUrl3: categoryOrders[i].imageUrl3,
-                      isFavorite: isFavorite,//categoryOrders[i].isFavorite,
-                      price: categoryOrders[i].price,
-                      phone: categoryOrders[i].phone,
-                      website: categoryOrders[i].website,
-                      address: categoryOrders[i].address,
-                      isYourAds: isYourAds,
-                      rating: categoryOrders[i].rating,
-                      countRating: categoryOrders[i].countRating,
-                      sumRating: categoryOrders[i].sumRating,
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.39,
+                        top: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      child: Icon(
+                        Icons.search,
+                        size: 35,
+                      ),
                     ),
-                  );
-                }),
-          )
-        ])
-      ]),
-    );
+                    Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.01,
+                          top: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        child: PopupMenuButton(
+                          icon: Icon(
+                            Icons.menu,
+                            size: 35,
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      BouncyPageRoute(widget: AccountScreen()));
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.account_circle,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text('Account',
+                                        style: TextStyle(color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            PopupMenuItem(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      BouncyPageRoute(widget: HomeScreen()));
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.home,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text('Home',
+                                        style: TextStyle(color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ]),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * .1,
+                  ),
+                  child: Column(children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      height: MediaQuery.of(context).size.height * .3,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categories.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    valueChoosen = categories[index];
+                                  });
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 20,
+                                    bottom: 90,
+                                    right: 3,
+                                    left: 5,
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.black,
+                                          width: 0.08,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey[300],
+                                            blurRadius: 10,
+                                            spreadRadius: 0.5,
+                                            offset: Offset(0, 8),
+                                          ),
+                                        ],
+                                        color: valueChoosen == categories[index]
+                                                  ? Color(0xFFFFD320)
+                                                  : Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.40,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    child: Center(
+                                      child: Text(
+                                        categories[index],
+                                        style: TextStyle(
+                                          color:
+                                              valueChoosen == categories[index]
+                                                  ? Colors.white
+                                                  : Color(0xFFFFD320),
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                    Expanded(
+                      child: StaggeredGridView.countBuilder(
+                          staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+                          mainAxisSpacing: 4.0,
+                          crossAxisSpacing: 4.0,
+                          crossAxisCount: 2,
+                          itemCount: categoryOrders.length,
+                          itemBuilder: (ctx, i) {
+                            for (int index = 0;
+                                index < orderstsData.itemFavorite.length;
+                                index++) {
+                              if (categoryOrders[i].id.toString() ==
+                                  orderstsData.itemFavorite[index]) {
+                                isFavorite = true;
+                              } else {
+                                isFavorite = false;
+                              }
+                            }
+                            print('AAAAA' + categoryOrders[i].id);
+                            return ChangeNotifierProvider.value(
+                              // builder: (c) => products[i],
+                              value: categoryOrders[i],
+                              child: OrderGridItem(
+                                description: categoryOrders[i].description,
+                                id: categoryOrders[i].id,
+                                title: categoryOrders[i].title,
+                                imageUrl1: categoryOrders[i].imageUrl1,
+                                imageUrl2: categoryOrders[i].imageUrl2,
+                                imageUrl3: categoryOrders[i].imageUrl3,
+                                isFavorite:
+                                    isFavorite, //categoryOrders[i].isFavorite,
+                                price: categoryOrders[i].price,
+                                phone: categoryOrders[i].phone,
+                                website: categoryOrders[i].website,
+                                address: categoryOrders[i].address,
+                                isYourAds: isYourAds,
+                                rating: categoryOrders[i].rating,
+                                countRating: categoryOrders[i].countRating,
+                                sumRating: categoryOrders[i].sumRating,
+                              ),
+                            );
+                          }),
+                    )
+                  ]),
+                )
+              ],
+            )));
   }
 }

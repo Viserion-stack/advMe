@@ -3,6 +3,7 @@ import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
+import 'package:advMe/widgets/all_orders.dart';
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,13 +77,13 @@ class _HomeScreenState extends State<HomeScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Color(0xFFF3F3F3),
-          // image: DecorationImage(
-          //   image: AssetImage(
-          //     'assets/screen.jpeg',
-          //   ),
-          //   fit: BoxFit.cover,
-          // ),
+          //color: Color(0xFFF3F3F3),
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/grey.png',
+            ),
+            fit: BoxFit.cover,
+          ),
         ),
         child: Stack(
           children: [
@@ -104,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                     padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.5,
+                      left: MediaQuery.of(context).size.width * 0.46,
                     ),
                     child: PopupMenuButton(
                       icon: Icon(
@@ -115,8 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                      context, BouncyPageRoute(widget: AccountScreen()));
+                              Navigator.push(context,
+                                  BouncyPageRoute(widget: AccountScreen()));
                             },
                             child: Row(
                               children: [
@@ -223,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context, BouncyPageRoute(widget: OrdersScreen()));
+                      context, BouncyPageRoute(widget: AllOrders()));
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.3,
@@ -265,56 +266,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            // Positioned(
-            //   top: MediaQuery.of(context).size.height * .79,
-            //   left: MediaQuery.of(context).size.width * .75,
-            //   child: Row(children: [
-            //     GestureDetector(
-            //       onTap: () {
-            //         setState(() {
-            //           isDark = true;
-            //           settings.isDark = isDark;
-            //           _updateSettings();
-            //         });
-            //       },
-            //       child: isDark
-            //           ? Image.asset(
-            //               'assets/moon_dark.png',
-            //               fit: BoxFit.cover,
-            //               height: 60,
-            //               width: 40,
-            //             )
-            //           : Image.asset(
-            //               'assets/moon_light.png',
-            //               fit: BoxFit.cover,
-            //               height: 60,
-            //               width: 40,
-            //             ),
-            //     ),
-            //     GestureDetector(
-            //       onTap: () {
-            //         setState(() {
-            //           isDark = false;
-            //           settings.isDark = isDark;
-            //           _updateSettings();
-            //         });
-            //       },
-            //       child: isDark
-            //           ? Image.asset(
-            //               'assets/sun_dark.png',
-            //               fit: BoxFit.cover,
-            //               height: 60,
-            //               width: 40,
-            //             )
-            //           : Image.asset(
-            //               'assets/sun_light.png',
-            //               fit: BoxFit.cover,
-            //               height: 60,
-            //               width: 40,
-            //             ),
-            //     ),
-            //   ]),
-            // )
           ],
         ),
       ),

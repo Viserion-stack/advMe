@@ -135,7 +135,7 @@ class _LocationInputState extends State<LocationInput> {
                 ),
               ),
               SizedBox(
-                width: 12,
+                width: 6,
               ),
               Expanded(
                 child: Container(
