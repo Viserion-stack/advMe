@@ -51,13 +51,8 @@ class _AllOrdersState extends State<AllOrders> {
   bool isYourAds = false;
   bool isFavorite = false;
 
-   
-
   @override
   void initState() {
-     
-      
-      
     Future.delayed(Duration.zero).then((_) {
       Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
       print('Pobieranie do providera');
@@ -186,7 +181,7 @@ class _AllOrdersState extends State<AllOrders> {
                   child: Column(children: [
                     Container(
                       padding: EdgeInsets.only(top: 10, bottom: 10),
-                      height: MediaQuery.of(context).size.height * .3,
+                      height: MediaQuery.of(context).size.height * .17,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: categories.length,
@@ -202,7 +197,7 @@ class _AllOrdersState extends State<AllOrders> {
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     top: 20,
-                                    bottom: 90,
+                                    bottom: 15,
                                     right: 3,
                                     left: 5,
                                   ),
@@ -221,14 +216,14 @@ class _AllOrdersState extends State<AllOrders> {
                                           ),
                                         ],
                                         color: valueChoosen == categories[index]
-                                                  ? Color(0xFFFFD320)
-                                                  : Colors.white,
+                                            ? Color(0xFFFFD320)
+                                            : Colors.white,
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     width: MediaQuery.of(context).size.width *
                                         0.40,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.02,
                                     child: Center(
                                       child: Text(
                                         categories[index],
@@ -248,11 +243,14 @@ class _AllOrdersState extends State<AllOrders> {
                           }),
                     ),
                     Expanded(
-                      child: StaggeredGridView.countBuilder(
-                          staggeredTileBuilder: (_) => StaggeredTile.fit(1),
-                          mainAxisSpacing: 4.0,
-                          crossAxisSpacing: 4.0,
-                          crossAxisCount: 2,
+                      child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
                           itemCount: categoryOrders.length,
                           itemBuilder: (ctx, i) {
                             for (int index = 0;
