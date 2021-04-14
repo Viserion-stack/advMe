@@ -243,14 +243,11 @@ class _AllOrdersState extends State<AllOrders> {
                           }),
                     ),
                     Expanded(
-                      child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 3 / 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
+                      child: StaggeredGridView.countBuilder(
+                          staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+                          mainAxisSpacing: 0.5,
+                          crossAxisSpacing: 0.5,
+                          crossAxisCount: 2,
                           itemCount: categoryOrders.length,
                           itemBuilder: (ctx, i) {
                             for (int index = 0;
@@ -267,23 +264,26 @@ class _AllOrdersState extends State<AllOrders> {
                             return ChangeNotifierProvider.value(
                               // builder: (c) => products[i],
                               value: categoryOrders[i],
-                              child: OrderGridItem(
-                                description: categoryOrders[i].description,
-                                id: categoryOrders[i].id,
-                                title: categoryOrders[i].title,
-                                imageUrl1: categoryOrders[i].imageUrl1,
-                                imageUrl2: categoryOrders[i].imageUrl2,
-                                imageUrl3: categoryOrders[i].imageUrl3,
-                                isFavorite:
-                                    isFavorite, //categoryOrders[i].isFavorite,
-                                price: categoryOrders[i].price,
-                                phone: categoryOrders[i].phone,
-                                website: categoryOrders[i].website,
-                                address: categoryOrders[i].address,
-                                isYourAds: isYourAds,
-                                rating: categoryOrders[i].rating,
-                                countRating: categoryOrders[i].countRating,
-                                sumRating: categoryOrders[i].sumRating,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: OrderGridItem(
+                                  description: categoryOrders[i].description,
+                                  id: categoryOrders[i].id,
+                                  title: categoryOrders[i].title,
+                                  imageUrl1: categoryOrders[i].imageUrl1,
+                                  imageUrl2: categoryOrders[i].imageUrl2,
+                                  imageUrl3: categoryOrders[i].imageUrl3,
+                                  isFavorite:
+                                      isFavorite, //categoryOrders[i].isFavorite,
+                                  price: categoryOrders[i].price,
+                                  phone: categoryOrders[i].phone,
+                                  website: categoryOrders[i].website,
+                                  address: categoryOrders[i].address,
+                                  isYourAds: isYourAds,
+                                  rating: categoryOrders[i].rating,
+                                  countRating: categoryOrders[i].countRating,
+                                  sumRating: categoryOrders[i].sumRating,
+                                ),
                               ),
                             );
                           }),

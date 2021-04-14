@@ -44,7 +44,6 @@ class OrderGridItem extends StatefulWidget {
     this.rating,
     this.countRating,
     this.sumRating,
-
   });
 
   @override
@@ -93,18 +92,18 @@ class _OrderGridItemState extends State<OrderGridItem> {
     return OpenContainer(
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            bottomRight: Radius.circular(15),
-            bottomLeft: Radius.circular(15),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
           ),
         ),
         openShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            bottomRight: Radius.circular(15),
-            bottomLeft: Radius.circular(15),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
           ),
         ),
         openElevation: 0,
@@ -129,7 +128,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
               address: widget.address,
               isYourAds: widget.isYourAds,
               rating: widget.rating,
-              countRating : widget.countRating,
+              countRating: widget.countRating,
               sumRating: widget.sumRating,
             ),
         closedBuilder: (context, _) =>
@@ -137,120 +136,131 @@ class _OrderGridItemState extends State<OrderGridItem> {
             //     width: MediaQuery.of(context).size.width,
             //     height:  MediaQuery.of(context).size.height,
             //     child:
-            Card(
-              color: settings.isDark
-                  ? Color(0x55303250)
-                  : Color(0xFFE3E6ED), //Color(0x55387CFF),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              elevation: 4,
-              margin: EdgeInsets.all(2),
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                ),
-                child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: settings.isDark ? 30 : 30,
-                      sigmaY: settings.isDark ? 5 : 25,
+            Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 0.1,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.09),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 10), // changes position of shadow
                     ),
-                    child: Column(children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                          //bottomRight: Radius.circular(15),
-                          //bottomLeft: Radius.circular(15),
-                        ),
-                        child: Image.network(
-                          widget.imageUrl1,
-                          //height: 200,
-                          width: MediaQuery.of(context).size.width, //130,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(1),
-                        child: Text(
-                          widget.title.capitalize(),
-                          style: TextStyle(
-                            color: settings.isDark
-                                ? Colors.white
-                                : Color(0xFF0D276B),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(children: [
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Container(
+                  ],
+                ),
+                child: Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    elevation: 0,
+                    //margin: EdgeInsets.all(2),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Stack(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              ),
+                              child: Image.network(
+                                widget.imageUrl1,
+                                height: 200,
+                                width: MediaQuery.of(context).size.width, //130,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              top: MediaQuery.of(context).size.height * .028,
+                              left: MediaQuery.of(context).size.width * .35,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    widget.isFavorite = !widget.isFavorite;
+                                    return _addFavorite(widget.isFavorite);
+                                  });
+                                },
+                                child: Icon(
+                                  widget.isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Color(0xEEC31331),
+                                ),
+                              ),
+                            ),
+                          ]),
+                          // Padding(
+                          //   padding: EdgeInsets.only(top: 1, bottom: 1),
+                          //child:
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0, top: 10),
                             child: Text(
-                              '${widget.price} zł',
+                              widget.title.capitalize(),
+                              textAlign: TextAlign.start,
                               style: TextStyle(
-                                color: Color(0xFFC31331),
-                                fontSize: 18,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
                             ),
                           ),
-                        ),
-                        Row(children: [
-                          Icon(
-                            Icons.star,
-                            color: Color(0xFFF79E1B),
+                          //  ),
+                          Row(
+                            children: [
+                              SizedBox(width: 5),
+                              Icon(Icons.place, size: 18),
+                              SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                  'Localization',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            widget.rating.toStringAsPrecision(2),
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xFFF79E1B),
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ]),
-                        SizedBox(width: 10),
-                      ]),
-                      SizedBox(height: 10),
-                      Row(children: [
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            'Localization',
-                            style: TextStyle(
-                              color: settings.isDark
-                                  ? Colors.white
-                                  : Color(0xFF0D276B),
+                          SizedBox(height: 10),
+                          Row(children: [
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  '${widget.price} zł',
+                                  style: TextStyle(
+                                    color: Color(0xFFFFD320),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                widget.isFavorite = !widget.isFavorite;
-                               return  _addFavorite(widget.isFavorite);
-                              });
-                            },
-                            child: Icon(
-                              widget.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Color(0xEEC31331),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                      ]),
-                      SizedBox(height: 10),
-                    ])),
-              ),
-            ));
+                            Row(children: [
+                              Icon(
+                                Icons.star,
+                                color: Color(0xFFFFD320),
+                              ),
+                              Text(
+                                widget.rating.toStringAsPrecision(2),
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ]),
+                            SizedBox(width: 10),
+                          ]),
+                          SizedBox(height: 10),
+
+                          //   Expanded(
+                          //     child:
+                          //   SizedBox(width: 5),
+                          // ]),
+                          // SizedBox(height: 10),
+                        ]))));
   }
 }

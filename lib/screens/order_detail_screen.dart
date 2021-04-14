@@ -1,4 +1,6 @@
+import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/helpers/location_helper.dart';
+import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_editing_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +16,8 @@ import 'package:provider/provider.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/helpers/string_extenstion.dart';
 import 'package:photo_view/photo_view.dart';
+
+import 'home_screen.dart';
 
 // ignore: must_be_immutable
 class OrderDetailScreen extends StatefulWidget {
@@ -247,322 +251,130 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.07,
-            ),
-            Row(children: [
-              GestureDetector(
-                onTap: () {
-                  updateRating();
-                  Navigator.of(context).pop();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Container(
-                      width: 60,
-                      height: 60,
-                      child: Icon(
-                        Icons.chevron_left,
-                        color: settings.isDark
-                            ? Color(0xFFF79E1B)
-                            : Color(0xFFFFC03D),
-                        size: 40,
-                      ),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: settings.isDark
-                              ? Color(0x40303250)
-                              : Color(0xFF0D276B))),
-                ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: Color(0xFFF3F3F3),
+            leading: new IconButton(
+              icon: new Icon(
+                Icons.chevron_left,
+                color: Color(0xFFF8BB06),
+                size: 46,
               ),
-              if (widget.isYourAds)
-                Padding(
-                  padding: const EdgeInsets.only(
-                    //right: 20,
-                    left: 200,
-                    bottom: 5,
-                  ),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.edit,
-                        color: settings.isDark
-                            ? Color(0xFFF79E1B)
-                            : Color(0xEEC31331),
-                        size: 37,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdsEditingScreen(
-                                      id: widget.id,
-                                      title: widget.title,
-                                      description: widget.description,
-                                      imageUrl1: widget.imageUrl1,
-                                      imageUrl2: widget.imageUrl2,
-                                      imageUrl3: widget.imageUrl3,
-                                      price: widget.price,
-                                      phone: widget.phone,
-                                      website: widget.website,
-                                      address: widget.address,
-                                    )));
-                      }),
-                ),
-              if (widget.isYourAds)
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 30,
-                    left: 10,
-                    bottom: 5,
-                  ),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.delete,
-                        color: settings.isDark
-                            ? Color(0xFFF79E1B)
-                            : Color(0xEEC31331),
-                        size: 37,
-                      ),
-                      onPressed: () {
-                        _showMyDialog();
-                      }),
-                ),
-            ]),
-            SizedBox(
-              height: 30,
+              onPressed: () => Navigator.of(context).pop(),
             ),
-
-            Container(
-              //padding: const EdgeInsets.all(10.0),
-              height: 350,
-              width: MediaQuery.of(context).size.width * 1,
-              child: PhotoViewGallery(
-                pageOptions: <PhotoViewGalleryPageOptions>[
-                  PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(
-                        widget.imageUrl1), //AssetImage("assets/gallery1.jpg"),
-                    heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
-                  ),
-                  PhotoViewGalleryPageOptions(
-                      imageProvider: NetworkImage(widget
-                          .imageUrl2), //AssetImage("assets/gallery2.jpg"),
-                      heroAttributes:
-                          const PhotoViewHeroAttributes(tag: "tag2"),
-                      maxScale: PhotoViewComputedScale.contained * 1.1),
-                  PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(
-                        widget.imageUrl3), //AssetImage("assets/gallery3.jpg"),
-                    minScale: PhotoViewComputedScale.contained * 0.8,
-                    maxScale: PhotoViewComputedScale.covered * 1.1,
-                    heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
-                  ),
-                ],
-                loadingBuilder: (context, progress) => Center(
-                  child: Container(
-                    width: 70.0,
-                    height: 50.0,
-                    child: SpinKitWave(
-                      color: Color(0xFFF79E1B),
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(widget.title, style: TextStyle(color: Colors.black),),
+              background: Hero(
+                tag: widget.id,
+                child: Column(children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.03,
                     ),
-                  ),
-                ),
-                backgroundDecoration: BoxDecoration(
-                  color:
-                      settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Positioned(
-              left: MediaQuery.of(context).size.width * 0.2,
-              top: 100,
-              child: Text(
-                widget.title.capitalize(),
-                style: GoogleFonts.ubuntu(
-                  color:
-                      settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),
-                  fontSize: 40.0,
-                  //letterSpacing: .5,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-              child: Text(
-                widget.price + ' PLN',
-                style: TextStyle(
-                  color: Color(0xEEC31331),
-                  fontSize: 30,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Divider(
-              color: settings.isDark ? Color(0xFFF79E1B) : Color(0xAA0D276B),
-              thickness: 0.5,
-              //height: 100,
-              endIndent: 30,
-              indent: 30,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-              child: Text(
-                widget.description,
-                style: TextStyle(
-                  fontFamily: 'Avenir',
-                  color: settings.isDark ? Colors.white54 : Color(0xAA0D276B),
-                  fontSize: 22,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Divider(
-              color: settings.isDark ? Color(0xFFF79E1B) : Color(0xFF0D276B),
-              thickness: 0.5,
-              endIndent: 30,
-              indent: 30,
-            ),
-            //LocationInput(),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              //height: 170,
-              //width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(width: 1, color: Colors.grey),
-              ),
-              child: _previewImageUrl == null
-                  ? Text(
-                      'No Location Choosen',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white54),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(shape: BoxShape.circle),
-                      width: 200,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(150),
-                        child: Image.network(
-                          _previewImageUrl,
-                          fit: BoxFit.cover,
-                          //width: double.infinity,
+                    child: Row(children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.15,
+                        ),
+                        child: Image.asset(
+                          'assets/small_logo.png',
+                          fit: BoxFit.contain,
+                          height: 60,
+                          width: 120,
                         ),
                       ),
-                    ),
-            ),
-
-            SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: settings.isDark
-                          ? Color(0xEEC31331)
-                          : Color(0xFFF1554C),
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.phone_outlined,
-                        color: Colors.white,
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.30,
+                          top: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        child: Icon(
+                          Icons.search,
+                          size: 35,
+                        ),
                       ),
-                      onPressed: () {
-                        _makePhoneCall(widget.phone);
-                      },
-                    ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.01,
+                            top: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          child: PopupMenuButton(
+                            icon: Icon(
+                              Icons.menu,
+                              size: 35,
+                            ),
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        BouncyPageRoute(
+                                            widget: AccountScreen()));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.account_circle,
+                                        color: Colors.black,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text('Account',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              PopupMenuItem(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        BouncyPageRoute(widget: HomeScreen()));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.home,
+                                        color: Colors.black,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text('Home',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ]),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: settings.isDark
-                          ? Color(0xFFCBB2AB)
-                          : Color(0xEE387CFF),
-                    ),
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.open_in_browser_outlined,
-                          color: settings.isDark
-                              ? Color(0xFF303250)
-                              : Colors.white,
-                        ),
-                        onPressed: () {
-                          launchURL(widget.website);
-                        }),
+                  Image.network(
+                    widget.imageUrl1,
+                    fit: BoxFit.contain,
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: settings.isDark
-                          ? Color(0xFFF79E1B)
-                          : Color(0xFFFFC03D),
-                    ),
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.navigation_outlined,
-                          color: Color(0xFF303250),
-                        ),
-                        onPressed: () {
-                          MapUtils.openMap(widget.address);
-                        }),
-                  ),
+                ]),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SizedBox(
+                  height: 5000,
                 ),
               ],
             ),
-            SizedBox(height: 40),
-            Container(
-                child: RatingBar.builder(
-              initialRating: 3.0,
-              itemBuilder: (context, _) {
-                return Icon(
-                  Icons.star,
-                  color: Color(0xFFF79E1B),
-                );
-              },
-              itemCount: 5,
-              allowHalfRating: true,
-              direction: Axis.horizontal,
-              minRating: 1.0,
-              maxRating: 5.0,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              onRatingUpdate: (rating) {
-                print(rating);
-                changedRating = true;
-                ratingValue = rating;
-              },
-            )),
-            SizedBox(height: 40),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
