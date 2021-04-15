@@ -250,10 +250,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
-      backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
+      backgroundColor:Color(0xFFF3F3F3),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            expandedHeight: 500,
             backgroundColor: Color(0xFFF3F3F3),
             leading: new IconButton(
               icon: new Icon(
@@ -263,10 +264,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            expandedHeight: 300,
+            //expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(widget.title, style: TextStyle(color: Colors.black),),
+              title: Text(
+                
+                widget.title.capitalize(),
+                textAlign: TextAlign.start,
+                style: TextStyle(color: Colors.black),
+              ),
               background: Hero(
                 tag: widget.id,
                 child: Column(children: [
@@ -357,10 +363,19 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           )),
                     ]),
                   ),
-                  Image.network(
-                    widget.imageUrl1,
-                    fit: BoxFit.contain,
+                  Expanded(
+                    child: Container(
+                      //height: 200,
+                      width: double.infinity,
+                      child: Image.network(
+                        widget.imageUrl1,
+                        fit: BoxFit.cover,
+                      ),
+
+                      //fit: BoxFit.contain,
+                    ),
                   ),
+                  Container(height: 70, width: double.infinity,)
                 ]),
               ),
             ),
