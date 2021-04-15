@@ -247,11 +247,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
     if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
+    ScrollController _scrollController = ScrollController()..addListener(()=> setState((){}));
+    
 
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
       backgroundColor:Color(0xFFF3F3F3),
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 500,
@@ -267,6 +270,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             //expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
+               //centerTitle: false,
+              
+              
+              //end: EdgeInsets.only(left: 72.0, bottom: 16),
               title: Text(
                 
                 widget.title.capitalize(),
