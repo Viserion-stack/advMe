@@ -188,7 +188,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                                   widget.isFavorite
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color: Color(0xEEC31331),
+                                  color: Color(0xFFFFD320),
                                 ),
                               ),
                             ),

@@ -247,16 +247,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
     if (widget.isYourAds == null) widget.isYourAds = false;
     final settings = Provider.of<SettingsUser>(context);
-    ScrollController _scrollController = ScrollController()..addListener(()=> setState((){}));
-    
+    ScrollController _scrollController = ScrollController()
+      ..addListener(() => setState(() {}));
 
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
-      backgroundColor:Color(0xFFF3F3F3),
+      backgroundColor: Color(0xFFF3F3F3),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[
           SliverAppBar(
+            floating: false,
             expandedHeight: 500,
             backgroundColor: Color(0xFFF3F3F3),
             leading: new IconButton(
@@ -270,12 +271,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             //expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-               //centerTitle: false,
-              
-              
-              //end: EdgeInsets.only(left: 72.0, bottom: 16),
+              titlePadding: EdgeInsetsDirectional.only(start: 50, bottom: 16),
               title: Text(
-                
                 widget.title.capitalize(),
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.black),
@@ -303,6 +300,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.30,
                           top: MediaQuery.of(context).size.height * 0.02,
+                          bottom: MediaQuery.of(context).size.height * 0.01,
                         ),
                         child: Icon(
                           Icons.search,
@@ -313,6 +311,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.width * 0.01,
                             top: MediaQuery.of(context).size.height * 0.02,
+                            bottom: MediaQuery.of(context).size.height * 0.01,
                           ),
                           child: PopupMenuButton(
                             icon: Icon(
@@ -382,7 +381,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       //fit: BoxFit.contain,
                     ),
                   ),
-                  Container(height: 70, width: double.infinity,)
+                  Container(
+                    height: 70,
+                    width: double.infinity,
+                  )
                 ]),
               ),
             ),
@@ -390,9 +392,297 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                SizedBox(
-                  height: 5000,
-                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: Container(
+                    //width: MediaQuery.of(context).size.width *.4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10),
+                        Row(children: [
+                          Expanded(
+                            child: Text(
+                              '${widget.price} zł',
+                              style: TextStyle(
+                                color: Color(0xFFFFD320),
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Row(children: [
+                            Icon(
+                              Icons.star,
+                              color: Color(0xFFFFD320),
+                              size: 25,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              widget.rating.toStringAsPrecision(2),
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ])
+                        ]),
+                        SizedBox(height: 25),
+                        Text(
+                          widget.description,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              //alignment: Alignment.topCenter,
+                              height: 60,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey[300],
+                                    blurRadius: 10,
+                                    spreadRadius: 0.5,
+                                    offset: Offset(0, 8),
+                                  ),
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(22),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 0.2,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        .32),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.language,
+                                      color: Color(0xFFFFD320),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Website',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFD320),
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                        SizedBox(height: 25),
+                        Container(
+                          //height: 170,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 1, color: Colors.grey),
+                          ),
+                          child: _previewImageUrl == null
+                              ? Text(
+                                  'No Location Choosen',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white54),
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey[300],
+                                        blurRadius: 12,
+                                        spreadRadius: 0.9,
+                                        offset: Offset(0, 8),
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: Colors.black,
+                                      width: 0.8,
+                                    ),
+                                  ),
+                                  width: double.infinity,
+                                  height: 170,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      _previewImageUrl,
+                                      fit: BoxFit.cover,
+                                      //width: double.infinity,
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        SizedBox(height: 15),
+                        Row(children: [
+                          Expanded(
+                              child: GestureDetector(
+                            child: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0x0FF24E46A),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[300],
+                                      blurRadius: 10,
+                                      spreadRadius: 0.5,
+                                      offset: Offset(0, 8),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(22),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 0.2,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width *
+                                          .12),
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.phone,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Call',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ]),
+                                )),
+                          )),
+                          SizedBox(width: 10),
+                          Expanded(
+                              child: GestureDetector(
+                            child: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFFD320),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[300],
+                                      blurRadius: 10,
+                                      spreadRadius: 0.5,
+                                      offset: Offset(0, 8),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(22),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 0.2,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width *
+                                          .09),
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.near_me,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Navigate',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ]),
+                                )),
+                          ))
+                        ]),
+                        SizedBox(height: 30),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * .17),
+                          child: Row(
+                            children: [
+                              Text('Rate',
+                                  style: TextStyle(
+                                    color: Color(0xFFFFD320),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              SizedBox(width: 5),
+                              Container(
+                                  child: RatingBar(
+                                    itemSize: 35,
+                                //unratedColor: Color(0xFFFFD320),
+                                initialRating: 0.0,
+                                ratingWidget: RatingWidget(
+                                  full: Icon(
+                                    Icons.star,
+                                    color: Color(0xFFFFD320),
+                                    size: 12,
+                                  ),
+                                  half: Icon(
+                                    Icons.star_half,
+                                    color: Color(0xFFFFD320),
+                                    size: 12,
+                                  ),
+                                  empty: Icon(
+                                    Icons.star_border,
+                                    color: Color(0xFFFFD320),
+                                    size: 12,
+                                  ),
+                                ),
+                                itemCount: 5,
+                                allowHalfRating: true,
+                                direction: Axis.horizontal,
+                                minRating: 1.0,
+                                maxRating: 5.0,
+                                itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 0.2),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                  changedRating = true;
+                                  ratingValue = rating;
+                                },
+                              )),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        Container(
+                          height: 2,
+                          width: double.infinity,
+                          color: Colors.grey[350],
+                        ),
+                        SizedBox(height: 25),
+                        Center(
+                            child: Text('advMe! 2021',
+                                style: TextStyle(
+                                  color: Colors.grey[350],
+                                ))),
+                        SizedBox(height: 25),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
