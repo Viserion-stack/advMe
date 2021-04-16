@@ -1,5 +1,6 @@
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
@@ -85,10 +86,18 @@ class _LocationInputState extends State<LocationInput> {
                     //Colors.white54,
                   ),
                 )
-              : Image.network(
-                  _previewImageUrl,
-                  fit: BoxFit.contain,
-                  width: double.infinity,
+              : Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.network(
+                      _previewImageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  ),
                 ),
         ),
         Padding(
@@ -176,7 +185,6 @@ class _LocationInputState extends State<LocationInput> {
             ],
           ),
         ),
-        
       ],
     );
   }
