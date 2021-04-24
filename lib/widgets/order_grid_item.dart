@@ -90,177 +90,141 @@ class _OrderGridItemState extends State<OrderGridItem> {
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return OpenContainer(
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-            bottomLeft: Radius.circular(25),
-          ),
+      openElevation: 0,
+      closedElevation: 0,
+      transitionDuration: Duration(milliseconds: 500),
+      transitionType: ContainerTransitionType.fade,
+      closedColor: settings.isDark
+          ? Colors.transparent
+          : Colors.transparent, //Color(0xFFE9ECF5),
+      openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
+      openBuilder: (context, _) => OrderDetailScreen(
+        id: widget.id,
+        title: widget.title,
+        description: widget.description,
+        isFavorite: widget.isFavorite,
+        imageUrl1: widget.imageUrl1,
+        imageUrl2: widget.imageUrl2,
+        imageUrl3: widget.imageUrl3,
+        price: widget.price,
+        phone: widget.phone,
+        website: widget.website,
+        address: widget.address,
+        isYourAds: widget.isYourAds,
+        rating: widget.rating,
+        countRating: widget.countRating,
+        sumRating: widget.sumRating,
+      ),
+      closedBuilder: (context, _) => Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+          ],
         ),
-        openShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-            bottomLeft: Radius.circular(25),
+        child: Card(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
           ),
-        ),
-        openElevation: 0,
-        closedElevation: 0,
-        transitionDuration: Duration(milliseconds: 650),
-        transitionType: ContainerTransitionType.fade,
-        closedColor: settings.isDark
-            ? Colors.transparent
-            : Colors.transparent, //Color(0xFFE9ECF5),
-        openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-        openBuilder: (context, _) => OrderDetailScreen(
-              id: widget.id,
-              title: widget.title,
-              description: widget.description,
-              isFavorite: widget.isFavorite,
-              imageUrl1: widget.imageUrl1,
-              imageUrl2: widget.imageUrl2,
-              imageUrl3: widget.imageUrl3,
-              price: widget.price,
-              phone: widget.phone,
-              website: widget.website,
-              address: widget.address,
-              isYourAds: widget.isYourAds,
-              rating: widget.rating,
-              countRating: widget.countRating,
-              sumRating: widget.sumRating,
-            ),
-        closedBuilder: (context, _) =>
-            // SizedBox(
-            //     width: MediaQuery.of(context).size.width,
-            //     height:  MediaQuery.of(context).size.height,
-            //     child:
-            Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 0.1,
+          elevation: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Stack(children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.09),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 10), // changes position of shadow
-                    ),
-                  ],
+                  child: Image.network(
+                    widget.imageUrl1,
+                    height: 200,
+                    width: MediaQuery.of(context).size.width, //130,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Card(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * .028,
+                  left: MediaQuery.of(context).size.width * .35,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.isFavorite = !widget.isFavorite;
+                        return _addFavorite(widget.isFavorite);
+                      });
+                    },
+                    child: Icon(
+                      widget.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Color(0xFFFFD320),
                     ),
-                    elevation: 0,
-                    //margin: EdgeInsets.all(2),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Stack(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                              ),
-                              child: Image.network(
-                                widget.imageUrl1,
-                                height: 200,
-                                width: MediaQuery.of(context).size.width, //130,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Positioned(
-                              top: MediaQuery.of(context).size.height * .028,
-                              left: MediaQuery.of(context).size.width * .35,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    widget.isFavorite = !widget.isFavorite;
-                                    return _addFavorite(widget.isFavorite);
-                                  });
-                                },
-                                child: Icon(
-                                  widget.isFavorite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Color(0xFFFFD320),
-                                ),
-                              ),
-                            ),
-                          ]),
-                          // Padding(
-                          //   padding: EdgeInsets.only(top: 1, bottom: 1),
-                          //child:
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.0, top: 10),
-                            child: Text(
-                              widget.title.capitalize(),
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          //  ),
-                          Row(
-                            children: [
-                              SizedBox(width: 5),
-                              Icon(Icons.place, size: 18),
-                              SizedBox(width: 5),
-                              Expanded(
-                                child: Text(
-                                  'Localization',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Row(children: [
-                            SizedBox(width: 10),
-                            Expanded(
-                              child: Container(
-                                child: Text(
-                                  '${widget.price} zł',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFD320),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Row(children: [
-                              Icon(
-                                Icons.star,
-                                color: Color(0xFFFFD320),
-                              ),
-                              Text(
-                                widget.rating.toStringAsPrecision(2),
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ]),
-                            SizedBox(width: 10),
-                          ]),
-                          SizedBox(height: 10),
-
-                          //   Expanded(
-                          //     child:
-                          //   SizedBox(width: 5),
-                          // ]),
-                          // SizedBox(height: 10),
-                        ]))));
+                  ),
+                ),
+              ]),
+              
+              Padding(
+                padding: EdgeInsets.only(left: 8.0, top: 10),
+                child: Text(
+                  widget.title.capitalize(),
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              //  ),
+              Row(
+                children: [
+                  SizedBox(width: 5),
+                  Icon(Icons.place, size: 18),
+                  SizedBox(width: 5),
+                  Expanded(
+                    child: Text(
+                      'Localization',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(children: [
+                SizedBox(width: 10),
+                Expanded(
+                  child: Container(
+                    child: Text(
+                      '${widget.price} zł',
+                      style: TextStyle(
+                        color: Color(0xFFFFD320),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Row(children: [
+                  Icon(
+                    Icons.star,
+                    color: Color(0xFFFFD320),
+                  ),
+                  Text(
+                    widget.rating.toStringAsPrecision(2),
+                    style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ]),
+                SizedBox(width: 10),
+              ]),
+              SizedBox(height: 10),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
