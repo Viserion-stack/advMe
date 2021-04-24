@@ -370,15 +370,45 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ]),
                   ),
                   Expanded(
-                    child: Container(
-                      //height: 200,
-                      width: double.infinity,
-                      child: Image.network(
-                        widget.imageUrl1,
-                        fit: BoxFit.cover,
+                    child: PhotoViewGallery(
+                      pageOptions: <PhotoViewGalleryPageOptions>[
+                        PhotoViewGalleryPageOptions(
+                          imageProvider: NetworkImage(widget
+                              .imageUrl1), //AssetImage("assets/gallery1.jpg"),
+                          //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
+                        ),
+                        PhotoViewGalleryPageOptions(
+                            imageProvider: NetworkImage(widget
+                                .imageUrl2), //AssetImage("assets/gallery2.jpg"),
+                            //heroAttributes:
+                            //const PhotoViewHeroAttributes(tag: "tag2"),
+                            maxScale: PhotoViewComputedScale.contained * 0.3),
+                        PhotoViewGalleryPageOptions(
+                          imageProvider: NetworkImage(widget
+                              .imageUrl3), //AssetImage("assets/gallery3.jpg"),
+                          minScale: PhotoViewComputedScale.contained * 0.8,
+                          maxScale: PhotoViewComputedScale.covered * 1.1,
+                          //heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
+                        ),
+                      ],
+                      loadingBuilder: (context, progress) => Center(
+                        child: Container(
+                          width: 70.0,
+                          height: 50.0,
+                          child: SpinKitWave(
+                            color: Color(0xFFF79E1B),
+                          ),
+                        ),
                       ),
-
-                      //fit: BoxFit.contain,
+                      backgroundDecoration: BoxDecoration(
+                        color: settings.isDark
+                            ? Color(0xFFF3F3F3)
+                            : Color(
+                                0xFFF3F3F3), //TOO inny kolor dla dark screen
+                      ),
+                      //backgroundDecoration: widget.backgroundDecoration,
+                      //pageController: widget.pageController,
+                      // onPageChanged: onPageChanged,
                     ),
                   ),
                   Container(
@@ -438,7 +468,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         ),
                         SizedBox(height: 25),
                         GestureDetector(
-                            onTap: () {},
+                            onTap: () => launchURL(widget.website),
                             child: Container(
                               //alignment: Alignment.topCenter,
                               height: 60,
@@ -531,6 +561,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         Row(children: [
                           Expanded(
                               child: GestureDetector(
+                            onTap: () => _makePhoneCall(widget.phone),
                             child: Container(
                                 height: 60,
                                 decoration: BoxDecoration(
@@ -574,6 +605,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           SizedBox(width: 10),
                           Expanded(
                               child: GestureDetector(
+                            onTap: () => MapUtils.openMap(widget.address),
                             child: Container(
                                 height: 60,
                                 decoration: BoxDecoration(
@@ -630,7 +662,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               SizedBox(width: 5),
                               Container(
                                   child: RatingBar(
-                                    itemSize: 35,
+                                itemSize: 35,
                                 //unratedColor: Color(0xFFFFD320),
                                 initialRating: 0.0,
                                 ratingWidget: RatingWidget(
