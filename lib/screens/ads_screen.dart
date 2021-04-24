@@ -53,7 +53,7 @@ class _AdsScreenState extends State<AdsScreen> {
     });
   }
 
-  _onAlertButtonsPressed(context, int index) {
+  _onAlertButtonsPressed(int index) {
     Alert(
       style: AlertStyle(
         backgroundColor: Color(0x40303250),
@@ -171,7 +171,7 @@ class _AdsScreenState extends State<AdsScreen> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Order has beed added!'),
+            content: Text('Order has been added!'),
           ),
         );
       });
@@ -273,79 +273,104 @@ class _AdsScreenState extends State<AdsScreen> {
                 Padding(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.06),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: Color(0xFFCECECE),
-                          size: 75,
+                  child: GestureDetector(
+                      onTap: () => _onAlertButtonsPressed(1),
+                      child: Container(
+                        child: _pickedImage == null
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add,
+                                    color: Color(0xFFCECECE),
+                                    size: 75,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text('Add photo',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Color(0xFFCECECE),
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ],
+                              )
+                            : Container(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.file(
+                                    _pickedImage,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey[300],
+                              blurRadius: 8,
+                              spreadRadius: 0,
+                              offset: Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('Add photo',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xFFCECECE),
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[300],
-                          blurRadius: 8,
-                          spreadRadius: 0,
-                          offset: Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                  ),
+                        height: MediaQuery.of(context).size.height * 0.23,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                      )),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.07),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: Color(0xFFCECECE),
-                          size: 75,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('Add photo',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xFFCECECE),
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ],
+                  child: GestureDetector(
+                    onTap: () => _onAlertButtonsPressed(2),
+                    child: Container(
+                      child: _pickedImage2 == null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Color(0xFFCECECE),
+                                  size: 75,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text('Add photo',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFFCECECE),
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            )
+                          : Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.file(
+                                  _pickedImage2,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      width: MediaQuery.of(context).size.width * 0.4,
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[300],
-                          blurRadius: 8,
-                          spreadRadius: 0,
-                          offset: Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    width: MediaQuery.of(context).size.width * 0.4,
                   ),
                 ),
               ]),
@@ -357,40 +382,52 @@ class _AdsScreenState extends State<AdsScreen> {
                 Padding(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.06),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: Color(0xFFCECECE),
-                          size: 75,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('Add photo',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xFFCECECE),
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ],
+                  child: GestureDetector(
+                    onTap: () => _onAlertButtonsPressed(3),
+                                      child: Container(
+                      child: _pickedImage3 == null
+                          ?Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add,
+                            color: Color(0xFFCECECE),
+                            size: 75,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text('Add photo',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFCECECE),
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ],
+                      ): Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.file(
+                                  _pickedImage3,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      width: MediaQuery.of(context).size.width * 0.4,
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[300],
-                          blurRadius: 8,
-                          spreadRadius: 0,
-                          offset: Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    width: MediaQuery.of(context).size.width * 0.4,
                   ),
                 ),
                 Padding(
@@ -747,7 +784,7 @@ class _AdsScreenState extends State<AdsScreen> {
               child: LocationInput(_selectPlace),
             ),
             Padding(
-              padding:  EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -757,9 +794,9 @@ class _AdsScreenState extends State<AdsScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: buttonReady ? Colors.grey : Color(0xFFFFD320),
-                    shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
                   onPressed: ((_pickedImage == null) ||
                           (_pickedImage2 == null) ||
