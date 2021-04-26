@@ -245,7 +245,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: RichText(
                     text: TextSpan(
                         text: 'Add',
-                        style: GoogleFonts.ubuntu(
+                        style: GoogleFonts.quicksand(
                           color: Colors.black,
                           fontSize: 28.0,
                           letterSpacing: 1.5,
@@ -254,7 +254,7 @@ class _AdsScreenState extends State<AdsScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: 'Advertisment',
-                            style: GoogleFonts.ubuntu(
+                            style: GoogleFonts.quicksand(
                               color: Color(0xFFF8BB06),
                               fontSize: 28.0,
                               letterSpacing: 0.1,

@@ -1,5 +1,6 @@
 import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/screens/ads_screen.dart';
+import 'package:advMe/screens/edit_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -190,23 +191,29 @@ class _AccountScreenState extends State<AccountScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(children: [
-                      Icon(
-                        Icons.create,
-                        size: 35,
-                        color: Color(0xFF00ECE7),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
+                    GestureDetector(
+                      onTap: (){
+                         Navigator.push(
+                            context, BouncyPageRoute(widget: EditProfile()));
+                      },
+                      child: Row(children: [
+                        Icon(
+                          Icons.create,
+                          size: 35,
+                          color: Color(0xFF00ECE7),
                         ),
-                      )
-                    ]),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        )
+                      ]),
+                    ),
                   ],
                 ),
               ),
