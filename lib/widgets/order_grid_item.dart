@@ -7,6 +7,7 @@ import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:advMe/helpers/string_extenstion.dart';
 
@@ -86,6 +87,17 @@ class _OrderGridItemState extends State<OrderGridItem> {
 
   @override
   Widget build(BuildContext context) {
+    final value = widget.address;
+    String city = '';
+
+    if (value == null) {
+      city = 'No localization available';
+    } else {
+      final value = widget.address.split(',');
+      int count = value.length;
+      city = value[count - 2];
+    }
+
     final settings = Provider.of<SettingsUser>(context);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
@@ -117,8 +129,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
       ),
       closedBuilder: (context, _) => Container(
         decoration: BoxDecoration(
-          boxShadow: [
-          ],
+          boxShadow: [],
         ),
         child: Card(
           color: Colors.white,
@@ -161,7 +172,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   ),
                 ),
               ]),
-              
+
               Padding(
                 padding: EdgeInsets.only(left: 8.0, top: 10),
                 child: Text(
@@ -182,7 +193,9 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   SizedBox(width: 5),
                   Expanded(
                     child: Text(
-                      'Localization',
+                      value == null
+                          ? 'No localizatoin available'
+                          : city.substring(7, city.length),
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -197,7 +210,8 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   child: Container(
                     child: Text(
                       '${widget.price} zł',
-                      style: TextStyle(
+                      style: GoogleFonts.lexendDeca(
+                        letterSpacing: 0,
                         color: Color(0xFFFFD320),
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -212,7 +226,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   ),
                   Text(
                     widget.rating.toStringAsPrecision(2),
-                    style: TextStyle(
+                    style: GoogleFonts.lexendDeca(
                         fontSize: 17,
                         color: Colors.black,
                         fontWeight: FontWeight.w700),
