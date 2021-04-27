@@ -245,8 +245,8 @@ class _AllOrdersState extends State<AllOrders> {
                     Expanded(
                       child: StaggeredGridView.countBuilder(
                           staggeredTileBuilder: (_) => StaggeredTile.fit(1),
-                          mainAxisSpacing: 0.5,
-                          crossAxisSpacing: 0.5,
+                          mainAxisSpacing: 0.1,
+                          crossAxisSpacing: 0.1,
                           crossAxisCount: 2,
                           itemCount: categoryOrders.length,
                           itemBuilder: (ctx, i) {
@@ -265,7 +265,7 @@ class _AllOrdersState extends State<AllOrders> {
                               // builder: (c) => products[i],
                               value: categoryOrders[i],
                               child: Padding(
-                                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                                padding: EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6),
                                 child: OrderGridItem(
                                   description: categoryOrders[i].description,
                                   id: categoryOrders[i].id,

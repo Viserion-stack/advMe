@@ -156,20 +156,46 @@ class _OrderGridItemState extends State<OrderGridItem> {
                 Positioned(
                   top: MediaQuery.of(context).size.height * .028,
                   left: MediaQuery.of(context).size.width * .35,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        widget.isFavorite = !widget.isFavorite;
-                        return _addFavorite(widget.isFavorite);
-                      });
-                    },
-                    child: Icon(
-                      widget.isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Color(0xFFFFD320),
-                    ),
-                  ),
+                  child: widget.isYourAds
+                      ? GestureDetector(
+                          onTap: () {
+                            //TODO: Create screen to edit your advertisment
+                          },
+                          child: Container(
+                            width: 27,
+                            height: 27,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x00000029),
+                                    blurRadius: 4,
+                                    spreadRadius: 0.5,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ]),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              widget.isFavorite = !widget.isFavorite;
+                              return _addFavorite(widget.isFavorite);
+                            });
+                          },
+                          child: Icon(
+                            widget.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Color(0xFFFFD320),
+                          ),
+                        ),
                 ),
               ]),
 

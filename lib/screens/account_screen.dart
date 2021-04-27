@@ -1,6 +1,8 @@
 import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/edit_profile.dart';
+import 'package:advMe/widgets/all_orders.dart';
+import 'package:advMe/widgets/your_ads.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -131,23 +133,29 @@ class _AccountScreenState extends State<AccountScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(children: [
-                      Icon(
-                        Icons.search,
-                        size: 35,
-                        color: Color(0xFF00ECE7),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Look for Orders',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                      context, BouncyPageRoute(widget: AllOrders()));
+                      },
+                                          child: Row(children: [
+                        Icon(
+                          Icons.search,
+                          size: 35,
+                          color: Color(0xFF00ECE7),
                         ),
-                      )
-                    ]),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Look for Orders',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        )
+                      ]),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -171,23 +179,29 @@ class _AccountScreenState extends State<AccountScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(children: [
-                      Icon(
-                        Icons.campaign_outlined,
-                        size: 35,
-                        color: Color(0xFF00ECE7),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Yours Advertisment',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                            context, BouncyPageRoute(widget: YourAds()));
+                      },
+                                          child: Row(children: [
+                        Icon(
+                          Icons.campaign_outlined,
+                          size: 35,
+                          color: Color(0xFF00ECE7),
                         ),
-                      )
-                    ]),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Yours Advertisment',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        )
+                      ]),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
