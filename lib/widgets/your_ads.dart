@@ -109,16 +109,24 @@ class _YourAdsState extends State<YourAds> {
                     )),
               ]),
             ),
-            Padding(padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.17,
-                      top: MediaQuery.of(context).size.height * 0.15,
-                    ),
-                    child: Text('Yours Advertisment',
-                style: GoogleFonts.quicksand(
-                  fontSize: 28,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                )),),
+            Padding(
+              padding: EdgeInsets.only(
+                //left: MediaQuery.of(context).size.width * 0.17,
+                top: MediaQuery.of(context).size.height * 0.15,
+              ),
+              child: Container(
+                height: 30,
+                width: double.infinity,
+                child: Center(
+                  child: Text('Your Advertisment',
+                      style: GoogleFonts.quicksand(
+                        fontSize: 28,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 150.0, left: 6, right: 6, bottom: 6),

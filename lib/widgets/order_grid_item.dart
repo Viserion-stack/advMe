@@ -203,6 +203,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                 padding: EdgeInsets.only(left: 8.0, top: 10),
                 child: Text(
                   widget.title.capitalize(),
+                  overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     color: Colors.black,
