@@ -22,6 +22,7 @@ import 'home_screen.dart';
 // ignore: must_be_immutable
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
+  final String userId;
   final String id;
   final String title;
   final String description;
@@ -39,6 +40,7 @@ class OrderDetailScreen extends StatefulWidget {
   double sumRating;
 
   OrderDetailScreen({
+    this.userId,
     this.id,
     this.title,
     this.description,
@@ -648,6 +650,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           ))
                         ]),
                         SizedBox(height: 30),
+                        if(widget.userId != FirebaseAuth.instance.currentUser.uid)
                         Padding(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * .17),
@@ -698,6 +701,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             ],
                           ),
                         ),
+
                         SizedBox(height: 25),
                         Container(
                           height: 2,

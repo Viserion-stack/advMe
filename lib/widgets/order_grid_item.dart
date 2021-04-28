@@ -13,6 +13,7 @@ import 'package:advMe/helpers/string_extenstion.dart';
 
 // ignore: must_be_immutable
 class OrderGridItem extends StatefulWidget {
+  final String userId;
   final String id;
   final String title;
   final String description;
@@ -30,6 +31,7 @@ class OrderGridItem extends StatefulWidget {
   double sumRating;
 
   OrderGridItem({
+    @required this.userId,
     @required this.id,
     @required this.title,
     @required this.description,
@@ -111,6 +113,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
           : Colors.transparent, //Color(0xFFE9ECF5),
       openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
       openBuilder: (context, _) => OrderDetailScreen(
+        userId: widget.userId,
         id: widget.id,
         title: widget.title,
         description: widget.description,

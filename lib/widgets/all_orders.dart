@@ -267,6 +267,7 @@ class _AllOrdersState extends State<AllOrders> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6),
                                 child: OrderGridItem(
+                                  userId: categoryOrders[i].userId,
                                   description: categoryOrders[i].description,
                                   id: categoryOrders[i].id,
                                   title: categoryOrders[i].title,
