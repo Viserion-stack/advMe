@@ -56,23 +56,39 @@ class _AdsScreenState extends State<AdsScreen> {
   _onAlertButtonsPressed(int index) {
     Alert(
       style: AlertStyle(
-        backgroundColor: Color(0x40303250),
-        titleStyle: TextStyle(
-          color: Color(0xFFCBB2AB),
+        //alertBorder: ,
+        overlayColor: Color(0xDBEEEEEE),
+        backgroundColor: Colors.white,
+        titleStyle: GoogleFonts.quicksand(
+          color: Colors.black,
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
         ),
-        descStyle: TextStyle(
-          color: Color(0xFFCBB2AB),
+        descStyle: GoogleFonts.quicksand(
+          color: Colors.black,
+          fontSize: 13,
         ),
       ),
       context: context,
       type: AlertType.none,
-      title: "PLEASE SELECT",
-      desc: "Take photo from gallery or camera?",
+      title: 'Please select',
+      desc: "Take photo from Gallery or Camera?",
       buttons: [
         DialogButton(
-          child: Text(
-            "Gallery",
-            style: TextStyle(color: Colors.white, fontSize: 18),
+          radius: BorderRadius.circular(27),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10),
+            child: Row(children: [
+              Icon(
+                Icons.collections,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                "Gallery",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ]),
           ),
           onPressed: () {
             setState(() {
@@ -83,12 +99,23 @@ class _AdsScreenState extends State<AdsScreen> {
 
             Navigator.pop(context);
           },
-          color: Color(0xEEC31331),
+          color: Color(0xFFF8BB06),
         ),
         DialogButton(
-          child: Text(
-            "Camera",
-            style: TextStyle(color: Colors.white, fontSize: 18),
+          radius: BorderRadius.circular(27),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10),
+            child: Row(children: [
+              Icon(
+                Icons.photo_camera,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                "Camera",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ]),
           ),
           onPressed: () {
             setState(() {
@@ -98,7 +125,7 @@ class _AdsScreenState extends State<AdsScreen> {
             _pickImage(isCamera, index);
             Navigator.pop(context);
           },
-          color: Color(0xFFF79E1B),
+          color: Color(0xFFF8BB06),
         )
       ],
     ).show();
@@ -384,27 +411,28 @@ class _AdsScreenState extends State<AdsScreen> {
                       left: MediaQuery.of(context).size.width * 0.06),
                   child: GestureDetector(
                     onTap: () => _onAlertButtonsPressed(3),
-                                      child: Container(
+                    child: Container(
                       child: _pickedImage3 == null
-                          ?Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.add,
-                            color: Color(0xFFCECECE),
-                            size: 75,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text('Add photo',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Color(0xFFCECECE),
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ],
-                      ): Container(
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Color(0xFFCECECE),
+                                  size: 75,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text('Add photo',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFFCECECE),
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            )
+                          : Container(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.file(
