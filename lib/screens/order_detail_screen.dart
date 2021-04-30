@@ -279,9 +279,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.black),
               ),
-              background: Hero(
-                tag: widget.id,
-                child: Column(children: [
+              background:  Column(children: [
                   Padding(
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.03,
@@ -372,45 +370,48 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ]),
                   ),
                   Expanded(
-                    child: PhotoViewGallery(
-                      pageOptions: <PhotoViewGalleryPageOptions>[
-                        PhotoViewGalleryPageOptions(
-                          imageProvider: NetworkImage(widget
-                              .imageUrl1), //AssetImage("assets/gallery1.jpg"),
-                          //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
-                        ),
-                        PhotoViewGalleryPageOptions(
+                    child: Hero(
+                      tag: widget.id,
+                                          child: PhotoViewGallery(
+                        pageOptions: <PhotoViewGalleryPageOptions>[
+                          PhotoViewGalleryPageOptions(
                             imageProvider: NetworkImage(widget
-                                .imageUrl2), //AssetImage("assets/gallery2.jpg"),
-                            //heroAttributes:
-                            //const PhotoViewHeroAttributes(tag: "tag2"),
-                            maxScale: PhotoViewComputedScale.contained * 0.3),
-                        PhotoViewGalleryPageOptions(
-                          imageProvider: NetworkImage(widget
-                              .imageUrl3), //AssetImage("assets/gallery3.jpg"),
-                          minScale: PhotoViewComputedScale.contained * 0.8,
-                          maxScale: PhotoViewComputedScale.covered * 1.1,
-                          //heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
-                        ),
-                      ],
-                      loadingBuilder: (context, progress) => Center(
-                        child: Container(
-                          width: 70.0,
-                          height: 50.0,
-                          child: SpinKitWave(
-                            color: Color(0xFFF79E1B),
+                                .imageUrl1), //AssetImage("assets/gallery1.jpg"),
+                            //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
+                          ),
+                          PhotoViewGalleryPageOptions(
+                              imageProvider: NetworkImage(widget
+                                  .imageUrl2), //AssetImage("assets/gallery2.jpg"),
+                              //heroAttributes:
+                              //const PhotoViewHeroAttributes(tag: "tag2"),
+                              maxScale: PhotoViewComputedScale.contained * 0.3),
+                          PhotoViewGalleryPageOptions(
+                            imageProvider: NetworkImage(widget
+                                .imageUrl3), //AssetImage("assets/gallery3.jpg"),
+                            minScale: PhotoViewComputedScale.contained * 0.8,
+                            maxScale: PhotoViewComputedScale.covered * 1.1,
+                            //heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
+                          ),
+                        ],
+                        loadingBuilder: (context, progress) => Center(
+                          child: Container(
+                            width: 70.0,
+                            height: 50.0,
+                            child: SpinKitWave(
+                              color: Color(0xFFF79E1B),
+                            ),
                           ),
                         ),
+                        backgroundDecoration: BoxDecoration(
+                          color: settings.isDark
+                              ? Color(0xFFF3F3F3)
+                              : Color(
+                                  0xFFF3F3F3), //TOO inny kolor dla dark screen
+                        ),
+                        //backgroundDecoration: widget.backgroundDecoration,
+                        //pageController: widget.pageController,
+                        // onPageChanged: onPageChanged,
                       ),
-                      backgroundDecoration: BoxDecoration(
-                        color: settings.isDark
-                            ? Color(0xFFF3F3F3)
-                            : Color(
-                                0xFFF3F3F3), //TOO inny kolor dla dark screen
-                      ),
-                      //backgroundDecoration: widget.backgroundDecoration,
-                      //pageController: widget.pageController,
-                      // onPageChanged: onPageChanged,
                     ),
                   ),
                   Container(
@@ -418,7 +419,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     width: double.infinity,
                   )
                 ]),
-              ),
             ),
           ),
           SliverList(

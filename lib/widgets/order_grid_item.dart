@@ -103,34 +103,52 @@ class _OrderGridItemState extends State<OrderGridItem> {
     final settings = Provider.of<SettingsUser>(context);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
-    return OpenContainer(
-      openElevation: 0,
-      closedElevation: 0,
-      transitionDuration: Duration(milliseconds: 500),
-      transitionType: ContainerTransitionType.fade,
-      closedColor: settings.isDark
-          ? Colors.transparent
-          : Colors.transparent, //Color(0xFFE9ECF5),
-      openColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
-      openBuilder: (context, _) => OrderDetailScreen(
-        userId: widget.userId,
-        id: widget.id,
-        title: widget.title,
-        description: widget.description,
-        isFavorite: widget.isFavorite,
-        imageUrl1: widget.imageUrl1,
-        imageUrl2: widget.imageUrl2,
-        imageUrl3: widget.imageUrl3,
-        price: widget.price,
-        phone: widget.phone,
-        website: widget.website,
-        address: widget.address,
-        isYourAds: widget.isYourAds,
-        rating: widget.rating,
-        countRating: widget.countRating,
-        sumRating: widget.sumRating,
-      ),
-      closedBuilder: (context, _) => Container(
+    return
+        // OrderDetailScreen(
+        //   userId: widget.userId,
+        //   id: widget.id,
+        //   title: widget.title,
+        //   description: widget.description,
+        //   isFavorite: widget.isFavorite,
+        //   imageUrl1: widget.imageUrl1,
+        //   imageUrl2: widget.imageUrl2,
+        //   imageUrl3: widget.imageUrl3,
+        //   price: widget.price,
+        //   phone: widget.phone,
+        //   website: widget.website,
+        //   address: widget.address,
+        //   isYourAds: widget.isYourAds,
+        //   rating: widget.rating,
+        //   countRating: widget.countRating,
+        //   sumRating: widget.sumRating,
+        // ),
+        GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderDetailScreen(
+              userId: widget.userId,
+              id: widget.id,
+              title: widget.title,
+              description: widget.description,
+              isFavorite: widget.isFavorite,
+              imageUrl1: widget.imageUrl1,
+              imageUrl2: widget.imageUrl2,
+              imageUrl3: widget.imageUrl3,
+              price: widget.price,
+              phone: widget.phone,
+              website: widget.website,
+              address: widget.address,
+              isYourAds: widget.isYourAds,
+              rating: widget.rating,
+              countRating: widget.countRating,
+              sumRating: widget.sumRating,
+            ),
+          ),
+        );
+      },
+      child: Container(
         decoration: BoxDecoration(
           boxShadow: [],
         ),
@@ -149,11 +167,14 @@ class _OrderGridItemState extends State<OrderGridItem> {
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
                   ),
-                  child: Image.network(
-                    widget.imageUrl1,
-                    height: 200,
-                    width: MediaQuery.of(context).size.width, //130,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: widget.id,
+                    child: Image.network(
+                      widget.imageUrl1,
+                      height: 200,
+                      width: MediaQuery.of(context).size.width, //130,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Positioned(

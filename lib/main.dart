@@ -3,6 +3,7 @@ import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/screens/order_detail_screen.dart';
 //import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:advMe/screens/orders_screen.dart';
 //import 'package:advMe/screens/order_detail_screen.dart';

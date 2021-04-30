@@ -165,6 +165,7 @@ class _YourAdsState extends State<YourAds> {
                           orderSnapshot.data.docs[index];
 
                       return OrderGridItem(
+                        userId: userData.data()['userId'],
                         description: userData.data()['description'],
                         id: userData.id,
                         title: userData.data()['title'],
