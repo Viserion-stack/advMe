@@ -20,7 +20,7 @@ class AdsEditingScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
   final String id;
   final String title;
-   String description;
+  String description;
   final String imageUrl1;
   final String imageUrl2;
   final String imageUrl3;
@@ -81,28 +81,27 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     });
   }
 
-  void updateAds(){
+  void updateAds() {
     //TODO: update given information in database and array in provider
   }
-
 
   @override
   Widget build(BuildContext context) {
     double widthSize = MediaQuery.of(context).size.width;
-     descriptionController.text = widget.description;
-     titleController.text = widget.title;
-     priceController.text = widget.price;
-     phoneNumberController.text = widget.phone;
-     websiteController.text = widget.website;
+    descriptionController.text = widget.description;
+    titleController.text = widget.title;
+    priceController.text = widget.price;
+    phoneNumberController.text = widget.phone;
+    websiteController.text = widget.website;
 
-     _pickedImage = widget.imageUrl1;
-     _pickedImage2 = widget.imageUrl2;
-     _pickedImage3 = widget.imageUrl3;
+    _pickedImage = widget.imageUrl1;
+    _pickedImage2 = widget.imageUrl2;
+    _pickedImage3 = widget.imageUrl3;
 
-    var address ;
+    var address;
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
-      backgroundColor: settings.isDark ? Color(0xFF171923) : Color(0xFFE9ECF5),
+      backgroundColor: Color(0xFFF3F3F3),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -116,473 +115,627 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                     Navigator.of(context).pop();
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Container(
                         width: 60,
                         height: 60,
                         child: Icon(
                           Icons.chevron_left,
-                          color: settings.isDark
-                              ? Color(0xFFF79E1B)
-                              : Color(0xFFFFC03D),
-                          size: 40,
+                          color: Color(0xFFF8BB06),
+                          size: 46,
                         ),
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: settings.isDark
-                                ? Color(0x40303250)
-                                : Color(0xFF0D276B))),
-                  ),
+                          shape: BoxShape.circle,
+                          color: Colors.transparent,
+                        ),
+                      )),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    right: 20,
-                    left: 230,
-                    bottom: 0,
+                  padding: EdgeInsets.only(
+                    left: 18,
                   ),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.save,
-                        color: settings.isDark
-                            ? Color(0xFFF79E1B)
-                            : Color(0xEEC31331),
-                        size: 45,
-                      ),
-                      onPressed: () {
-                       
-                      }),
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'Edit ',
+                        style: GoogleFonts.quicksand(
+                          color: Colors.black,
+                          fontSize: 28.0,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Advertisment',
+                            style: GoogleFonts.quicksand(
+                              color: Color(0xFFF8BB06),
+                              fontSize: 28.0,
+                              letterSpacing: 0.1,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ]),
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left:  50),
-              child: Container(
-                height: 350,
-                width: MediaQuery.of(context).size.width * 1,
-                child:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    new Swiper.children(
-                  customLayoutOption:
-                      CustomLayoutOption(startIndex: -1, stateCount: 3),
-                  autoplay: false,
-                  pagination: new SwiperPagination(
-                      margin: new EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 30.0),
-                      builder: SwiperPagination.rect,
-                      // builder: new DotSwiperPaginationBuilder(
-                      //     color: Colors.white30,
-                      //     activeColor: Colors.white,
-                      //     size: 20.0,
-                      //     activeSize: 20.0)
-                      ),
-                  children: <Widget>[
-                    new Stack(children: [
-                      Positioned(
-                        child: _pickedImage == null
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0x40C31331)),
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: settings.isDark
-                                      ? Color(0xFF303250)
-                                      : Color(0xFF0D276B),
-                                ),
-                                height: 300,
-                                width: 300, //MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.add_a_photo,
-                                      size: 60,
-                                      color: settings.isDark
-                                          ? Color(0xFFF79E1B)
-                                          : Color(0xFFF79E1B),
-                                    ),
-                                    onPressed: () {
-                                     // _onAlertButtonsPressed(context, 1);
-                                    },
-                                  ),
-                                ))
-                            : Container(
-                                decoration: BoxDecoration(
-                                  //border: Border.all(color: Color(0x40C31331)),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                height: 300,
-                                width: 300,
-                                child: Image.network(
-                                  _pickedImage,
-                                  //fit: BoxFit.fill,
-                                ),
-                                //fit: BoxFit.fill,
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.03),
+              child: Row(children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.06),
+                  child: GestureDetector(
+                      //onTap: () => _onAlertButtonsPressed(1),
+                      child: Container(
+                    child: _pickedImage == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                color: Color(0xFFCECECE),
+                                size: 75,
                               ),
-                      )
-                    ]),
-/////////////////////////////////////////////////////////////////////
-                    new Stack(children: [
-                      Positioned(
-                        child: _pickedImage2 == null
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0x40C31331)),
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: settings.isDark
-                                      ? Color(0xFF303250)
-                                      : Color(0xFF0D276B),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text('Add photo',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color(0xFFCECECE),
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
+                          )
+                        : Container(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Image.network(
+                                widget.imageUrl1,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[300],
+                          blurRadius: 8,
+                          spreadRadius: 0,
+                          offset: Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                  )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.07),
+                  child: GestureDetector(
+                    // onTap: () => _onAlertButtonsPressed(2),
+                    child: Container(
+                      child: _pickedImage2 == null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Color(0xFFCECECE),
+                                  size: 75,
                                 ),
-                                height: 300,
-                                width: 300, //MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.add_a_photo,
-                                      size: 60,
-                                      color: settings.isDark
-                                          ? Color(0xFFF79E1B)
-                                          : Color(0xFFF79E1B),
-                                    ),
-                                    onPressed: () {
-                                     // _onAlertButtonsPressed(context, 2);
-                                    },
-                                  ),
-                                ))
-                            : Container(
-                                decoration: BoxDecoration(
-                                  //border: Border.all(color: Color(0x40C31331)),
-                                  borderRadius: BorderRadius.circular(30),
+                                SizedBox(
+                                  height: 10,
                                 ),
-                                height: 300,
-                                width: 300,
+                                Text('Add photo',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFFCECECE),
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            )
+                          : Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
                                 child: Image.network(
                                   _pickedImage2,
-                                  //fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
-                                //fit: BoxFit.fill,
                               ),
+                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
+                          ),
+                        ],
                       ),
-                    ]),
-/////////////////////////////////////////////////////////////////////////
-                    new Stack(children: [
-                      Positioned(
-                        child: _pickedImage3 == null
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0x40C31331)),
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: settings.isDark
-                                      ? Color(0xFF303250)
-                                      : Color(0xFF0D276B),
-                                ),
-                                height: 300,
-                                width: 300, //MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.add_a_photo,
-                                      size: 60,
-                                      color: settings.isDark
-                                          ? Color(0xFFF79E1B)
-                                          : Color(0xFFF79E1B),
-                                    ),
-                                    onPressed: () {
-                                     // _onAlertButtonsPressed(context, 3);
-                                    },
-                                  ),
-                                ))
-                            : Container(
-                                decoration: BoxDecoration(
-                                  //border: Border.all(color: Color(0x40C31331)),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                height: 300,
-                                width: 300,
-                                child: Image.network(
-                                  _pickedImage3,
-                                  //fit: BoxFit.fill,
-                                ),
-                                //fit: BoxFit.fill,
-                              ),
-                      ),
-                    ]),
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                  ],
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                    ),
+                  ),
                 ),
-              ),
+              ]),
             ),
-            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.04),
+              child: Row(children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.06),
+                  child: GestureDetector(
+                    //onTap: () => _onAlertButtonsPressed(3),
+                    child: Container(
+                      child: _pickedImage3 == null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Color(0xFFCECECE),
+                                  size: 75,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text('Add photo',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFFCECECE),
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            )
+                          : Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Image.network(
+                                  widget.imageUrl3,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.07),
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.add,
+                          color: Color(0xFFCECECE),
+                          size: 75,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text('Add photo',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFFCECECE),
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[300],
+                          blurRadius: 8,
+                          spreadRadius: 0,
+                          offset: Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                  ),
+                ),
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 25.0),
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.width * 0.87,
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[300],
+                      blurRadius: 8,
+                      spreadRadius: 0,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(15),
-                  color: Color(0xFFFFC03D),
+                  color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: DropdownButton(
-                    dropdownColor: Color(0xAAFFC03D),
-                    style: TextStyle(
-                      color: Color(0xFF303250),
-                    ),
-                    icon: Icon(Icons.arrow_drop_down),
-                    hint: Text(
-                      'Select category',
+                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: Center(
+                    child: DropdownButton(
+                      dropdownColor: Colors.white,
                       style: TextStyle(
-                        fontSize: 22,
-                        color: Color(0xFF303250),
+                        color: Color(0xFFCECECE),
                       ),
-                    ),
-                    elevation: 16,
-                    underline: Container(
-                      height: 2,
-                      color: Color(0xFFFFC03D),
-                    ),
-                    value: valueChoose,
-                    onChanged: (String value) {
-                      setState(() {
-                        valueChoose = value;
-                      });
-                    },
-                    items: listItem.map((String value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(fontSize: 22),
+                      icon: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Color(0xFFCECECE),
+                        size: 35,
+                      ),
+                      hint: Text(
+                        '   Select category                                  ',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFFCECECE),
                         ),
-                      );
-                    }).toList(),
+                      ),
+                      elevation: 16,
+                      underline: Container(
+                        height: 2,
+                        color: Colors.white,
+                      ),
+                      value: valueChoose,
+                      onChanged: (String value) {
+                        setState(() {
+                          valueChoose = value;
+                        });
+                      },
+                      items: listItem.map((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(fontSize: 22),
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              padding: EdgeInsets.only(top: 15),
               child: Container(
-                  decoration: BoxDecoration(
-                      color: settings.isDark
-                          ? Color(0x40303250)
-                          : Color(0x80FFC03D),
-                      borderRadius: BorderRadius.circular(20)),
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.width * 0.87,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[300],
+                      blurRadius: 8,
+                      spreadRadius: 0,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(1.0),
+                    padding: EdgeInsets.only(left: 10.0),
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: validateTitle,
-                      textAlign: TextAlign.start,
-                      cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
+                      //textAlign: TextAlign.start,
+                      cursorColor: Colors.black,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w600),
                       decoration: InputDecoration(
-                          filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
+
+                          //filled: true,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Colors.transparent,
+                          )),
+                          focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF464656),
+                              color: Colors.transparent,
                             ),
                           ),
                           hintText: 'Tilte',
                           hintStyle: TextStyle(
-                            color: settings.isDark
-                                ? Color(0xFFCBB2AB)
-                                : Color(0xFF432344),
+                            color: Color(0xFFCECECE),
+                            fontSize: 20,
                           )),
                       controller: titleController,
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Container(
+                padding: EdgeInsets.only(top: 15),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width * 0.87,
                   decoration: BoxDecoration(
-                      color: settings.isDark
-                          ? Color(0x40303250)
-                          : Color(0x80FFC03D),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: validatePrice,
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.start,
-                      cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
-                      decoration: InputDecoration(
-                          filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 8,
+                        spreadRadius: 0,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: validatePrice,
+                        keyboardType: TextInputType.number,
+                        //textAlign: TextAlign.start,
+                        cursorColor: Colors.black,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600),
+                        decoration: InputDecoration(
+
+                            //filled: true,
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
-                            borderSide: BorderSide(
-                              color: Color(0xFF464656),
-                            ),
-                          ),
-                          hintText: 'Price',
-                          hintStyle: TextStyle(
-                            color: settings.isDark
-                                ? Color(0xFFCBB2AB)
-                                : Color(0xFF432344),
-                          )),
-                      controller: priceController,
+                            hintText: 'Price',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCECECE),
+                              fontSize: 18,
+                            )),
+                        controller: priceController,
+                      ),
                     ),
-                  )),
-            ),
-            SizedBox(height: 20),
+                  ),
+                )),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              padding: EdgeInsets.only(top: 15),
               child: Container(
-                  decoration: BoxDecoration(
-                      color: settings.isDark
-                          ? Color(0x40303250)
-                          : Color(0x80FFC03D),
-                      borderRadius: BorderRadius.circular(20)),
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width * 0.87,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[300],
+                      blurRadius: 8,
+                      spreadRadius: 0,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(1.0),
+                    padding: EdgeInsets.only(left: 10.0),
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: validateDescription,
                       maxLines: 5,
-                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
+                      cursorColor: Colors.black,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w600),
                       decoration: InputDecoration(
-                          filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
+                          //filled: true,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Colors.transparent,
+                          )),
+                          focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF464656),
+                              color: Colors.transparent,
                             ),
                           ),
                           hintText: 'Description',
                           hintStyle: TextStyle(
-                            color: settings.isDark
-                                ? Color(0xFFCBB2AB)
-                                : Color(0xFF432344),
+                            color: Color(0xFFCECECE),
+                            fontSize: 18,
                           )),
                       controller: descriptionController,
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Container(
+                padding: EdgeInsets.only(top: 15),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width * 0.87,
                   decoration: BoxDecoration(
-                      color: settings.isDark
-                          ? Color(0x40303250)
-                          : Color(0x80FFC03D),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: validatePhone,
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.start,
-                      cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
-                      decoration: InputDecoration(
-                          filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 8,
+                        spreadRadius: 0,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: validatePhone,
+                        keyboardType: TextInputType.number,
+                        //textAlign: TextAlign.start,
+                        cursorColor: Colors.black,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600),
+                        decoration: InputDecoration(
+
+                            //filled: true,
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
-                            borderSide: BorderSide(
-                              color: Color(0xFF464656),
-                            ),
-                          ),
-                          hintText: 'Phone',
-                          hintStyle: TextStyle(
-                            color: settings.isDark
-                                ? Color(0xFFCBB2AB)
-                                : Color(0xFF432344),
-                            //Color(0xFFCBB2AB),
-                          )),
-                      controller: phoneNumberController,
+                            hintText: 'Phone',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCECECE),
+                              fontSize: 18,
+                            )),
+                        controller: phoneNumberController,
+                      ),
                     ),
-                  )),
-            ),
-            SizedBox(height: 20),
+                  ),
+                )),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Container(
+                padding: EdgeInsets.only(top: 15),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width * 0.87,
                   decoration: BoxDecoration(
-                      color: settings.isDark
-                          ? Color(0x40303250)
-                          : Color(0x80FFC03D),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: validateWebsite,
-                      keyboardType: TextInputType.url,
-                      textAlign: TextAlign.start,
-                      cursorColor: Color(0xFFF79E1B),
-                      style: TextStyle(color: settings.isDark ? Color(0xFFCBB2AB) : Color(0xFF0D276B) , fontSize: 17),
-                      decoration: InputDecoration(
-                          filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 8,
+                        spreadRadius: 0,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: validateWebsite,
+                        cursorColor: Colors.black,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600),
+                        decoration: InputDecoration(
+
+                            //filled: true,
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(20.0),
-                            ),
-                            borderSide: BorderSide(
-                              color: Color(0xFF464656),
-                            ),
-                          ),
-                          hintText: 'Website',
-                          hintStyle: TextStyle(
-                            color: settings.isDark
-                                ? Color(0xFFCBB2AB)
-                                : Color(0xFF432344),
-                          )),
-                      controller: websiteController,
+                            hintText: 'Website',
+                            hintStyle: TextStyle(
+                              color: Color(0xFFCECECE),
+                              fontSize: 18,
+                            )),
+                        controller: websiteController,
+                      ),
                     ),
-                  )),
-            ),
-            SizedBox(height: 20),
+                  ),
+                )),
             Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: LocationInput(_selectPlace)),
-            SizedBox(height: 10),
-            Text(
-              address != null ? address : 'Choose loacalization',
-              style: TextStyle(
-                color: settings.isDark ? Colors.white54 : Color(0xFF0D276B),
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.03,
+              ),
+              //height: MediaQuery.of(context).size.height * 0.35,
+              width: MediaQuery.of(context).size.width * 0.87,
+              child: LocationInput(_selectPlace),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width * 0.87,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary:  Color(0xFFF8BB06),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                  ),
+                  onPressed: ((_pickedImage == null) ||
+                          (_pickedImage2 == null) ||
+                          (_pickedImage3 == null) ||
+                          titleController.text.isEmpty ||
+                          priceController.text.isEmpty ||
+                          descriptionController.text.isEmpty ||
+                          phoneNumberController.text.isEmpty ||
+                          websiteController.text.isEmpty)
+                      //TODO display some info about check your inputs while button is diasbled!
+                      ? null //buttonReady = false
+                      : () async {
+                          setState(() {
+                            isLoading = true;
+                            // buttonReady = true;
+                          });
+                          // _addorder(
+                          //   address); //Addres field mus be passed as argument!!!
+                        },
+                  child: isLoading
+                      ? SpinKitWave(
+                          color: Color(0xFFF79E1B),
+                        )
+                      : Text(
+                          'Save Advertisment',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                ),
               ),
             ),
             SizedBox(height: 10),

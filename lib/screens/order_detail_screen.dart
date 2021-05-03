@@ -279,146 +279,142 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.black),
               ),
-              background:  Column(children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    child: Row(children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.15,
-                        ),
-                        child: Image.asset(
-                          'assets/small_logo.png',
-                          fit: BoxFit.contain,
-                          height: 60,
-                          width: 120,
-                        ),
+              background: Column(children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  child: Row(children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.15,
                       ),
-                      Padding(
+                      child: Image.asset(
+                        'assets/small_logo.png',
+                        fit: BoxFit.contain,
+                        height: 60,
+                        width: 120,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.30,
+                        top: MediaQuery.of(context).size.height * 0.02,
+                        bottom: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      child: Icon(
+                        Icons.search,
+                        size: 35,
+                      ),
+                    ),
+                    Padding(
                         padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.30,
+                          left: MediaQuery.of(context).size.width * 0.01,
                           top: MediaQuery.of(context).size.height * 0.02,
                           bottom: MediaQuery.of(context).size.height * 0.01,
                         ),
-                        child: Icon(
-                          Icons.search,
-                          size: 35,
-                        ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.01,
-                            top: MediaQuery.of(context).size.height * 0.02,
-                            bottom: MediaQuery.of(context).size.height * 0.01,
+                        child: PopupMenuButton(
+                          icon: Icon(
+                            Icons.menu,
+                            size: 35,
                           ),
-                          child: PopupMenuButton(
-                            icon: Icon(
-                              Icons.menu,
-                              size: 35,
-                            ),
-                            itemBuilder: (context) => [
-                              PopupMenuItem(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        BouncyPageRoute(
-                                            widget: AccountScreen()));
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.account_circle,
-                                        color: Colors.black,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text('Account',
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ],
-                                  ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      BouncyPageRoute(widget: AccountScreen()));
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.account_circle,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text('Account',
+                                        style: TextStyle(color: Colors.black)),
+                                  ],
                                 ),
                               ),
-                              PopupMenuItem(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        BouncyPageRoute(widget: HomeScreen()));
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.home,
-                                        color: Colors.black,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text('Home',
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ],
-                                  ),
+                            ),
+                            PopupMenuItem(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      BouncyPageRoute(widget: HomeScreen()));
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.home,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text('Home',
+                                        style: TextStyle(color: Colors.black)),
+                                  ],
                                 ),
                               ),
-                            ],
-                          )),
-                    ]),
-                  ),
-                  Expanded(
-                    child: Hero(
-                      tag: widget.id,
-                                          child: PhotoViewGallery(
-                        pageOptions: <PhotoViewGalleryPageOptions>[
-                          PhotoViewGalleryPageOptions(
-                            imageProvider: NetworkImage(widget
-                                .imageUrl1), //AssetImage("assets/gallery1.jpg"),
-                            //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
-                          ),
-                          PhotoViewGalleryPageOptions(
-                              imageProvider: NetworkImage(widget
-                                  .imageUrl2), //AssetImage("assets/gallery2.jpg"),
-                              //heroAttributes:
-                              //const PhotoViewHeroAttributes(tag: "tag2"),
-                              maxScale: PhotoViewComputedScale.contained * 0.3),
-                          PhotoViewGalleryPageOptions(
-                            imageProvider: NetworkImage(widget
-                                .imageUrl3), //AssetImage("assets/gallery3.jpg"),
-                            minScale: PhotoViewComputedScale.contained * 0.8,
-                            maxScale: PhotoViewComputedScale.covered * 1.1,
-                            //heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
-                          ),
-                        ],
-                        loadingBuilder: (context, progress) => Center(
-                          child: Container(
-                            width: 70.0,
-                            height: 50.0,
-                            child: SpinKitWave(
-                              color: Color(0xFFF79E1B),
                             ),
+                          ],
+                        )),
+                  ]),
+                ),
+                Expanded(
+                  child: Hero(
+                    tag: widget.id,
+                    child: PhotoViewGallery(
+                      pageOptions: <PhotoViewGalleryPageOptions>[
+                        PhotoViewGalleryPageOptions(
+                          imageProvider: NetworkImage(widget
+                              .imageUrl1), //AssetImage("assets/gallery1.jpg"),
+                          //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
+                        ),
+                        PhotoViewGalleryPageOptions(
+                            imageProvider: NetworkImage(widget
+                                .imageUrl2), //AssetImage("assets/gallery2.jpg"),
+                            //heroAttributes:
+                            //const PhotoViewHeroAttributes(tag: "tag2"),
+                            maxScale: PhotoViewComputedScale.contained * 0.3),
+                        PhotoViewGalleryPageOptions(
+                          imageProvider: NetworkImage(widget
+                              .imageUrl3), //AssetImage("assets/gallery3.jpg"),
+                          minScale: PhotoViewComputedScale.contained * 0.8,
+                          maxScale: PhotoViewComputedScale.covered * 1.1,
+                          //heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
+                        ),
+                      ],
+                      loadingBuilder: (context, progress) => Center(
+                        child: Container(
+                          width: 70.0,
+                          height: 50.0,
+                          child: SpinKitWave(
+                            color: Color(0xFFF79E1B),
                           ),
                         ),
-                        backgroundDecoration: BoxDecoration(
-                          color: settings.isDark
-                              ? Color(0xFFF3F3F3)
-                              : Color(
-                                  0xFFF3F3F3), //TOO inny kolor dla dark screen
-                        ),
-                        //backgroundDecoration: widget.backgroundDecoration,
-                        //pageController: widget.pageController,
-                        // onPageChanged: onPageChanged,
                       ),
+                      backgroundDecoration: BoxDecoration(
+                        color: settings.isDark
+                            ? Color(0xFFF3F3F3)
+                            : Color(
+                                0xFFF3F3F3), //TOO inny kolor dla dark screen
+                      ),
+                      //backgroundDecoration: widget.backgroundDecoration,
+                      //pageController: widget.pageController,
+                      // onPageChanged: onPageChanged,
                     ),
                   ),
-                  Container(
-                    height: 70,
-                    width: double.infinity,
-                  )
-                ]),
+                ),
+                Container(
+                  height: 70,
+                  width: double.infinity,
+                )
+              ]),
             ),
           ),
           SliverList(
@@ -650,58 +646,115 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           ))
                         ]),
                         SizedBox(height: 30),
-                        if(widget.userId != FirebaseAuth.instance.currentUser.uid)
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * .17),
-                          child: Row(
-                            children: [
-                              Text('Rate',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFD320),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              SizedBox(width: 5),
-                              Container(
-                                  child: RatingBar(
-                                itemSize: 35,
-                                //unratedColor: Color(0xFFFFD320),
-                                initialRating: 0.0,
-                                ratingWidget: RatingWidget(
-                                  full: Icon(
-                                    Icons.star,
-                                    color: Color(0xFFFFD320),
-                                    size: 12,
+                        if (widget.userId !=
+                            FirebaseAuth.instance.currentUser.uid)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * .17),
+                            child: Row(
+                              children: [
+                                Text('Rate',
+                                    style: TextStyle(
+                                      color: Color(0xFFFFD320),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                SizedBox(width: 5),
+                                Container(
+                                    child: RatingBar(
+                                  itemSize: 35,
+                                  //unratedColor: Color(0xFFFFD320),
+                                  initialRating: 0.0,
+                                  ratingWidget: RatingWidget(
+                                    full: Icon(
+                                      Icons.star,
+                                      color: Color(0xFFFFD320),
+                                      size: 12,
+                                    ),
+                                    half: Icon(
+                                      Icons.star_half,
+                                      color: Color(0xFFFFD320),
+                                      size: 12,
+                                    ),
+                                    empty: Icon(
+                                      Icons.star_border,
+                                      color: Color(0xFFFFD320),
+                                      size: 12,
+                                    ),
                                   ),
-                                  half: Icon(
-                                    Icons.star_half,
-                                    color: Color(0xFFFFD320),
-                                    size: 12,
-                                  ),
-                                  empty: Icon(
-                                    Icons.star_border,
-                                    color: Color(0xFFFFD320),
-                                    size: 12,
+                                  itemCount: 5,
+                                  allowHalfRating: true,
+                                  direction: Axis.horizontal,
+                                  minRating: 1.0,
+                                  maxRating: 5.0,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 0.2),
+                                  onRatingUpdate: (rating) {
+                                    print(rating);
+                                    changedRating = true;
+                                    ratingValue = rating;
+                                  },
+                                )),
+                              ],
+                            ),
+                          ),
+                        if (widget.userId ==
+                            FirebaseAuth.instance.currentUser.uid)
+                          Padding(
+                            padding: EdgeInsets.only(left: 1),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                            context, BouncyPageRoute(widget: AdsEditingScreen(
+                              title: widget.title,
+                              description: widget.description,
+                              price: widget.price,
+                              phone: widget.phone,
+                              imageUrl1: widget.imageUrl1,
+                              imageUrl2: widget.imageUrl2,
+                              imageUrl3: widget.imageUrl3,
+                              website: widget.website,
+                              address: widget.address,
+                            )));
+                              },
+                              child: Container(
+                                height: 60,
+                                //width: 320,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey[300],
+                                        blurRadius: 10,
+                                        spreadRadius: 0.5,
+                                        offset: Offset(0, 8),
+                                      ),
+                                    ],
+                                    color: Color(0xFFF3F3F3),
+                                    borderRadius: BorderRadius.circular(22),
+                                    border: Border.all(
+                                      color: Color(0xFFF8BB06),
+                                    )),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.edit,
+                                        color: Color(0xFFF8BB06),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text('Edit Advertisent',
+                                          style: GoogleFonts.quicksand(
+                                            color: Color(0xFFF8BB06),
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.w600,
+                                          ))
+                                    ],
                                   ),
                                 ),
-                                itemCount: 5,
-                                allowHalfRating: true,
-                                direction: Axis.horizontal,
-                                minRating: 1.0,
-                                maxRating: 5.0,
-                                itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 0.2),
-                                onRatingUpdate: (rating) {
-                                  print(rating);
-                                  changedRating = true;
-                                  ratingValue = rating;
-                                },
-                              )),
-                            ],
+                              ),
+                            ),
                           ),
-                        ),
-
                         SizedBox(height: 25),
                         Container(
                           height: 2,

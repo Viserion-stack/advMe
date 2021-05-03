@@ -2,6 +2,7 @@ import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/widgets/search_delegate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
@@ -112,9 +113,15 @@ class _AllOrdersState extends State<AllOrders> {
                         left: MediaQuery.of(context).size.width * 0.39,
                         top: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      child: Icon(
-                        Icons.search,
-                        size: 35,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context, BouncyPageRoute(widget: Searchwidget()));
+                        },
+                        child: Icon(
+                          Icons.search,
+                          size: 35,
+                        ),
                       ),
                     ),
                     Padding(
@@ -265,7 +272,8 @@ class _AllOrdersState extends State<AllOrders> {
                               // builder: (c) => products[i],
                               value: categoryOrders[i],
                               child: Padding(
-                                padding: EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6),
+                                padding: EdgeInsets.only(
+                                    left: 6.0, right: 6.0, bottom: 6),
                                 child: OrderGridItem(
                                   userId: categoryOrders[i].userId,
                                   description: categoryOrders[i].description,
