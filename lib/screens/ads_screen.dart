@@ -268,10 +268,11 @@ class _AdsScreenState extends State<AdsScreen> {
                 Padding(
                   padding: EdgeInsets.only(
                     left: 18,
+                    
                   ),
                   child: RichText(
                     text: TextSpan(
-                        text: 'Add',
+                        text: 'Search ',
                         style: GoogleFonts.quicksand(
                           color: Colors.black,
                           fontSize: 28.0,
