@@ -10,7 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -234,6 +233,7 @@ class _AdsScreenState extends State<AdsScreen> {
   @override
   Widget build(BuildContext context) {
     var address = lok;
+    // ignore: unused_local_variable
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       backgroundColor: Color(0xFFF3F3F3),
@@ -834,6 +834,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           descriptionController.text.isEmpty ||
                           phoneNumberController.text.isEmpty ||
                           websiteController.text.isEmpty)
+                      // ignore: todo
                       //TODO display some info about check your inputs while button is diasbled!
                       ? null //buttonReady = false
                       : () async {

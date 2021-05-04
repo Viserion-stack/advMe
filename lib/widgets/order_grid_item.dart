@@ -1,9 +1,6 @@
-import 'dart:ui';
 
-//import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
-import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,6 +51,7 @@ class OrderGridItem extends StatefulWidget {
 }
 
 class _OrderGridItemState extends State<OrderGridItem> {
+  // ignore: missing_return
   Future<void> _addFavorite(bool state) {
     var userId = FirebaseAuth.instance.currentUser.uid;
     if (state) {
@@ -85,6 +83,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
           .doc(widget.id)
           .delete();
     }
+    
   }
 
   @override
@@ -100,6 +99,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
       city = value[count - 2];
     }
 
+    // ignore: unused_local_variable
     final settings = Provider.of<SettingsUser>(context);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();

@@ -1,26 +1,18 @@
-import 'dart:io';
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:advMe/helpers/validators.dart';
 import 'package:advMe/models/place.dart';
-import 'package:advMe/providers/order.dart';
-import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/widgets/location_input.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AdsEditingScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
   final String id;
   final String title;
-  String description;
+  final String description;
   final String imageUrl1;
   final String imageUrl2;
   final String imageUrl3;
@@ -43,11 +35,13 @@ class AdsEditingScreen extends StatefulWidget {
   });
   @override
   _AdsEditingScreenState createState() => _AdsEditingScreenState();
+// ignore: todo
 //TODO: Add fields of edited ads and set downloaded data in appropriate places
 
 }
 
 class _AdsEditingScreenState extends State<AdsEditingScreen> {
+  // ignore: unused_field
   PlaceLocation _pickedLocation;
   String _pickedImage;
   String _pickedImage2;
@@ -82,11 +76,13 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
   }
 
   void updateAds() {
+    // ignore: todo
     //TODO: update given information in database and array in provider
   }
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     double widthSize = MediaQuery.of(context).size.width;
     descriptionController.text = widget.description;
     titleController.text = widget.title;
@@ -98,7 +94,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     _pickedImage2 = widget.imageUrl2;
     _pickedImage3 = widget.imageUrl3;
 
+    // ignore: unused_local_variable
     var address;
+    // ignore: unused_local_variable
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       backgroundColor: Color(0xFFF3F3F3),
@@ -714,6 +712,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                           descriptionController.text.isEmpty ||
                           phoneNumberController.text.isEmpty ||
                           websiteController.text.isEmpty)
+                      // ignore: todo
                       //TODO display some info about check your inputs while button is diasbled!
                       ? null //buttonReady = false
                       : () async {
@@ -756,6 +755,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
             //             descriptionController.text.isEmpty ||
             //             phoneNumberController.text.isEmpty ||
             //             websiteController.text.isEmpty)
+            // ignore: todo
             //         //TODO display some info about check your inputs while button is diasbled!
             //         ? null //buttonReady = false
             //         : () async {

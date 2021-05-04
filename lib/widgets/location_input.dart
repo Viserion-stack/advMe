@@ -58,6 +58,7 @@ class _LocationInputState extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final settings = Provider.of<SettingsUser>(context);
     return Column(
       children: <Widget>[
@@ -125,6 +126,7 @@ class _LocationInputState extends State<LocationInput> {
                       width: 2,
                     ),
                   ),
+                  // ignore: deprecated_member_use
                   child: FlatButton.icon(
                     icon: Icon(
                       Icons.location_on,
@@ -164,6 +166,7 @@ class _LocationInputState extends State<LocationInput> {
                       width: 2,
                     ),
                   ),
+                  // ignore: deprecated_member_use
                   child: FlatButton.icon(
                     icon: Icon(
                       Icons.map,

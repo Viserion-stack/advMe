@@ -1,8 +1,6 @@
 import 'package:advMe/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(
@@ -294,6 +292,7 @@ class _AuthFormState extends State<AuthForm> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.07,
                                 width: MediaQuery.of(context).size.width * 0.4,
+                                // ignore: deprecated_member_use
                                 child: RaisedButton(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
@@ -329,6 +328,7 @@ class _AuthFormState extends State<AuthForm> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.07,
                                 width: MediaQuery.of(context).size.width * 0.4,
+                                // ignore: deprecated_member_use
                                 child: FlatButton(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),

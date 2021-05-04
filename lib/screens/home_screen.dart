@@ -4,7 +4,6 @@ import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
-import 'package:clip_shadow/clip_shadow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import 'orders_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -50,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  // ignore: unused_element
   void _updateSettings() async {
     FirebaseFirestore.instance.collection('users').doc(uid).update({
       'isDark': isDark,

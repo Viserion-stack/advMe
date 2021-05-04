@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'order_grid_item.dart';
 
@@ -75,6 +74,7 @@ class _AllOrdersState extends State<AllOrders> {
     if (valueChoosen == 'All') {
       categoryOrders = orders;
     }
+    // ignore: unused_local_variable
     final settings = Provider.of<SettingsUser>(context);
     //final favorites = Provider.of<Orders>(context);
     return Scaffold(

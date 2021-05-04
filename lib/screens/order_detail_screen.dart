@@ -122,6 +122,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       print("Deleting from Firebase 'user' success!");
     });
 
+// ignore: todo
 //TODO: Fix delete from allAds branch
 
     await FirebaseFirestore.instance
@@ -146,6 +147,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     Navigator.of(context).pop();
   }
 
+  // ignore: unused_element
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -218,6 +220,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     bool changedRating = false;
     double ratingValue = 0.0;
 
+    // ignore: unused_element
     void updateRating() {
       bool isUser = false;
       var uid = FirebaseAuth.instance.currentUser.uid;

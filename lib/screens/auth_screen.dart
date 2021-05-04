@@ -25,6 +25,7 @@ void _showErrorDialog(String message) {
             title: Text('An Error Occurred!'),
             content: Text(message),
             actions: <Widget>[
+              // ignore: deprecated_member_use
               FlatButton(
                 child: Text('Okay'),
                 onPressed: () {
