@@ -1,11 +1,14 @@
 import 'package:advMe/animation/bouncy_page_route.dart';
+import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/edit_profile.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/favorite_orders.dart';
 import 'package:advMe/widgets/your_ads.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
   @override
@@ -13,8 +16,20 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+
+  final uid = FirebaseAuth.instance.currentUser.uid;
+  bool isDark = false;
+  bool isNotif = false;
+
+  void _updateSettings() async {
+    FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'isDark': isDark,
+      'isNotifications': isNotif,
+    });
+  }
   @override
   Widget build(BuildContext context) {
+     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -260,6 +275,27 @@ class _AccountScreenState extends State<AccountScreen> {
                     )
                   ]),
                 ),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.91,
+                left: MediaQuery.of(context).size.width * 0.7,
+                child: Row(children:[
+                  IconButton(icon: Icon(Icons.nightlight_round,color: settings.isDark ? Color(0xFF00D1CD) : Colors.white,size: 35,),onPressed: (){
+                    setState(() {
+                      settings.isDark = !settings.isDark;
+                    isDark = settings.isDark;
+                    _updateSettings();
+                    });
+                    
+                  },),
+                  IconButton(icon: Icon(Icons.wb_sunny,color: settings.isDark ? Colors.white : Color(0xFFFFD321),size: 35,),onPressed: (){
+                    setState(() {
+                      settings.isDark = !settings.isDark;
+                    isDark = settings.isDark;
+                    _updateSettings();
+                    });
+                  },),
+                ]),
               )
             ],
           )),

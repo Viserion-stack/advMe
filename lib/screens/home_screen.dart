@@ -47,13 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  // ignore: unused_element
-  void _updateSettings() async {
-    FirebaseFirestore.instance.collection('users').doc(uid).update({
-      'isDark': isDark,
-      'isNotifications': isNotif,
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (settings.isDark == null) isDark = false;
 
     isNotif = settings.isNotifications;
+    //isDark = settings.isDark;
     //final uid = FirebaseAuth.instance.currentUser.uid;
     FirebaseFirestore.instance.collection('users').doc(uid).get();
     settings.setValues(
@@ -77,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           //color: Color(0xFFF3F3F3),
           image: DecorationImage(
-            image: AssetImage(
+            image: isDark ? AssetImage(
+              'assets/dark.png',
+            ) : AssetImage(
               'assets/grey.png',
             ),
             fit: BoxFit.cover,
@@ -109,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icon(
                         Icons.menu,
                         size: 35,
+                        color: isDark ? Colors.white : Colors.black,
                       ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
@@ -141,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 left: MediaQuery.of(context).size.width * 0.3,
                 child: Text('What',
                     style: GoogleFonts.ubuntu(
-                      color: Color(0xFFFFD320),
+                      color: isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                       fontSize: 43,
                       letterSpacing: 0.1,
                       fontWeight: FontWeight.w600,
@@ -153,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 text: TextSpan(
                     text: 'would like to',
                     style: GoogleFonts.ubuntu(
-                      color: Colors.black,
+                      color: isDark ? Colors.white : Colors.black,
                       fontSize: 32,
                       letterSpacing: 0.1,
                       fontWeight: FontWeight.w600,
@@ -162,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextSpan(
                         text: ' do?',
                         style: GoogleFonts.ubuntu(
-                          color: Color(0xFFFFD320),
+                          color: isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                           fontSize: 43,
                           letterSpacing: 0.1,
                           fontWeight: FontWeight.w700,
