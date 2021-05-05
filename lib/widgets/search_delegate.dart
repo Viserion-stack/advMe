@@ -1,5 +1,6 @@
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
+import 'package:advMe/widgets/order_grid_item.dart';
 import 'package:advMe/widgets/orders_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -154,7 +155,7 @@ class _SearchwidgetState extends State<Searchwidget> {
           Padding(
             padding: const EdgeInsets.only(top: 80.0),
             child: FloatingSearchBar(
-             maxWidth: MediaQuery.of(context).size.width * .84,
+              maxWidth: MediaQuery.of(context).size.width * .84,
               backdropColor: Colors.transparent,
               borderRadius: BorderRadius.all(Radius.circular(15)),
               iconColor: Colors.black,
@@ -206,7 +207,6 @@ class _SearchwidgetState extends State<Searchwidget> {
                         if (filteredSearchHistory.isEmpty &&
                             controller.query.isEmpty) {
                           return Container(
-                            
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -263,7 +263,6 @@ class _SearchwidgetState extends State<Searchwidget> {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    
                                     trailing: IconButton(
                                       icon: Icon(
                                         Icons.clear,
@@ -343,17 +342,21 @@ class SearchResultsListView extends StatelessWidget {
       return ord.title.contains(searchTerm);
     }).toList();
 
-    return ListView.builder(
-      cacheExtent: 1000,
-      reverse: false,
-      itemCount: searchOrders.length,
-      itemBuilder: (ctx, index) {
-        if (index == 0) {
-          return Column(children: [
-            SizedBox(
-              height: 70,
-            ),
-            OrdersItem(
+    return Padding(
+      padding: const EdgeInsets.only(top:73.0),
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 2 / 3.2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        cacheExtent: 1000,
+        reverse: false,
+        itemCount: searchOrders.length,
+        itemBuilder: (ctx, index) {
+          if (index == 0) {
+            return OrderGridItem(
               id: searchOrders[index].id,
               title: searchOrders[index].title,
               description: searchOrders[index].description,
@@ -365,26 +368,35 @@ class SearchResultsListView extends StatelessWidget {
               phone: searchOrders[index].phone,
               website: searchOrders[index].website,
               address: searchOrders[index].address,
-              category: searchOrders[index].category,
-            )
-          ]);
-        } else {
-          return OrdersItem(
-            id: searchOrders[index].id,
-            title: searchOrders[index].title,
-            description: searchOrders[index].description,
-            isFavorite: false,
-            imageUrl1: searchOrders[index].imageUrl1,
-            imageUrl2: searchOrders[index].imageUrl2,
-            imageUrl3: searchOrders[index].imageUrl3,
-            price: searchOrders[index].price,
-            phone: searchOrders[index].phone,
-            website: searchOrders[index].website,
-            address: searchOrders[index].address,
-            category: searchOrders[index].category,
-          );
-        }
-      },
+              userId: searchOrders[index].userId,
+              isYourAds: false,
+              countRating: searchOrders[index].countRating,
+              rating: searchOrders[index].rating,
+              sumRating: searchOrders[index].sumRating,
+            );
+          } else {
+            return  OrderGridItem(
+                id: searchOrders[index].id,
+                title: searchOrders[index].title,
+                description: searchOrders[index].description,
+                isFavorite: false,
+                imageUrl1: searchOrders[index].imageUrl1,
+                imageUrl2: searchOrders[index].imageUrl2,
+                imageUrl3: searchOrders[index].imageUrl3,
+                price: searchOrders[index].price,
+                phone: searchOrders[index].phone,
+                website: searchOrders[index].website,
+                address: searchOrders[index].address,
+                userId: searchOrders[index].userId,
+                isYourAds: false,
+                countRating: searchOrders[index].countRating,
+                rating: searchOrders[index].rating,
+                sumRating: searchOrders[index].sumRating,
+              
+            );
+          }
+        },
+      ),
     );
   }
 }
