@@ -1,5 +1,6 @@
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
+import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
@@ -39,19 +40,23 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          textTheme: GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
+          textTheme:
+              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
         ),
         home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, userSnapshot) {
               if (userSnapshot.hasData) {
-                return HomeScreen(); //ChatScreen();
+                
+
+                return HomeScreen();
               }
               return AuthScreen();
             }),
         routes: {
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           AdsScreen.routeName: (ctx) => AdsScreen(),
+          AccountScreen.routeName: (ctx) => AccountScreen(),
           //CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
           //OrderDetailScreen.routeName: (ctx) => OrderDetailScreen(),
           //'/category-meals': (ctx) =>CategoryMealsScreen(),

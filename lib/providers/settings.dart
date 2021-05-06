@@ -3,13 +3,31 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class SettingsUser with ChangeNotifier {
-  bool isDark = false;
-  bool isNotifications = false;
+  bool isDark;
+  bool isNotifications;
 
   SettingsUser({
     this.isDark ,
     this.isNotifications ,
   });
+
+  Future<void> getSettings() async {
+    final uid = FirebaseAuth.instance.currentUser.uid;
+    final DocumentReference document =
+        FirebaseFirestore.instance.collection('users').doc(uid);
+    await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
+     
+        isDark = snapshot.data()['isDark'];
+        isNotifications = snapshot.data()['isNotifications'];
+        print('pobieranie isDark = '+isDark.toString());
+        
+        notifyListeners();
+
+        // userName = snapshot.data()['username'];
+        // email = snapshot.data()['email'];
+      
+    });
+  }
 
   void setValues(bool newFav, bool newNotif){
     isDark = newFav;

@@ -2,6 +2,7 @@ import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/settings.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/edit_profile.dart';
+import 'package:advMe/screens/home_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/favorite_orders.dart';
 import 'package:advMe/widgets/your_ads.dart';
@@ -11,11 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
+  static const routeName = '/accountScreen';
   @override
   _AccountScreenState createState() => _AccountScreenState();
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+
 
   final uid = FirebaseAuth.instance.currentUser.uid;
   bool isDark = false;
@@ -27,9 +30,10 @@ class _AccountScreenState extends State<AccountScreen> {
       'isNotifications': isNotif,
     });
   }
+
   @override
   Widget build(BuildContext context) {
-     final settings = Provider.of<SettingsUser>(context);
+    final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -61,7 +65,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       child: IconButton(
                         icon: Icon(Icons.close, color: Colors.white, size: 50),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
                         },
                       ),
                     )
@@ -279,22 +286,37 @@ class _AccountScreenState extends State<AccountScreen> {
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.91,
                 left: MediaQuery.of(context).size.width * 0.7,
-                child: Row(children:[
-                  IconButton(icon: Icon(Icons.nightlight_round,color: settings.isDark ? Color(0xFF00D1CD) : Colors.white,size: 35,),onPressed: (){
-                    setState(() {
-                      settings.isDark = !settings.isDark;
-                    isDark = settings.isDark;
-                    _updateSettings();
-                    });
-                    
-                  },),
-                  IconButton(icon: Icon(Icons.wb_sunny,color: settings.isDark ? Colors.white : Color(0xFFFFD321),size: 35,),onPressed: (){
-                    setState(() {
-                      settings.isDark = !settings.isDark;
-                    isDark = settings.isDark;
-                    _updateSettings();
-                    });
-                  },),
+                child: Row(children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.nightlight_round,
+                      color: settings.isDark ? Color(0xFF00D1CD) : Colors.white,
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        settings.isDark = true;
+                        isDark = settings.isDark;
+                        settings.setValues(isDark, isNotif);
+                        _updateSettings();
+                      });
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.wb_sunny,
+                      color: settings.isDark ? Colors.white : Color(0xFFFFD321),
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        settings.isDark = false;
+                        isDark = settings.isDark;
+                        settings.setValues(isDark, isNotif);
+                        _updateSettings();
+                      });
+                    },
+                  ),
                 ]),
               )
             ],

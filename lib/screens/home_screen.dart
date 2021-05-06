@@ -23,48 +23,28 @@ class _HomeScreenState extends State<HomeScreen> {
   final uid = FirebaseAuth.instance.currentUser.uid;
 
   dynamic getSettings;
-  bool isDark = false;
+  bool isDark;
   bool isNotif = false;
   String userName = '';
   String email = '';
 
-  Future<dynamic> getData() async {
-    final DocumentReference document =
-        FirebaseFirestore.instance.collection('users').doc(uid);
-    await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
-      setState(() {
-        isDark = snapshot.data()['isDark'];
-        isNotif = snapshot.data()['isNotifications'];
-        userName = snapshot.data()['username'];
-        email = snapshot.data()['email'];
-      });
-    });
-  }
+  // Future<dynamic> getData() async {
+  //   isDark = Provider.of<SettingsUser>(context).isDark;
+
+  // }
 
   @override
   void initState() {
-    getData();
+    Future.delayed(Duration.zero).then((_) {
+      Provider.of<SettingsUser>(context, listen: false).getSettings();
+    });
+    // getData();
     super.initState();
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsUser>(context);
-    if (settings.isDark == null) isDark = false;
-
-    isNotif = settings.isNotifications;
-    //isDark = settings.isDark;
-    //final uid = FirebaseAuth.instance.currentUser.uid;
-    FirebaseFirestore.instance.collection('users').doc(uid).get();
-    settings.setValues(
-      isDark,
-      isNotif,
-      //userName,
-      // email,
-    );
-    print(isDark.toString());
+    final isDark = Provider.of<SettingsUser>(context).isDark;
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -72,11 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           //color: Color(0xFFF3F3F3),
           image: DecorationImage(
-            image: isDark ? AssetImage(
-              'assets/dark.png',
-            ) : AssetImage(
-              'assets/grey.png',
-            ),
+            image: isDark
+                ? AssetImage(
+                    'assets/dark.png',
+                  )
+                : AssetImage(
+                    'assets/grey.png',
+                  ),
             fit: BoxFit.cover,
           ),
         ),
@@ -112,8 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
-                                  BouncyPageRoute(widget: AccountScreen()));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AccountScreen()));
                             },
                             child: Row(
                               children: [
@@ -219,8 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: MediaQuery.of(context).size.width * 0.25,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context, BouncyPageRoute(widget: AllOrders()));
+                  Navigator.push(context, BouncyPageRoute(widget: AllOrders()));
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.3,
