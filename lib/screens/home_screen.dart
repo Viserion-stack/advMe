@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'assets/grey.png',
                   ),
             fit: BoxFit.cover,
+            
           ),
         ),
         child: Stack(
@@ -164,7 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.width * 0.51,
                   decoration: BoxDecoration(
+                    
                     boxShadow: [
+                      if(isDark == false)
                       BoxShadow(
                         color: Colors.grey[300],
                         blurRadius: 10,
@@ -172,11 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         offset: Offset(0, 8),
                       ),
                     ],
-                    color: Colors.white,
+                    color: isDark ? Colors.transparent : Colors.white,
                     borderRadius: BorderRadius.circular(35),
                     border: Border.all(
-                      color: Colors.black,
-                      width: 0.08,
+                      color:isDark ? Color(0xFF15D4D0) : Colors.black,
+                      width: isDark ? 2.0 : 0.08,
                     ),
                   ),
                   child: Column(
@@ -184,12 +187,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Icon(
                         Icons.add,
-                        color: Colors.black,
+                        color:isDark ? Color(0xFF15D4D0) : Colors.black,
                         size: 90,
                       ),
                       Text('Add yourself',
                           style: TextStyle(
-                            color: Colors.black,
+                            color:isDark ? Color(0xFF15D4D0) : Colors.black,
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           )),
@@ -210,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width * 0.51,
                   decoration: BoxDecoration(
                     boxShadow: [
+                      if(isDark == false)
                       BoxShadow(
                         color: Colors.grey[300],
                         blurRadius: 10,
@@ -217,11 +221,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         offset: Offset(0, 8),
                       ),
                     ],
-                    color: Colors.white,
+                    color: isDark ? Colors.transparent : Colors.white,
                     borderRadius: BorderRadius.circular(35),
                     border: Border.all(
-                      color: Colors.black,
-                      width: 0.08,
+                      color:isDark ? Color(0xFF15D4D0) : Colors.black,
+                      width: isDark ? 2.0 : 0.08,
                     ),
                   ),
 
@@ -231,12 +235,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Icon(
                         Icons.search,
-                        color: Colors.black,
+                        color:isDark ? Color(0xFF15D4D0) : Colors.black,
                         size: 90,
                       ),
                       Text('Look for orders',
                           style: TextStyle(
-                            color: Colors.black,
+                            color:isDark ? Color(0xFF15D4D0) : Colors.black,
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           )),

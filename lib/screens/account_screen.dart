@@ -39,7 +39,7 @@ class _AccountScreenState extends State<AccountScreen> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Color(0xFF009494),
+            color: settings.isDark ? Color(0xFF005B5B) : Color(0xFF009494),
           ),
           child: Stack(
             children: [
