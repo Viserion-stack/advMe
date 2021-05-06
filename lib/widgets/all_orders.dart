@@ -84,9 +84,13 @@ class _AllOrdersState extends State<AllOrders> {
             decoration: BoxDecoration(
               //color: Color(0xFFF3F3F3),
               image: DecorationImage(
-                image: AssetImage(
-                  'assets/grey.png',
-                ),
+                image: settings.isDark
+                ? AssetImage(
+                    'assets/dark.png',
+                  )
+                : AssetImage(
+                    'assets/grey.png',
+                  ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -121,6 +125,7 @@ class _AllOrdersState extends State<AllOrders> {
                         child: Icon(
                           Icons.search,
                           size: 35,
+                          color: settings.isDark ? Color(0xFF959595) : Colors.black,
                         ),
                       ),
                     ),
@@ -130,9 +135,11 @@ class _AllOrdersState extends State<AllOrders> {
                           top: MediaQuery.of(context).size.height * 0.02,
                         ),
                         child: PopupMenuButton(
+                          color: settings.isDark ? Color(0xFF7D7D7D) : Colors.white,
                           icon: Icon(
                             Icons.menu,
                             size: 35,
+                            color: settings.isDark ? Color(0xFF959595) : Colors.black,
                           ),
                           itemBuilder: (context) => [
                             PopupMenuItem(
@@ -211,20 +218,20 @@ class _AllOrdersState extends State<AllOrders> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Colors.black,
-                                          width: 0.08,
+                                          color: settings.isDark ? Color(0xFF00D1CD) : Colors.black,
+                                          width: settings.isDark ?2.0 : 0.08,
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.grey[300],
+                                            color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                                             blurRadius: 10,
                                             spreadRadius: 0.5,
                                             offset: Offset(0, 8),
                                           ),
                                         ],
                                         color: valueChoosen == categories[index]
-                                            ? Color(0xFFFFD320)
-                                            : Colors.white,
+                                            ? (settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320))
+                                            : (settings.isDark ? Colors.transparent : Colors.white),
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     width: MediaQuery.of(context).size.width *
@@ -238,7 +245,7 @@ class _AllOrdersState extends State<AllOrders> {
                                           color:
                                               valueChoosen == categories[index]
                                                   ? Colors.white
-                                                  : Color(0xFFFFD320),
+                                                  : (settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320)),
                                           fontSize: 20,
                                         ),
                                       ),

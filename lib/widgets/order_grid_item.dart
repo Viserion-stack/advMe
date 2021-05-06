@@ -153,7 +153,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
           boxShadow: [],
         ),
         child: Card(
-          color: Colors.white,
+          color: settings.isDark ? Color(0xFF565656) : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
@@ -217,20 +217,20 @@ class _OrderGridItemState extends State<OrderGridItem> {
                             widget.isFavorite
                                 ? Icons.favorite
                                 : Icons.favorite_border,
-                            color: Color(0xFFFFD320),
+                            color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                           ),
                         ),
                 ),
               ]),
 
               Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 10),
+                padding: EdgeInsets.only(left: 12.0, top: 10),
                 child: Text(
                   widget.title.capitalize(),
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: settings.isDark ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -239,8 +239,8 @@ class _OrderGridItemState extends State<OrderGridItem> {
               //  ),
               Row(
                 children: [
-                  SizedBox(width: 5),
-                  Icon(Icons.place, size: 18),
+                  SizedBox(width: 12),
+                  Icon(Icons.place, size: 18,color: settings.isDark ? Colors.white : Colors.black,),
                   SizedBox(width: 5),
                   Expanded(
                     child: Text(
@@ -248,7 +248,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                           ? 'No localizatoin available'
                           : city.substring(7, city.length),
                       style: TextStyle(
-                        color: Colors.black,
+                        color: settings.isDark ? Colors.white : Colors.black,
                       ),
                     ),
                   ),
@@ -256,33 +256,37 @@ class _OrderGridItemState extends State<OrderGridItem> {
               ),
               SizedBox(height: 10),
               Row(children: [
-                SizedBox(width: 10),
+                SizedBox(width: 15),
                 Expanded(
                   child: Container(
                     child: Text(
                       '${widget.price} zł',
                       style: GoogleFonts.lexendDeca(
                         letterSpacing: 0,
-                        color: Color(0xFFFFD320),
+                        color: settings.isDark ? Colors.white : Color(0xFFFFD320),
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                Row(children: [
-                  Icon(
-                    Icons.star,
-                    color: Color(0xFFFFD320),
-                  ),
-                  Text(
-                    widget.rating.toStringAsPrecision(2),
-                    style: GoogleFonts.lexendDeca(
-                        fontSize: 17,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ]),
+                Padding(
+                  padding: const EdgeInsets.only(right : 10.0),
+                  child: Row(children: [
+                    Icon(
+                      Icons.star,
+                      size: 15,
+                      color: Color(0xFFFFD320),
+                    ),
+                    Text(
+                      widget.rating.toStringAsPrecision(2),
+                      style: GoogleFonts.lexendDeca(
+                          fontSize: 17,
+                          color: settings.isDark ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ]),
+                ),
                 SizedBox(width: 10),
               ]),
               SizedBox(height: 10),
