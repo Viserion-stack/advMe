@@ -1,11 +1,17 @@
+
+
+import 'package:advMe/providers/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EditProfile extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
+      backgroundColor: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -25,7 +31,7 @@ class EditProfile extends StatelessWidget {
                         height: 60,
                         child: Icon(
                           Icons.chevron_left,
-                          color: Color(0xFFF8BB06),
+                          color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                           size: 46,
                         ),
                         decoration: BoxDecoration(
@@ -42,7 +48,7 @@ class EditProfile extends StatelessWidget {
                     text: TextSpan(
                         text: 'Edit ',
                         style: GoogleFonts.quicksand(
-                          color: Colors.black,
+                          color: settings.isDark ? Colors.white : Colors.black,
                           fontSize: 28.0,
                           letterSpacing: 1.0,
                           fontWeight: FontWeight.w700,
@@ -51,7 +57,7 @@ class EditProfile extends StatelessWidget {
                           TextSpan(
                             text: 'Profile',
                             style: GoogleFonts.quicksand(
-                              color: Color(0xFFF8BB06),
+                              color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                               fontSize: 28.0,
                               letterSpacing: 0.1,
                               fontWeight: FontWeight.w700,
@@ -72,7 +78,7 @@ class EditProfile extends StatelessWidget {
                 child: Icon(
                   Icons.account_circle,
                   size: 170,
-                  color: Color(0xFFCECECE),
+                  color: settings.isDark ? Color(0xFF6A6A6A) : Color(0xFFCECECE),
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -83,7 +89,8 @@ class EditProfile extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[300],
+                      
+                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
@@ -103,14 +110,14 @@ class EditProfile extends StatelessWidget {
                     width: 40,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFFF8BB06),
+                      color: settings.isDark ? Color(0xFF009494) : Color(0xFFF8BB06),
                       border: Border.all(
                         color: Colors.black,
                         width: 0.2,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey[400],
+                          color: settings.isDark ? Color(0x00000029) : Colors.grey[400],
                           blurRadius: 8,
                           spreadRadius: 0,
                           offset: Offset(0, 4),
@@ -128,14 +135,14 @@ class EditProfile extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                     blurRadius: 8,
                     spreadRadius: 0,
                     offset: Offset(0, 8),
                   ),
                 ],
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 border: Border.all(
                   color: Colors.black,
                   width: 0.3,
@@ -143,7 +150,7 @@ class EditProfile extends StatelessWidget {
               ),
               child: Row(children: [
                 SizedBox(width: 15),
-                Icon(Icons.email),
+                Icon(Icons.email,color: settings.isDark ? Colors.white : Colors.black,),
                 SizedBox(width: 10),
                 Expanded(
                   child: TextFormField(
@@ -151,8 +158,8 @@ class EditProfile extends StatelessWidget {
                     //validator: validatePhone,
                     keyboardType: TextInputType.emailAddress,
                     //textAlign: TextAlign.start,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                    cursorColor: settings.isDark ? Colors.white : Colors.black,
+                    style: TextStyle(color: settings.isDark ? Colors.white : Colors.black, fontSize: 17),
                     decoration: InputDecoration(
 
                         //filled: true,
@@ -167,7 +174,7 @@ class EditProfile extends StatelessWidget {
                         ),
                         hintText: 'Phone',
                         hintStyle: TextStyle(
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) :Color(0xFFCECECE),
                           fontSize: 18,
                         )),
                     //controller: phoneNumberController,
@@ -184,14 +191,14 @@ class EditProfile extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                     blurRadius: 8,
                     spreadRadius: 0,
                     offset: Offset(0, 8),
                   ),
                 ],
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 border: Border.all(
                   color: Colors.black,
                   width: 0.3,
@@ -202,6 +209,7 @@ class EditProfile extends StatelessWidget {
                 Icon(
                   Icons.person,
                   size: 25,
+                  color: settings.isDark ? Colors.white : Colors.black,
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -210,8 +218,8 @@ class EditProfile extends StatelessWidget {
                     //validator: validatePhone,
                     //keyboardType: TextInputType.emailAddress,
                     //textAlign: TextAlign.start,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                    cursorColor: settings.isDark ? Colors.white : Colors.black,
+                    style: TextStyle(color: settings.isDark ? Colors.white : Colors.black, fontSize: 17),
                     decoration: InputDecoration(
 
                         //filled: true,
@@ -226,7 +234,7 @@ class EditProfile extends StatelessWidget {
                         ),
                         hintText: 'Phone',
                         hintStyle: TextStyle(
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) :Color(0xFFCECECE),
                           fontSize: 18,
                         )),
                     //controller: phoneNumberController,
@@ -240,7 +248,7 @@ class EditProfile extends StatelessWidget {
             Text('Change password',
                 style: GoogleFonts.quicksand(
                   fontSize: 17,
-                  color: Colors.black,
+                  color: settings.isDark ? Color(0xFF009494) : Colors.black,
                   fontWeight: FontWeight.bold,
                 )),
             SizedBox(
@@ -252,16 +260,16 @@ class EditProfile extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                     blurRadius: 8,
                     spreadRadius: 0,
                     offset: Offset(0, 8),
                   ),
                 ],
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 border: Border.all(
-                  color: Colors.black,
+                  color:  Colors.black,
                   width: 0.3,
                 ),
               ),
@@ -270,6 +278,7 @@ class EditProfile extends StatelessWidget {
                 Icon(
                   Icons.lock,
                   size: 25,
+                  color: settings.isDark ? Colors.white : Colors.black,
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -278,8 +287,8 @@ class EditProfile extends StatelessWidget {
                     //validator: validatePhone,
                     //keyboardType: TextInputType.,
                     //textAlign: TextAlign.start,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                    cursorColor: settings.isDark ? Colors.white : Colors.black,
+                    style: TextStyle(color: settings.isDark ? Colors.white : Colors.black, fontSize: 17),
                     decoration: InputDecoration(
 
                         //filled: true,
@@ -294,7 +303,7 @@ class EditProfile extends StatelessWidget {
                         ),
                         hintText: 'Current password',
                         hintStyle: TextStyle(
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) :Color(0xFFCECECE),
                           fontSize: 18,
                         )),
                     //controller: phoneNumberController,
@@ -311,14 +320,14 @@ class EditProfile extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                     blurRadius: 8,
                     spreadRadius: 0,
                     offset: Offset(0, 8),
                   ),
                 ],
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 border: Border.all(
                   color: Colors.black,
                   width: 0.3,
@@ -329,6 +338,7 @@ class EditProfile extends StatelessWidget {
                 Icon(
                   Icons.lock,
                   size: 25,
+                  color: settings.isDark ? Colors.white : Colors.black,
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -337,8 +347,8 @@ class EditProfile extends StatelessWidget {
                     //validator: validatePhone,
                     keyboardType: TextInputType.emailAddress,
                     //textAlign: TextAlign.start,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                    cursorColor: settings.isDark ? Colors.white : Colors.black,
+                    style: TextStyle(color: settings.isDark ? Colors.white : Colors.black, fontSize: 17),
                     decoration: InputDecoration(
 
                         //filled: true,
@@ -353,7 +363,7 @@ class EditProfile extends StatelessWidget {
                         ),
                         hintText: 'New password',
                         hintStyle: TextStyle(
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) :Color(0xFFCECECE),
                           fontSize: 18,
                         )),
                     //controller: phoneNumberController,
@@ -370,14 +380,14 @@ class EditProfile extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: settings.isDark ? Color(0x00000029) :Colors.grey[300],
                     blurRadius: 8,
                     spreadRadius: 0,
                     offset: Offset(0, 8),
                   ),
                 ],
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 border: Border.all(
                   color: Colors.black,
                   width: 0.3,
@@ -388,6 +398,7 @@ class EditProfile extends StatelessWidget {
                 Icon(
                   Icons.lock,
                   size: 25,
+                  color: settings.isDark ? Colors.white : Colors.black,
                 ),
                 SizedBox(width: 10),
                 Expanded(
@@ -396,8 +407,8 @@ class EditProfile extends StatelessWidget {
                     //validator: validatePhone,
                     keyboardType: TextInputType.emailAddress,
                     //textAlign: TextAlign.start,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black, fontSize: 17),
+                    cursorColor: settings.isDark ? Colors.white : Colors.black,
+                    style: TextStyle(color: settings.isDark ? Colors.white : Colors.black, fontSize: 17),
                     decoration: InputDecoration(
 
                         //filled: true,
@@ -412,7 +423,7 @@ class EditProfile extends StatelessWidget {
                         ),
                         hintText: 'Repeat new password',
                         hintStyle: TextStyle(
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) :Color(0xFFCECECE),
                           fontSize: 18,
                         )),
                     //controller: phoneNumberController,
@@ -427,10 +438,10 @@ class EditProfile extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.08,
               width: MediaQuery.of(context).size.width * 0.45,
               decoration: BoxDecoration(
-                color: Color(0xFFF8BB06),
+                color: settings.isDark ? Color(0xFF009494) : Color(0xFFF8BB06),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey[350],
+                    color: settings.isDark ? Color(0x00000029) : Colors.grey[350],
                     blurRadius: 8,
                     spreadRadius: 0,
                     offset: Offset(0, 8),
