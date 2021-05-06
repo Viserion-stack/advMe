@@ -69,14 +69,14 @@ class _LocationInputState extends State<LocationInput> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey[300],
+                color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                 blurRadius: 8,
                 spreadRadius: 0,
                 offset: Offset(0, 8),
               ),
             ],
             borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
+            color: settings.isDark ? Color(0xFF565656) : Colors.white,
           ),
           child: _previewImageUrl == null
               ? Text(
@@ -122,7 +122,7 @@ class _LocationInputState extends State<LocationInput> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: Color(0xFFFFD320),
+                      color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                       width: 2,
                     ),
                   ),
@@ -130,13 +130,14 @@ class _LocationInputState extends State<LocationInput> {
                   child: FlatButton.icon(
                     icon: Icon(
                       Icons.location_on,
-                      color: Color(0xFFFFD320),
+                      color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                       //Colors.white54,
                     ),
                     label: Text(
                       'Current Location',
                       style: TextStyle(
-                        color: Color(0xFFFFD320),
+                         
+                        color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                         //Colors.white54,
                       ),
                     ),
@@ -162,7 +163,7 @@ class _LocationInputState extends State<LocationInput> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: Color(0xFFFFD320),
+                      color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                       width: 2,
                     ),
                   ),
@@ -170,13 +171,13 @@ class _LocationInputState extends State<LocationInput> {
                   child: FlatButton.icon(
                     icon: Icon(
                       Icons.map,
-                      color: Color(0xFFFFD320),
+                      color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                       //Colors.white54,
                     ),
                     label: Text(
                       'Select on Map',
                       style: TextStyle(
-                        color: Color(0xFFFFD320),
+                        color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
                         //Colors.white54,
                       ),
                     ),

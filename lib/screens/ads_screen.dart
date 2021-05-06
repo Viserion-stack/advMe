@@ -236,7 +236,7 @@ class _AdsScreenState extends State<AdsScreen> {
     // ignore: unused_local_variable
     final settings = Provider.of<SettingsUser>(context);
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
+      backgroundColor: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -256,7 +256,7 @@ class _AdsScreenState extends State<AdsScreen> {
                         height: 60,
                         child: Icon(
                           Icons.chevron_left,
-                          color: Color(0xFFF8BB06),
+                          color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                           size: 46,
                         ),
                         decoration: BoxDecoration(
@@ -272,9 +272,9 @@ class _AdsScreenState extends State<AdsScreen> {
                   ),
                   child: RichText(
                     text: TextSpan(
-                        text: 'Search ',
+                        text: 'Add ',
                         style: GoogleFonts.quicksand(
-                          color: Colors.black,
+                          color: settings.isDark ? Colors.white : Colors.black,
                           fontSize: 28.0,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w600,
@@ -283,7 +283,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           TextSpan(
                             text: 'Advertisment',
                             style: GoogleFonts.quicksand(
-                              color: Color(0xFFF8BB06),
+                              color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                               fontSize: 28.0,
                               letterSpacing: 0.1,
                               fontWeight: FontWeight.w700,
@@ -310,7 +310,7 @@ class _AdsScreenState extends State<AdsScreen> {
                                 children: [
                                   Icon(
                                     Icons.add,
-                                    color: Color(0xFFCECECE),
+                                    color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                                     size: 75,
                                   ),
                                   SizedBox(
@@ -319,7 +319,7 @@ class _AdsScreenState extends State<AdsScreen> {
                                   Text('Add photo',
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: Color(0xFFCECECE),
+                                        color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                                         fontWeight: FontWeight.bold,
                                       )),
                                 ],
@@ -335,10 +335,10 @@ class _AdsScreenState extends State<AdsScreen> {
                               ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
-                          color: Colors.white,
+                          color: settings.isDark ? Color(0xFF535353) : Colors.white,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey[300],
+                              color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                               blurRadius: 8,
                               spreadRadius: 0,
                               offset: Offset(0, 8),
@@ -361,7 +361,7 @@ class _AdsScreenState extends State<AdsScreen> {
                               children: [
                                 Icon(
                                   Icons.add,
-                                  color: Color(0xFFCECECE),
+                                  color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                                   size: 75,
                                 ),
                                 SizedBox(
@@ -370,7 +370,7 @@ class _AdsScreenState extends State<AdsScreen> {
                                 Text('Add photo',
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: Color(0xFFCECECE),
+                                      color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                                       fontWeight: FontWeight.bold,
                                     )),
                               ],
@@ -386,10 +386,10 @@ class _AdsScreenState extends State<AdsScreen> {
                             ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        color: Colors.white,
+                        color: settings.isDark ? Color(0xFF535353) : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[300],
+                            color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                             blurRadius: 8,
                             spreadRadius: 0,
                             offset: Offset(0, 8),
@@ -419,7 +419,7 @@ class _AdsScreenState extends State<AdsScreen> {
                               children: [
                                 Icon(
                                   Icons.add,
-                                  color: Color(0xFFCECECE),
+                                  color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                                   size: 75,
                                 ),
                                 SizedBox(
@@ -428,7 +428,7 @@ class _AdsScreenState extends State<AdsScreen> {
                                 Text('Add photo',
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: Color(0xFFCECECE),
+                                      color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                                       fontWeight: FontWeight.bold,
                                     )),
                               ],
@@ -444,10 +444,10 @@ class _AdsScreenState extends State<AdsScreen> {
                             ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        color: Colors.white,
+                        color: settings.isDark ? Color(0xFF535353) : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[300],
+                            color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                             blurRadius: 8,
                             spreadRadius: 0,
                             offset: Offset(0, 8),
@@ -468,7 +468,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       children: [
                         Icon(
                           Icons.add,
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                           size: 75,
                         ),
                         SizedBox(
@@ -477,17 +477,17 @@ class _AdsScreenState extends State<AdsScreen> {
                         Text('Add photo',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Color(0xFFCECECE),
+                              color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                               fontWeight: FontWeight.bold,
                             )),
                       ],
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.white,
+                      color: settings.isDark ? Color(0xFF535353) : Colors.white,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey[300],
+                          color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                           blurRadius: 8,
                           spreadRadius: 0,
                           offset: Offset(0, 8),
@@ -508,39 +508,39 @@ class _AdsScreenState extends State<AdsScreen> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: settings.isDark ? Color(0xFF535353) : Colors.white,
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(left: 8.0, right: 8.0),
                   child: Center(
                     child: DropdownButton(
-                      dropdownColor: Colors.white,
+                      dropdownColor: settings.isDark ? Color(0xFF565656) : Colors.white,
                       style: TextStyle(
-                        color: Color(0xFFCECECE),
+                        color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                       ),
                       icon: Icon(
                         Icons.keyboard_arrow_down,
-                        color: Color(0xFFCECECE),
+                        color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                         size: 35,
                       ),
                       hint: Text(
                         '   Select category                                  ',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Color(0xFFCECECE),
+                          color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                         ),
                       ),
                       elevation: 16,
                       underline: Container(
                         height: 2,
-                        color: Colors.white,
+                        color: settings.isDark ? Color(0xFF565656) : Colors.white,
                       ),
                       value: valueChoose,
                       onChanged: (String value) {
@@ -570,14 +570,14 @@ class _AdsScreenState extends State<AdsScreen> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 ),
                 child: Center(
                   child: Padding(
@@ -602,7 +602,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                           hintText: 'Tilte',
                           hintStyle: TextStyle(
-                            color: Color(0xFFCECECE),
+                            color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                             fontSize: 18,
                           )),
                       controller: titleController,
@@ -619,14 +619,14 @@ class _AdsScreenState extends State<AdsScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey[300],
+                        color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                         blurRadius: 8,
                         spreadRadius: 0,
                         offset: Offset(0, 8),
                       ),
                     ],
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
+                    color: settings.isDark ? Color(0xFF565656) : Colors.white,
                   ),
                   child: Center(
                     child: Padding(
@@ -652,7 +652,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             ),
                             hintText: 'Price',
                             hintStyle: TextStyle(
-                              color: Color(0xFFCECECE),
+                              color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                               fontSize: 18,
                             )),
                         controller: priceController,
@@ -668,14 +668,14 @@ class _AdsScreenState extends State<AdsScreen> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 ),
                 child: Center(
                   child: Padding(
@@ -699,7 +699,7 @@ class _AdsScreenState extends State<AdsScreen> {
                           ),
                           hintText: 'Description',
                           hintStyle: TextStyle(
-                            color: Color(0xFFCECECE),
+                           color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                             fontSize: 18,
                           )),
                       controller: descriptionController,
@@ -716,14 +716,14 @@ class _AdsScreenState extends State<AdsScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey[300],
+                        color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                         blurRadius: 8,
                         spreadRadius: 0,
                         offset: Offset(0, 8),
                       ),
                     ],
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
+                    color: settings.isDark ? Color(0xFF565656) : Colors.white,
                   ),
                   child: Center(
                     child: Padding(
@@ -749,7 +749,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             ),
                             hintText: 'Phone',
                             hintStyle: TextStyle(
-                              color: Color(0xFFCECECE),
+                              color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                               fontSize: 18,
                             )),
                         controller: phoneNumberController,
@@ -765,14 +765,14 @@ class _AdsScreenState extends State<AdsScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey[300],
+                        color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
                         blurRadius: 8,
                         spreadRadius: 0,
                         offset: Offset(0, 8),
                       ),
                     ],
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
+                    color: settings.isDark ? Color(0xFF565656) : Colors.white,
                   ),
                   child: Center(
                     child: Padding(
@@ -796,7 +796,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             ),
                             hintText: 'Website',
                             hintStyle: TextStyle(
-                              color: Color(0xFFCECECE),
+                              color: settings.isDark ? Color(0xFF8E8E8E) : Color(0xFFCECECE),
                               fontSize: 18,
                             )),
                         controller: websiteController,
@@ -822,7 +822,7 @@ class _AdsScreenState extends State<AdsScreen> {
                 width: MediaQuery.of(context).size.width * 0.87,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: buttonReady ? Colors.grey : Color(0xFFFFD320),
+                    primary: buttonReady ? Colors.grey : (settings.isDark ? Color(0xFF00D1CD) :  Color(0xFFFFD320)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
@@ -848,7 +848,7 @@ class _AdsScreenState extends State<AdsScreen> {
                         },
                   child: isLoading
                       ? SpinKitWave(
-                          color: Color(0xFFF79E1B),
+                          color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                         )
                       : Text(
                           'Add Advertisment',
