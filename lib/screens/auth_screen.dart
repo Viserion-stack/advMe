@@ -70,6 +70,11 @@ void _showErrorDialog(String message) {
           'email': email,
           'isDark': false,
           'isNotif': false,
+          'createdAt': DateTime.now(),
+          'isPremium': false,
+          'imageUrl': '',
+
+
         });
         var user = FirebaseAuth.instance.currentUser;
         user.updateProfile(

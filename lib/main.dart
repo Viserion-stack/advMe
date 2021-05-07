@@ -1,5 +1,6 @@
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
+          value: user.User(),
+        ),
+        ChangeNotifierProvider.value(
           value: Orders(),
         ),
         ChangeNotifierProvider.value(
@@ -47,8 +51,6 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, userSnapshot) {
               if (userSnapshot.hasData) {
-                
-
                 return HomeScreen();
               }
               return AuthScreen();

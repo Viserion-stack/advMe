@@ -191,16 +191,7 @@ class _AdsScreenState extends State<AdsScreen> {
     await Provider.of<Orders>(context, listen: false)
         .addOrder(newOrder)
         .then((void nothing) {
-      print("Order Added to cloud firestore");
-      setState(() {
-        isLoading = false;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Order has been added!'),
-          ),
-        );
-      });
+  
     }).catchError((e) => print(e));
   }
 
