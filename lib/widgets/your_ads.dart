@@ -29,7 +29,7 @@ class _YourAdsState extends State<YourAds> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: settings.isDark ? Color(0xFFF3F3F3) : Color(0xFFF3F3F3),
+          color: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
         ),
         child: Stack(
           children: [
@@ -42,7 +42,7 @@ class _YourAdsState extends State<YourAds> {
                   padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  child: Image.asset(
+                  child: Image.asset( settings.isDark ? 'assets/small_logo_dark.png':
                     'assets/small_logo.png',
                     fit: BoxFit.contain,
                     height: 60,
@@ -58,6 +58,7 @@ class _YourAdsState extends State<YourAds> {
                       icon: Icon(
                         Icons.menu,
                         size: 35,
+                        color: settings.isDark ? Color(0xFF7D7D7D) : Colors.black,
                       ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
@@ -118,7 +119,7 @@ class _YourAdsState extends State<YourAds> {
                   child: Text('Your Advertisment',
                       style: GoogleFonts.quicksand(
                         fontSize: 28,
-                        color: Colors.black,
+                        color: settings.isDark ? Color(0xFF00D1CD) : Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                 ),

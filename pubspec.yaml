@@ -86,8 +86,9 @@ flutter:
     - assets/moon_light.png
     - assets/sun_dark.png
     - assets/moon_dark.png
-    - assets/dark.png
+    - assets/dark.jpg
     - assets/grey.png
+    - assets/small_logo_dark.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               image: DecorationImage(
                 image: isDark
                     ? AssetImage(
-                        'assets/dark.png',
+                        'assets/dark.jpg',
                       )
                     : AssetImage(
                         'assets/grey.png',
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      child: Image.asset(
+                      child: Image.asset(isDark ? 'assets/small_logo_dark.png' :
                         'assets/small_logo.png',
                         fit: BoxFit.contain,
                         height: 60,

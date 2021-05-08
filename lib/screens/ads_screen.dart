@@ -52,19 +52,20 @@ class _AdsScreenState extends State<AdsScreen> {
     });
   }
 
-  _onAlertButtonsPressed(int index) {
+  _onAlertButtonsPressed(int index, bool isDark) {
+    //final settings = Provider.of<SettingsUser>(context);
     Alert(
       style: AlertStyle(
         //alertBorder: ,
-        overlayColor: Color(0xDBEEEEEE),
-        backgroundColor: Colors.white,
+        overlayColor: isDark ? Color(0xDD3C3C3C) : Color(0xDBEEEEEE),
+        backgroundColor: isDark ? Color(0xFF565656) : Colors.white,
         titleStyle: GoogleFonts.quicksand(
-          color: Colors.black,
+          color: isDark ? Colors.white : Colors.black,
           fontSize: 17,
           fontWeight: FontWeight.bold,
         ),
         descStyle: GoogleFonts.quicksand(
-          color: Colors.black,
+          color: isDark ? Colors.white : Colors.black,
           fontSize: 13,
         ),
       ),
@@ -98,7 +99,7 @@ class _AdsScreenState extends State<AdsScreen> {
 
             Navigator.pop(context);
           },
-          color: Color(0xFFF8BB06),
+          color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
         ),
         DialogButton(
           radius: BorderRadius.circular(27),
@@ -124,7 +125,7 @@ class _AdsScreenState extends State<AdsScreen> {
             _pickImage(isCamera, index);
             Navigator.pop(context);
           },
-          color: Color(0xFFF8BB06),
+          color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
         )
       ],
     ).show();
@@ -293,7 +294,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.06),
                   child: GestureDetector(
-                      onTap: () => _onAlertButtonsPressed(1),
+                      onTap: () => _onAlertButtonsPressed(1, settings.isDark),
                       child: Container(
                         child: _pickedImage == null
                             ? Column(
@@ -344,7 +345,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.07),
                   child: GestureDetector(
-                    onTap: () => _onAlertButtonsPressed(2),
+                    onTap: () => _onAlertButtonsPressed(2, settings.isDark),
                     child: Container(
                       child: _pickedImage2 == null
                           ? Column(
@@ -402,7 +403,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.06),
                   child: GestureDetector(
-                    onTap: () => _onAlertButtonsPressed(3),
+                    onTap: () => _onAlertButtonsPressed(3, settings.isDark),
                     child: Container(
                       child: _pickedImage3 == null
                           ? Column(

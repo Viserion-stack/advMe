@@ -1,5 +1,7 @@
 
+import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/settings.dart';
+import 'package:advMe/screens/ads_editing_screen.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -183,7 +185,18 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   child: widget.isYourAds
                       ? GestureDetector(
                           onTap: () {
-                            //TODO: Create screen to edit your advertisment
+                            Navigator.push(
+                            context, BouncyPageRoute(widget: AdsEditingScreen(
+                              title: widget.title,
+                              description: widget.description,
+                              price: widget.price,
+                              phone: widget.phone,
+                              imageUrl1: widget.imageUrl1,
+                              imageUrl2: widget.imageUrl2,
+                              imageUrl3: widget.imageUrl3,
+                              website: widget.website,
+                              address: widget.address,
+                            )));
                           },
                           child: Container(
                             width: 27,

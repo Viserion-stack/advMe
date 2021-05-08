@@ -225,6 +225,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       bool isUser = false;
       var uid = FirebaseAuth.instance.currentUser.uid;
       double sum = 0.0;
+      
+
       for (int i = 0; i < firebaseAllAdsInit.length; i++) {
         if (uid.toString() == firebaseAllAdsInit[i].toString()) {
           isUser = true;
@@ -257,18 +259,18 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
+      backgroundColor: settings.isDark ? Color(0xFF3C3C3C)  : Color(0xFFF3F3F3),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[
           SliverAppBar(
             floating: false,
             expandedHeight: 500,
-            backgroundColor: Color(0xFFF3F3F3),
+            backgroundColor: settings.isDark ? Color(0xFF3C3C3C)  : Color(0xFFF3F3F3),
             leading: new IconButton(
               icon: new Icon(
                 Icons.chevron_left,
-                color: Color(0xFFF8BB06),
+                color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                 size: 46,
               ),
               onPressed: () => Navigator.of(context).pop(),
@@ -280,7 +282,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               title: Text(
                 widget.title.capitalize(),
                 textAlign: TextAlign.start,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black),
               ),
               background: Column(children: [
                 Padding(
@@ -292,27 +294,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.15,
                       ),
-                      child: Image.asset(
+                      child: Image.asset(settings.isDark ? 'assets/small_logo_dark.png' :
                         'assets/small_logo.png',
                         fit: BoxFit.contain,
                         height: 60,
                         width: 120,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.30,
-                        top: MediaQuery.of(context).size.height * 0.02,
-                        bottom: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      child: Icon(
-                        Icons.search,
-                        size: 35,
-                      ),
-                    ),
+                    
                     Padding(
                         padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.01,
+                          left: MediaQuery.of(context).size.width * 0.36,
                           top: MediaQuery.of(context).size.height * 0.02,
                           bottom: MediaQuery.of(context).size.height * 0.01,
                         ),
@@ -320,6 +312,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           icon: Icon(
                             Icons.menu,
                             size: 35,
+                            color: settings.isDark ? Color(0xFF7D7D7D) : Colors.black,
                           ),
                           itemBuilder: (context) => [
                             PopupMenuItem(
@@ -402,10 +395,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         ),
                       ),
                       backgroundDecoration: BoxDecoration(
-                        color: settings.isDark
-                            ? Color(0xFFF3F3F3)
-                            : Color(
-                                0xFFF3F3F3), //TOO inny kolor dla dark screen
+                        color: settings.isDark ? Color(0xFF3C3C3C)  : Color(0xFFF3F3F3), //TOO inny kolor dla dark screen
                       ),
                       //backgroundDecoration: widget.backgroundDecoration,
                       //pageController: widget.pageController,
@@ -436,7 +426,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: Text(
                               '${widget.price} zł',
                               style: TextStyle(
-                                color: Color(0xFFFFD320),
+                                color: settings.isDark ? Color(0xFFD4D4D4) : Color(0xFFFFD320),
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -453,7 +443,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               widget.rating.toStringAsPrecision(2),
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: Colors.black,
+                                  color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black,
                                   fontWeight: FontWeight.w700),
                             ),
                           ])
@@ -464,7 +454,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 18,
-                            color: Colors.black,
+                            color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black,
                           ),
                         ),
                         SizedBox(height: 25),
@@ -477,13 +467,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey[300],
+                                    color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                                     blurRadius: 10,
                                     spreadRadius: 0.5,
                                     offset: Offset(0, 8),
                                   ),
                                 ],
-                                color: Colors.white,
+                                color: settings.isDark ? Color(0xFF009494) : Colors.white,
                                 borderRadius: BorderRadius.circular(22),
                                 border: Border.all(
                                   color: Colors.black,
@@ -498,7 +488,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   children: [
                                     Icon(
                                       Icons.language,
-                                      color: Color(0xFFFFD320),
+                                      color: settings.isDark ? Colors.white : Color(0xFFFFD320),
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -506,7 +496,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                     Text(
                                       'Website',
                                       style: TextStyle(
-                                        color: Color(0xFFFFD320),
+                                        color: settings.isDark ? Colors.white :  Color(0xFFFFD320),
                                         fontSize: 18,
                                       ),
                                     ),
@@ -533,7 +523,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey[300],
+                                        color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                                         blurRadius: 12,
                                         spreadRadius: 0.9,
                                         offset: Offset(0, 8),
@@ -566,10 +556,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: Color(0x0FF24E46A),
+                                  color: settings.isDark ? Color(0xFF11BF84) : Color(0x0FF24E46A),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey[300],
+                                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                                       blurRadius: 10,
                                       spreadRadius: 0.5,
                                       offset: Offset(0, 8),
@@ -610,10 +600,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFD320),
+                                  color: settings.isDark ? Color(0xFF00D1CD) :  Color(0xFFFFD320),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey[300],
+                                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
                                       blurRadius: 10,
                                       spreadRadius: 0.5,
                                       offset: Offset(0, 8),
@@ -726,16 +716,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey[300],
+                                        color: settings.isDark ? Color(0x00000029) :Colors.grey[300],
                                         blurRadius: 10,
                                         spreadRadius: 0.5,
                                         offset: Offset(0, 8),
                                       ),
                                     ],
-                                    color: Color(0xFFF3F3F3),
+                                    color: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
                                     borderRadius: BorderRadius.circular(22),
                                     border: Border.all(
-                                      color: Color(0xFFF8BB06),
+                                      width: settings.isDark ? 1.5 : 0.0,
+                                      color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                                     )),
                                 child: Center(
                                   child: Row(
@@ -743,12 +734,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                     children: [
                                       Icon(
                                         Icons.edit,
-                                        color: Color(0xFFF8BB06),
+                                        color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                                       ),
                                       SizedBox(width: 5),
-                                      Text('Edit Advertisent',
+                                      Text('Edit Advertisment',
                                           style: GoogleFonts.quicksand(
-                                            color: Color(0xFFF8BB06),
+                                            color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                                             fontSize: 19,
                                             fontWeight: FontWeight.w600,
                                           ))
@@ -762,13 +753,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         Container(
                           height: 2,
                           width: double.infinity,
-                          color: Colors.grey[350],
+                          color: settings.isDark ?  Color(0xFF707070) : Colors.grey[350],
                         ),
                         SizedBox(height: 25),
                         Center(
                             child: Text('advMe! 2021',
                                 style: TextStyle(
-                                  color: Colors.grey[350],
+                                  color: settings.isDark ?  Color(0xFF707070) : Colors.grey[350],
                                 ))),
                         SizedBox(height: 25),
                       ],

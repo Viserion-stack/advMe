@@ -91,7 +91,7 @@ class _SearchwidgetState extends State<Searchwidget> {
         decoration: BoxDecoration(
           //color: Color(0xFFF3F3F3),
           image: DecorationImage(
-            image: AssetImage(
+            image: AssetImage( isDark ? 'assets/dark.jpg' :
               'assets/grey.png',
             ),
             fit: BoxFit.cover,
@@ -114,7 +114,7 @@ class _SearchwidgetState extends State<Searchwidget> {
                       height: 60,
                       child: Icon(
                         Icons.chevron_left,
-                        color: Color(0xFFF8BB06),
+                        color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                         size: 46,
                       ),
                       decoration: BoxDecoration(
@@ -130,9 +130,9 @@ class _SearchwidgetState extends State<Searchwidget> {
                 ),
                 child: RichText(
                   text: TextSpan(
-                      text: 'Add',
+                      text: 'Search ',
                       style: GoogleFonts.quicksand(
-                        color: Colors.black,
+                        color: isDark ? Colors.white : Colors.black,
                         fontSize: 28.0,
                         letterSpacing: 1.5,
                         fontWeight: FontWeight.w600,
@@ -141,7 +141,7 @@ class _SearchwidgetState extends State<Searchwidget> {
                         TextSpan(
                           text: 'Advertisment',
                           style: GoogleFonts.quicksand(
-                            color: Color(0xFFF8BB06),
+                            color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                             fontSize: 28.0,
                             letterSpacing: 0.1,
                             fontWeight: FontWeight.w700,
@@ -158,8 +158,8 @@ class _SearchwidgetState extends State<Searchwidget> {
               maxWidth: MediaQuery.of(context).size.width * .84,
               backdropColor: Colors.transparent,
               borderRadius: BorderRadius.all(Radius.circular(15)),
-              iconColor: Colors.black,
-              backgroundColor: Colors.white,
+              iconColor: isDark ? Color(0xFF00D1CD) : Colors.black,
+              backgroundColor: isDark ? Color(0xFF565656) : Colors.white,
               controller: controller,
               body: FloatingSearchBarScrollNotifier(
                 child: SearchResultsListView(
@@ -176,8 +176,10 @@ class _SearchwidgetState extends State<Searchwidget> {
                 ),
                 //Theme.of(context).textTheme.headline6,
               ),
+              accentColor: isDark ? Colors.white : Colors.black,
+              queryStyle: TextStyle(color: isDark ? Colors.white: Colors.black),
               hintStyle: TextStyle(
-                color: Colors.black,
+                color: isDark ? Color(0xFFD4D4D4) :Colors.black,
                 fontSize: 15,
               ),
               hint: 'Search and find out...',
@@ -200,7 +202,7 @@ class _SearchwidgetState extends State<Searchwidget> {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Material(
-                    color: Colors.white,
+                    color: isDark ? Color(0xFF565656) : Colors.white,
                     elevation: 4,
                     child: Builder(
                       builder: (context) {
@@ -258,7 +260,7 @@ class _SearchwidgetState extends State<Searchwidget> {
                                     title: Text(
                                       term,
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: isDark ? Color(0xFFD4D4D4) : Colors.black,
                                       ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -266,7 +268,7 @@ class _SearchwidgetState extends State<Searchwidget> {
                                     trailing: IconButton(
                                       icon: Icon(
                                         Icons.clear,
-                                        color: Colors.black,
+                                        color: isDark ? Color(0xFFD4D4D4) : Colors.black,
                                       ),
                                       onPressed: () {
                                         setState(() {
@@ -320,13 +322,13 @@ class SearchResultsListView extends StatelessWidget {
             Icon(
               Icons.search,
               size: 64,
-              color: Colors.black,
+              color: isDark ? Color(0xFF00D1CD) : Colors.black,
             ),
             Text(
               'Start searching',
               style: TextStyle(
                 fontSize: 30,
-                color: Colors.black,
+                color: isDark ? Color(0xFF00D1CD) :  Colors.black,
               ),
               //Theme.of(context).textTheme.headline5,
             )
@@ -356,26 +358,9 @@ class SearchResultsListView extends StatelessWidget {
         itemCount: searchOrders.length,
         itemBuilder: (ctx, index) {
           if (index == 0) {
-            return OrderGridItem(
-              id: searchOrders[index].id,
-              title: searchOrders[index].title,
-              description: searchOrders[index].description,
-              isFavorite: false,
-              imageUrl1: searchOrders[index].imageUrl1,
-              imageUrl2: searchOrders[index].imageUrl2,
-              imageUrl3: searchOrders[index].imageUrl3,
-              price: searchOrders[index].price,
-              phone: searchOrders[index].phone,
-              website: searchOrders[index].website,
-              address: searchOrders[index].address,
-              userId: searchOrders[index].userId,
-              isYourAds: false,
-              countRating: searchOrders[index].countRating,
-              rating: searchOrders[index].rating,
-              sumRating: searchOrders[index].sumRating,
-            );
-          } else {
-            return  OrderGridItem(
+            return Padding(
+              padding: const EdgeInsets.only(left: 8.0, ),
+              child: OrderGridItem(
                 id: searchOrders[index].id,
                 title: searchOrders[index].title,
                 description: searchOrders[index].description,
@@ -392,7 +377,30 @@ class SearchResultsListView extends StatelessWidget {
                 countRating: searchOrders[index].countRating,
                 rating: searchOrders[index].rating,
                 sumRating: searchOrders[index].sumRating,
-              
+              ),
+            );
+          } else {
+            return  Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: OrderGridItem(
+                  id: searchOrders[index].id,
+                  title: searchOrders[index].title,
+                  description: searchOrders[index].description,
+                  isFavorite: false,
+                  imageUrl1: searchOrders[index].imageUrl1,
+                  imageUrl2: searchOrders[index].imageUrl2,
+                  imageUrl3: searchOrders[index].imageUrl3,
+                  price: searchOrders[index].price,
+                  phone: searchOrders[index].phone,
+                  website: searchOrders[index].website,
+                  address: searchOrders[index].address,
+                  userId: searchOrders[index].userId,
+                  isYourAds: false,
+                  countRating: searchOrders[index].countRating,
+                  rating: searchOrders[index].rating,
+                  sumRating: searchOrders[index].sumRating,
+                
+              ),
             );
           }
         },

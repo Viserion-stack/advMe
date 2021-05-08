@@ -23,19 +23,19 @@ class _EditProfileState extends State<EditProfile> {
   bool isPhoto = false;
   bool isCamera = false;
   bool isLoading = false;
-  _onAlertButtonsPressed() {
+  _onAlertButtonsPressed(bool isDark) {
     Alert(
       style: AlertStyle(
         //alertBorder: ,
-        overlayColor: Color(0xDBEEEEEE),
-        backgroundColor: Colors.white,
+        overlayColor: isDark ? Color(0xDD3C3C3C) :Color(0xDBEEEEEE),
+        backgroundColor: isDark ? Color(0xFF565656) : Colors.white,
         titleStyle: GoogleFonts.quicksand(
-          color: Colors.black,
+          color: isDark ? Colors.white : Colors.black,
           fontSize: 17,
           fontWeight: FontWeight.bold,
         ),
         descStyle: GoogleFonts.quicksand(
-          color: Colors.black,
+          color: isDark ? Colors.white : Colors.black,
           fontSize: 13,
         ),
       ),
@@ -69,7 +69,7 @@ class _EditProfileState extends State<EditProfile> {
 
             Navigator.pop(context);
           },
-          color: Color(0xFFF8BB06),
+          color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
         ),
         DialogButton(
           radius: BorderRadius.circular(27),
@@ -95,7 +95,7 @@ class _EditProfileState extends State<EditProfile> {
             _pickImage(isCamera);
             Navigator.pop(context);
           },
-          color: Color(0xFFF8BB06),
+          color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
         )
       ],
     ).show();
@@ -289,7 +289,7 @@ class _EditProfileState extends State<EditProfile> {
                       child: Container(
                         child: GestureDetector(
                           onTap: () async {
-                            _onAlertButtonsPressed();
+                            _onAlertButtonsPressed(settings.isDark);
 
                             setState(() {});
                           },

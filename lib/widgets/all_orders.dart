@@ -86,7 +86,7 @@ class _AllOrdersState extends State<AllOrders> {
               image: DecorationImage(
                 image: settings.isDark
                 ? AssetImage(
-                    'assets/dark.png',
+                    'assets/dark.jpg',
                   )
                 : AssetImage(
                     'assets/grey.png',
@@ -105,7 +105,7 @@ class _AllOrdersState extends State<AllOrders> {
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      child: Image.asset(
+                      child: Image.asset( settings.isDark ? 'assets/small_logo_dark.png' :
                         'assets/small_logo.png',
                         fit: BoxFit.contain,
                         height: 60,
