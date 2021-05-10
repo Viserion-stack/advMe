@@ -66,11 +66,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           top: MediaQuery.of(context).size.height * 0.02,
                           left: MediaQuery.of(context).size.width * 0.05,
                         ),
-                        child: Text('advMe!',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold)),
+                        child: Container(
+                              height: 50,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                image: AssetImage('assets/logo_white.png'),
+                                fit: BoxFit.contain,
+                              )),
+                            ),
                       ),
                     ],
                   ),
@@ -154,13 +158,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   builder: (context) => AdsScreen()));
                         },
                         child: Row(children: [
-                          Icon(
-                            Icons.add,
-                            size: 35,
-                            color: Color(0xFF00ECE7),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 0.0),
+                            child: Icon(
+                              Icons.add,
+                              size: 40,
+                              color: Color(0xFF00ECE7),
+                            ),
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 8,
                           ),
                           Text(
                             'Add Advertisment',
@@ -212,7 +219,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         child: Row(children: [
                           Icon(
                             Icons.favorite_border,
-                            size: 35,
+                            size: 33,
                             color: Color(0xFF00ECE7),
                           ),
                           SizedBox(
@@ -281,8 +288,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left:2.0),
                             child: Container(
-                              height: 25,
-                              width: 25,
+                              height: 27,
+                              width: 27,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                 image: AssetImage('assets/pencil-01.png'),

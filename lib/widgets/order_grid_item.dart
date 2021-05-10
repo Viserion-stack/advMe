@@ -168,8 +168,10 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   ),
                   child: Hero(
                     tag: widget.id,
-                    child: Image.network(
-                      widget.imageUrl1,
+                    child: FadeInImage(
+                    
+                      placeholder:AssetImage('assets/placeholder2dark.png'),
+                      image: NetworkImage(widget.imageUrl1),
                       height: 200,
                       width: MediaQuery.of(context).size.width, //130,
                       fit: BoxFit.cover,
