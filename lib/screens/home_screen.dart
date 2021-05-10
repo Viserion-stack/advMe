@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.32,
+                  top: MediaQuery.of(context).size.height * 0.31,
                   left: MediaQuery.of(context).size.width * 0.25,
                   child: GestureDetector(
                     onTap: () {
@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.6,
+                  top: MediaQuery.of(context).size.height * 0.62,
                   left: MediaQuery.of(context).size.width * 0.25,
                   child: GestureDetector(
                     onTap: () {

@@ -77,7 +77,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.15,
+                  top: MediaQuery.of(context).size.height * 0.1,
                   left: MediaQuery.of(context).size.width * 0.38,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

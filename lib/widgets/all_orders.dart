@@ -36,12 +36,12 @@ class _AllOrdersState extends State<AllOrders> {
   @override
   Widget build(BuildContext context) {
     print('Rebuild all orders');
-    final orderstsData = Provider.of<Orders>(context, listen: false);
-    var categoryOrders = orderstsData.items.where((order) {
+    final ordersData = Provider.of<Orders>(context );
+    var categoryOrders = ordersData.items.where((order) {
       return order.category.contains(valueChoosen);
     }).toList();
 
-    final orders = orderstsData.items;
+    final orders = ordersData.items;
     if (valueChoosen == 'All') {
       categoryOrders = orders;
     }
@@ -88,7 +88,7 @@ class _AllOrdersState extends State<AllOrders> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.39,
+                        left: MediaQuery.of(context).size.width * 0.36,
                         top: MediaQuery.of(context).size.height * 0.02,
                       ),
                       child: GestureDetector(
@@ -257,41 +257,46 @@ class _AllOrdersState extends State<AllOrders> {
                           itemCount: categoryOrders.length,
                           itemBuilder: (ctx, i) {
                             for (int index = 0;
-                                index < orderstsData.itemFavorite.length;
+                                index < ordersData.itemFavorite.length;
                                 index++) {
                               if (categoryOrders[i].id.toString() ==
-                                  orderstsData.itemFavorite[index]) {
+                                  ordersData.itemFavorite[index].toString()) {
+
                                 isFavorite = true;
+
+                                 print('AAAAA' + categoryOrders[i].id);
+                                 break;
                               } else {
                                 isFavorite = false;
                               }
                             }
-                            print('AAAAA' + categoryOrders[i].id);
+                            //print('AAAAA' + categoryOrders[i].id);
                             return ChangeNotifierProvider.value(
-                              // builder: (c) => products[i],
-                              value: categoryOrders[i],
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 6.0, right: 6.0, bottom: 6),
-                                child: OrderGridItem(
-                                  userId: categoryOrders[i].userId,
-                                  description: categoryOrders[i].description,
-                                  id: categoryOrders[i].id,
-                                  title: categoryOrders[i].title,
-                                  imageUrl1: categoryOrders[i].imageUrl1,
-                                  imageUrl2: categoryOrders[i].imageUrl2,
-                                  imageUrl3: categoryOrders[i].imageUrl3,
-                                  isFavorite:
-                                      isFavorite, //categoryOrders[i].isFavorite,
-                                  price: categoryOrders[i].price,
-                                  phone: categoryOrders[i].phone,
-                                  website: categoryOrders[i].website,
-                                  address: categoryOrders[i].address,
-                                  isYourAds: isYourAds,
-                                  rating: categoryOrders[i].rating,
-                                  countRating: categoryOrders[i].countRating,
-                                  sumRating: categoryOrders[i].sumRating,
-                                ),
+                                //builder: (c) => products[i],
+                                value: categoryOrders[i],
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 6.0, right: 6.0, bottom: 6),
+                                  child:
+                                OrderGridItem(
+                              userId: categoryOrders[i].userId,
+                              description: categoryOrders[i].description,
+                              id: categoryOrders[i].id,
+                              title: categoryOrders[i].title,
+                              imageUrl1: categoryOrders[i].imageUrl1,
+                              imageUrl2: categoryOrders[i].imageUrl2,
+                              imageUrl3: categoryOrders[i].imageUrl3,
+                              isFavorite:
+                                  isFavorite, //categoryOrders[i].isFavorite,
+                              price: categoryOrders[i].price,
+                              phone: categoryOrders[i].phone,
+                              website: categoryOrders[i].website,
+                              address: categoryOrders[i].address,
+                              isYourAds: isYourAds,
+                              rating: categoryOrders[i].rating,
+                              countRating: categoryOrders[i].countRating,
+                              sumRating: categoryOrders[i].sumRating,
+                              ),
                               ),
                             );
                           }),

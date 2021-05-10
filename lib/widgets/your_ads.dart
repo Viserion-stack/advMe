@@ -48,7 +48,7 @@ class _YourAdsState extends State<YourAds> {
                 ),
                 Padding(
                     padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.5,
+                      left: MediaQuery.of(context).size.width * 0.46,
                       top: MediaQuery.of(context).size.height * 0.02,
                     ),
                     child: PopupMenuButton(
@@ -171,14 +171,14 @@ class _YourAdsState extends State<YourAds> {
                         imageUrl1: userData.data()['imageUrl1'],
                         imageUrl2: userData.data()['imageUrl2'],
                         imageUrl3: userData.data()['imageUrl3'],
-                        isFavorite: false,
+                       // isFavorite: false,
                         price: userData.data()['price'],
                         phone: userData.data()['phone'],
                         website: userData.data()['website'],
                         address: userData.data()['address'],
-                        countRating: 1,
-                        rating: 3.5,
-                        sumRating: 7,
+                        countRating: userData.data()['countRating'],
+                        rating: userData.data()['rating'],
+                        sumRating: userData.data()['sumRating'],
                         //category: userData.data()['address'],
                         isYourAds: isYourAds,
                       );

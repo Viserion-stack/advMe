@@ -32,7 +32,7 @@ class OrderGridItem extends StatefulWidget {
     @required this.id,
     @required this.title,
     @required this.description,
-    @required this.isFavorite,
+    this.isFavorite,
     @required this.imageUrl1,
     @required this.imageUrl2,
     @required this.imageUrl3,
