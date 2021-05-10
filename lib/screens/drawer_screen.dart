@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 
 class DrawerScreen extends StatefulWidget {
   final AnimationController controller;
- 
 
   const DrawerScreen({Key key, this.controller}) : super(key: key);
 
@@ -37,7 +36,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     final userPhotoUrl =
         Provider.of<user.User>(context, listen: false).imageUrl;
-   final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     if (_scaleAnimation == null) {
       _scaleAnimation =
           Tween<double>(begin: 0.6, end: 1).animate(widget.controller);
@@ -239,13 +238,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   builder: (context) => YourAds()));
                         },
                         child: Row(children: [
-                          Icon(
-                            Icons.campaign_outlined,
-                            size: 35,
-                            color: Color(0xFF00ECE7),
+                          Padding(
+                            padding: const EdgeInsets.only(left:2.0),
+                            child: Container(
+                              height: 29,
+                              width: 29,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                image: AssetImage('assets/glosnik-01.png'),
+                                fit: BoxFit.cover,
+                              )),
+                            ),
                           ),
+                          // Icon(
+                          //   Icons.campaign_outlined,
+                          //   size: 35,
+                          //   color: Color(0xFF00ECE7),
+                          // ),
                           SizedBox(
-                            width: 10,
+                            width: 12,
                           ),
                           Text(
                             'Yours Advertisment',
@@ -267,13 +278,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   builder: (context) => EditProfile()));
                         },
                         child: Row(children: [
-                          Icon(
-                            Icons.create,
-                            size: 35,
-                            color: Color(0xFF00ECE7),
+                          Padding(
+                            padding: const EdgeInsets.only(left:2.0),
+                            child: Container(
+                              height: 25,
+                              width: 25,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                image: AssetImage('assets/pencil-01.png'),
+                                fit: BoxFit.contain,
+                              )),
+                            ),
                           ),
+                          // Icon(
+                          //   Icons.create,
+                          //   size: 35,
+                          //   color: Color(0xFF00ECE7),
+                          // ),
                           SizedBox(
-                            width: 10,
+                            width: 16,
                           ),
                           Text(
                             'Edit Profile',
