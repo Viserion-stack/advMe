@@ -1,6 +1,4 @@
-
-import 'package:advMe/animation/bouncy_page_route.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_editing_screen.dart';
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,7 +83,6 @@ class _OrderGridItemState extends State<OrderGridItem> {
           .doc(widget.id)
           .delete();
     }
-    
   }
 
   @override
@@ -102,7 +99,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
     }
 
     // ignore: unused_local_variable
-    final settings = Provider.of<SettingsUser>(context);
+    final settings = Provider.of<user.User>(context,listen: false);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return
@@ -186,17 +183,34 @@ class _OrderGridItemState extends State<OrderGridItem> {
                       ? GestureDetector(
                           onTap: () {
                             Navigator.push(
-                            context, BouncyPageRoute(widget: AdsEditingScreen(
-                              title: widget.title,
-                              description: widget.description,
-                              price: widget.price,
-                              phone: widget.phone,
-                              imageUrl1: widget.imageUrl1,
-                              imageUrl2: widget.imageUrl2,
-                              imageUrl3: widget.imageUrl3,
-                              website: widget.website,
-                              address: widget.address,
-                            )));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AdsEditingScreen(
+                                          title: widget.title,
+                                          description: widget.description,
+                                          price: widget.price,
+                                          phone: widget.phone,
+                                          imageUrl1: widget.imageUrl1,
+                                          imageUrl2: widget.imageUrl2,
+                                          imageUrl3: widget.imageUrl3,
+                                          website: widget.website,
+                                          address: widget.address,
+                                        )));
+
+                            // Navigator.push(
+                            //     context,
+                            //     BouncyPageRoute(
+                            //         widget: AdsEditingScreen(
+                            //       title: widget.title,
+                            //       description: widget.description,
+                            //       price: widget.price,
+                            //       phone: widget.phone,
+                            //       imageUrl1: widget.imageUrl1,
+                            //       imageUrl2: widget.imageUrl2,
+                            //       imageUrl3: widget.imageUrl3,
+                            //       website: widget.website,
+                            //       address: widget.address,
+                            //     )));
                           },
                           child: Container(
                             width: 27,
@@ -230,7 +244,9 @@ class _OrderGridItemState extends State<OrderGridItem> {
                             widget.isFavorite
                                 ? Icons.favorite
                                 : Icons.favorite_border,
-                            color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
+                            color: settings.isDark
+                                ? Color(0xFF00D1CD)
+                                : Color(0xFFFFD320),
                           ),
                         ),
                 ),
@@ -253,13 +269,18 @@ class _OrderGridItemState extends State<OrderGridItem> {
               Row(
                 children: [
                   SizedBox(width: 12),
-                  Icon(Icons.place, size: 18,color: settings.isDark ? Colors.white : Colors.black,),
+                  Icon(
+                    Icons.place,
+                    size: 18,
+                    color: settings.isDark ? Colors.white : Colors.black,
+                  ),
                   SizedBox(width: 5),
                   Expanded(
                     child: Text(
                       value == null
                           ? 'No localizatoin available'
                           : city.substring(7, city.length),
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: settings.isDark ? Colors.white : Colors.black,
                       ),
@@ -276,7 +297,8 @@ class _OrderGridItemState extends State<OrderGridItem> {
                       '${widget.price} zł',
                       style: GoogleFonts.lexendDeca(
                         letterSpacing: 0,
-                        color: settings.isDark ? Colors.white : Color(0xFFFFD320),
+                        color:
+                            settings.isDark ? Colors.white : Color(0xFFFFD320),
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -284,7 +306,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right : 10.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: Row(children: [
                     Icon(
                       Icons.star,

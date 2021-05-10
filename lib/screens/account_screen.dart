@@ -1,8 +1,7 @@
-import 'package:advMe/animation/bouncy_page_route.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/edit_profile.dart';
-import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/screens/layout_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/favorite_orders.dart';
 import 'package:advMe/widgets/your_ads.dart';
@@ -18,8 +17,6 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-
-
   final uid = FirebaseAuth.instance.currentUser.uid;
   bool isDark = false;
   bool isNotif = false;
@@ -33,7 +30,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsUser>(context);
+    final settings = Provider.of<user.User>(context,listen: false);
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -68,7 +65,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => LayoutScreen()));
                         },
                       ),
                     )
@@ -133,7 +130,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context, BouncyPageRoute(widget: AdsScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AdsScreen()));
                       },
                       child: Row(children: [
                         Icon(
@@ -159,7 +158,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context, BouncyPageRoute(widget: AllOrders()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AllOrders()));
                       },
                       child: Row(children: [
                         Icon(
@@ -185,7 +186,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context, BouncyPageRoute(widget: FavoriteOrders()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FavoriteOrders()));
                       },
                       child: Row(children: [
                         Icon(
@@ -210,8 +213,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context, BouncyPageRoute(widget: YourAds()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => YourAds()));
                       },
                       child: Row(children: [
                         Icon(
@@ -237,7 +240,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context, BouncyPageRoute(widget: EditProfile()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfile()));
                       },
                       child: Row(children: [
                         Icon(

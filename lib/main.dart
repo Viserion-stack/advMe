@@ -4,13 +4,14 @@ import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
-import 'package:advMe/screens/home_screen.dart';
-import 'package:advMe/screens/orders_screen.dart';
+import 'package:advMe/widgets/all_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'screens/layout_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,14 +52,15 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, userSnapshot) {
               if (userSnapshot.hasData) {
-                return HomeScreen();
+                return LayoutScreen();
               }
               return AuthScreen();
             }),
         routes: {
-          OrdersScreen.routeName: (ctx) => OrdersScreen(),
           AdsScreen.routeName: (ctx) => AdsScreen(),
           AccountScreen.routeName: (ctx) => AccountScreen(),
+          AllOrders.routeName: (ctx) => AllOrders(),
+
           //CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
           //OrderDetailScreen.routeName: (ctx) => OrderDetailScreen(),
           //'/category-meals': (ctx) =>CategoryMealsScreen(),
@@ -76,7 +78,7 @@ class MyApp extends StatelessWidget {
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
-            builder: (ctx) => HomeScreen(),
+            builder: (ctx) => LayoutScreen(),
           );
         },
       ),

@@ -1,20 +1,20 @@
 import 'dart:ui';
-import 'package:advMe/animation/bouncy_page_route.dart';
-import 'package:advMe/providers/settings.dart';
-import 'package:advMe/screens/account_screen.dart';
+import 'package:advMe/providers/orders.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  final AnimationController controller;
+  final Duration duration;
+
+  const HomeScreen({Key key, this.controller, this.duration}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -23,48 +23,63 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final uid = FirebaseAuth.instance.currentUser.uid;
 
+  double tranx = 0, trany = 0, scale = 1.0;
+  bool menuOpen = false;
+  Animation<double> _scaleAnimation;
+
   dynamic getSettings;
-  bool isDark = false;
   bool isNotif = false;
   String userName = '';
   String email = '';
 
-  // Future<dynamic> getData() async {
-  //   isDark = Provider.of<SettingsUser>(context).isDark;
-
-  // }
-
-  @override
-  void initState() {
-    // Future.delayed(Duration.zero).then((_) {
-    //   Provider.of<SettingsUser>(context, listen: false).getSettings();
-    // });
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   isDark = context.read<SettingsUser>().isDark;
-    // });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Provider.of<SettingsUser>(context, listen: false).getSettings(),
-      builder: (ctx, dataSnapshot) {
-        if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-              child: SpinKitWave(
-            color: Color(0xFFF8BB06),
-          )
-              //CircularProgressIndicator(),
-              );
-        }
-        isDark = context.read<SettingsUser>().isDark;
-        return Scaffold(
-          body: Container(
+    if (_scaleAnimation == null) {
+      _scaleAnimation =
+          Tween<double>(begin: 1, end: 0.6).animate(widget.controller);
+    }
+    var size = MediaQuery.of(context).size;
+    final isDark = Provider.of<user.User>(context).isDark;
+    Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
+    print('Pobieranie do providera');
+    Provider.of<Orders>(context, listen: false).fetchFavorite();
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () {
+          if (menuOpen) {
+            setState(() {
+              scale = 1.0;
+              tranx = 0;
+              trany = 0;
+              widget.controller.reverse();
+              menuOpen = false;
+            });
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          transform: Matrix4.translationValues(tranx, trany, 0)..scale(scale),
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: isDark ? Color(0xEE3C3C3C) : Colors.black12,
+                  blurRadius: 8,
+                  spreadRadius: 0,
+                  offset: Offset(10, 0),
+                ),
+                BoxShadow(
+                  color: isDark ? Color(0xAA3C3C3C) : Colors.black12,
+                  blurRadius: 8,
+                  spreadRadius: 0,
+                  offset: Offset(10, 8),
+                ),
+              ],
+              //color: Colors.white,
+              borderRadius: BorderRadius.circular(menuOpen ? 45 : 0)),
+          child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(menuOpen ? 45 : 0),
               //color: Color(0xFFF3F3F3),
               image: DecorationImage(
                 image: isDark
@@ -88,54 +103,57 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      child: Image.asset(isDark ? 'assets/small_logo_dark.png' :
-                        'assets/small_logo.png',
+                      child: Image.asset(
+                        isDark
+                            ? 'assets/small_logo_dark.png'
+                            : 'assets/small_logo.png',
                         fit: BoxFit.contain,
                         height: 60,
                         width: 120,
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.46,
-                        ),
-                        child: PopupMenuButton(
-                          icon: Icon(
-                            Icons.menu,
-                            size: 35,
-                            color: isDark ? Colors.white : Colors.black,
-                          ),
-                          itemBuilder: (context) => [
-                            PopupMenuItem(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AccountScreen()));
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.verified_user,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text('Account',
-                                        style: TextStyle(color: Colors.black)),
-                                  ],
-                                ),
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.46,
+                      ),
+                      child: !menuOpen
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.menu,
+                                size: 35,
                               ),
+                              onPressed: () {
+                                scale = 0.6;
+                                tranx = size.width - 580;
+                                trany = (size.height - size.height * scale) / 2;
+                                setState(() {
+                                  widget.controller.forward();
+                                  menuOpen = true;
+                                });
+                              },
+                              color: isDark ? Colors.white : Colors.black,
+                            )
+                          : IconButton(
+                              icon: Icon(
+                                Icons.chevron_right,
+                                size: 35,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  scale = 1.0;
+                                  tranx = 0;
+                                  trany = 0;
+                                  widget.controller.reverse();
+                                  menuOpen = false;
+                                });
+                              },
+                              color: isDark ? Colors.white : Colors.black,
                             ),
-                          ],
-                        )),
+                    ),
                   ]),
                 ),
                 Positioned(
-                    top: MediaQuery.of(context).size.height * 0.14,
+                    top: MediaQuery.of(context).size.height * 0.12,
                     left: MediaQuery.of(context).size.width * 0.3,
                     child: Text('What',
                         style: GoogleFonts.ubuntu(
@@ -145,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontWeight: FontWeight.w600,
                         ))),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.2,
+                  top: MediaQuery.of(context).size.height * 0.17,
                   left: MediaQuery.of(context).size.width * 0.19,
                   child: RichText(
                     text: TextSpan(
@@ -176,12 +194,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: MediaQuery.of(context).size.width * 0.25,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context, BouncyPageRoute(widget: AdsScreen()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AdsScreen()));
                     },
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.51,
+                      height: 200, //MediaQuery.of(context).size.height * 0.3,
+                      width: 200, //MediaQuery.of(context).size.width * 0.51,
                       decoration: BoxDecoration(
                         boxShadow: [
                           if (isDark == false)
@@ -220,16 +238,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.65,
+                  top: MediaQuery.of(context).size.height * 0.6,
                   left: MediaQuery.of(context).size.width * 0.25,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context, BouncyPageRoute(widget: AllOrders()));
+                      Navigator.pushNamed(context, AllOrders.routeName);
                     },
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.51,
+                      height: 200, //MediaQuery.of(context).size.height * 0.3,
+                      width: 200, // MediaQuery.of(context).size.width * 0.51,
                       decoration: BoxDecoration(
                         boxShadow: [
                           if (isDark == false)
@@ -272,8 +289,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-        );
-      },
+        ),
+      ),
+      //);
+      //},
     );
   }
 }

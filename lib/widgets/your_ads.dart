@@ -1,8 +1,6 @@
-//import 'package:animations/animations.dart';
-import 'package:advMe/animation/bouncy_page_route.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
-import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/screens/layout_screen.dart';
 import 'package:advMe/widgets/order_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,8 +18,7 @@ class _YourAdsState extends State<YourAds> {
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    //final transitionType = ContainerTransitionType.fade;
-    final settings = Provider.of<SettingsUser>(context);
+    final settings = Provider.of<user.User>(context,listen: false);
     bool isYourAds = true;
 
     return Scaffold(
@@ -64,8 +61,10 @@ class _YourAdsState extends State<YourAds> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
-                                  BouncyPageRoute(widget: AccountScreen()));
+                                Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AccountScreen()));
                             },
                             child: Row(
                               children: [
@@ -85,8 +84,10 @@ class _YourAdsState extends State<YourAds> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
-                                  BouncyPageRoute(widget: HomeScreen()));
+                               Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LayoutScreen()));
                             },
                             child: Row(
                               children: [
@@ -140,7 +141,7 @@ class _YourAdsState extends State<YourAds> {
                       ConnectionState.waiting) {
                     return Center(
                         child: SpinKitWave(
-                      color: Color(0xFFF79E1B),
+                      color: Color(0xFF00D1CD),
                     )
                         //CircularProgressIndicator(),
                         );

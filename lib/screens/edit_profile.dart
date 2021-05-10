@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:advMe/providers/settings.dart';
 import 'package:advMe/providers/user.dart' as user;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -144,17 +142,17 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsUser>(context);
+     final settings = Provider.of<user.User>(context,listen: false);
     return FutureBuilder(
       future: Provider.of<user.User>(context, listen: false).getUserData(),
       builder: (ctx, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          // return Center(
-          //     child: SpinKitWave(
-          //   color: Color(0xFFF8BB06),
-          // )
-          //     //CircularProgressIndicator(),
-          //     );
+          return Center(
+              child: SpinKitWave(
+            color: Color(0xFF00D1CD),
+          )
+              //CircularProgressIndicator(),
+              );
         }
         var userPhotoUrl =
             Provider.of<user.User>(context, listen: false).imageUrl;

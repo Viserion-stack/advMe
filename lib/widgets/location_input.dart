@@ -1,4 +1,4 @@
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -59,7 +59,7 @@ class _LocationInputState extends State<LocationInput> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    final settings = Provider.of<SettingsUser>(context);
+    final settings = Provider.of<user.User>(context);
     return Column(
       children: <Widget>[
         Container(

@@ -9,6 +9,8 @@ class User with ChangeNotifier {
   bool isPremium;
   String imageUrl;
   DateTime createdAt;
+  bool isDark;
+  bool isNotify;
 
   User({
     this.userId,
@@ -17,6 +19,7 @@ class User with ChangeNotifier {
     this.isPremium,
     this.imageUrl,
     this.createdAt,
+    this.isDark,
   });
 
   Future<void> getUserData() async {
@@ -31,6 +34,7 @@ class User with ChangeNotifier {
         isPremium = snapshot.data()['isPremium'];
         imageUrl = snapshot.data()['imageUrl'];
         createdAt = snapshot.data()['createdAt'];
+        isDark = snapshot.data()['isDark'];
 
         notifyListeners();
       });
@@ -38,5 +42,10 @@ class User with ChangeNotifier {
       print(error);
       throw error;
     }
+  }
+   void setValues(bool newFav, bool newNotif) {
+    isDark = newFav;
+    isNotify = newNotif;
+    notifyListeners();
   }
 }

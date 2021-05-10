@@ -1,7 +1,6 @@
 import 'package:advMe/providers/orders.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/widgets/order_grid_item.dart';
-import 'package:advMe/widgets/orders_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -80,7 +79,7 @@ class _SearchwidgetState extends State<Searchwidget> {
   bool isDark = false;
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsUser>(context);
+     final settings = Provider.of<user.User>(context,listen: false);
     isDark = settings.isDark;
     if (settings.isDark == null) isDark = false;
     return Scaffold(
@@ -311,7 +310,7 @@ class SearchResultsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsUser>(context);
+     final settings = Provider.of<user.User>(context,listen: false);
     bool isDark = settings.isDark;
     if (settings.isDark == null) isDark = false;
     if (searchTerm == null) {

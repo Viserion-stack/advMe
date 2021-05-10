@@ -12,12 +12,11 @@ class SettingsUser with ChangeNotifier {
   });
 
   bool get getIsDark {
-    return isDark!=null;
+    return isDark != null;
   }
 
   Future<void> getSettings() async {
     try {
-      isDark = false;
       final uid = FirebaseAuth.instance.currentUser.uid;
       final DocumentReference document =
           FirebaseFirestore.instance.collection('users').doc(uid);
@@ -26,7 +25,7 @@ class SettingsUser with ChangeNotifier {
         isNotifications = snapshot.data()['isNotifications'];
         print('pobieranie isDark = ' + isDark.toString());
 
-        notifyListeners();
+        //notifyListeners();
 
         // userName = snapshot.data()['username'];
         // email = snapshot.data()['email'];

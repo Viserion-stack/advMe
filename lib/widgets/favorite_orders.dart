@@ -1,7 +1,6 @@
-import 'package:advMe/animation/bouncy_page_route.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
-import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/screens/layout_screen.dart';
 import 'package:advMe/widgets/order_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,8 +18,7 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    //final transitionType = ContainerTransitionType.fade;
-    final settings = Provider.of<SettingsUser>(context);
+   final settings = Provider.of<user.User>(context,listen: false);
     bool isYourAds = false;
 
     return Scaffold(
@@ -63,8 +61,10 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
-                                  BouncyPageRoute(widget: AccountScreen()));
+                                Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AccountScreen()));
                             },
                             child: Row(
                               children: [
@@ -84,8 +84,10 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,
-                                  BouncyPageRoute(widget: HomeScreen()));
+                               Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LayoutScreen()));
                             },
                             child: Row(
                               children: [
@@ -139,7 +141,7 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
                       ConnectionState.waiting) {
                     return Center(
                         child: SpinKitWave(
-                      color: Color(0xFFF8BB06),
+                      color: Color(0xFF00D1CD),
                     )
                         //CircularProgressIndicator(),
                         );
@@ -150,7 +152,7 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200,
-                      childAspectRatio: 2 / 3.6,
+                      childAspectRatio: 2 / 3.2,
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 20,
                     ),

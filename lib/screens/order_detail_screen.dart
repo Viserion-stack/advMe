@@ -1,7 +1,7 @@
-import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_editing_screen.dart';
+import 'package:advMe/screens/layout_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,11 +13,9 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:advMe/helpers/google_map_aplication_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/helpers/string_extenstion.dart';
 import 'package:photo_view/photo_view.dart';
-
-import 'home_screen.dart';
 
 // ignore: must_be_immutable
 class OrderDetailScreen extends StatefulWidget {
@@ -225,7 +223,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       bool isUser = false;
       var uid = FirebaseAuth.instance.currentUser.uid;
       double sum = 0.0;
-      
 
       for (int i = 0; i < firebaseAllAdsInit.length; i++) {
         if (uid.toString() == firebaseAllAdsInit[i].toString()) {
@@ -253,20 +250,21 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     }
 
     if (widget.isYourAds == null) widget.isYourAds = false;
-    final settings = Provider.of<SettingsUser>(context);
+    final settings = Provider.of<user.User>(context, listen: false);
     ScrollController _scrollController = ScrollController()
       ..addListener(() => setState(() {}));
 
     print('sprawdzanie user rating: ' + firebaseAllAdsInit.toString());
     return Scaffold(
-      backgroundColor: settings.isDark ? Color(0xFF3C3C3C)  : Color(0xFFF3F3F3),
+      backgroundColor: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[
           SliverAppBar(
             floating: false,
             expandedHeight: 500,
-            backgroundColor: settings.isDark ? Color(0xFF3C3C3C)  : Color(0xFFF3F3F3),
+            backgroundColor:
+                settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
             leading: new IconButton(
               icon: new Icon(
                 Icons.chevron_left,
@@ -282,7 +280,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               title: Text(
                 widget.title.capitalize(),
                 textAlign: TextAlign.start,
-                style: TextStyle(color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black),
+                style: TextStyle(
+                    color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black),
               ),
               background: Column(children: [
                 Padding(
@@ -294,14 +293,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.15,
                       ),
-                      child: Image.asset(settings.isDark ? 'assets/small_logo_dark.png' :
-                        'assets/small_logo.png',
+                      child: Image.asset(
+                        settings.isDark
+                            ? 'assets/small_logo_dark.png'
+                            : 'assets/small_logo.png',
                         fit: BoxFit.contain,
                         height: 60,
                         width: 120,
                       ),
                     ),
-                    
                     Padding(
                         padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.36,
@@ -312,14 +312,19 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           icon: Icon(
                             Icons.menu,
                             size: 35,
-                            color: settings.isDark ? Color(0xFF7D7D7D) : Colors.black,
+                            color: settings.isDark
+                                ? Color(0xFF7D7D7D)
+                                : Colors.black,
                           ),
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      BouncyPageRoute(widget: AccountScreen()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AccountScreen()));
                                 },
                                 child: Row(
                                   children: [
@@ -339,8 +344,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             PopupMenuItem(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      BouncyPageRoute(widget: HomeScreen()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              LayoutScreen()));
                                 },
                                 child: Row(
                                   children: [
@@ -390,12 +398,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           width: 70.0,
                           height: 50.0,
                           child: SpinKitWave(
-                            color: Color(0xFFF79E1B),
+                            color: Color(0xFF00D1CD),
                           ),
                         ),
                       ),
                       backgroundDecoration: BoxDecoration(
-                        color: settings.isDark ? Color(0xFF3C3C3C)  : Color(0xFFF3F3F3), //TOO inny kolor dla dark screen
+                        color: settings.isDark
+                            ? Color(0xFF3C3C3C)
+                            : Color(
+                                0xFFF3F3F3), //TOO inny kolor dla dark screen
                       ),
                       //backgroundDecoration: widget.backgroundDecoration,
                       //pageController: widget.pageController,
@@ -426,7 +437,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: Text(
                               '${widget.price} zł',
                               style: TextStyle(
-                                color: settings.isDark ? Color(0xFFD4D4D4) : Color(0xFFFFD320),
+                                color: settings.isDark
+                                    ? Color(0xFFD4D4D4)
+                                    : Color(0xFFFFD320),
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -443,7 +456,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               widget.rating.toStringAsPrecision(2),
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black,
+                                  color: settings.isDark
+                                      ? Color(0xFFD4D4D4)
+                                      : Colors.black,
                                   fontWeight: FontWeight.w700),
                             ),
                           ])
@@ -454,7 +469,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 18,
-                            color: settings.isDark ? Color(0xFFD4D4D4) : Colors.black,
+                            color: settings.isDark
+                                ? Color(0xFFD4D4D4)
+                                : Colors.black,
                           ),
                         ),
                         SizedBox(height: 25),
@@ -467,13 +484,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                                    color: settings.isDark
+                                        ? Color(0x00000029)
+                                        : Colors.grey[300],
                                     blurRadius: 10,
                                     spreadRadius: 0.5,
                                     offset: Offset(0, 8),
                                   ),
                                 ],
-                                color: settings.isDark ? Color(0xFF009494) : Colors.white,
+                                color: settings.isDark
+                                    ? Color(0xFF009494)
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(22),
                                 border: Border.all(
                                   color: Colors.black,
@@ -488,7 +509,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   children: [
                                     Icon(
                                       Icons.language,
-                                      color: settings.isDark ? Colors.white : Color(0xFFFFD320),
+                                      color: settings.isDark
+                                          ? Colors.white
+                                          : Color(0xFFFFD320),
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -496,7 +519,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                     Text(
                                       'Website',
                                       style: TextStyle(
-                                        color: settings.isDark ? Colors.white :  Color(0xFFFFD320),
+                                        color: settings.isDark
+                                            ? Colors.white
+                                            : Color(0xFFFFD320),
                                         fontSize: 18,
                                       ),
                                     ),
@@ -523,7 +548,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                                        color: settings.isDark
+                                            ? Color(0x00000029)
+                                            : Colors.grey[300],
                                         blurRadius: 12,
                                         spreadRadius: 0.9,
                                         offset: Offset(0, 8),
@@ -556,10 +583,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: settings.isDark ? Color(0xFF11BF84) : Color(0x0FF24E46A),
+                                  color: settings.isDark
+                                      ? Color(0xFF11BF84)
+                                      : Color(0x0FF24E46A),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                                      color: settings.isDark
+                                          ? Color(0x00000029)
+                                          : Colors.grey[300],
                                       blurRadius: 10,
                                       spreadRadius: 0.5,
                                       offset: Offset(0, 8),
@@ -600,10 +631,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: settings.isDark ? Color(0xFF00D1CD) :  Color(0xFFFFD320),
+                                  color: settings.isDark
+                                      ? Color(0xFF00D1CD)
+                                      : Color(0xFFFFD320),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                                      color: settings.isDark
+                                          ? Color(0x00000029)
+                                          : Colors.grey[300],
                                       blurRadius: 10,
                                       spreadRadius: 0.5,
                                       offset: Offset(0, 8),
@@ -698,17 +733,34 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.push(
-                            context, BouncyPageRoute(widget: AdsEditingScreen(
-                              title: widget.title,
-                              description: widget.description,
-                              price: widget.price,
-                              phone: widget.phone,
-                              imageUrl1: widget.imageUrl1,
-                              imageUrl2: widget.imageUrl2,
-                              imageUrl3: widget.imageUrl3,
-                              website: widget.website,
-                              address: widget.address,
-                            )));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AdsEditingScreen(
+                                              title: widget.title,
+                                              description: widget.description,
+                                              price: widget.price,
+                                              phone: widget.phone,
+                                              imageUrl1: widget.imageUrl1,
+                                              imageUrl2: widget.imageUrl2,
+                                              imageUrl3: widget.imageUrl3,
+                                              website: widget.website,
+                                              address: widget.address,
+                                            )));
+
+                                // Navigator.push(
+                                //     context,
+                                //     BouncyPageRoute(
+                                //         widget: AdsEditingScreen(
+                                //       title: widget.title,
+                                //       description: widget.description,
+                                //       price: widget.price,
+                                //       phone: widget.phone,
+                                //       imageUrl1: widget.imageUrl1,
+                                //       imageUrl2: widget.imageUrl2,
+                                //       imageUrl3: widget.imageUrl3,
+                                //       website: widget.website,
+                                //       address: widget.address,
+                                //     )));
                               },
                               child: Container(
                                 height: 60,
@@ -716,17 +768,23 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        color: settings.isDark ? Color(0x00000029) :Colors.grey[300],
+                                        color: settings.isDark
+                                            ? Color(0x00000029)
+                                            : Colors.grey[300],
                                         blurRadius: 10,
                                         spreadRadius: 0.5,
                                         offset: Offset(0, 8),
                                       ),
                                     ],
-                                    color: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
+                                    color: settings.isDark
+                                        ? Color(0xFF3C3C3C)
+                                        : Color(0xFFF3F3F3),
                                     borderRadius: BorderRadius.circular(22),
                                     border: Border.all(
                                       width: settings.isDark ? 1.5 : 0.0,
-                                      color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+                                      color: settings.isDark
+                                          ? Color(0xFF00D1CD)
+                                          : Color(0xFFF8BB06),
                                     )),
                                 child: Center(
                                   child: Row(
@@ -734,12 +792,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                     children: [
                                       Icon(
                                         Icons.edit,
-                                        color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+                                        color: settings.isDark
+                                            ? Color(0xFF00D1CD)
+                                            : Color(0xFFF8BB06),
                                       ),
                                       SizedBox(width: 5),
                                       Text('Edit Advertisment',
                                           style: GoogleFonts.quicksand(
-                                            color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+                                            color: settings.isDark
+                                                ? Color(0xFF00D1CD)
+                                                : Color(0xFFF8BB06),
                                             fontSize: 19,
                                             fontWeight: FontWeight.w600,
                                           ))
@@ -753,13 +815,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         Container(
                           height: 2,
                           width: double.infinity,
-                          color: settings.isDark ?  Color(0xFF707070) : Colors.grey[350],
+                          color: settings.isDark
+                              ? Color(0xFF707070)
+                              : Colors.grey[350],
                         ),
                         SizedBox(height: 25),
                         Center(
                             child: Text('advMe! 2021',
                                 style: TextStyle(
-                                  color: settings.isDark ?  Color(0xFF707070) : Colors.grey[350],
+                                  color: settings.isDark
+                                      ? Color(0xFF707070)
+                                      : Colors.grey[350],
                                 ))),
                         SizedBox(height: 25),
                       ],

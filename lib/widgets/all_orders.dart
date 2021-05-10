@@ -1,25 +1,21 @@
-import 'package:advMe/animation/bouncy_page_route.dart';
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/screens/account_screen.dart';
-import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/screens/layout_screen.dart';
 import 'package:advMe/widgets/search_delegate.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'order_grid_item.dart';
 
 class AllOrders extends StatefulWidget {
+  static const routeName = '/allOrders';
   @override
   _AllOrdersState createState() => _AllOrdersState();
 }
 
 class _AllOrdersState extends State<AllOrders> {
   String valueChoosen = 'All';
-  var firebaseAllAdsInit = FirebaseFirestore.instance
-      .collection('allAds')
-      .get(); // need to set as initialize displaying orders when fetching orders for firs time.
   List<String> categories = [
     'All',
     'Construction',
@@ -27,45 +23,20 @@ class _AllOrdersState extends State<AllOrders> {
     'Transport',
     'Mechanic',
   ];
-  final List<Color> colorsDark = [
-    Color(0xFFF79E1B),
-    Color(0xFFCBB2AB),
-    Color(0xEEC31331),
-    Color(0xFF464656),
-    Color(0xFFF79E1B),
-    Color(0xFFCBB2AB),
-    Color(0xEEC31331),
-    Color(0xFF464656),
-  ];
-
-  final List<Color> colorsLight = [
-    Color(0xFFFFC03D),
-    Color(0xFF387CFF),
-    Color(0xFFF1554C),
-    Color(0xFF0D276B),
-    Color(0xFFFFC03D),
-    Color(0xFF387CFF),
-    Color(0xFFF1554C),
-    Color(0xFF0D276B),
-  ];
   bool isYourAds = false;
   bool isFavorite = false;
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((_) {
-      Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
-      print('Pobieranie do providera');
-      Provider.of<Orders>(context, listen: false).fetchFavorite();
-    });
+    Future.delayed(Duration.zero).then((_) {});
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild');
-    final orderstsData = Provider.of<Orders>(context);
+    print('Rebuild all orders');
+    final orderstsData = Provider.of<Orders>(context, listen: false);
     var categoryOrders = orderstsData.items.where((order) {
       return order.category.contains(valueChoosen);
     }).toList();
@@ -75,7 +46,8 @@ class _AllOrdersState extends State<AllOrders> {
       categoryOrders = orders;
     }
     // ignore: unused_local_variable
-    final settings = Provider.of<SettingsUser>(context);
+    final isDark = Provider.of<user.User>(context, listen: false).isDark;
+    print('AAAAAAA' + isDark.toString());
     //final favorites = Provider.of<Orders>(context);
     return Scaffold(
         body: Container(
@@ -84,13 +56,13 @@ class _AllOrdersState extends State<AllOrders> {
             decoration: BoxDecoration(
               //color: Color(0xFFF3F3F3),
               image: DecorationImage(
-                image: settings.isDark
-                ? AssetImage(
-                    'assets/dark.jpg',
-                  )
-                : AssetImage(
-                    'assets/grey.png',
-                  ),
+                image: isDark
+                    ? AssetImage(
+                        'assets/dark.jpg',
+                      )
+                    : AssetImage(
+                        'assets/grey.png',
+                      ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -105,8 +77,10 @@ class _AllOrdersState extends State<AllOrders> {
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      child: Image.asset( settings.isDark ? 'assets/small_logo_dark.png' :
-                        'assets/small_logo.png',
+                      child: Image.asset(
+                        isDark
+                            ? 'assets/small_logo_dark.png'
+                            : 'assets/small_logo.png',
                         fit: BoxFit.contain,
                         height: 60,
                         width: 120,
@@ -120,12 +94,14 @@ class _AllOrdersState extends State<AllOrders> {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context, BouncyPageRoute(widget: Searchwidget()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Searchwidget()));
                         },
                         child: Icon(
                           Icons.search,
                           size: 35,
-                          color: settings.isDark ? Color(0xFF959595) : Colors.black,
+                          color: isDark ? Color(0xFF959595) : Colors.black,
                         ),
                       ),
                     ),
@@ -135,18 +111,21 @@ class _AllOrdersState extends State<AllOrders> {
                           top: MediaQuery.of(context).size.height * 0.02,
                         ),
                         child: PopupMenuButton(
-                          color: settings.isDark ? Color(0xFF7D7D7D) : Colors.white,
+                          color: isDark ? Color(0xFF7D7D7D) : Colors.white,
                           icon: Icon(
                             Icons.menu,
                             size: 35,
-                            color: settings.isDark ? Color(0xFF959595) : Colors.black,
+                            color: isDark ? Color(0xFF959595) : Colors.black,
                           ),
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      BouncyPageRoute(widget: AccountScreen()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AccountScreen()));
                                 },
                                 child: Row(
                                   children: [
@@ -166,8 +145,11 @@ class _AllOrdersState extends State<AllOrders> {
                             PopupMenuItem(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      BouncyPageRoute(widget: HomeScreen()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              LayoutScreen()));
                                 },
                                 child: Row(
                                   children: [
@@ -218,20 +200,28 @@ class _AllOrdersState extends State<AllOrders> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: settings.isDark ? Color(0xFF00D1CD) : Colors.black,
-                                          width: settings.isDark ?2.0 : 0.08,
+                                          color: isDark
+                                              ? Color(0xFF00D1CD)
+                                              : Colors.black,
+                                          width: isDark ? 2.0 : 0.08,
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
+                                            color: isDark
+                                                ? Color(0x0000001A)
+                                                : Colors.grey[300],
                                             blurRadius: 10,
                                             spreadRadius: 0.5,
                                             offset: Offset(0, 8),
                                           ),
                                         ],
                                         color: valueChoosen == categories[index]
-                                            ? (settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320))
-                                            : (settings.isDark ? Colors.transparent : Colors.white),
+                                            ? (isDark
+                                                ? Color(0xFF00D1CD)
+                                                : Color(0xFFFFD320))
+                                            : (isDark
+                                                ? Colors.transparent
+                                                : Colors.white),
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     width: MediaQuery.of(context).size.width *
@@ -245,7 +235,9 @@ class _AllOrdersState extends State<AllOrders> {
                                           color:
                                               valueChoosen == categories[index]
                                                   ? Colors.white
-                                                  : (settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320)),
+                                                  : (isDark
+                                                      ? Color(0xFF00D1CD)
+                                                      : Color(0xFFFFD320)),
                                           fontSize: 20,
                                         ),
                                       ),

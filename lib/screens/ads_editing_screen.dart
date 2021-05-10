@@ -1,7 +1,7 @@
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:advMe/helpers/validators.dart';
 import 'package:advMe/models/place.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -97,7 +97,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     // ignore: unused_local_variable
     var address;
     // ignore: unused_local_variable
-    final settings = Provider.of<SettingsUser>(context);
+   final settings = Provider.of<user.User>(context,listen: false);
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
       body: SingleChildScrollView(
@@ -725,7 +725,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                         },
                   child: isLoading
                       ? SpinKitWave(
-                          color: Color(0xFFF79E1B),
+                          color: Color(0xFF00D1CD),
                         )
                       : Text(
                           'Save Advertisment',

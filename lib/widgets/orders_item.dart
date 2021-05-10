@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-//import 'package:advMe/animation/bouncy_page_route.dart';
-import 'package:advMe/providers/settings.dart';
+import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/order_detail_screen.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,7 @@ class OrdersItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsUser>(context);
+     final settings = Provider.of<user.User>(context,listen: false);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return OpenContainer(

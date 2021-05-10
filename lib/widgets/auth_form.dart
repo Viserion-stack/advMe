@@ -2,6 +2,7 @@ import 'package:advMe/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+
 class AuthForm extends StatefulWidget {
   AuthForm(
     this.submitFn,
@@ -283,7 +284,7 @@ class _AuthFormState extends State<AuthForm> {
                           SizedBox(height: 25),
                           if (widget.isLoading)
                             SpinKitWave(
-                              color: Color(0xFFF79E1B),
+                              color: Color(0xFF00D1CD),
                             ),
                           if (!widget.isLoading)
                             FadeAnimation(
