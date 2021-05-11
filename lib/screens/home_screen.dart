@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_screen.dart';
+import 'package:advMe/screens/layout_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Tween<double>(begin: 1, end: 0.6).animate(widget.controller);
     }
     var size = MediaQuery.of(context).size;
+    final userData = Provider.of<user.User>(context, listen: false);
     final isDark = Provider.of<user.User>(context).isDark;
     Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
     print('Pobieranie do providera');
@@ -242,7 +244,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: MediaQuery.of(context).size.width * 0.25,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, AllOrders.routeName);
+                      //userData.setScreenIndex(1);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LayoutScreen(screen: 1,)));
                     },
                     child: Container(
                       height: 200, //MediaQuery.of(context).size.height * 0.3,

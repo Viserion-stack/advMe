@@ -11,6 +11,7 @@ class User with ChangeNotifier {
   DateTime createdAt;
   bool isDark;
   bool isNotify;
+  int screenIndex=0;
 
   User({
     this.userId,
@@ -20,9 +21,23 @@ class User with ChangeNotifier {
     this.imageUrl,
     this.createdAt,
     this.isDark,
+    this.screenIndex,
   });
 
+
+   Future<void> setScreenIndex(int index) async{
+    screenIndex = index;
+    notifyListeners();
+   
+    
+  }
+
+int getCurrentIndex() {
+    return screenIndex;
+  }
+
   Future<void> getUserData() async {
+
     try {
       final uid = FirebaseAuth.instance.currentUser.uid;
       final DocumentReference document =

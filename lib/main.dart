@@ -4,6 +4,7 @@ import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/auth_screen.dart';
+import 'package:advMe/screens/home_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, userSnapshot) {
               if (userSnapshot.hasData) {
-                return LayoutScreen();
+                return LayoutScreen(screen: 0,);
               }
               return AuthScreen();
             }),

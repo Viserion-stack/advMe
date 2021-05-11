@@ -58,19 +58,19 @@ class Orders with ChangeNotifier {
     bool favoriteState = false;
     //var uId = FirebaseAuth.instance.currentUser.uid;
     final List<Order> loadedProducts = [];
-   
+
     await FirebaseFirestore.instance
         .collection('allAds')
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((prodData) {
-         print('favorite provider' + itemFavorite.toString());
-        for(int i = 0 ; i < itemFavorite.length; i++ ){
-          if(prodData.id.toString()  == itemFavorite[i].toString()){
+        print('favorite provider' + itemFavorite.toString());
+        for (int i = 0; i < itemFavorite.length; i++) {
+          if (prodData.id.toString() == itemFavorite[i].toString()) {
             favoriteState = true;
             break;
-          }
-          else favoriteState = false;
+          } else
+            favoriteState = false;
         }
         loadedProducts.add(
           Order(

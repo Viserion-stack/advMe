@@ -67,14 +67,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           left: MediaQuery.of(context).size.width * 0.05,
                         ),
                         child: Container(
-                              height: 50,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                image: AssetImage('assets/logo_white.png'),
-                                fit: BoxFit.contain,
-                              )),
-                            ),
+                          height: 50,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: AssetImage('assets/logo_white.png'),
+                            fit: BoxFit.contain,
+                          )),
+                        ),
                       ),
                     ],
                   ),
@@ -246,7 +246,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         },
                         child: Row(children: [
                           Padding(
-                            padding: const EdgeInsets.only(left:2.0),
+                            padding: const EdgeInsets.only(left: 2.0),
                             child: Container(
                               height: 29,
                               width: 29,
@@ -286,7 +286,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         },
                         child: Row(children: [
                           Padding(
-                            padding: const EdgeInsets.only(left:2.0),
+                            padding: const EdgeInsets.only(left: 2.0),
                             child: Container(
                               height: 27,
                               width: 27,
