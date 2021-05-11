@@ -170,12 +170,13 @@ class _OrderGridItemState extends State<OrderGridItem> {
                     tag: widget.id,
                     child: FadeInImage(
                     
-                      placeholder:AssetImage('assets/placeholder2dark.png'),
+                      placeholder:AssetImage(settings.isDark ?'assets/placeholder3.png':'assets/placeholder2.png'),
                       image: NetworkImage(widget.imageUrl1),
                       height: 200,
                       width: MediaQuery.of(context).size.width, //130,
                       fit: BoxFit.cover,
                     ),
+                  
                   ),
                 ),
                 Positioned(
