@@ -1,3 +1,4 @@
+import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/home_screen.dart';
@@ -18,7 +19,8 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    final settings = Provider.of<user.User>(context, listen: false);
+   final settings = Provider.of<user.User>(context,listen: false);
+   final allOrders = Provider.of<Orders>(context,listen: false);
     bool isYourAds = false;
 
     return Scaffold(
@@ -164,28 +166,34 @@ class _FavoriteOrdersState extends State<FavoriteOrders> {
                     reverse: false,
                     itemCount: orderSnapshot.data.docs.length,
                     itemBuilder: (ctx, index) {
-                      DocumentSnapshot userData =
+                       DocumentSnapshot userData =
                           orderSnapshot.data.docs[index];
-
-                      return OrderGridItem(
-                        userId: userData.data()['userId'],
-                        description: userData.data()['description'],
-                        id: userData.id,
-                        title: userData.data()['title'],
-                        imageUrl1: userData.data()['imageUrl1'],
-                        imageUrl2: userData.data()['imageUrl2'],
-                        imageUrl3: userData.data()['imageUrl3'],
+                      for(int i = 0; i< allOrders.items.length; i++){
+                        if(userData.id.toString() == allOrders.items[i].id){
+                          return OrderGridItem(
+                        userId: allOrders.items[i].userId,
+                        description: allOrders.items[i].description,
+                        id: allOrders.items[i].id,
+                        title: allOrders.items[i].title,
+                        imageUrl1: allOrders.items[i].imageUrl1,
+                        imageUrl2: allOrders.items[i].imageUrl2,
+                        imageUrl3: allOrders.items[i].imageUrl3,
                         isFavorite: true,
-                        price: userData.data()['price'],
-                        phone: userData.data()['phone'],
-                        website: userData.data()['website'],
-                        address: userData.data()['address'],
-                        countRating: 1,
-                        rating: 3.5,
-                        sumRating: 7,
+                        price: allOrders.items[i].price,
+                        phone: allOrders.items[i].phone,
+                        website: allOrders.items[i].website,
+                        address: allOrders.items[i].address,
+                        countRating: allOrders.items[i].countRating,
+                        rating: allOrders.items[i].rating,
+                        sumRating: allOrders.items[i].sumRating,
                         //category: userData.data()['address'],
                         isYourAds: isYourAds,
                       );
+                      
+                      //break;
+                        }
+                      }
+                      return null;
                     },
                   );
                 },

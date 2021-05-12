@@ -59,7 +59,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             child: Stack(
               children: [
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.02,
+                  top: MediaQuery.of(context).size.height * 0.01,
                   child: Row(
                     children: [
                       Padding(
@@ -67,25 +67,21 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           top: MediaQuery.of(context).size.height * 0.02,
                           left: MediaQuery.of(context).size.width * 0.05,
                         ),
-                        child: Container(
-                          height: 50,
-                          width: 100,
-                          child: SvgPicture.asset(
-                            'assets/logo_white.svg',
-                            color: Colors.white,
-                          ),
+                        child: SvgPicture.asset(
+                          'assets/logo_white.svg',
+                          
                         ),
                       ),
                     ],
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.1,
+                  top: MediaQuery.of(context).size.height * 0.05,
                   left: MediaQuery.of(context).size.width * 0.38,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 20),
+                        SizedBox(height: 30),
                         Container(
                             height: 130,
                             width: 130,
@@ -107,9 +103,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                           fit: BoxFit.cover),
                                     ),
                                   )),
+                        SizedBox(height: 10),
                         Padding(
                           padding: EdgeInsets.only(top: 15.0),
-                                                  child: Text(
+                          child: Text(
                             'Flutter Lover',
                             style: TextStyle(
                                 color: Colors.white,
@@ -147,7 +144,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ]),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.48,
+                  top: MediaQuery.of(context).size.height * 0.5,
                   left: MediaQuery.of(context).size.width * 0.35,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,8 +227,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             child: Container(
                               height: 29,
                               width: 29,
-                              child: SvgPicture.asset('assets/serce.svg',
-                                  color: Color(0xFF00ECE7)),
+                              child: SvgPicture.asset(
+                                'assets/serce.svg',
+                                //color: Color(0xFF00ECE7),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -368,7 +367,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         });
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top:20.0),
+                        padding: const EdgeInsets.only(top: 20.0),
                         child: Container(
                           height: 32,
                           width: 32,
