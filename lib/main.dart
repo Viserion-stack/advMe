@@ -12,8 +12,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'screens/layout_screen.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -53,7 +51,7 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, userSnapshot) {
               if (userSnapshot.hasData) {
-                return LayoutScreen(screen: 0,);
+                return HomeScreen();
               }
               return AuthScreen();
             }),
@@ -79,7 +77,7 @@ class MyApp extends StatelessWidget {
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
-            builder: (ctx) => LayoutScreen(),
+            builder: (ctx) => HomeScreen(),
           );
         },
       ),

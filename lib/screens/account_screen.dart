@@ -1,7 +1,7 @@
 import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/screens/edit_profile.dart';
-import 'package:advMe/screens/layout_screen.dart';
+import 'package:advMe/screens/home_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/favorite_orders.dart';
 import 'package:advMe/widgets/your_ads.dart';
@@ -31,7 +31,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -66,7 +66,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LayoutScreen()));
+                                  builder: (context) => HomeScreen()));
                         },
                       ),
                     )

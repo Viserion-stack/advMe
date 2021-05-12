@@ -1,6 +1,6 @@
 import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/account_screen.dart';
-import 'package:advMe/screens/layout_screen.dart';
+import 'package:advMe/screens/home_screen.dart';
 import 'package:advMe/widgets/order_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +18,7 @@ class _YourAdsState extends State<YourAds> {
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     bool isYourAds = true;
 
     return Scaffold(
@@ -39,8 +39,10 @@ class _YourAdsState extends State<YourAds> {
                   padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  child: Image.asset( settings.isDark ? 'assets/small_logo_dark.png':
-                    'assets/small_logo.png',
+                  child: Image.asset(
+                    settings.isDark
+                        ? 'assets/small_logo_dark.png'
+                        : 'assets/small_logo.png',
                     fit: BoxFit.contain,
                     height: 60,
                     width: 120,
@@ -55,16 +57,17 @@ class _YourAdsState extends State<YourAds> {
                       icon: Icon(
                         Icons.menu,
                         size: 35,
-                        color: settings.isDark ? Color(0xFF7D7D7D) : Colors.black,
+                        color:
+                            settings.isDark ? Color(0xFF7D7D7D) : Colors.black,
                       ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                                Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AccountScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AccountScreen()));
                             },
                             child: Row(
                               children: [
@@ -84,10 +87,10 @@ class _YourAdsState extends State<YourAds> {
                         PopupMenuItem(
                           child: GestureDetector(
                             onTap: () {
-                               Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LayoutScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             },
                             child: Row(
                               children: [
@@ -120,7 +123,8 @@ class _YourAdsState extends State<YourAds> {
                   child: Text('Your Advertisment',
                       style: GoogleFonts.quicksand(
                         fontSize: 28,
-                        color: settings.isDark ? Color(0xFF00D1CD) : Colors.black,
+                        color:
+                            settings.isDark ? Color(0xFF00D1CD) : Colors.black,
                         fontWeight: FontWeight.bold,
                       )),
                 ),
@@ -171,7 +175,7 @@ class _YourAdsState extends State<YourAds> {
                         imageUrl1: userData.data()['imageUrl1'],
                         imageUrl2: userData.data()['imageUrl2'],
                         imageUrl3: userData.data()['imageUrl3'],
-                       // isFavorite: false,
+                        // isFavorite: false,
                         price: userData.data()['price'],
                         phone: userData.data()['phone'],
                         website: userData.data()['website'],

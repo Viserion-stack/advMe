@@ -87,8 +87,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       children: [
                         SizedBox(height: 20),
                         Container(
-                            height: 150,
-                            width: 150,
+                            height: 130,
+                            width: 130,
                             child: (userPhotoUrl == '')
                                 ? Icon(
                                     Icons.account_circle,
@@ -98,8 +98,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                         : Color(0xFFCECECE),
                                   )
                                 : Container(
-                                    height: 200,
-                                    width: 200,
+                                    height: 130,
+                                    width: 130,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -110,7 +110,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         Padding(
                           padding: EdgeInsets.only(top: 15.0),
                                                   child: Text(
-                            'Johny Deep',
+                            'Flutter Lover',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 26,
@@ -367,14 +367,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           _updateSettings();
                         });
                       },
-                      child: Container(
-                        height: 32,
-                        width: 32,
-                        child: SvgPicture.asset(
-                          'assets/moon.svg',
-                          color: settings.isDark
-                              ? Color(0xFF00ECE7)
-                              : Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top:20.0),
+                        child: Container(
+                          height: 32,
+                          width: 32,
+                          child: SvgPicture.asset(
+                            'assets/moon.svg',
+                            color: settings.isDark
+                                ? Color(0xFF00ECE7)
+                                : Colors.white,
+                          ),
                         ),
                       ),
                     ),

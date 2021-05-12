@@ -51,7 +51,7 @@ int getCurrentIndex() {
         createdAt = snapshot.data()['createdAt'];
         isDark = snapshot.data()['isDark'];
 
-        notifyListeners();
+        //notifyListeners();
       });
     } catch (error) {
       print(error);
