@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_screen.dart';
+import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/app_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -196,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                                builder: (context) => AllOrders()));
                       },
                       child: Container(
                         height: 200, //MediaQuery.of(context).size.height * 0.3,
