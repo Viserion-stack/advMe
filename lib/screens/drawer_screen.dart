@@ -325,7 +325,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
                 Positioned(
                   top: MediaQuery.of(context).size.height * 0.83,
-                  left: MediaQuery.of(context).size.width * 0.35,
+                  left: MediaQuery.of(context).size.width * 0.15,
                   child: GestureDetector(
                     onTap: () {
                       FirebaseAuth.instance.signOut();

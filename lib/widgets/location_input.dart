@@ -131,6 +131,7 @@ class _LocationInputState extends State<LocationInput> {
                     icon: Icon(
                       Icons.location_on,
                       color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
+                      size: 18,
                       //Colors.white54,
                     ),
                     label: Text(
@@ -172,12 +173,14 @@ class _LocationInputState extends State<LocationInput> {
                     icon: Icon(
                       Icons.map,
                       color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
+                      size: 18,
                       //Colors.white54,
                     ),
                     label: Text(
                       'Select on Map',
                       style: TextStyle(
                         color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
+                        
                         //Colors.white54,
                       ),
                     ),

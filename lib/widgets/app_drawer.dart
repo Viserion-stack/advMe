@@ -114,7 +114,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.13,
+                top: MediaQuery.of(context).size.height * 0.08,
                 left: MediaQuery.of(context).size.width * 0.22,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -357,7 +357,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.83,
+                top: MediaQuery.of(context).size.height * 0.86,
                 left: MediaQuery.of(context).size.width * 0.22,
                 child: GestureDetector(
                   onTap: () {

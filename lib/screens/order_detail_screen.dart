@@ -276,7 +276,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             //expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: EdgeInsetsDirectional.only(start: 50, bottom: 16),
+              titlePadding: EdgeInsetsDirectional.only(start: 50, bottom: 16, top: 10),
               title: Text(
                 widget.title.capitalize(),
                 textAlign: TextAlign.start,
@@ -302,71 +302,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         width: 120,
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.36,
-                          top: MediaQuery.of(context).size.height * 0.02,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        child: PopupMenuButton(
-                          icon: Icon(
-                            Icons.menu,
-                            size: 35,
-                            color: settings.isDark
-                                ? Color(0xFF7D7D7D)
-                                : Colors.black,
-                          ),
-                          itemBuilder: (context) => [
-                            PopupMenuItem(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AccountScreen()));
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.account_circle,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text('Account',
-                                        style: TextStyle(color: Colors.black)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            PopupMenuItem(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              HomeScreen()));
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.home,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text('Home',
-                                        style: TextStyle(color: Colors.black)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
+                    
                   ]),
                 ),
                 Expanded(
@@ -376,7 +312,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       pageOptions: <PhotoViewGalleryPageOptions>[
                         PhotoViewGalleryPageOptions(
                           imageProvider: NetworkImage(widget
-                              .imageUrl1), //AssetImage("assets/gallery1.jpg"),
+                              .imageUrl1), 
+                              minScale: PhotoViewComputedScale.contained * 1.5,
+                              maxScale: PhotoViewComputedScale.covered * 1.5,
+                              //AssetImage("assets/gallery1.jpg"),
                           //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
                         ),
                         PhotoViewGalleryPageOptions(
@@ -384,12 +323,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 .imageUrl2), //AssetImage("assets/gallery2.jpg"),
                             //heroAttributes:
                             //const PhotoViewHeroAttributes(tag: "tag2"),
-                            maxScale: PhotoViewComputedScale.contained * 0.3),
+                            minScale: PhotoViewComputedScale.contained * 1.5,
+                            maxScale: PhotoViewComputedScale.covered * 1.5),
                         PhotoViewGalleryPageOptions(
                           imageProvider: NetworkImage(widget
                               .imageUrl3), //AssetImage("assets/gallery3.jpg"),
-                          minScale: PhotoViewComputedScale.contained * 0.8,
-                          maxScale: PhotoViewComputedScale.covered * 1.1,
+                          minScale: PhotoViewComputedScale.contained * 1.5,
+                          maxScale: PhotoViewComputedScale.covered * 1.5,
                           //heroAttributes: const PhotoViewHeroAttributes(tag: "tag3"),
                         ),
                       ],

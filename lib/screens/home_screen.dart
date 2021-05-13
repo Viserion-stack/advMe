@@ -149,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (context) => AdsScreen()));
                       },
                       child: Container(
-                        height: 200, //MediaQuery.of(context).size.height * 0.3,
-                        width: 200, //MediaQuery.of(context).size.width * 0.51,
+                        height: 180, //MediaQuery.of(context).size.height * 0.3,
+                        width: 180, //MediaQuery.of(context).size.width * 0.51,
                         decoration: BoxDecoration(
                           boxShadow: [
                             if (isDark == false)
@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   color:
                                       isDark ? Color(0xFF15D4D0) : Colors.black,
-                                  fontSize: 25,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 )),
                           ],
@@ -200,8 +200,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (context) => AllOrders()));
                       },
                       child: Container(
-                        height: 200, //MediaQuery.of(context).size.height * 0.3,
-                        width: 200, // MediaQuery.of(context).size.width * 0.51,
+                        height: 180, //MediaQuery.of(context).size.height * 0.3,
+                        width: 180, // MediaQuery.of(context).size.width * 0.51,
                         decoration: BoxDecoration(
                           boxShadow: [
                             if (isDark == false)
@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   color:
                                       isDark ? Color(0xFF15D4D0) : Colors.black,
-                                  fontSize: 25,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 )),
                           ],

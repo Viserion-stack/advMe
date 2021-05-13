@@ -385,7 +385,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                     child: DropdownButton(
                       dropdownColor: settings.isDark ? Color(0xFF8E8E8E): Colors.white,
                       style: TextStyle(
-                        color: Color(0xFFCECECE),
+                        color: Color(0xFFCECECE),fontSize: 15,
                       ),
                       icon: Icon(
                         Icons.keyboard_arrow_down,

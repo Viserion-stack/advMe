@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -112,15 +113,11 @@ class _YourAdsState extends State<YourAds> {
 
                   print('Ilość załadowanych ogłoszeń streambuilderem ' +
                       orderSnapshot.data.docs.length.toString());
-                  return GridView.builder(
-                    cacheExtent: 1000,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 2 / 3.2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                    ),
-                    reverse: false,
+                  return StaggeredGridView.countBuilder(
+                          staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+                          mainAxisSpacing: 0.1,
+                          crossAxisSpacing: 0.1,
+                          crossAxisCount: 2,
                     itemCount: orderSnapshot.data.docs.length,
                     itemBuilder: (ctx, index) {
                       DocumentSnapshot userData =
