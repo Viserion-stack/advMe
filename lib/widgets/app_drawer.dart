@@ -272,7 +272,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           width: 10,
                         ),
                         Text(
-                          'Yours Favourites',
+                          'Your Favourites',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
@@ -308,7 +308,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           width: 15,
                         ),
                         Text(
-                          'Yours Advertisment',
+                          'Your Advertisment',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,

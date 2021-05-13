@@ -1,7 +1,7 @@
 import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/user.dart' as user;
-import 'package:advMe/screens/account_screen.dart';
-import 'package:advMe/screens/home_screen.dart';
+
+import 'package:advMe/widgets/app_drawer.dart';
 import 'package:advMe/widgets/order_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,14 +16,17 @@ class YourAds extends StatefulWidget {
 }
 
 class _YourAdsState extends State<YourAds> {
+  GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var userId = FirebaseAuth.instance.currentUser.uid;
-    final settings = Provider.of<user.User>(context,listen: false);
-    final allOrders = Provider.of<Orders>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
+    final allOrders = Provider.of<Orders>(context, listen: false);
     bool isYourAds = true;
 
     return Scaffold(
+      key: _scaffoldState,
+      drawer: AppDrawer(),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -51,66 +54,20 @@ class _YourAdsState extends State<YourAds> {
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.46,
-                      top: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    child: PopupMenuButton(
-                      icon: Icon(
-                        Icons.menu,
-                        size: 35,
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.46,
+                    top: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.menu,
                         color:
-                            settings.isDark ? Color(0xFF7D7D7D) : Colors.black,
-                      ),
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AccountScreen()));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.account_circle,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text('Account',
-                                    style: TextStyle(color: Colors.black)),
-                              ],
-                            ),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.home,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text('Home',
-                                    style: TextStyle(color: Colors.black)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                            settings.isDark ? Color(0xFF959595) : Colors.black,
+                        size: 35),
+                    onPressed: () {
+                      _scaffoldState.currentState.openDrawer();
+                    },
+                  ),
+                ),
               ]),
             ),
             Padding(
@@ -168,28 +125,30 @@ class _YourAdsState extends State<YourAds> {
                     itemBuilder: (ctx, index) {
                       DocumentSnapshot userData =
                           orderSnapshot.data.docs[index];
-                      for(int i = 0; i< allOrders.items.length; i++){
-                        if(userData.data()['userId'] == allOrders.items[i].userId){
+                      for (int i = 0; i < allOrders.items.length; i++) {
+                        if (userData.data()['userId'] ==
+                                allOrders.items[i].userId &&
+                            userData.data()['id'] == allOrders.items[i].id) {
                           return OrderGridItem(
-                        userId: allOrders.items[i].userId,
-                        description: allOrders.items[i].description,
-                        id: allOrders.items[i].id,
-                        title: allOrders.items[i].title,
-                        imageUrl1: allOrders.items[i].imageUrl1,
-                        imageUrl2: allOrders.items[i].imageUrl2,
-                        imageUrl3: allOrders.items[i].imageUrl3,
-                       // isFavorite: false,
-                        price: allOrders.items[i].price,
-                        phone: allOrders.items[i].phone,
-                        website: allOrders.items[i].website,
-                        address: allOrders.items[i].address,
-                        countRating: allOrders.items[i].countRating,
-                        rating: allOrders.items[i].rating,
-                        sumRating: allOrders.items[i].sumRating,
-                        //category: userData.data()['address'],
-                        isYourAds: isYourAds,
-                      );
-                      //break;
+                            userId: allOrders.items[i].userId,
+                            description: allOrders.items[i].description,
+                            id: allOrders.items[i].id,
+                            title: allOrders.items[i].title,
+                            imageUrl1: allOrders.items[i].imageUrl1,
+                            imageUrl2: allOrders.items[i].imageUrl2,
+                            imageUrl3: allOrders.items[i].imageUrl3,
+                            // isFavorite: false,
+                            price: allOrders.items[i].price,
+                            phone: allOrders.items[i].phone,
+                            website: allOrders.items[i].website,
+                            address: allOrders.items[i].address,
+                            countRating: allOrders.items[i].countRating,
+                            rating: allOrders.items[i].rating,
+                            sumRating: allOrders.items[i].sumRating,
+                            //category: userData.data()['address'],
+                            isYourAds: isYourAds,
+                          );
+                          //break;
                         }
                       }
 

@@ -117,7 +117,7 @@ class _AllOrdersState extends State<AllOrders> {
                       ),
                       child: IconButton(
                         icon: Icon(Icons.menu,
-                            color: isDark ? Colors.white : Colors.black,
+                            color: isDark ? Color(0xFF959595) : Colors.black,
                             size: 35),
                         onPressed: () {
                           _scaffoldState.currentState.openDrawer();
