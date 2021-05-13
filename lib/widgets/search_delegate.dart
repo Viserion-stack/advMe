@@ -2,6 +2,7 @@ import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/widgets/order_grid_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,7 @@ class _SearchwidgetState extends State<Searchwidget> {
   bool isDark = false;
   @override
   Widget build(BuildContext context) {
-     final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     isDark = settings.isDark;
     if (settings.isDark == null) isDark = false;
     return Scaffold(
@@ -90,8 +91,8 @@ class _SearchwidgetState extends State<Searchwidget> {
         decoration: BoxDecoration(
           //color: Color(0xFFF3F3F3),
           image: DecorationImage(
-            image: AssetImage( isDark ? 'assets/dark.jpg' :
-              'assets/grey.png',
+            image: AssetImage(
+              isDark ? 'assets/dark.jpg' : 'assets/grey.png',
             ),
             fit: BoxFit.cover,
           ),
@@ -140,7 +141,8 @@ class _SearchwidgetState extends State<Searchwidget> {
                         TextSpan(
                           text: 'Advertisment',
                           style: GoogleFonts.quicksand(
-                            color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+                            color:
+                                isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
                             fontSize: 28.0,
                             letterSpacing: 0.1,
                             fontWeight: FontWeight.w700,
@@ -176,9 +178,10 @@ class _SearchwidgetState extends State<Searchwidget> {
                 //Theme.of(context).textTheme.headline6,
               ),
               accentColor: isDark ? Colors.white : Colors.black,
-              queryStyle: TextStyle(color: isDark ? Colors.white: Colors.black),
+              queryStyle:
+                  TextStyle(color: isDark ? Colors.white : Colors.black),
               hintStyle: TextStyle(
-                color: isDark ? Color(0xFFD4D4D4) :Colors.black,
+                color: isDark ? Color(0xFFD4D4D4) : Colors.black,
                 fontSize: 15,
               ),
               hint: 'Search and find out...',
@@ -259,7 +262,9 @@ class _SearchwidgetState extends State<Searchwidget> {
                                     title: Text(
                                       term,
                                       style: TextStyle(
-                                        color: isDark ? Color(0xFFD4D4D4) : Colors.black,
+                                        color: isDark
+                                            ? Color(0xFFD4D4D4)
+                                            : Colors.black,
                                       ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -267,7 +272,9 @@ class _SearchwidgetState extends State<Searchwidget> {
                                     trailing: IconButton(
                                       icon: Icon(
                                         Icons.clear,
-                                        color: isDark ? Color(0xFFD4D4D4) : Colors.black,
+                                        color: isDark
+                                            ? Color(0xFFD4D4D4)
+                                            : Colors.black,
                                       ),
                                       onPressed: () {
                                         setState(() {
@@ -310,7 +317,7 @@ class SearchResultsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     bool isDark = settings.isDark;
     if (settings.isDark == null) isDark = false;
     if (searchTerm == null) {
@@ -327,7 +334,7 @@ class SearchResultsListView extends StatelessWidget {
               'Start searching',
               style: TextStyle(
                 fontSize: 30,
-                color: isDark ? Color(0xFF00D1CD) :  Colors.black,
+                color: isDark ? Color(0xFF00D1CD) : Colors.black,
               ),
               //Theme.of(context).textTheme.headline5,
             )
@@ -344,21 +351,19 @@ class SearchResultsListView extends StatelessWidget {
     }).toList();
 
     return Padding(
-      padding: const EdgeInsets.only(top:73.0),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 2 / 3.2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        cacheExtent: 1000,
-        reverse: false,
+      padding: const EdgeInsets.only(top: 73.0),
+      child: StaggeredGridView.countBuilder(
+        staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+        mainAxisSpacing: 0.1,
+        crossAxisSpacing: 0.1,
+        crossAxisCount: 2,
         itemCount: searchOrders.length,
         itemBuilder: (ctx, index) {
           if (index == 0) {
             return Padding(
-              padding: const EdgeInsets.only(left: 8.0, ),
+              padding: const EdgeInsets.only(
+                left: 8.0,
+              ),
               child: OrderGridItem(
                 id: searchOrders[index].id,
                 title: searchOrders[index].title,
@@ -379,26 +384,25 @@ class SearchResultsListView extends StatelessWidget {
               ),
             );
           } else {
-            return  Padding(
+            return Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: OrderGridItem(
-                  id: searchOrders[index].id,
-                  title: searchOrders[index].title,
-                  description: searchOrders[index].description,
-                  isFavorite: false,
-                  imageUrl1: searchOrders[index].imageUrl1,
-                  imageUrl2: searchOrders[index].imageUrl2,
-                  imageUrl3: searchOrders[index].imageUrl3,
-                  price: searchOrders[index].price,
-                  phone: searchOrders[index].phone,
-                  website: searchOrders[index].website,
-                  address: searchOrders[index].address,
-                  userId: searchOrders[index].userId,
-                  isYourAds: false,
-                  countRating: searchOrders[index].countRating,
-                  rating: searchOrders[index].rating,
-                  sumRating: searchOrders[index].sumRating,
-                
+                id: searchOrders[index].id,
+                title: searchOrders[index].title,
+                description: searchOrders[index].description,
+                isFavorite: false,
+                imageUrl1: searchOrders[index].imageUrl1,
+                imageUrl2: searchOrders[index].imageUrl2,
+                imageUrl3: searchOrders[index].imageUrl3,
+                price: searchOrders[index].price,
+                phone: searchOrders[index].phone,
+                website: searchOrders[index].website,
+                address: searchOrders[index].address,
+                userId: searchOrders[index].userId,
+                isYourAds: false,
+                countRating: searchOrders[index].countRating,
+                rating: searchOrders[index].rating,
+                sumRating: searchOrders[index].sumRating,
               ),
             );
           }
