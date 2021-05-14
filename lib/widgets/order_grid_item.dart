@@ -99,7 +99,7 @@ class _OrderGridItemState extends State<OrderGridItem> {
     }
 
     // ignore: unused_local_variable
-    final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     // ignore: unused_local_variable
     var username = FirebaseAuth.instance.currentUser.displayName.toString();
     return
@@ -169,14 +169,14 @@ class _OrderGridItemState extends State<OrderGridItem> {
                   child: Hero(
                     tag: widget.id,
                     child: FadeInImage(
-                    
-                      placeholder:AssetImage(settings.isDark ?'assets/placeholder3.png':'assets/placeholder2.png'),
+                      placeholder: AssetImage(settings.isDark
+                          ? 'assets/placeholder3.png'
+                          : 'assets/placeholder2.png'),
                       image: NetworkImage(widget.imageUrl1),
                       height: 200,
                       width: MediaQuery.of(context).size.width, //130,
                       fit: BoxFit.cover,
                     ),
-                  
                   ),
                 ),
                 Positioned(

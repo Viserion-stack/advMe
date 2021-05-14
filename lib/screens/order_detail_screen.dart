@@ -1,7 +1,5 @@
 import 'package:advMe/helpers/location_helper.dart';
-import 'package:advMe/screens/account_screen.dart';
 import 'package:advMe/screens/ads_editing_screen.dart';
-import 'package:advMe/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -276,7 +274,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             //expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: EdgeInsetsDirectional.only(start: 50, bottom: 16, top: 10),
+              titlePadding:
+                  EdgeInsetsDirectional.only(start: 50, bottom: 16, top: 10),
               title: Text(
                 widget.title.capitalize(),
                 textAlign: TextAlign.start,
@@ -302,7 +301,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         width: 120,
                       ),
                     ),
-                    
                   ]),
                 ),
                 Expanded(
@@ -311,11 +309,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     child: PhotoViewGallery(
                       pageOptions: <PhotoViewGalleryPageOptions>[
                         PhotoViewGalleryPageOptions(
-                          imageProvider: NetworkImage(widget
-                              .imageUrl1), 
-                              minScale: PhotoViewComputedScale.contained * 1.5,
-                              maxScale: PhotoViewComputedScale.covered * 1.5,
-                              //AssetImage("assets/gallery1.jpg"),
+                          imageProvider: NetworkImage(widget.imageUrl1),
+                          minScale: PhotoViewComputedScale.contained * 1.5,
+                          maxScale: PhotoViewComputedScale.covered * 1.5,
+                          //AssetImage("assets/gallery1.jpg"),
                           //heroAttributes: const PhotoViewHeroAttributes(tag: "tag1"),
                         ),
                         PhotoViewGalleryPageOptions(
@@ -676,6 +673,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => AdsEditingScreen(
+                                              id: widget.id,
                                               title: widget.title,
                                               description: widget.description,
                                               price: widget.price,
@@ -685,6 +683,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                               imageUrl3: widget.imageUrl3,
                                               website: widget.website,
                                               address: widget.address,
+                                              rating: widget.rating,
+                                              countRating: widget.countRating,
+                                              sumRating: widget.sumRating,
                                             )));
 
                                 // Navigator.push(

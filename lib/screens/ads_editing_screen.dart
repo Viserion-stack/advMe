@@ -1,12 +1,22 @@
+import 'dart:io';
 import 'package:advMe/helpers/location_helper.dart';
 import 'package:advMe/helpers/validators.dart';
 import 'package:advMe/models/place.dart';
+import 'package:advMe/providers/order.dart';
+import 'package:advMe/providers/orders.dart';
 import 'package:advMe/providers/user.dart' as user;
+import 'package:advMe/screens/home_screen.dart';
+import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/location_input.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AdsEditingScreen extends StatefulWidget {
   static const routeName = '/orderl-detail';
@@ -20,6 +30,9 @@ class AdsEditingScreen extends StatefulWidget {
   final String phone;
   final String website;
   final String address;
+  double rating;
+  int countRating;
+  double sumRating;
 
   AdsEditingScreen({
     this.id,
@@ -32,6 +45,9 @@ class AdsEditingScreen extends StatefulWidget {
     this.phone,
     this.website,
     this.address,
+    this.rating,
+    this.countRating,
+    this.sumRating,
   });
   @override
   _AdsEditingScreenState createState() => _AdsEditingScreenState();
@@ -43,9 +59,9 @@ class AdsEditingScreen extends StatefulWidget {
 class _AdsEditingScreenState extends State<AdsEditingScreen> {
   // ignore: unused_field
   PlaceLocation _pickedLocation;
-  String _pickedImage;
-  String _pickedImage2;
-  String _pickedImage3;
+  File _pickedImage;
+  File _pickedImage2;
+  File _pickedImage3;
 
   bool isPhoto = false;
   bool isCamera = false;
@@ -132,20 +148,184 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     super.dispose();
   }
 
-  void updateAds() {
-    // ignore: todo
-    //TODO: update given information in database and array in provider
+  _onAlertButtonsPressed(int index, bool isDark) {
+    //final settings = Provider.of<SettingsUser>(context);
+    Alert(
+      style: AlertStyle(
+        //alertBorder: ,
+        overlayColor: isDark ? Color(0xDD3C3C3C) : Color(0xDBEEEEEE),
+        backgroundColor: isDark ? Color(0xFF565656) : Colors.white,
+        titleStyle: GoogleFonts.quicksand(
+          color: isDark ? Colors.white : Colors.black,
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),
+        descStyle: GoogleFonts.quicksand(
+          color: isDark ? Colors.white : Colors.black,
+          fontSize: 13,
+        ),
+      ),
+      context: context,
+      type: AlertType.none,
+      title: 'Please select',
+      desc: "Take photo from Gallery or Camera?",
+      buttons: [
+        DialogButton(
+          radius: BorderRadius.circular(27),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10),
+            child: Row(children: [
+              Icon(
+                Icons.collections,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                "Gallery",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ]),
+          ),
+          onPressed: () {
+            setState(() {
+              isCamera = false;
+            });
+
+            _pickImage(isCamera, index);
+
+            Navigator.pop(context);
+          },
+          color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+        ),
+        DialogButton(
+          radius: BorderRadius.circular(27),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10),
+            child: Row(children: [
+              Icon(
+                Icons.photo_camera,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                "Camera",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ]),
+          ),
+          onPressed: () {
+            setState(() {
+              isCamera = true;
+            });
+
+            _pickImage(isCamera, index);
+            Navigator.pop(context);
+          },
+          color: isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+        )
+      ],
+    ).show();
+  }
+
+  void _pickImage(bool isCamera, int index) async {
+    // ignore: deprecated_member_use
+    final pickedImageFile = await ImagePicker.pickImage(
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
+      imageQuality: 50,
+    );
+    setState(() {
+      if (index == 1)
+        _pickedImage = pickedImageFile;
+      else if (index == 2)
+        _pickedImage2 = pickedImageFile;
+      else if (index == 3) _pickedImage3 = pickedImageFile;
+    });
+    isPhoto = true;
+  }
+
+  Future<void> _saveChanges(String address) async {
+    var uid = FirebaseAuth.instance.currentUser.uid;
+
+    if (_pickedImage != null) {
+      String itemToDelete = widget.title + '.jpg';
+
+      var storageReferance = FirebaseStorage.instance.ref();
+      storageReferance.child('allAds/$uid/$itemToDelete').delete().then((_) {
+        print("Deleting image1 from Storage success!");
+      });
+    }
+    if (_pickedImage2 != null) {
+      String itemToDelete = widget.title + '2.jpg';
+
+      var storageReferance = FirebaseStorage.instance.ref();
+      storageReferance.child('allAds/$uid/$itemToDelete').delete().then((_) {
+        print("Deleting image2 from Storage success!");
+      });
+    }
+    if (_pickedImage3 != null) {
+      String itemToDelete = widget.title + '3.jpg';
+
+      var storageReferance = FirebaseStorage.instance.ref();
+      storageReferance.child('allAds/$uid/$itemToDelete').delete().then((_) {
+        print("Deleting image3 from Storage success!");
+      });
+    }
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('allAds')
+        .child(uid)
+        .child(titleController.text.toString() + '1.jpg');
+    await ref.putFile(_pickedImage);
+
+    final ref2 = FirebaseStorage.instance
+        .ref()
+        .child('allAds')
+        .child(uid)
+        .child(titleController.text.toString() + '2.jpg');
+    await ref2.putFile(_pickedImage2);
+
+    final ref3 = FirebaseStorage.instance
+        .ref()
+        .child('allAds')
+        .child(uid)
+        .child(titleController.text.toString() + '3.jpg');
+    await ref3.putFile(_pickedImage3);
+
+    final url1 = await ref.getDownloadURL();
+    final url2 = await ref2.getDownloadURL();
+    final url3 = await ref3.getDownloadURL();
+
+    var newOrder = Order(
+      userId: uid.trim(),
+      id: uid.trim(),
+      title: titleController.text.toString().toLowerCase().trim(),
+      price: priceController.text.toString(),
+      description: descriptionController.text.toString().trim(),
+      imageUrl1: _pickedImage == null ? widget.imageUrl1 : url1,
+      imageUrl2: _pickedImage2 == null ? widget.imageUrl1 : url2,
+      imageUrl3: _pickedImage3 == null ? widget.imageUrl1 : url3,
+      date: DateTime.now(),
+      phone: phoneNumberController.text.toString().trim(),
+      website: websiteController.text.toString().trim(),
+      address: widget.address, ///////////////////////////do edycji
+      category: valueChoose.toString(),
+      rating: widget.rating,
+      countRating: widget.countRating,
+      sumRating: widget.sumRating,
+      //isFavorite: false,
+    );
+    await Provider.of<Orders>(context, listen: false)
+        .updateProduct(widget.id, newOrder)
+        .then((void nothing) {
+      setState(() {
+        isLoading = false;
+      });
+      print('succes update in allAds and user_order');
+    }).catchError((e) => print(e));
   }
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    double widthSize = MediaQuery.of(context).size.width;
-
-    _pickedImage = widget.imageUrl1;
-    _pickedImage2 = widget.imageUrl2;
-    _pickedImage3 = widget.imageUrl3;
-
     // ignore: unused_local_variable
     var address;
     // ignore: unused_local_variable
@@ -220,98 +400,72 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.06),
                   child: GestureDetector(
-                      //onTap: () => _onAlertButtonsPressed(1),
+                    onTap: () => _onAlertButtonsPressed(1, settings.isDark),
+                    child: Container(
                       child: Container(
-                    child: _pickedImage == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                color: settings.isDark
-                                    ? Color(0xFF8E8E8E)
-                                    : Color(0xFFCECECE),
-                                size: 75,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Add photo',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: settings.isDark
-                                        ? Color(0xFF8E8E8E)
-                                        : Color(0xFFCECECE),
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ],
-                          )
-                        : Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15.0),
-                              child: Image.network(
-                                widget.imageUrl1,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: settings.isDark ? Color(0xFF565656) : Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: settings.isDark
-                              ? Color(0x0000001A)
-                              : Colors.grey[300],
-                          blurRadius: 8,
-                          spreadRadius: 0,
-                          offset: Offset(0, 8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: _pickedImage == null
+                              ? Image.network(
+                                  widget.imageUrl1,
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.file(
+                                      _pickedImage,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                         ),
-                      ],
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color:
+                            settings.isDark ? Color(0xFF565656) : Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: settings.isDark
+                                ? Color(0x0000001A)
+                                : Colors.grey[300],
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                            offset: Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      width: MediaQuery.of(context).size.width * 0.4,
                     ),
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                  )),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.07),
                   child: GestureDetector(
-                    // onTap: () => _onAlertButtonsPressed(2),
+                    onTap: () => _onAlertButtonsPressed(2, settings.isDark),
                     child: Container(
-                      child: _pickedImage2 == null
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: settings.isDark
-                                      ? Color(0xFF8E8E8E)
-                                      : Color(0xFFCECECE),
-                                  size: 75,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text('Add photo',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: settings.isDark
-                                          ? Color(0xFF8E8E8E)
-                                          : Color(0xFFCECECE),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ],
-                            )
-                          : Container(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Image.network(
-                                  _pickedImage2,
+                      child: Container(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: _pickedImage2 == null
+                              ? Image.network(
+                                  widget.imageUrl2,
                                   fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.file(
+                                      _pickedImage2,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                        ),
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         color:
@@ -342,41 +496,27 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.06),
                   child: GestureDetector(
-                    //onTap: () => _onAlertButtonsPressed(3),
+                    onTap: () => _onAlertButtonsPressed(3, settings.isDark),
                     child: Container(
-                      child: _pickedImage3 == null
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: settings.isDark
-                                      ? Color(0xFF8E8E8E)
-                                      : Color(0xFFCECECE),
-                                  size: 75,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text('Add photo',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: settings.isDark
-                                          ? Color(0xFF8E8E8E)
-                                          : Color(0xFFCECECE),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ],
-                            )
-                          : Container(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Image.network(
+                      child: Container(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: _pickedImage3 == null
+                              ? Image.network(
                                   widget.imageUrl3,
                                   fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.file(
+                                      _pickedImage3,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                        ),
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         color:
@@ -470,7 +610,8 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       dropdownColor:
                           settings.isDark ? Color(0xFF8E8E8E) : Colors.white,
                       style: TextStyle(
-                        color: Color(0xFFCECECE),fontSize: 15,
+                        color: Color(0xFFCECECE),
+                        fontSize: 15,
                       ),
                       icon: Icon(
                         Icons.keyboard_arrow_down,
@@ -817,25 +958,41 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                   ),
-                  onPressed: ((_pickedImage == null) ||
-                          (_pickedImage2 == null) ||
-                          (_pickedImage3 == null) ||
-                          titleController.text.isEmpty ||
-                          priceController.text.isEmpty ||
-                          descriptionController.text.isEmpty ||
-                          phoneNumberController.text.isEmpty ||
-                          websiteController.text.isEmpty)
-                      // ignore: todo
-                      //TODO display some info about check your inputs while button is diasbled!
-                      ? null //buttonReady = false
-                      : () async {
-                          setState(() {
-                            isLoading = true;
-                            // buttonReady = true;
-                          });
-                          // _addorder(
-                          //   address); //Addres field mus be passed as argument!!!
-                        },
+                  onPressed:
+                      // ((_pickedImage == null) ||
+                      //         (_pickedImage2 == null) ||
+                      //         (_pickedImage3 == null) ||
+                      //         titleController.text.isEmpty ||
+                      //         priceController.text.isEmpty ||
+                      //         descriptionController.text.isEmpty ||
+                      //         phoneNumberController.text.isEmpty ||
+                      //         websiteController.text.isEmpty)
+                      //     // ignore: todo
+                      //     //TODO display some info about check your inputs while button is diasbled!
+                      //     ? null //buttonReady = false
+                      //     :
+                      () async {
+                    setState(() {
+                      isLoading = true;
+                      // buttonReady = true;
+                      print('Widget ID =' + widget.id);
+                    });
+                    _saveChanges(widget.address).then((void nothig) {
+                      // Navigator.of(context).pop();
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => AllOrders()),
+                        ModalRoute.withName('/'),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Order hanges has beed saved!'),
+                        ),
+                      );
+                    });
+                  },
                   child: isLoading
                       ? SpinKitWave(
                           color: Color(0xFF00D1CD),
@@ -850,48 +1007,6 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //       primary: buttonReady ? Colors.grey :Color(0xEEC31331) ,
-            //       shape: BeveledRectangleBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(10)),
-            //       ),
-            //     ),
-            //     onPressed: ((_pickedImage == null) ||
-            //             (_pickedImage2 == null) ||
-            //             (_pickedImage3 == null) ||
-            //             titleController.text.isEmpty ||
-            //             priceController.text.isEmpty ||
-            //             descriptionController.text.isEmpty ||
-            //             phoneNumberController.text.isEmpty ||
-            //             websiteController.text.isEmpty)
-            // ignore: todo
-            //         //TODO display some info about check your inputs while button is diasbled!
-            //         ? null //buttonReady = false
-            //         : () async {
-            //             setState(() {
-            //               isLoading = true;
-            //               buttonReady = true;
-            //             });
-            //             _addorder(
-            //                 address); //Addres field mus be passed as argument!!!
-            //           },
-            //     child: isLoading
-            //         ? SpinKitWave(
-            //             color: Color(0xFFF79E1B),
-            //           )
-            //         : Text(
-            //             'Add advertisment',
-            //             style: TextStyle(
-            //               color: Colors.white,
-            //               fontSize: 22,
-            //             ),
-            //           ),
-            //   ),
-            // ),
             SizedBox(height: 20),
           ],
         ),

@@ -184,22 +184,77 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> updateProduct(String id, Order newProduct) async {
-    // final prodIndex = _items.indexWhere((prod) => prod.id == id);
-    // if (prodIndex >= 0) {
-    //   final url =
-    //       'https://flutter-update-fb73c.firebaseio.com/products/$id.json';
-    //   await http.patch(url,
-    //       body: json.encode({
-    //         'title': newProduct.title,
-    //         'description': newProduct.description,
-    //         'imageUrl': newProduct.imageUrl,
-    //         'price': newProduct.price
-    //       }));
-    //   _items[prodIndex] = newProduct;
-    //   notifyListeners();
-    // } else {
-    //   print('...');
-    // }
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection("user_orders")
+          .doc(id)
+          .update({
+        // 'id': zmienna,
+        'Added on ': newProduct.date,
+        'title': newProduct.title,
+        'description': newProduct.description,
+         'imageUrl1': newProduct.imageUrl1,
+         'imageUrl2': newProduct.imageUrl2,
+         'imageUrl3': newProduct.imageUrl3,
+        // 'isFavorite': true,
+        //'userId': newProduct.userId,
+        'price': newProduct.price,
+        'phone': newProduct.phone,
+        'website': newProduct.website,
+        'address': newProduct.address,
+        // 'category': newProduct.category,
+        // 'rating': 3.5.toDouble(),
+        // 'countRating': 0.toInt(),
+        // 'sumRating': 3.5.toDouble(),
+      }).then((value) {
+        print('update in user_orders succes');
+      });
+
+      await FirebaseFirestore.instance
+          .collection('allAds')
+          .doc(id)
+          .update({
+        // 'id': zmienna,
+        'Added on ': newProduct.date,
+        'title': newProduct.title,
+        'description': newProduct.description,
+        // 'imageUrl1': newProduct.imageUrl1,
+        // 'imageUrl2': newProduct.imageUrl2,
+        // 'imageUrl3': newProduct.imageUrl3,
+        // 'isFavorite': true,
+        //'userId': newProduct.userId,
+        'price': newProduct.price,
+        'phone': newProduct.phone,
+        'website': newProduct.website,
+        'address': newProduct.address,
+        // 'category': newProduct.category,
+        // 'rating': 3.5.toDouble(),
+        // 'countRating': 0.toInt(),
+        // 'sumRating': 3.5.toDouble(),
+      }).then((value) {
+        print('update in allAds succes');
+      });
+
+      notifyListeners();
+    } catch (error) {
+      print('failed update!');
+      print(error);
+      throw error;
+    }
+
+     final prodIndex = _items.indexWhere((ord) => ord.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+
+      print('ord.Id = '+ _items[prodIndex].id);
+      print('widget.Id = '+ id);
+    } else {
+      print('...');
+    }
   }
 
   Future<void> deleteProduct(String id, String title) async {

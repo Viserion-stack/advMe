@@ -672,7 +672,7 @@ class _EditProfileState extends State<EditProfile> {
                         _saveChanges().then((void nothig) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Changes has beed saved!'),
+                              content: Text('User changes has beed saved!'),
                             ),
                           );
                         });

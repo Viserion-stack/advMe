@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/HomeScreen';
   const HomeScreen({Key key}) : super(key: key);
 
   @override
@@ -191,59 +192,64 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 55,),
+                      SizedBox(
+                        height: 55,
+                      ),
                       GestureDetector(
-                      onTap: () {
-                        //userData.setScreenIndex(1);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AllOrders()));
-                      },
-                      child: Container(
-                        height: 180, //MediaQuery.of(context).size.height * 0.3,
-                        width: 180, // MediaQuery.of(context).size.width * 0.51,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            if (isDark == false)
-                              BoxShadow(
-                                color: Colors.grey[300],
-                                blurRadius: 10,
-                                spreadRadius: 0.5,
-                                offset: Offset(0, 8),
+                        onTap: () {
+                          //userData.setScreenIndex(1);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllOrders()));
+                        },
+                        child: Container(
+                          height:
+                              180, //MediaQuery.of(context).size.height * 0.3,
+                          width:
+                              180, // MediaQuery.of(context).size.width * 0.51,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              if (isDark == false)
+                                BoxShadow(
+                                  color: Colors.grey[300],
+                                  blurRadius: 10,
+                                  spreadRadius: 0.5,
+                                  offset: Offset(0, 8),
+                                ),
+                            ],
+                            color: isDark ? Colors.transparent : Colors.white,
+                            borderRadius: BorderRadius.circular(35),
+                            border: Border.all(
+                              color: isDark ? Color(0xFF15D4D0) : Colors.black,
+                              width: isDark ? 2.0 : 0.08,
+                            ),
+                          ),
+
+                          // MediaQuery.of(context).size.height * 0.08,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color:
+                                    isDark ? Color(0xFF15D4D0) : Colors.black,
+                                size: 90,
                               ),
-                          ],
-                          color: isDark ? Colors.transparent : Colors.white,
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(
-                            color: isDark ? Color(0xFF15D4D0) : Colors.black,
-                            width: isDark ? 2.0 : 0.08,
+                              Text('Look for orders',
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Color(0xFF15D4D0)
+                                        : Colors.black,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
                           ),
                         ),
-
-                        // MediaQuery.of(context).size.height * 0.08,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.search,
-                              color: isDark ? Color(0xFF15D4D0) : Colors.black,
-                              size: 90,
-                            ),
-                            Text('Look for orders',
-                                style: TextStyle(
-                                  color:
-                                      isDark ? Color(0xFF15D4D0) : Colors.black,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          ],
-                        ),
                       ),
-                    ),
                     ]),
                   ),
-                  
                 ],
               ),
             ),
