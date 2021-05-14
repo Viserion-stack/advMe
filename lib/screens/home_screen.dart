@@ -102,31 +102,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Positioned(
                       top: MediaQuery.of(context).size.height * 0.12,
-                      left: MediaQuery.of(context).size.width * 0.3,
-                      child: Text('What',
-                          style: GoogleFonts.ubuntu(
-                            color:
-                                isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
+                      left: MediaQuery.of(context).size.width * 0.25,
+                      child: Text('',
+                          style: GoogleFonts.quicksand(
+                            color: isDark ? Colors.white : Colors.black,
                             fontSize: 43,
                             letterSpacing: 0.1,
                             fontWeight: FontWeight.w600,
                           ))),
                   Positioned(
-                    top: MediaQuery.of(context).size.height * 0.17,
-                    left: MediaQuery.of(context).size.width * 0.19,
+                    top: MediaQuery.of(context).size.height * 0.14,
+                    left: MediaQuery.of(context).size.width * 0.2,
                     child: RichText(
                       text: TextSpan(
-                          text: 'would like to',
-                          style: GoogleFonts.ubuntu(
+                          text: 'What',
+                          style: GoogleFonts.quicksand(
                             color: isDark ? Colors.white : Colors.black,
-                            fontSize: 32,
+                            fontSize: 50,
                             letterSpacing: 0.1,
                             fontWeight: FontWeight.w600,
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: ' do?',
-                              style: GoogleFonts.ubuntu(
+                              text: ' next?',
+                              style: GoogleFonts.quicksand(
                                 color: isDark
                                     ? Color(0xFF00D1CD)
                                     : Color(0xFFFFD320),
@@ -140,58 +139,60 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0.31,
-                    left: MediaQuery.of(context).size.width * 0.25,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdsScreen()));
-                      },
-                      child: Container(
-                        height: 180, //MediaQuery.of(context).size.height * 0.3,
-                        width: 180, //MediaQuery.of(context).size.width * 0.51,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            if (isDark == false)
-                              BoxShadow(
-                                color: Colors.grey[300],
-                                blurRadius: 10,
-                                spreadRadius: 0.5,
-                                offset: Offset(0, 8),
+                    left: MediaQuery.of(context).size.width * 0.29,
+                    child: Column(children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AdsScreen()));
+                        },
+                        child: Container(
+                          height:
+                              180, //MediaQuery.of(context).size.height * 0.3,
+                          width:
+                              180, //MediaQuery.of(context).size.width * 0.51,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              if (isDark == false)
+                                BoxShadow(
+                                  color: Colors.grey[300],
+                                  blurRadius: 10,
+                                  spreadRadius: 0.5,
+                                  offset: Offset(0, 8),
+                                ),
+                            ],
+                            color: isDark ? Colors.transparent : Colors.white,
+                            borderRadius: BorderRadius.circular(35),
+                            border: Border.all(
+                              color: isDark ? Color(0xFF15D4D0) : Colors.black,
+                              width: isDark ? 2.0 : 0.08,
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                color:
+                                    isDark ? Color(0xFF15D4D0) : Colors.black,
+                                size: 90,
                               ),
-                          ],
-                          color: isDark ? Colors.transparent : Colors.white,
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(
-                            color: isDark ? Color(0xFF15D4D0) : Colors.black,
-                            width: isDark ? 2.0 : 0.08,
+                              Text('Add yourself',
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Color(0xFF15D4D0)
+                                        : Colors.black,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
                           ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: isDark ? Color(0xFF15D4D0) : Colors.black,
-                              size: 90,
-                            ),
-                            Text('Add yourself',
-                                style: TextStyle(
-                                  color:
-                                      isDark ? Color(0xFF15D4D0) : Colors.black,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          ],
-                        ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.62,
-                    left: MediaQuery.of(context).size.width * 0.25,
-                    child: GestureDetector(
+                      SizedBox(height: 55,),
+                      GestureDetector(
                       onTap: () {
                         //userData.setScreenIndex(1);
                         Navigator.push(
@@ -240,7 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+                    ]),
                   ),
+                  
                 ],
               ),
             ),

@@ -80,7 +80,7 @@ class _LocationInputState extends State<LocationInput> {
           ),
           child: _previewImageUrl == null
               ? Text(
-                  'No Location Chosen',
+                  'No location chosen',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFFCECECE),

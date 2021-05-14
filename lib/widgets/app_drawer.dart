@@ -189,6 +189,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        Navigator.of(context).pop();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -221,10 +222,13 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.of(context).pop();
+                        Navigator.pushAndRemoveUntil(
+                          
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AllOrders()));
+                                builder: (context) => AllOrders()),
+                                 ModalRoute.withName('/'),);
                       },
                       child: Row(children: [
                         Padding(
@@ -253,6 +257,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        Navigator.of(context).pop();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -285,6 +290,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        Navigator.of(context).pop();
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => YourAds()));
                       },
@@ -298,12 +304,6 @@ class _AppDrawerState extends State<AppDrawer> {
                                 color: Color(0xFF00ECE7)),
                           ),
                         ),
-
-                        // Icon(
-                        //   Icons.campaign_outlined,
-                        //   size: 35,
-                        //   color: Color(0xFF00ECE7),
-                        // ),
                         SizedBox(
                           width: 15,
                         ),
@@ -321,6 +321,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        Navigator.of(context).pop();
                         Navigator.push(
                             context,
                             MaterialPageRoute(

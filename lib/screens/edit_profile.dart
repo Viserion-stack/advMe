@@ -25,7 +25,7 @@ class _EditProfileState extends State<EditProfile> {
     Alert(
       style: AlertStyle(
         //alertBorder: ,
-        overlayColor: isDark ? Color(0xDD3C3C3C) :Color(0xDBEEEEEE),
+        overlayColor: isDark ? Color(0xDD3C3C3C) : Color(0xDBEEEEEE),
         backgroundColor: isDark ? Color(0xFF565656) : Colors.white,
         titleStyle: GoogleFonts.quicksand(
           color: isDark ? Colors.white : Colors.black,
@@ -142,7 +142,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-     final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     return FutureBuilder(
       future: Provider.of<user.User>(context, listen: false).getUserData(),
       builder: (ctx, dataSnapshot) {
@@ -255,31 +255,8 @@ class _EditProfileState extends State<EditProfile> {
                                   image: DecorationImage(
                                       image: FileImage(_pickedImage),
                                       fit: BoxFit.cover),
-                                  //  Image.file(
-                                  //     _pickedImage,
-                                  //     fit: BoxFit.cover,
-                                  //     width: double.infinity,
-                                  //   ),
                                 ),
                               ),
-                    // decoration: BoxDecoration(
-                    //   color: Colors.white,
-                    //   shape: BoxShape.circle,
-                    //   border: Border.all(
-                    //     color: Colors.black,
-                    //     width: 0.2,
-                    //   ),
-                    //   boxShadow: [
-                    //     BoxShadow(
-                    //       color: settings.isDark
-                    //           ? Color(0x00000029)
-                    //           : Colors.grey[300],
-                    //       blurRadius: 8,
-                    //       spreadRadius: 0,
-                    //       offset: Offset(0, 8),
-                    //     ),
-                    //   ],
-                    // ),
                   ),
                   Positioned(
                       left: 130,

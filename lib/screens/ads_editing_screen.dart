@@ -51,6 +51,8 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
   bool isCamera = false;
   bool isLoading = false;
 
+  // ignore: unused_local_variable
+
   var descriptionController = TextEditingController();
   var titleController = TextEditingController();
   var priceController = TextEditingController();
@@ -75,6 +77,61 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     });
   }
 
+  @override
+  void initState() {
+    descriptionController = TextEditingController.fromValue(
+      new TextEditingValue(
+        text: widget.description,
+        selection: new TextSelection.collapsed(
+          offset: widget.description.length,
+        ),
+      ),
+    );
+    titleController = TextEditingController.fromValue(
+      new TextEditingValue(
+        text: widget.title,
+        selection: new TextSelection.collapsed(
+          offset: widget.title.length,
+        ),
+      ),
+    );
+    priceController = TextEditingController.fromValue(
+      new TextEditingValue(
+        text: widget.price,
+        selection: new TextSelection.collapsed(
+          offset: widget.price.length - 1,
+        ),
+      ),
+    );
+    phoneNumberController = TextEditingController.fromValue(
+      new TextEditingValue(
+        text: widget.phone,
+        selection: new TextSelection.collapsed(
+          offset: widget.phone.length - 1,
+        ),
+      ),
+    );
+    websiteController = TextEditingController.fromValue(
+      new TextEditingValue(
+        text: widget.website,
+        selection: new TextSelection.collapsed(
+          offset: widget.website.length,
+        ),
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    descriptionController.dispose();
+    titleController.dispose();
+    priceController.dispose();
+    phoneNumberController.dispose();
+    websiteController.dispose();
+    super.dispose();
+  }
+
   void updateAds() {
     // ignore: todo
     //TODO: update given information in database and array in provider
@@ -84,11 +141,6 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     double widthSize = MediaQuery.of(context).size.width;
-    descriptionController.text = widget.description;
-    titleController.text = widget.title;
-    priceController.text = widget.price;
-    phoneNumberController.text = widget.phone;
-    websiteController.text = widget.website;
 
     _pickedImage = widget.imageUrl1;
     _pickedImage2 = widget.imageUrl2;
@@ -97,7 +149,7 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
     // ignore: unused_local_variable
     var address;
     // ignore: unused_local_variable
-   final settings = Provider.of<user.User>(context,listen: false);
+    final settings = Provider.of<user.User>(context, listen: false);
     return Scaffold(
       backgroundColor: settings.isDark ? Color(0xFF3C3C3C) : Color(0xFFF3F3F3),
       body: SingleChildScrollView(
@@ -119,7 +171,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                         height: 60,
                         child: Icon(
                           Icons.chevron_left,
-                          color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+                          color: settings.isDark
+                              ? Color(0xFF00D1CD)
+                              : Color(0xFFF8BB06),
                           size: 46,
                         ),
                         decoration: BoxDecoration(
@@ -145,7 +199,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                           TextSpan(
                             text: 'Advertisment',
                             style: GoogleFonts.quicksand(
-                              color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFF8BB06),
+                              color: settings.isDark
+                                  ? Color(0xFF00D1CD)
+                                  : Color(0xFFF8BB06),
                               fontSize: 28.0,
                               letterSpacing: 0.1,
                               fontWeight: FontWeight.w700,
@@ -172,7 +228,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                             children: [
                               Icon(
                                 Icons.add,
-                                color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                                color: settings.isDark
+                                    ? Color(0xFF8E8E8E)
+                                    : Color(0xFFCECECE),
                                 size: 75,
                               ),
                               SizedBox(
@@ -181,7 +239,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                               Text('Add photo',
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                                    color: settings.isDark
+                                        ? Color(0xFF8E8E8E)
+                                        : Color(0xFFCECECE),
                                     fontWeight: FontWeight.bold,
                                   )),
                             ],
@@ -200,7 +260,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       color: settings.isDark ? Color(0xFF565656) : Colors.white,
                       boxShadow: [
                         BoxShadow(
-                          color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
+                          color: settings.isDark
+                              ? Color(0x0000001A)
+                              : Colors.grey[300],
                           blurRadius: 8,
                           spreadRadius: 0,
                           offset: Offset(0, 8),
@@ -223,7 +285,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                               children: [
                                 Icon(
                                   Icons.add,
-                                  color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                                  color: settings.isDark
+                                      ? Color(0xFF8E8E8E)
+                                      : Color(0xFFCECECE),
                                   size: 75,
                                 ),
                                 SizedBox(
@@ -232,7 +296,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                                 Text('Add photo',
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                                      color: settings.isDark
+                                          ? Color(0xFF8E8E8E)
+                                          : Color(0xFFCECECE),
                                       fontWeight: FontWeight.bold,
                                     )),
                               ],
@@ -248,10 +314,13 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                             ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        color: settings.isDark ? Color(0xFF565656) : Colors.white,
+                        color:
+                            settings.isDark ? Color(0xFF565656) : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
+                            color: settings.isDark
+                                ? Color(0x0000001A)
+                                : Colors.grey[300],
                             blurRadius: 8,
                             spreadRadius: 0,
                             offset: Offset(0, 8),
@@ -281,7 +350,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                               children: [
                                 Icon(
                                   Icons.add,
-                                  color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                                  color: settings.isDark
+                                      ? Color(0xFF8E8E8E)
+                                      : Color(0xFFCECECE),
                                   size: 75,
                                 ),
                                 SizedBox(
@@ -290,7 +361,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                                 Text('Add photo',
                                     style: TextStyle(
                                       fontSize: 18,
-                                      color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                                      color: settings.isDark
+                                          ? Color(0xFF8E8E8E)
+                                          : Color(0xFFCECECE),
                                       fontWeight: FontWeight.bold,
                                     )),
                               ],
@@ -306,10 +379,13 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                             ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        color: settings.isDark ? Color(0xFF565656) : Colors.white,
+                        color:
+                            settings.isDark ? Color(0xFF565656) : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
+                            color: settings.isDark
+                                ? Color(0x0000001A)
+                                : Colors.grey[300],
                             blurRadius: 8,
                             spreadRadius: 0,
                             offset: Offset(0, 8),
@@ -330,7 +406,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       children: [
                         Icon(
                           Icons.add,
-                          color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                          color: settings.isDark
+                              ? Color(0xFF8E8E8E)
+                              : Color(0xFFCECECE),
                           size: 75,
                         ),
                         SizedBox(
@@ -339,7 +417,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                         Text('Add photo',
                             style: TextStyle(
                               fontSize: 18,
-                              color: settings.isDark ? Color(0xFF8E8E8E): Color(0xFFCECECE),
+                              color: settings.isDark
+                                  ? Color(0xFF8E8E8E)
+                                  : Color(0xFFCECECE),
                               fontWeight: FontWeight.bold,
                             )),
                       ],
@@ -349,7 +429,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       color: settings.isDark ? Color(0xFF565656) : Colors.white,
                       boxShadow: [
                         BoxShadow(
-                          color: settings.isDark ? Color(0x0000001A) : Colors.grey[300],
+                          color: settings.isDark
+                              ? Color(0x0000001A)
+                              : Colors.grey[300],
                           blurRadius: 8,
                           spreadRadius: 0,
                           offset: Offset(0, 8),
@@ -370,7 +452,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                      color: settings.isDark
+                          ? Color(0x00000029)
+                          : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
@@ -383,7 +467,8 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   padding: EdgeInsets.only(left: 8.0, right: 8.0),
                   child: Center(
                     child: DropdownButton(
-                      dropdownColor: settings.isDark ? Color(0xFF8E8E8E): Colors.white,
+                      dropdownColor:
+                          settings.isDark ? Color(0xFF8E8E8E) : Colors.white,
                       style: TextStyle(
                         color: Color(0xFFCECECE),fontSize: 15,
                       ),
@@ -396,13 +481,16 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                         '   Select category                                  ',
                         style: TextStyle(
                           fontSize: 18,
-                          color: settings.isDark ? Color(0xFF565656) : Color(0xFFCECECE),
+                          color: settings.isDark
+                              ? Color(0xFF565656)
+                              : Color(0xFFCECECE),
                         ),
                       ),
                       elevation: 16,
                       underline: Container(
                         height: 0,
-                        color: settings.isDark ? Color(0xFF565656) : Colors.white,
+                        color:
+                            settings.isDark ? Color(0xFF565656) : Colors.white,
                       ),
                       value: valueChoose,
                       onChanged: (String value) {
@@ -432,7 +520,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                      color: settings.isDark
+                          ? Color(0x00000029)
+                          : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
@@ -448,7 +538,8 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: validateTitle,
                       //textAlign: TextAlign.start,
-                      cursorColor: settings.isDark ? Colors.white : Colors.black,
+                      cursorColor:
+                          settings.isDark ? Colors.white : Colors.black,
                       style: TextStyle(
                           color: settings.isDark ? Colors.white : Colors.black,
                           fontSize: 19,
@@ -484,7 +575,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                        color: settings.isDark
+                            ? Color(0x00000029)
+                            : Colors.grey[300],
                         blurRadius: 8,
                         spreadRadius: 0,
                         offset: Offset(0, 8),
@@ -501,9 +594,11 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                         validator: validatePrice,
                         keyboardType: TextInputType.number,
                         //textAlign: TextAlign.start,
-                        cursorColor: settings.isDark ? Colors.white : Colors.black,
+                        cursorColor:
+                            settings.isDark ? Colors.white : Colors.black,
                         style: TextStyle(
-                            color: settings.isDark ? Colors.white : Colors.black,
+                            color:
+                                settings.isDark ? Colors.white : Colors.black,
                             fontSize: 19,
                             fontWeight: FontWeight.w600),
                         decoration: InputDecoration(
@@ -524,6 +619,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                               fontSize: 18,
                             )),
                         controller: priceController,
+                        // onChanged: (text) {
+                        //   priceController.text = text;
+                        // },
                       ),
                     ),
                   ),
@@ -536,7 +634,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                      color: settings.isDark
+                          ? Color(0x00000029)
+                          : Colors.grey[300],
                       blurRadius: 8,
                       spreadRadius: 0,
                       offset: Offset(0, 8),
@@ -552,7 +652,8 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: validateDescription,
                       maxLines: 5,
-                      cursorColor: settings.isDark ? Colors.white : Colors.black,
+                      cursorColor:
+                          settings.isDark ? Colors.white : Colors.black,
                       style: TextStyle(
                           color: settings.isDark ? Colors.white : Colors.black,
                           fontSize: 19,
@@ -587,7 +688,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                        color: settings.isDark
+                            ? Color(0x00000029)
+                            : Colors.grey[300],
                         blurRadius: 8,
                         spreadRadius: 0,
                         offset: Offset(0, 8),
@@ -604,9 +707,11 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                         validator: validatePhone,
                         keyboardType: TextInputType.number,
                         //textAlign: TextAlign.start,
-                        cursorColor: settings.isDark ? Colors.white : Colors.black,
+                        cursorColor:
+                            settings.isDark ? Colors.white : Colors.black,
                         style: TextStyle(
-                            color: settings.isDark ? Colors.white : Colors.black,
+                            color:
+                                settings.isDark ? Colors.white : Colors.black,
                             fontSize: 19,
                             fontWeight: FontWeight.w600),
                         decoration: InputDecoration(
@@ -627,6 +732,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                               fontSize: 18,
                             )),
                         controller: phoneNumberController,
+                        // onChanged: (text) {
+                        //   phoneNumberController.text = text;
+                        // }
                       ),
                     ),
                   ),
@@ -639,7 +747,9 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: settings.isDark ? Color(0x00000029) : Colors.grey[300],
+                        color: settings.isDark
+                            ? Color(0x00000029)
+                            : Colors.grey[300],
                         blurRadius: 8,
                         spreadRadius: 0,
                         offset: Offset(0, 8),
@@ -654,9 +764,11 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: validateWebsite,
-                        cursorColor: settings.isDark ? Colors.white : Colors.black,
+                        cursorColor:
+                            settings.isDark ? Colors.white : Colors.black,
                         style: TextStyle(
-                            color: settings.isDark ? Colors.white : Colors.black,
+                            color:
+                                settings.isDark ? Colors.white : Colors.black,
                             fontSize: 19,
                             fontWeight: FontWeight.w600),
                         decoration: InputDecoration(
@@ -699,7 +811,8 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
                 width: MediaQuery.of(context).size.width * 0.87,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: settings.isDark ? Color(0xFF009494) : Color(0xFFF8BB06),
+                    primary:
+                        settings.isDark ? Color(0xFF009494) : Color(0xFFF8BB06),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),

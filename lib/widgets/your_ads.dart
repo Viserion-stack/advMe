@@ -111,21 +111,21 @@ class _YourAdsState extends State<YourAds> {
                         );
                   }
 
-                  print('Ilość załadowanych ogłoszeń streambuilderem ' +
+                  print('Ilość załadowanych ogłoszeń yourAds streambuilderem ' +
                       orderSnapshot.data.docs.length.toString());
                   return StaggeredGridView.countBuilder(
-                          staggeredTileBuilder: (_) => StaggeredTile.fit(1),
-                          mainAxisSpacing: 0.1,
-                          crossAxisSpacing: 0.1,
-                          crossAxisCount: 2,
+                    staggeredTileBuilder: (_) => StaggeredTile.fit(1),
+                    mainAxisSpacing: 0.1,
+                    crossAxisSpacing: 0.1,
+                    crossAxisCount: 2,
                     itemCount: orderSnapshot.data.docs.length,
                     itemBuilder: (ctx, index) {
                       DocumentSnapshot userData =
                           orderSnapshot.data.docs[index];
                       for (int i = 0; i < allOrders.items.length; i++) {
-                        if (userData.data()['userId'] ==
-                                allOrders.items[i].userId &&
-                            userData.data()['id'] == allOrders.items[i].id) {
+                        if (userData.data()['id'] == allOrders.items[i].id &&
+                            userData.data()['userId'] ==
+                                allOrders.items[i].userId) {
                           return OrderGridItem(
                             userId: allOrders.items[i].userId,
                             description: allOrders.items[i].description,

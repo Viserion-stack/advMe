@@ -759,7 +759,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               ? Color(0xFF707070)
                               : Colors.grey[350],
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 10),
                         Center(
                             child: Text('advMe! 2021',
                                 style: TextStyle(
@@ -767,7 +767,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                       ? Color(0xFF707070)
                                       : Colors.grey[350],
                                 ))),
-                        SizedBox(height: 25),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),

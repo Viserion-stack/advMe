@@ -719,7 +719,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   borderRadius: BorderRadius.circular(15),
                   color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 ),
-                child: Center(
+                //child: Center(
                   child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
                     child: TextFormField(
@@ -750,7 +750,7 @@ class _AdsScreenState extends State<AdsScreen> {
                     ),
                   ),
                 ),
-              ),
+             // ),
             ),
             Padding(
                 padding: EdgeInsets.only(top: 15),
@@ -880,7 +880,7 @@ class _AdsScreenState extends State<AdsScreen> {
                             ? Color(0xFF00D1CD)
                             : Color(0xFFFFD320)),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(22)),
                     ),
                   ),
                   onPressed: ((_pickedImage == null) ||
