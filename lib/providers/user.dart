@@ -44,7 +44,7 @@ int getCurrentIndex() {
           FirebaseFirestore.instance.collection('users').doc(uid);
       await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
         userId = uid;
-        userName = snapshot.data()['usernam'];
+        userName = snapshot.data()['username'];
         email = snapshot.data()['email'];
         isPremium = snapshot.data()['isPremium'];
         imageUrl = snapshot.data()['imageUrl'];

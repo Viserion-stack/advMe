@@ -178,11 +178,12 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
               Icon(
                 Icons.collections,
                 color: Colors.white,
+                size: 20,
               ),
               SizedBox(width: 5),
               Text(
                 "Gallery",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ]),
           ),
@@ -205,11 +206,12 @@ class _AdsEditingScreenState extends State<AdsEditingScreen> {
               Icon(
                 Icons.photo_camera,
                 color: Colors.white,
+                size: 20,
               ),
               SizedBox(width: 5),
               Text(
                 "Camera",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ]),
           ),

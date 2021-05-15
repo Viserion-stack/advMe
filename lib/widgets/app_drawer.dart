@@ -32,6 +32,7 @@ class _AppDrawerState extends State<AppDrawer> {
     final userPhotoUrl =
         Provider.of<user.User>(context, listen: false).imageUrl;
     final settings = Provider.of<user.User>(context);
+    if(settings.isDark == null) settings.isDark = false;
     return Drawer(
       child: Container(
           height: MediaQuery.of(context).size.height,
@@ -141,6 +142,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                         fit: BoxFit.cover),
                                   ),
                                 )),
+                                SizedBox(height: 15),
                       Padding(
                         padding: EdgeInsets.only(top: 15.0),
                         child: Text(

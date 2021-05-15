@@ -1,6 +1,7 @@
 import 'package:advMe/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class AuthForm extends StatefulWidget {
@@ -91,10 +92,10 @@ class _AuthFormState extends State<AuthForm> {
             if (!_isLogin)
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.35,
-                left: MediaQuery.of(context).size.width * 0.27,
+                left: MediaQuery.of(context).size.width * 0.25,
                 child: Text(
                   'Registration',
-                  style: TextStyle(
+                  style: GoogleFonts.quicksand(
                       fontSize: 35,
                       color: Colors.teal[400],
                       fontWeight: FontWeight.bold),
@@ -346,7 +347,7 @@ class _AuthFormState extends State<AuthForm> {
                                         : 'Have account',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
 

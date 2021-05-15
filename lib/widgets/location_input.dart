@@ -131,7 +131,7 @@ class _LocationInputState extends State<LocationInput> {
                     icon: Icon(
                       Icons.location_on,
                       color: settings.isDark ? Color(0xFF00D1CD) : Color(0xFFFFD320),
-                      size: 18,
+                      size: 16,
                       //Colors.white54,
                     ),
                     label: Text(

@@ -352,7 +352,7 @@ class _EditProfileState extends State<EditProfile> {
                                 color: Colors.transparent,
                               ),
                             ),
-                            hintText: 'Phone',
+                            hintText: settings.email,
                             hintStyle: TextStyle(
                               color: settings.isDark
                                   ? Color(0xFF8E8E8E)
@@ -420,7 +420,7 @@ class _EditProfileState extends State<EditProfile> {
                                 color: Colors.transparent,
                               ),
                             ),
-                            hintText: 'Phone',
+                            hintText: settings.userName,
                             hintStyle: TextStyle(
                               color: settings.isDark
                                   ? Color(0xFF8E8E8E)

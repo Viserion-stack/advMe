@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   dynamic getSettings;
   bool isNotif = false;
+  bool isDark = false;
   String userName = '';
   String email = '';
 
@@ -44,8 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
               //CircularProgressIndicator(),
               );
         }
-
-        final isDark = Provider.of<user.User>(context).isDark;
+        
+         isDark = Provider.of<user.User>(context).isDark;
+        if(isDark == null) isDark = false;
         return SafeArea(
           child: Scaffold(
             key: _scaffoldState,
@@ -193,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 55,
+                        height: MediaQuery.of(context).size.height * 0.04,
                       ),
                       GestureDetector(
                         onTap: () {
