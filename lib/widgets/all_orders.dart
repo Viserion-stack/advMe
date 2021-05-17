@@ -223,6 +223,7 @@ class _AllOrdersState extends State<AllOrders> {
                                 break;
                               } else {
                                 isFavorite = false;
+                                
                               }
                             }
                             //print('AAAAA' + categoryOrders[i].id);

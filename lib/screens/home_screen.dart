@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (userData.connectionState == ConnectionState.done) {}
         Provider.of<user.User>(context, listen: false).getUserData();
         Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
+        Provider.of<Orders>(context, listen: false).fetchFavorite();
         final userDocs = userData.data;
         isDark = userDocs.data()['isDark'];
         print('IS DARK = ' + isDark.toString());
