@@ -4,6 +4,7 @@ import 'package:advMe/providers/user.dart' as user;
 import 'package:advMe/screens/ads_screen.dart';
 import 'package:advMe/widgets/all_orders.dart';
 import 'package:advMe/widgets/app_drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,18 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   dynamic getSettings;
   bool isNotif = false;
-  bool isDark = false;
+  bool isDark;
   String userName = '';
   String email = '';
 
   Widget build(BuildContext context) {
-    Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
-    print('Pobieranie do providera');
-    Provider.of<Orders>(context, listen: false).fetchFavorite();
-    return FutureBuilder(
-      future: Provider.of<user.User>(context, listen: false).getUserData(),
-      builder: (ctx, dataSnapshot) {
-        if (dataSnapshot.connectionState == ConnectionState.waiting) {
+    return StreamBuilder(
+      stream:
+          FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+      builder: (ctx, AsyncSnapshot userData) {
+        if (userData.connectionState == ConnectionState.waiting) {
           return Center(
               child: SpinKitWave(
             color: Color(0xFF00D1CD),
@@ -45,9 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
               //CircularProgressIndicator(),
               );
         }
-        
-         isDark = Provider.of<user.User>(context).isDark;
-        if(isDark == null) isDark = false;
+        if (userData.connectionState == ConnectionState.done) {}
+        Provider.of<user.User>(context, listen: false).getUserData();
+        Provider.of<Orders>(context, listen: false).fetchAndSetProducts();
+        final userDocs = userData.data;
+        isDark = userDocs.data()['isDark'];
+        print('IS DARK = ' + isDark.toString());
         return SafeArea(
           child: Scaffold(
             key: _scaffoldState,

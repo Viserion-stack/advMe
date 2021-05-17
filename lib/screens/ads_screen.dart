@@ -193,8 +193,12 @@ class _AdsScreenState extends State<AdsScreen> {
     );
     await Provider.of<Orders>(context, listen: false)
         .addOrder(newOrder)
-        .then((void nothing) {})
-        .catchError((e) => print(e));
+        .then((void nothing) {
+      setState(() {
+        isLoading = false;
+      });
+      print('succes added in allAds and user_order');
+    }).catchError((e) => print(e));
   }
 
   final descriptionController = TextEditingController();
@@ -722,37 +726,37 @@ class _AdsScreenState extends State<AdsScreen> {
                   color: settings.isDark ? Color(0xFF565656) : Colors.white,
                 ),
                 //child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: validateDescription,
-                      maxLines: 5,
-                      cursorColor: Colors.black,
-                      style: TextStyle(color: Colors.black, fontSize: 17),
-                      decoration: InputDecoration(
-                          //filled: true,
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.transparent,
-                          )),
-                          focusedBorder: UnderlineInputBorder(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: validateDescription,
+                    maxLines: 5,
+                    cursorColor: Colors.black,
+                    style: TextStyle(color: Colors.black, fontSize: 17),
+                    decoration: InputDecoration(
+                        //filled: true,
+                        enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.transparent,
-                            ),
+                          color: Colors.transparent,
+                        )),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
                           ),
-                          hintText: 'Description',
-                          hintStyle: TextStyle(
-                            color: settings.isDark
-                                ? Color(0xFF8E8E8E)
-                                : Color(0xFFCECECE),
-                            fontSize: 18,
-                          )),
-                      controller: descriptionController,
-                    ),
+                        ),
+                        hintText: 'Description',
+                        hintStyle: TextStyle(
+                          color: settings.isDark
+                              ? Color(0xFF8E8E8E)
+                              : Color(0xFFCECECE),
+                          fontSize: 18,
+                        )),
+                    controller: descriptionController,
                   ),
                 ),
-             // ),
+              ),
+              // ),
             ),
             Padding(
                 padding: EdgeInsets.only(top: 15),
@@ -901,8 +905,13 @@ class _AdsScreenState extends State<AdsScreen> {
                             isLoading = true;
                             buttonReady = true;
                           });
-                          _addorder(
-                              address); //Addres field mus be passed as argument!!!
+                          _addorder(address).then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Advertisment has beed added!'),
+                              ),
+                            );
+                          }); //Addres field mus be passed as argument!!!
                         },
                   child: isLoading
                       ? SpinKitWave(

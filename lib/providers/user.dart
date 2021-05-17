@@ -11,7 +11,7 @@ class User with ChangeNotifier {
   DateTime createdAt;
   bool isDark;
   bool isNotify;
-  int screenIndex=0;
+  int screenIndex = 0;
 
   User({
     this.userId,
@@ -24,41 +24,39 @@ class User with ChangeNotifier {
     this.screenIndex,
   });
 
-
-   Future<void> setScreenIndex(int index) async{
+  Future<void> setScreenIndex(int index) async {
     screenIndex = index;
     notifyListeners();
-   
-    
   }
 
-int getCurrentIndex() {
+  int getCurrentIndex() {
     return screenIndex;
   }
 
   Future<void> getUserData() async {
-
     try {
       final uid = FirebaseAuth.instance.currentUser.uid;
       final DocumentReference document =
           FirebaseFirestore.instance.collection('users').doc(uid);
       await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
         userId = uid;
-        userName = snapshot.data()['username'];
+        userName = snapshot.data()['userName'];
         email = snapshot.data()['email'];
         isPremium = snapshot.data()['isPremium'];
         imageUrl = snapshot.data()['imageUrl'];
         createdAt = snapshot.data()['createdAt'];
         isDark = snapshot.data()['isDark'];
 
-        //notifyListeners();
+        notifyListeners();
+        print("nottifyLisener from getUserData");
       });
     } catch (error) {
       print(error);
       throw error;
     }
   }
-   void setValues(bool newFav, bool newNotif) {
+
+  void setValues(bool newFav, bool newNotif) {
     isDark = newFav;
     isNotify = newNotif;
     notifyListeners();

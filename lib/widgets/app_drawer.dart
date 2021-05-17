@@ -32,7 +32,7 @@ class _AppDrawerState extends State<AppDrawer> {
     final userPhotoUrl =
         Provider.of<user.User>(context, listen: false).imageUrl;
     final settings = Provider.of<user.User>(context);
-    if(settings.isDark == null) settings.isDark = false;
+    if (settings.isDark == null) settings.isDark = false;
     return Drawer(
       child: Container(
           height: MediaQuery.of(context).size.height,
@@ -127,7 +127,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           child: (userPhotoUrl == '')
                               ? Icon(
                                   Icons.account_circle,
-                                  size: 170,
+                                  size: 130,
                                   color: settings.isDark
                                       ? Color(0xFF6A6A6A)
                                       : Color(0xFFCECECE),
@@ -142,11 +142,11 @@ class _AppDrawerState extends State<AppDrawer> {
                                         fit: BoxFit.cover),
                                   ),
                                 )),
-                                SizedBox(height: 15),
+                      //SizedBox(height: 10),
                       Padding(
-                        padding: EdgeInsets.only(top: 15.0),
+                        padding: EdgeInsets.only(top: 5.0),
                         child: Text(
-                          'Flutter Lover',
+                          settings.userName,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 26,
@@ -226,11 +226,10 @@ class _AppDrawerState extends State<AppDrawer> {
                       onTap: () {
                         Navigator.of(context).pop();
                         Navigator.pushAndRemoveUntil(
-                          
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AllOrders()),
-                                 ModalRoute.withName('/'),);
+                          context,
+                          MaterialPageRoute(builder: (context) => AllOrders()),
+                          ModalRoute.withName('/'),
+                        );
                       },
                       child: Row(children: [
                         Padding(
