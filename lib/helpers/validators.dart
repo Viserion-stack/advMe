@@ -36,6 +36,9 @@ String validatePrice(String value) {
   if (double.parse(value) <= 0) {
     return 'Please enter a number greater than zero.';
   }
+  if (double.parse(value) > 9999999) {
+    return 'Please enter a number in range 1-9999999.';
+  }
   return null;
 }
 
