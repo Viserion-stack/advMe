@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-
+import 'package:advMe/helpers/string_extenstion.dart';
 class AuthScreen extends StatefulWidget {
   @override
   _AuthScreenState createState() => _AuthScreenState();
@@ -61,7 +61,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('users')
             .doc(authResult.user.uid)
             .set({
-          'userName': username.toUpperCase(),
+          'userName': username.capitalize(),
           'email': email,
           'isDark': false,
           'isNotif': false,
