@@ -30,6 +30,7 @@
 .pub-cache/
 .pub/
 /build/
+/lib/helpers/location_helper.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
